@@ -1,0 +1,13 @@
+/*scrolling.css*/
+
+.main-content.scrolling {
+  padding: 20px; /* 스크롤링 중일 때*/
+  margin-left: 288px;
+}
+
+.fixed-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 248px; /* 사이드바 폭 유지 */
+}

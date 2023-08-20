@@ -1,0 +1,163 @@
+/* resources/css/sidebar.css */
+
+/* 기본값 초기화 */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* 사이드바 */
+.sidebar {
+  width: 180px;
+  background-color: #f2f2f2;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+/*사이드바 타이틀*/
+.sidebar-title {
+  font-size: 27px;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.categories {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.categories li {
+  margin-bottom: 10px;
+}
+
+.categories a img {
+  max-width: 100px;
+}
+
+/*로그인 영역*/
+.login-section {
+  padding-top: 100px;
+  text-align: center;
+}
+
+.login-section h4 {
+  font-size: 16px; /* 로그인 제목의 글꼴 크기를 줄입니다 */
+  margin-bottom: 5px;
+}
+
+.login-section input {
+  width: 60%; /* 입력란의 너비를 줄입니다 */
+  padding: 3px; /* 패딩을 줄입니다 */
+  margin-bottom: 3px;
+}
+
+.login-button {
+  margin-bottom: 5px;
+  font-size: 12px; /* 로그인 버튼의 글꼴 크기를 줄입니다 */
+}
+
+/* 회원가입/아이디/비밀번호 찾기 영역*/
+.account-section {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.account-link {
+  display: inline-block;
+  text-decoration: none;
+  color: #3498db;
+  margin: 0 10px;
+  font-size: 12px;
+  transition: color 0.3s;
+}
+
+.account-link:hover {
+  color: #1e87db;
+}
+
+/* Media Queries */
+@media (max-width: 960px) {
+  .sidebar {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .sidebar-header {
+    justify-content: center; /* 가운데 정렬 */
+    margin-bottom: 10px;
+  }
+
+  .sidebar-title {
+    font-size: 1.2rem;
+    margin-left: 0;
+  }
+
+  .categories {
+    display: flex;
+    justify-content: space-around; /* 아이템들 간의 공간을 균등하게 배치 */
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .categories li {
+    margin-bottom: 0; /* 아이템 간격 조절 */
+  }
+
+  .categories a img {
+    max-width: 80px; /* 카테고리 이미지 크기 조절 */
+  }
+
+  .account-section {
+    text-align: center; /* 가로 정렬을 위한 가운데 정렬 설정 */
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .account-link {
+    font-size: 14px;
+    margin: 0;
+    padding: 5px; /* 패딩 추가해서 크기를 늘립니다 */
+    display: block; /* 블록 요소로 변경하여 세로로 나열 */
+    width: 100%;
+    box-sizing: border-box; /* 패딩과 너비의 영향을 포함하여 크기 조절 */
+  }
+
+  .login-section {
+    text-align: center; /* 가로 정렬을 위한 가운데 정렬 설정 */
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .login-section h4 {
+    font-size: 18px; /* 모바일 화면에 맞게 조정 */
+    margin-bottom: 5px;
+  }
+
+  .login-section input {
+    width: 50%; /* 너비 100%로 변경 */
+    padding: 8px; /* 패딩 적당히 조정 */
+    margin-bottom: 8px; /* 간격을 조정하여 조밀하게 나오도록 조정 */
+  }
+
+  .login-button {
+    display: block; /* 블록 요소로 변경하여 다음 줄에 위치하도록 함 */
+    margin: 8px auto; /* 가운데 정렬을 위한 마진 설정 */
+    padding: 8px 20px; /* 버튼의 패딩을 조정하여 크기 조절 */
+    font-size: 14px;
+  }
+}
