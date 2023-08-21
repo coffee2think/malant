@@ -14,7 +14,8 @@ li {
 
 /* 사이드바 */
 .sidebar {
-  width: 180px;
+  width: 200px;
+  height: 1vh;
   background-color: #f2f2f2;
 }
 
