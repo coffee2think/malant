@@ -1,6 +1,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,eclipse,java,maven,gradle,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,eclipse,java,maven,gradle,macos
 
+*.xml
+/.classes/
+/.lib/
+/.jspwork/
+
 ### Eclipse ###
 .metadata
 bin/
