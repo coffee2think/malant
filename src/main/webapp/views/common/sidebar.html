@@ -2,46 +2,62 @@
 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="/malant/resources/common/css/sidebar.css" />
-    <link rel="stylesheet" href="/malant/resources/common/css/font.css" />
-  </head>
-  <body>
-    <div class="sidebar">
-      <div class="sidebar-header">
-        <span class="sidebar-title"
-          ><a href="#">
-            <img
-              src="/malant/resources/common/images/main_tilte.gif"
-              alt="식물 검색" /></a
-        ></span>
-      </div>
-      <section>
-        <ul id="new_categories">
-          <li><a href="">식물 검색</a></li>
-          <li><a href="">커뮤니티</a></li>
-          <li><a href="">다이어리</a></li>
-          <li><a href="">전국 식물원</a></li>
-          <li><a href="">스토어</a></li>
-          <li><a href="">공지/이벤트</a></li>
-        </ul>
-      </section>
-      <!-- 로그인 영역 -->
-      <div class="login-section">
-        <hr solid color="#ddd" />
-        <span id="logintext"><h4>로그인</h4></span>
-        <input type="text" placeholder="아이디" />
-        <input type="password" placeholder="비밀번호" /><br />
-        <button class="login-button">로그인</button>
-      </div>
-      <!-- 회원가입/아이디/비밀번호 찾기 영역 -->
-      <div class="account-section">
-        <a href="#" class="account-link">회원가입</a><span class="login-divide">|</span
-        ><br />
-        <a href="#" class="account-link">아이디찾기</a
-        ><span class="login-divide">|</span><br />
-        <a href="#" class="account-link">비밀번호찾기</a><br />
-      </div>
-    </div>
-  </body>
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="/malant/resources/common/css/sidebar.css" />
+<link rel="stylesheet" href="/malant/resources/common/css/font.css" />
+<script type="text/javascript">
+	// 로그인 유효성 검사
+	function validate() {
+		var loginid = $('#loginid').val();
+		var loginpwd = $('#loginpwd').val();
+		var checkRegex = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣| ]/;
+		
+		// 유효성 검사
+		if(checkRegex.test(loginid) || checkRegex.test(loginpwd) || !(loginid.length >= 6 && loginpwd <= 12)) {
+			// 잘못 입력함을 알리는 메시지창 출력
+			alert("아이디 또는 비밀번호를 확인해주세요.");
+			return false;
+		}
+		
+		return true;
+	}
+</script>
+</head>
+<body>
+	<div class="sidebar">
+		<div class="sidebar-header">
+			<span class="sidebar-title">
+				<a href="/malant"><img src="/malant/resources/common/images/main_tilte.gif" alt="로고" /></a>
+			</span>
+		</div>
+		<section>
+			<ul id="new_categories">
+				<li><a href="#">식물 검색</a></li>
+				<li><a href="#">커뮤니티</a></li>
+				<li><a href="#">다이어리</a></li>
+				<li><a href="#">전국 식물원</a></li>
+				<li><a href="#">스토어</a></li>
+				<li><a href="#">공지/이벤트</a></li>
+			</ul>
+		</section>
+		<!-- 로그인 영역 -->
+		<div class="login-section" method="post">
+			<hr solid color="#ddd" />
+			<span id="logintext"><h4>로그인</h4></span>
+			<form action="/malant/login" method="post" onsubmit="return validate();">
+				<input type="text" name="loginid" id="loginid" placeholder="아이디" required>
+				<input type="password" name="loginpwd" id="loginpwd" placeholder="비밀번호" required><br>
+				<input type="submit" class="login-button" value="로그인">
+			</form>
+		</div>
+		
+		<!-- 회원가입/아이디/비밀번호 찾기 영역 -->
+		<div class="account-section">
+			<a href="#" class="account-link">회원가입</a><span class="login-divide">|</span>
+			<a href="#" class="account-link">아이디찾기</a><span class="login-divide">|</span>
+			<a href="#" class="account-link">비밀번호재설정</a><br />
+		</div>
+	</div>
+</body>
 </html>

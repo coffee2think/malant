@@ -130,9 +130,10 @@ ul#new_categories li a {
   margin-top: auto;
   padding-top: 10px;
   border-top: 1px solid #ddd;
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: center; */
+  text-align: center;
   white-space: nowrap;
   width: 200px;
   position: absolute;
