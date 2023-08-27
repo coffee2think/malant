@@ -3,7 +3,6 @@ package member.model.dao;
 import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -56,6 +55,67 @@ public class MemberDao {
 		}
 		
 		return member;
+	}
+
+	public int selectCheckId(Connection conn, String userId) {
+		int idCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select count(userid) from member where userid = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				idCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return idCount;
+	}
+
+	public int insertMember(Connection conn, Member member) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+//		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn) "
+//				+ "values (member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+//		String query = "insert into member (user_no, user_id, user_pwd, nickname, email) "
+//				+ "values (?, ?, ?, ?, ?)";
+		
+		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn) "
+				+ "values (MEMBER_SEQ.nextval, 'user02', 'pass02', 'name02', 'user01@gmail.com', '/malant/resources/member_profiles/' || sysdate || '.jpg', 'COMMON', 'Y', 'Y')";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+//			pstmt.setInt(1, (int)(Math.random() * 100 + 1));
+//			pstmt.setString(2, member.getUserId());
+//			pstmt.setString(3, member.getUserPwd());
+//			pstmt.setString(4, member.getNickname());
+//			pstmt.setString(5, member.getEmail());
+//			pstmt.setString(6, member.getProfileImg());
+//			pstmt.setString(7, member.getSignType());
+//			pstmt.setString(8, member.getReceptionNotification());
+//			pstmt.setString(9, member.getReceptionAd());
+			
+			result = pstmt.executeUpdate();
+			System.out.println(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

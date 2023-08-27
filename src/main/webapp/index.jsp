@@ -20,7 +20,7 @@ pageEncoding="UTF-8"%>
   </head>
   <body>
     <div class="container">
-        <!-- 사이브바 -->
+        <!-- 사이드바 -->
         <%@ include file="./views/common/sidebar.html" %>
         
         <!-- 메인 검색 페이지 -->

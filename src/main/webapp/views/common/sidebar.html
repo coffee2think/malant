@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/malant/resources/common/css/font.css" />
 <script type="text/javascript">
 	// 로그인 유효성 검사
-	function validate() {
+	/* function validate() {
 		var loginid = $('#loginid').val();
 		var loginpwd = $('#loginpwd').val();
 		var checkRegex = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣| ]/;
@@ -17,11 +17,12 @@ pageEncoding="UTF-8"%>
 		if(checkRegex.test(loginid) || checkRegex.test(loginpwd) || !(loginid.length >= 6 && loginpwd <= 12)) {
 			// 잘못 입력함을 알리는 메시지창 출력
 			alert("아이디 또는 비밀번호를 확인해주세요.");
+			console.log('유효성 검사 오류');
 			return false;
 		}
 		
 		return true;
-	}
+	} */
 </script>
 </head>
 <body>
@@ -45,7 +46,8 @@ pageEncoding="UTF-8"%>
 		<div class="login-section" method="post">
 			<hr solid color="#ddd" />
 			<span id="logintext"><h4>로그인</h4></span>
-			<form action="/malant/login" method="post" onsubmit="return validate();">
+			<form action="/malant/login" method="post">
+			<!-- <form action="/malant/login" method="post" onsubmit="return validate();"> -->
 				<input type="text" name="loginid" id="loginid" placeholder="아이디" required>
 				<input type="password" name="loginpwd" id="loginpwd" placeholder="비밀번호" required><br>
 				<input type="submit" class="login-button" value="로그인">
@@ -54,9 +56,10 @@ pageEncoding="UTF-8"%>
 		
 		<!-- 회원가입/아이디/비밀번호 찾기 영역 -->
 		<div class="account-section">
-			<a href="#" class="account-link">회원가입</a><span class="login-divide">|</span>
-			<a href="#" class="account-link">아이디찾기</a><span class="login-divide">|</span>
-			<a href="#" class="account-link">비밀번호재설정</a><br />
+			<a href="/malant/views/member/enrollPage.jsp" class="account-link">회원가입</a><span class="login-divide">|</span>
+			<!-- 아이디/비밀번호 찾기는 새창을 띄워 진행 -->
+			<a href="" class="account-link" onclick="window.open('/malant/findAccount.jsp?find=id', '_blank', 'width=900, height=1000');">아이디찾기</a><span class="login-divide">|</span>
+			<a href="" class="account-link" onclick="window.open('/malant/findAccount.jsp?find=pwd', '_blank', 'width=900, height=1000');">비밀번호재설정</a>
 		</div>
 	</div>
 </body>

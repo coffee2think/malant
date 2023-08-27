@@ -10,11 +10,10 @@
 <body>
 	<h1>로그인 페이지</h1>
 	<hr><br>
-	<div class="login">
+	<!-- 로그인 - 아이디/패스워드/로그인 버튼 -->
 	
-	</div>
-	<form action="/malant/enroll">
+	<!-- 회원가입/아이디찾기/비밀번호재설정 -->
 	
-	</form>
+	<!-- 소셜로그인 -->
 </body>
 </html>

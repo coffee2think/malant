@@ -51,7 +51,8 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		// 서비스 메소드로 값 전달 실행하고 결과 받기
-		Member loginMember = new MemberService().selectLogin(userId, cryptoUserpwd);
+//		Member loginMember = new MemberService().selectLogin(userId, cryptoUserpwd);
+		Member loginMember = new MemberService().selectLogin(userId, userPwd);
 		
 		
 		// 받은 결과를 가지고 성공/실패 페이지 내보내기

@@ -8,10 +8,23 @@
 <style type="text/css">
 	table th { background-color: lightgreen; }
 	table#outer { border: 2px solid navy; }
+	.profile {
+		visibility: hidden;
+	}
+	
+	.row-econfirm {
+		visibility: hidden;
+	}
+	
+	
 </style>
 
 <script type="text/javascript" src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
+	$(function() {
+		$('.row-econfirm').hide();
+	});
+	
 	// 유효성 검사
 	function validate(){
 		//암호와 암호확인이 일치하지 않는지 확인
@@ -56,66 +69,97 @@
 		
 		return false;
 	}
+	
+	function checkEmail() {
+		$.ajax({
+			url: "/malant/econfirm",
+			type: "post",
+			data: { email: $('#email').val() },
+			success: function(data) {
+				if(data == "ok") {
+					alert("사용 가능한 이메일입니다.");
+					$('.econfirm').disabled = false;
+				} else {
+					alert("이미 사용중인 이메일입니다.");
+					$('#email').select();
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+			}
+		});
+		
+		return false;
+	}
+	
+	function uploadProfile() {
+		$('.profile').click();
+	}
 </script>
 </head>
 <body>
 	<h1>일반회원 가입페이지</h1>
 	<br>
-	<form action="/malant/menroll" method="post" onsubmit="return validate():">
-		<table id="outer" align="center" width="500" cellspacing="5" cellpadding="0">
+	<form action="/malant/menroll" method="post" onsubmit="return validate();">
+		<input type="file" name="profile" class="profile" accept="image/*">
+		<input type="hidden" name="signtype" value="common">
+		<table id="outer" align="center" width="600" cellspacing="5" cellpadding="0">
 			<tr><th colspan="3">회원 정보를 입력해 주세요. (* 표시는 필수입력 항목입니다.)</th></tr>
 			<tr>
-				<th width="120">아이디*</th>
+				<th width="150">아이디*</th>
 				<td>
-					<input type="text" name="userid" id="userid" required> &nbsp;
-					<input type="button" value="중복체크" onclick="return dupIdCheck();">
+					<input type="text" name="userid" id="userid" placeholder="아이디" required> 
+					<input type="button" value="중복체크" onclick="return dupIdCheck();"> <br>
 				</td>
-				<td rowspan="3" width="100">프로필 사진 영역</td>
+				<!-- 업로드한 프로필 사진이 보여질 영역 -->
+				<td rowspan="4" width="150" height="200" bgcolor="red" class="profile-area">프로필 사진 영역</td>
 			</tr>
-			<tr><th>*암호</th>
-			<td><input type="password" name="userpwd" id="userpwd" required></td></tr>
-			<tr><th>*암호확인</th>
-			<td><input type="password" id="userpwd2" required></td></tr>
-			<tr><th>*이름</th>
-			<td><input type="text" name="username" required></td></tr>
-			<tr><th>*성별</th>
-			<td>
-				<input type="radio" name="gender" value="M"> 남자 &nbsp;
-				<input type="radio" name="gender" value="F"> 여자
-			</td></tr>
-			<tr><th>*나이</th>
-			<td><input type="number" name="age" min="19" value="20" required></td></tr>
-			<tr><th>*전화번호</th>
-			<td><input type="tel" name="phone" required></td></tr>
-			<tr><th>*이메일</th>
-			<td><input type="email" name="email" required></td></tr>
-			<tr><th>취미(연습용)</th>
-			<td colspan="2">
-				<table width="350">
-				<tr>
-					<td><input type="checkbox" name="hobby" value="game"> 게임</td>
-					<td><input type="checkbox" name="hobby" value="reading"> 독서</td>
-					<td><input type="checkbox" name="hobby" value="climb"> 등산</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="hobby" value="sport"> 운동</td>
-					<td><input type="checkbox" name="hobby" value="music"> 음악</td>
-					<td><input type="checkbox" name="hobby" value="movie"> 영화</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox" name="hobby" value="travel"> 여행</td>
-					<td><input type="checkbox" name="hobby" value="gook"> 요리</td>
-					<td><input type="checkbox" name="hobby" value="etc" checked> 기타</td>
-				</tr>
-				</table>
-			</td></tr>
-			<tr><th>기타 정보(연습용)</th>
-			<td colspan="2"><textarea name="etc" rows="3" cols="50"></textarea></td></tr>
-			<tr><th colspan="3">
-				<input type="submit" value="가입하기"> &nbsp;
-				<input type="reset" value="작성취소"> &nbsp;
-				<a href="/first/index.jsp">시작페이지로 이동</a>
-			</th></tr>
+			<tr>
+				<th>비밀번호*</th>
+				<td><input type="password" name="userpwd" id="userpwd" placeholder="비밀번호" required></td>
+			</tr>
+			<tr>
+				<th>비밀번호확인*</th>
+				<td><input type="password" id="userpwd2" placeholder="비밀번호 확인" required></td>
+			</tr>
+			<tr>
+				<th>닉네임*</th>
+				<td><input type="text" name="nickname" placeholder="닉네임" required></td>
+				
+				
+			</tr>
+			<tr>
+				<th>이메일*</th>
+				<td>
+					<input type="email" id="email" name="email" placeholder="이메일" required> 
+					<input type="button" value="인증 요청" onclick="return checkEmail();">
+				</td>
+				<!-- 프로필 사진 첨부 버튼 -->
+				<td>
+					<input type="button" value="사진 추가" onclick="return uploadProfile();">
+				</td>
+			</tr>
+			<tr>
+				<th>이메일 인증*</th>
+				<td>
+					<input type="number" class="econfirm" name="inputtoken" placeholder="인증번호" disabled> 
+					<input type="button" class="econfirm" value="인증" disabled>
+				</td>
+			</tr>
+			<tr>
+				<th>이메일 수신 여부</th>
+				<td colspan="2">
+					<input type="checkbox" name="alarm"> 식물 관리 알림<br>
+					<input type="checkbox" name="notice"> 이벤트 및 마케팅 정보
+				</td>
+			</tr>
+			<tr>
+				<th colspan="3">
+					<input type="submit" value="가입하기"> &nbsp;
+					<input type="button" value="이전페이지로" onclick="javascript: history.go(-1);"> &nbsp;
+					<input type="button" value="메인페이지로" onclick="javascript: location.href='/malant/index.jsp';">
+				</th>
+			</tr>
 		</table>
 	</form>
 	
