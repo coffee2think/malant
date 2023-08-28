@@ -9,16 +9,12 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class JDBCTemplate {
-	
-	//3. 톰켓이 제공하는 DBCP(DataBase Connection Pool)를 이용
-	//content directory : 프로젝트/src/main/webapp
-	//webapp/META-INF/context.xml 파일에 설정 처리함
+
 	public static Connection getConnection() {
 		Connection conn = null;
 		
 		try {
-			//context.xml 에 설정된 <Resosurce> 앨리먼트의 값들을 이용해서
-			//톰켓의 DBCP 를 통해서 Connection 을 얻어옴
+			
 			Context initContext = new InitialContext();
 			DataSource ds = (DataSource)initContext.lookup("java:comp/env/jdbc/oraDB");
 			
