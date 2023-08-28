@@ -28,38 +28,32 @@ pageEncoding="UTF-8"%>
 <body>
 	<div class="sidebar">
 		<div class="sidebar-header">
-			<span class="sidebar-title">
-				<a href="/malant"><img src="/malant/resources/common/images/main_tilte.gif" alt="로고" /></a>
-			</span>
+			<span class="sidebar-title"><a href="#"> <img
+					src="/malant/resources/common/images/main_tilte.gif" alt="식물 검색" /></a></span>
 		</div>
 		<section>
 			<ul id="new_categories">
-				<li><a href="#">식물 검색</a></li>
-				<li><a href="#">커뮤니티</a></li>
-				<li><a href="#">다이어리</a></li>
-				<li><a href="#">전국 식물원</a></li>
-				<li><a href="#">스토어</a></li>
-				<li><a href="#">공지/이벤트</a></li>
+				<li><a href="">식물 검색</a></li>
+				<li><a href="/malant/views/board/boardMainList.jsp">커뮤니티</a></li>
+				<li><a href="">다이어리</a></li>
+				<li><a href="">전국 식물원</a></li>
+				<li><a href="">스토어</a></li>
+				<li><a href="/malant/views/notice/noticeMainList.jsp">공지/이벤트</a></li>
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
-		<div class="login-section" method="post">
+		<div class="login-section">
 			<hr solid color="#ddd" />
-			<span id="logintext"><h4>로그인</h4></span>
-			<form action="/malant/login" method="post">
-			<!-- <form action="/malant/login" method="post" onsubmit="return validate();"> -->
-				<input type="text" name="loginid" id="loginid" placeholder="아이디" required>
-				<input type="password" name="loginpwd" id="loginpwd" placeholder="비밀번호" required><br>
-				<input type="submit" class="login-button" value="로그인">
-			</form>
+			<span id="logintext"><h4>로그인</h4></span> <input type="text"
+				placeholder="아이디" /> <input type="password" placeholder="비밀번호" /><br />
+			<button class="login-button">로그인</button>
 		</div>
-		
 		<!-- 회원가입/아이디/비밀번호 찾기 영역 -->
 		<div class="account-section">
-			<a href="/malant/views/member/enrollPage.jsp" class="account-link">회원가입</a><span class="login-divide">|</span>
+			<a href="/malant/views/member/enrollPage.jsp" class="account-link">회원가입</a><span class="login-divide">|</span><br />
 			<!-- 아이디/비밀번호 찾기는 새창을 띄워 진행 -->
-			<a href="" class="account-link" onclick="window.open('/malant/findAccount.jsp?find=id', '_blank', 'width=900, height=1000');">아이디찾기</a><span class="login-divide">|</span>
-			<a href="" class="account-link" onclick="window.open('/malant/findAccount.jsp?find=pwd', '_blank', 'width=900, height=1000');">비밀번호재설정</a>
+			<a href="#" class="account-link" onclick="window.open('/malant/findAccount.jsp?find=id', '_blank', 'width=900, height=1000');">아이디찾기</a><span class="login-divide">|</span><br />
+			<a href="#"	class="account-link" onclick="window.open('/malant/findAccount.jsp?find=pwd', '_blank', 'width=900, height=1000');">비밀번호재설정</a><br />
 		</div>
 	</div>
 </body>

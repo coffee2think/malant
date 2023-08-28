@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="common.JDBCTemplate" %>
 <!DOCTYPE html>
 <html>
 <body>
@@ -15,12 +13,5 @@
 	<div style="width:800px; height:300px; border:1px solid red;">
 		커뮤니티 인기글이 보여질 영역입니다.
 	</div>
-	
-	<%
-		Connection conn = new JDBCTemplate().getConnection();
-		String result = "ok jdbc";
-		if(conn == null) result="error db";
-	%>
-	<%= result %>
 </body>
 </html>
