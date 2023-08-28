@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+.login-container {
+	width: 500px;
+	min-height: 600px;
+	border: 1px solid green;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+}
+
+.login-title {
+	width: 400px;
+	height: 200px;
+	border: 1px solid red;
+	margin: 0 auto; 
+	margin-top: 30px;
+}
+
+.login-div {
+	margin: 0 auto;
+}
+
+.member-select {
+	width: 400px;
+	height: 30px;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.login-box {
+	width: 400px;
+	height: 30px;
+	margin-top: 10px;
+}
+
+.login-btn {
+	width: 400px;
+	height: 30px;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.login-form {
+	margin: 0 auto;
+}
+
+.login-form > .submit-btn {
+	display: none;
+}
+
+.login-links {
+	margin: 0 auto;
+}
+
+.sns-box {
+	width: 400px;
+	height: 30px;
+	border: 1px solid red;
+	margin: 10px auto;
+	text-align: center;
+}

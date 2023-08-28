@@ -4,29 +4,42 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Malant</title>
+<title>Malant - 회원가입 페이지</title>
 <link rel="stylesheet" href="/malant/resources/common/css/sidebar.css" />
+<style>
+	.select-type {
+		width: 500px;
+		min-height: 600px;
+		border: 1px solid green;
+		margin: 0 auto;
+	}
+	
+	.radio-section {
+		display: flex;
+	}
+</style>
+
 <script type="text/javascript" src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
-	function selectType() {
-		mtype = $('.mtype:checked').val();
-		
-		if(mtype == "member") {
-			location.href = "/malant/views/member/enrollMember.jsp";
-		} else if(mtype == "seller") {
-			location.href = "/malant/views/member/enrollSeller.jsp";
-		}
+	function selectMember(obj) {
+		var name = obj.name;
+		$("input[name='" + nm + "']").attr("checked", false);
+		$("#" + obj.id).attr("checked", true);
 	}
 </script>
 </head>
 <body>
-	<%@ include file="../../views/common/sidebar.html" %>
-	
-	<h1>회원 가입 - 타입 선택</h1>
-	
-	<div id="mtype">
-		<input type="radio" class="mtype" name="mtype" value="member" checked> 일반회원 &nbsp; 
-		<input type="radio" class="mtype" name="mtype" value="seller"> 판매회원<br>
+	<center><h1>회원 유형 선택</h1></center>
+	<div class="select-type">
+		<div class="radio-section">
+			<div class="personal">
+				<a href="/malant/views/member/enrollMember.jsp">개인 회원가입</a> &nbsp; 
+			</div>
+			<div class="personal">
+				<a href="/malant/views/member/enrollSeller.jsp">판매자 회원가입</a>
+			</div><br>
+		</div>
+		
 		<input type="button" value="다음" onclick="return selectType();"></button>
 	</div>
 </body>

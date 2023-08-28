@@ -92,20 +92,22 @@ public class MemberDao {
 //		String query = "insert into member (user_no, user_id, user_pwd, nickname, email) "
 //				+ "values (?, ?, ?, ?, ?)";
 		
+//		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn) "
+//				+ "values (MEMBER_SEQ.nextval, 'user02', 'pass02', 'name02', 'user01@gmail.com', '/malant/resources/member_profiles/' || sysdate || '.jpg', 'COMMON', 'Y', 'Y')";
+		
 		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn) "
-				+ "values (MEMBER_SEQ.nextval, 'user02', 'pass02', 'name02', 'user01@gmail.com', '/malant/resources/member_profiles/' || sysdate || '.jpg', 'COMMON', 'Y', 'Y')";
+				+ "values ((select max(user_no) from member) + 1, ?, ?, ?, ?, '/malant/resources/member_profiles/' || to_char(sysdate, 'YYYYMMDDHH24MISS') || '.jpg', ?, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-//			pstmt.setInt(1, (int)(Math.random() * 100 + 1));
-//			pstmt.setString(2, member.getUserId());
-//			pstmt.setString(3, member.getUserPwd());
-//			pstmt.setString(4, member.getNickname());
-//			pstmt.setString(5, member.getEmail());
-//			pstmt.setString(6, member.getProfileImg());
-//			pstmt.setString(7, member.getSignType());
-//			pstmt.setString(8, member.getReceptionNotification());
-//			pstmt.setString(9, member.getReceptionAd());
+			pstmt.setString(1, member.getUserId());
+			pstmt.setString(2, member.getUserPwd());
+			pstmt.setString(3, member.getNickname());
+			pstmt.setString(4, member.getEmail());
+//			pstmt.setString(5, member.getProfileImg());
+			pstmt.setString(5, member.getSignType());
+			pstmt.setString(6, member.getReceptionNotification());
+			pstmt.setString(7, member.getReceptionAd());
 			
 			result = pstmt.executeUpdate();
 			System.out.println(result);

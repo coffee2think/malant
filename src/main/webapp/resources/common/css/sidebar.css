@@ -125,6 +125,12 @@ ul#new_categories li a {
   font-size: 12px;
 }
 
+.login-box {
+	border: 1px solid red;
+	width: 200px;
+	height: 50px;
+}
+
 /* 회원가입/아이디/비밀번호 찾기 영역*/
 .account-section {
   margin-top: auto;
@@ -156,7 +162,3 @@ ul#new_categories li a {
 .login-divide {
   color: #ddd;
 }
-
-
-/* ----------------------------------------------미디어 쿼리------------------------------------- */
-

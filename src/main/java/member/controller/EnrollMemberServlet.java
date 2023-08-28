@@ -34,7 +34,6 @@ public class EnrollMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 회원가입 처리용 컨트롤러
-		
 		//1. 전송온 값에 한글이 있다면 인코딩처리함
 		request.setCharacterEncoding("UTF-8");  //전송보낸 뷰페이지의 문자셋(charset)을 값으로 사용함
 		
@@ -50,8 +49,8 @@ public class EnrollMemberServlet extends HttpServlet {
 		member.setProfileImg("/malant/resources/member_profiles/2308271740.jpg");
 		
 		member.setSignType(request.getParameter("signtype").toUpperCase());
-		member.setReceptionNotification(request.getParameter("alarm") != null ? "Y" : "N");
-		member.setReceptionAd(request.getParameter("notice") != null ? "Y" : "N");
+		member.setReceptionNotification(request.getParameter("alarm") == null ? "N" : "Y");
+		member.setReceptionAd(request.getParameter("notice") == null ? "N" : "Y");
 		
 		//웹에서는 암호화 알고리즘 사용시 단방향 알고리즘만 사용함 : SHA-512
 		//단방향 알고리즘은 복호화 알고리즘이 없음
@@ -79,8 +78,6 @@ public class EnrollMemberServlet extends HttpServlet {
 		
 		//3. 모델의 서비스 메소드로 값 전달 실행하고 결과받기
 		int result = new MemberService().insertMember(member);
-		//에러 페이지 테스트
-		//int result = 0;
 		
 		//4. 받은 결과로 성공 또는 실패 페이지 내보내기
 		if(result > 0) {
