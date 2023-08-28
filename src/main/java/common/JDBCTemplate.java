@@ -66,6 +66,7 @@ public class JDBCTemplate {
 	// 3. 톰캣이 제공하는 DBCP(DataBase Connection Pool)를 이용
 	// content directory : 프로젝트/src/main/webapp
 	// webapp/META-INF/context.xml 파일에 설정 처리함
+
 	public static Connection getConnection() {
 		Connection conn = null;
 		
@@ -74,7 +75,7 @@ public class JDBCTemplate {
 			// 톰캣의 DBCP를 통해서 Connection을 얻어옴
 			Context initContext = new InitialContext();
 			DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/oraDB"); // tomcat의 DB 소스를 가리킴
-			
+
 			conn = ds.getConnection();
 			conn.setAutoCommit(false);
 		} catch (Exception e) {
@@ -133,5 +134,4 @@ public class JDBCTemplate {
 			e.printStackTrace();
 		}
 	}
-	
 }

@@ -1,0 +1,10 @@
+.banner {
+  width: 100vh;
+  height: 300px;
+  overflow: hidden;
+}
+
+.banner img {
+  width: auto;
+  height: auto;
+}
