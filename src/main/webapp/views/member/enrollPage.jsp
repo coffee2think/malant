@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Malant</title>
+<link rel="stylesheet" href="/malant/resources/common/css/sidebar.css" />
 <script type="text/javascript" src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 	function selectType() {
@@ -19,6 +20,8 @@
 </script>
 </head>
 <body>
+	<%@ include file="../../views/common/sidebar.html" %>
+	
 	<h1>회원 가입 - 타입 선택</h1>
 	
 	<div id="mtype">
