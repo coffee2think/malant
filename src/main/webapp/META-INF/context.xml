@@ -5,8 +5,7 @@
 		License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 		WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 	--><!-- The contents of this file will be loaded for each web application -->
-<Context
-	workDir="E:\malant_workspace\malant\src\main\webapp\WEB-INF\jspwork">
+<Context workDir="E:\web_workspace\firstWebProject\src\main\webapp\WEB-INF\jspwork">
 
     <!-- Default set of monitored resources -->
 	<WatchedResource>WEB-INF/web.xml</WatchedResource>
@@ -21,6 +20,6 @@
 	<!--
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
-	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="20" maxIdle="10" maxWait="-1" name="jdbc/oraDB" password="testweb" type="javax.sql.DataSource"
-		url="jdbc:oracle:thin:@localhost:1521:xe" username="c##testweb" />
+	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="20" maxIdle="10" maxWait="-1" name="jdbc/oraDB" password="Malant230908" type="javax.sql.DataSource"
+		url="jdbc:oracle:thin:@localhost:1521:xe" username="admin" />
 </Context>
