@@ -6,11 +6,11 @@ const indicatorContainer = document.querySelector(".indicator-container");
 const bannerImage = document.querySelector(".banner-image");
 
 const images = [
-  "/MalantStore/resources/images/메인배너.jpg",
-  "/MalantStore/resources/images/1.jpg",
-  "/MalantStore/resources/images/상품이미지.jpg",
-  "/MalantStore/resources/images/2.jpg",
-  // 추가 이미지
+  "/malnat/resources/store/images/banner1.png",
+  "/malnat/resources/store/images/banner2.png",
+  "/malnat/resources/store/images/banner3.png",
+  "/malnat/resources/store/images/banner4.png",
+  "/malnat/resources/store/images/banner5.png",
 ];
 
 let currentImageIndex = 0;

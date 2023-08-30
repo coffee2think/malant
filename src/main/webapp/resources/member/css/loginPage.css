@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+.login-container {
+	width: 500px;
+	min-height: 600px;
+	border: 1px solid green;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+}
+
+.login-title {
+	width: 400px;
+	height: 200px;
+	border: 1px solid red;
+	margin: 0 auto; 
+	margin-top: 30px;
+}
+
+.login-div {
+	margin: 0 auto;
+}
+
+.member-select {
+	width: 400px;
+	height: 30px;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.login-box {
+	width: 400px;
+	height: 30px;
+	margin-top: 10px;
+}
+
+.login-btn {
+	width: 400px;
+	height: 30px;
+	margin-top: 10px;
+<<<<<<< HEAD
+	border: 1px solid red;
+=======
+	text-align: center;
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
+}
+
+.login-form {
+	margin: 0 auto;
+}
+
+<<<<<<< HEAD
+.submit-btn {
+=======
+.login-form > .submit-btn {
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
+	display: none;
+}
+
+.login-links {
+	margin: 0 auto;
+}
+
+.sns-box {
+	width: 400px;
+	height: 30px;
+	border: 1px solid red;
+	margin: 10px auto;
+	text-align: center;
+<<<<<<< HEAD
+}
+
+.radio-member {
+	width: 200px;
+	height: 30px;
+	border: 1px solid red;
+}
+
+/* .radio-member #member-common {
+	float: left;
+}
+
+.radio-member #member-seller {
+	float: right;
+} */
+=======
+}
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976

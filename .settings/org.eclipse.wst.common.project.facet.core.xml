@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
+<<<<<<< HEAD
+  <runtime name="Malant Server"/>
+=======
+  <runtime name="Apache Tomcat v9.0"/>
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
   <fixed facet="jst.web"/>
   <fixed facet="wst.jsdt.web"/>
   <fixed facet="java"/>

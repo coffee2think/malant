@@ -1,7 +1,7 @@
 /*scrolling.css*/
 
 .main-content.scrolling {
-  padding: 20px; /* 스크롤링 중일 때*/
+ /* 스크롤링 중일 때*/
   margin-left: 288px;
 }
 

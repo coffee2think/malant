@@ -125,14 +125,21 @@ ul#new_categories li a {
   font-size: 12px;
 }
 
+.login-box {
+	border: 1px solid red;
+	width: 200px;
+	height: 50px;
+}
+
 /* 회원가입/아이디/비밀번호 찾기 영역*/
 .account-section {
   margin-top: auto;
   padding-top: 10px;
   border-top: 1px solid #ddd;
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: center; */
+  text-align: center;
   white-space: nowrap;
   width: 200px;
   position: absolute;
@@ -155,7 +162,15 @@ ul#new_categories li a {
 .login-divide {
   color: #ddd;
 }
+<<<<<<< HEAD
 
-
-/* ----------------------------------------------미디어 쿼리------------------------------------- */
-
+/* 일반회원 로그인 시 로그인 UI */
+div.profile {
+	width: 200px;
+	height: 70px;
+	border: 1px solid green;
+	position: absolute;
+	bottom: 10px;
+}
+=======
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
