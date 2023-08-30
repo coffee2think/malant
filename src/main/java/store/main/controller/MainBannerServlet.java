@@ -14,7 +14,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import store.main.model.service.MainService;
+<<<<<<< HEAD
 import store.main.model.vo.*;
+=======
+import store.main.model.vo.Main;
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 
 
 /**
@@ -36,6 +40,7 @@ public class MainBannerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		        ArrayList<MainBanner> bannerList = new MainService().selectBanner();
 		        
 		        JSONArray jarr = new JSONArray();
@@ -48,6 +53,20 @@ public class MainBannerServlet extends HttpServlet {
 		        	job.put("blink", banner.getBannerLink());
 		        	
 		        	jarr.add(job);
+=======
+		        ArrayList<Main> bannerList = new MainService().selectBanner();
+		        
+		        JSONArray jarr = new JSONArray();
+		        
+		        for(Main main : bannerList) {
+		        	JSONObject job = new JSONObject();
+		        	
+		        	job.put("bimage", main.getBannerImage());
+		        	job.put("prority", main.getBannerPrority());
+		        	job.put("blink", main.getBannerLink());
+		        	job.put("bstart", main.getBannerStart());
+		        	job.put("bend", main.getBannerEnd());
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		        }
 		        JSONObject sendJson = new JSONObject();
 		        sendJson.put("list", jarr);

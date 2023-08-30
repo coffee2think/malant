@@ -38,14 +38,22 @@
 	width: 400px;
 	height: 30px;
 	margin-top: 10px;
+<<<<<<< HEAD
 	border: 1px solid red;
+=======
+	text-align: center;
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 }
 
 .login-form {
 	margin: 0 auto;
 }
 
+<<<<<<< HEAD
 .submit-btn {
+=======
+.login-form > .submit-btn {
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 	display: none;
 }
 
@@ -59,6 +67,7 @@
 	border: 1px solid red;
 	margin: 10px auto;
 	text-align: center;
+<<<<<<< HEAD
 }
 
 .radio-member {
@@ -74,3 +83,6 @@
 .radio-member #member-seller {
 	float: right;
 } */
+=======
+}
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976

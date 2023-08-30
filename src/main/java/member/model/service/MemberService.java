@@ -6,7 +6,10 @@ import java.sql.Connection;
 
 import member.model.dao.MemberDao;
 import member.model.vo.Member;
+<<<<<<< HEAD
 import member.model.vo.Seller;
+=======
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 
 public class MemberService {
 	
@@ -40,6 +43,7 @@ public class MemberService {
 		return result;
 	}
 
+<<<<<<< HEAD
 	public int insertSeller(Seller seller) {
 		Connection conn = getConnection();
 		int result = mdao.insertSeller(conn, seller);
@@ -59,4 +63,6 @@ public class MemberService {
 		return member;
 	}
 
+=======
+>>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 }
