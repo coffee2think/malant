@@ -21,11 +21,7 @@
   <body>
     <div class="container">
         <!-- 사이드바 -->
-<<<<<<< HEAD
         <%@ include file="./views/common/sidebar.jsp" %>
-=======
-        <%@ include file="./views/common/sidebar.html" %>
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
         
         <!-- 메인 검색 페이지 -->
         <%@ include file="./views/search/searchMain.jsp" %>
