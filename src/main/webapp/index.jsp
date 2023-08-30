@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" errorPage="views/common/error.jsp" %>
 <!-- index.jsp -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,10 +12,19 @@ pageEncoding="UTF-8"%>
     <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
     <script src="/malant/resources/common/js/scroll_behavior.js"></script>
     <script src="/malant/resources/common/js/scroll_loading.js"></script>
+    <style type="text/css">
+    	div.container > div {
+    		float: left;
+    	}
+    </style>
   </head>
   <body>
     <div class="container">
-        <%@include file = "./views/common/sidebar.html"%>
+        <!-- 사이드바 -->
+        <%@ include file="./views/common/sidebar.jsp" %>
+        
+        <!-- 메인 검색 페이지 -->
+        <%@ include file="./views/search/searchMain.jsp" %>
     </div>
   </body>
 </html>
