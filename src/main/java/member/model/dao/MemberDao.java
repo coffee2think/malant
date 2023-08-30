@@ -7,10 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import member.model.vo.Member;
-<<<<<<< HEAD
 import member.model.vo.Seller;
-=======
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 
 public class MemberDao {
 
@@ -31,16 +28,9 @@ public class MemberDao {
 			if(rset.next()) {
 				member = new Member();
 				
-<<<<<<< HEAD
 				member.setUserNo(rset.getString("user_no"));
 				member.setUserId(rset.getString("user_id"));
 				member.setUserPwd(rset.getString("user_pwd"));
-=======
-				member.setMemberNo(rset.getString("user_no"));
-				member.setUserId(rset.getString("user_id"));
-				member.setUserPwd(rset.getString("user_pwd"));
-				member.setUserPwd(rset.getString("user_pwd"));
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 				member.setPwdUpdateDate(rset.getDate("pwd_update_date"));
 				member.setEmail(rset.getString("email"));
 				member.setNickname(rset.getString("nickname"));
@@ -49,13 +39,8 @@ public class MemberDao {
 				member.setUserName(rset.getString("user_name"));
 				member.setPhone(rset.getString("phone"));
 				member.setAddress(rset.getString("address"));
-<<<<<<< HEAD
 				member.setAlarmYn(rset.getString("alarm_yn"));
 				member.setNoticeYn(rset.getString("notice_yn"));
-=======
-				member.setReceptionNotification(rset.getString("reception_notification"));
-				member.setReceptionAd(rset.getString("reception_ad"));
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 				member.setBlockedYn(rset.getString("blocked_yn"));
 				member.setCreatedDate(rset.getDate("created_date"));
 				member.setLastLoginDate(rset.getDate("last_login_date"));
@@ -101,7 +86,6 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-<<<<<<< HEAD
 		
 		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn)\n"
 				+ "values (replace(? || decode((select to_char(max(to_number(substr(user_no, 4))) + 1, '0000000') from member), null, '0000001', (select to_char(max(to_number(substr(user_no, 4))) + 1, '0000000') from member)), ' ', ''), "
@@ -120,33 +104,6 @@ public class MemberDao {
 			pstmt.setString(9, member.getNoticeYn());
 			
 			result = pstmt.executeUpdate();
-=======
-//		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn) "
-//				+ "values (member_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
-//		String query = "insert into member (user_no, user_id, user_pwd, nickname, email) "
-//				+ "values (?, ?, ?, ?, ?)";
-		
-//		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn) "
-//				+ "values (MEMBER_SEQ.nextval, 'user02', 'pass02', 'name02', 'user01@gmail.com', '/malant/resources/member_profiles/' || sysdate || '.jpg', 'COMMON', 'Y', 'Y')";
-		
-		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn) "
-				+ "values ((select max(user_no) from member) + 1, ?, ?, ?, ?, '/malant/resources/member_profiles/' || to_char(sysdate, 'YYYYMMDDHH24MISS') || '.jpg', ?, ?, ?)";
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, member.getUserId());
-			pstmt.setString(2, member.getUserPwd());
-			pstmt.setString(3, member.getNickname());
-			pstmt.setString(4, member.getEmail());
-//			pstmt.setString(5, member.getProfileImg());
-			pstmt.setString(5, member.getSignType());
-			pstmt.setString(6, member.getReceptionNotification());
-			pstmt.setString(7, member.getReceptionAd());
-			
-			result = pstmt.executeUpdate();
-			System.out.println(result);
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -156,7 +113,6 @@ public class MemberDao {
 		return result;
 	}
 
-<<<<<<< HEAD
 	public int insertSeller(Connection conn, Seller seller) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -230,6 +186,4 @@ public class MemberDao {
 		return member;
 	}
 
-=======
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 }

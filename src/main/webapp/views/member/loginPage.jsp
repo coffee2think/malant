@@ -9,11 +9,7 @@
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script>
 	function login() {
-<<<<<<< HEAD
 		$('#submit-btn').click();
-=======
-		$('.submit-btn').click();
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 	}
 </script>
 </head>
@@ -21,16 +17,12 @@
 	<div class="login-container">
 		<div class="login-title">로고</div>
 		<form action="/malant/login" class="login-form">
-<<<<<<< HEAD
 			<input type="submit" class="submit-btn" value="로그인" onsubmit="login();">
 			<br>
 			<div>
 				<label class="radio-member" id="member-common" style="width: "><input type="radio" name="mtype" checked>개인회원</label>
 				<label class="radio-member" id="member-seller"><input type="radio" name="mtype">판매회원</label>
 			</div>
-=======
-			<input type="submit" class="submit-btn" value="로그인">
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 			<div><input type="text" class="login-box" name="userid" placeholder="아이디"></div>
 			<div><input type="password" class="login-box" name="userpwd" placeholder="비밀번호"></div>
 			<div class="login-btn" onclick="return login();">로그인</div>

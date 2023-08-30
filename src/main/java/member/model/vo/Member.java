@@ -7,11 +7,7 @@ public class Member implements Serializable {
 
 	private static final long serialVersionUID = -4952932019676617041L;
 	
-<<<<<<< HEAD
 	private String userNo;
-=======
-	private String memberNo;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 	private String userId;
 	private String userPwd;
 	private Date pwdUpdateDate;
@@ -22,13 +18,8 @@ public class Member implements Serializable {
 	private String userName;
 	private String phone;
 	private String address;
-<<<<<<< HEAD
 	private String alarmYn;
 	private String noticeYn;
-=======
-	private String receptionNotification;
-	private String receptionAd;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 	private String blockedYn;
 	private Date createdDate;
 	private Date lastLoginDate;
@@ -37,28 +28,16 @@ public class Member implements Serializable {
 	
 	public Member() {}
 
-<<<<<<< HEAD
 	public Member(String userNo, String userId, String email, String nickname, String signType,
 			String alarmYn, String noticeYn, String blockedYn, Date createdDate,
 			Date lastLoginDate, String dormantYn, String withdrawalYn) {
 		this.userNo = userNo;
-=======
-	public Member(String memberNo, String userId, String email, String nickname, String signType,
-			String receptionNotification, String receptionAd, String blockedYn, Date createdDate,
-			Date lastLoginDate, String dormantYn, String withdrawalYn) {
-		this.memberNo = memberNo;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		this.userId = userId;
 		this.email = email;
 		this.nickname = nickname;
 		this.signType = signType;
-<<<<<<< HEAD
 		this.alarmYn = alarmYn;
 		this.noticeYn = noticeYn;
-=======
-		this.receptionNotification = receptionNotification;
-		this.receptionAd = receptionAd;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		this.blockedYn = blockedYn;
 		this.createdDate = createdDate;
 		this.lastLoginDate = lastLoginDate;
@@ -66,19 +45,11 @@ public class Member implements Serializable {
 		this.withdrawalYn = withdrawalYn;
 	}
 
-<<<<<<< HEAD
 	public Member(String userNo, String userId, String userPwd, Date pwdUpdateDate, String email, String nickname,
 			String profileImg, String signType, String userName, String phone, String address,
 			String alarmYn, String noticeYn, String blockedYn, Date createdDate,
 			Date lastLoginDate, String dormantYn, String withdrawalYn) {
 		this.userNo = userNo;
-=======
-	public Member(String memberNo, String userId, String userPwd, Date pwdUpdateDate, String email, String nickname,
-			String profileImg, String signType, String userName, String phone, String address,
-			String receptionNotification, String receptionAd, String blockedYn, Date createdDate,
-			Date lastLoginDate, String dormantYn, String withdrawalYn) {
-		this.memberNo = memberNo;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.pwdUpdateDate = pwdUpdateDate;
@@ -89,13 +60,8 @@ public class Member implements Serializable {
 		this.userName = userName;
 		this.phone = phone;
 		this.address = address;
-<<<<<<< HEAD
 		this.alarmYn = alarmYn;
 		this.noticeYn = noticeYn;
-=======
-		this.receptionNotification = receptionNotification;
-		this.receptionAd = receptionAd;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		this.blockedYn = blockedYn;
 		this.createdDate = createdDate;
 		this.lastLoginDate = lastLoginDate;
@@ -103,21 +69,12 @@ public class Member implements Serializable {
 		this.withdrawalYn = withdrawalYn;
 	}
 
-<<<<<<< HEAD
 	public String getUserNo() {
 		return userNo;
 	}
 
 	public void setUserNo(String userNo) {
 		this.userNo = userNo;
-=======
-	public String getMemberNo() {
-		return memberNo;
-	}
-
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 	}
 
 	public String getUserId() {
@@ -200,7 +157,6 @@ public class Member implements Serializable {
 		this.address = address;
 	}
 
-<<<<<<< HEAD
 	public String getAlarmYn() {
 		return alarmYn;
 	}
@@ -215,22 +171,6 @@ public class Member implements Serializable {
 
 	public void setNoticeYn(String noticeYn) {
 		this.noticeYn = noticeYn;
-=======
-	public String getReceptionNotification() {
-		return receptionNotification;
-	}
-
-	public void setReceptionNotification(String receptionNotification) {
-		this.receptionNotification = receptionNotification;
-	}
-
-	public String getReceptionAd() {
-		return receptionAd;
-	}
-
-	public void setReceptionAd(String receptionAd) {
-		this.receptionAd = receptionAd;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 	}
 
 	public String getBlockedYn() {
@@ -275,17 +215,10 @@ public class Member implements Serializable {
 
 	@Override
 	public String toString() {
-<<<<<<< HEAD
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", pwdUpdateDate="
 				+ pwdUpdateDate + ", email=" + email + ", nickname=" + nickname + ", profileImg=" + profileImg
 				+ ", signType=" + signType + ", userName=" + userName + ", phone=" + phone + ", address=" + address
 				+ ", alarmYn=" + alarmYn + ", noticeYn=" + noticeYn
-=======
-		return "Member [memberNo=" + memberNo + ", userId=" + userId + ", userPwd=" + userPwd + ", pwdUpdateDate="
-				+ pwdUpdateDate + ", email=" + email + ", nickname=" + nickname + ", profileImg=" + profileImg
-				+ ", signType=" + signType + ", userName=" + userName + ", phone=" + phone + ", address=" + address
-				+ ", receptionNotification=" + receptionNotification + ", receptionAd=" + receptionAd
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 				+ ", blockedYn=" + blockedYn + ", createdDate=" + createdDate + ", lastLoginDate="
 				+ lastLoginDate + ", dormantYn=" + dormantYn + ", withdrawalYn=" + withdrawalYn + "]";
 	}

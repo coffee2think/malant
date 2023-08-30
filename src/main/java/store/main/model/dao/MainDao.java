@@ -3,11 +3,7 @@ package store.main.model.dao;
 import java.sql.*;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 import store.main.model.vo.*;
-=======
-import store.main.model.vo.Main;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 import static common.JDBCTemplate.*;
 
 public class MainDao {
@@ -15,30 +11,20 @@ public class MainDao {
 		
 	}
 	
-<<<<<<< HEAD
 	public ArrayList<MainBanner> selectBanner(Connection conn){
 		ArrayList<MainBanner> list = new ArrayList<MainBanner>();
-=======
-	public ArrayList<Main> selectBanner(Connection conn){
-		ArrayList<Main> list = new ArrayList<Main>();
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		Statement stmt = null;
 		ResultSet rset = null;
 		
 		String query = "SELECT * "
 				+ "FROM NOTICE "
-<<<<<<< HEAD
 				+ "WHERE notice_type = 'banner' and START_DATE <= SYSDATE AND END_DATE >= SYSDATE ";
-=======
-				+ "WHERE notice_type = 'banner'";
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
 			
 			while(rset.next()) {
-<<<<<<< HEAD
 				MainBanner banner = new MainBanner();
 				
 				banner.setBannerImage(rset.getString("THUMBNAIL"));
@@ -48,18 +34,6 @@ public class MainDao {
 				list.add(banner);
 			}
 			
-=======
-				Main main = new Main();
-				
-				main.setBannerImage(rset.getString("THUMBNAIL"));
-				main.setBannerLink(rset.getString("CONTENT"));
-				main.setBannerPrority(rset.getInt("PRIORITY"));
-				main.setBannerStart(rset.getDate("EVENT_START"));
-				main.setBannerEnd(rset.getDate("EVENT_END"));
-				
-				list.add(main);
-			}
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -72,7 +46,6 @@ public class MainDao {
 	
 	
 	
-<<<<<<< HEAD
 	public ArrayList<MainProduct> selectMainProductList(Connection conn) {
 		ArrayList<MainProduct> list = new ArrayList<MainProduct>();
 		Statement stmt = null;
@@ -103,11 +76,6 @@ public class MainDao {
 			close(rset);
 			close(stmt);
 		}
-=======
-	public ArrayList<Main> selectMainProductList() {
-		ArrayList<Main> list = new ArrayList<Main>();
-		
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 		return list;	
 	}
 

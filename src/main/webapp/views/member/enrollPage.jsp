@@ -14,7 +14,6 @@
 		margin: 0 auto;
 	}
 	
-<<<<<<< HEAD
 	.select-btn {
 		width: 200px;
 		height: 50px;
@@ -23,10 +22,6 @@
 		display: flex;
 		align-items: center;
 		justify-content : center;
-=======
-	.radio-section {
-		display: flex;
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 	}
 </style>
 
@@ -42,25 +37,12 @@
 <body>
 	<center><h1>회원 유형 선택</h1></center>
 	<div class="select-type">
-<<<<<<< HEAD
 		<div class="select-btn">
 			<a href="/malant/views/member/enrollMember.jsp">개인 회원가입</a>
 		</div> 
 		<div class="select-btn">
 			<a href="/malant/views/member/enrollSeller.jsp">판매자 회원가입</a>
 		</div>
-=======
-		<div class="radio-section">
-			<div class="personal">
-				<a href="/malant/views/member/enrollMember.jsp">개인 회원가입</a> &nbsp; 
-			</div>
-			<div class="personal">
-				<a href="/malant/views/member/enrollSeller.jsp">판매자 회원가입</a>
-			</div><br>
-		</div>
-		
-		<input type="button" value="다음" onclick="return selectType();"></button>
->>>>>>> cd63facf850b2123faeced3ad88786a403cfd976
 	</div>
 </body>
 </html>
