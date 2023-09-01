@@ -91,9 +91,9 @@ $(function() {
             var values = ""; 
     		  
             for (var i in json.hlist){
-              	 values += "<a href='/malant/views/board/boardHashList.jsp'>";
+         
               	 values += "<div class='hash'>" + "#"+ decodeURIComponent(json.hlist[i].hashContent);
-              	 values += "</div></a>";
+              	 values += "</div>";
              
               }
     		   $('#hashlist').html(values);
@@ -120,7 +120,7 @@ $(function() {
 			
               	values += "<div class='board-all'>";
                 values += "<div class='board-item'>";
-                values += "<a href='/malant/views/board/boardDetailList.jsp'>";
+                values += "<a onclick='checkLogin("+ jsonData.dlist[i].bno +");'>"
                 values += "<img class='board-date-image' src='" + jsonData.dlist[i].bphoto + "'></a></div>";
                 values += "<div class='like-style' id='d-" + jsonData.dlist[i].bno + "'>";
                 values += "<div>";
@@ -130,10 +130,10 @@ $(function() {
                 values += decodeURIComponent(jsonData.dlist[i].btitle);
                 values += "</div>";
                 values += "</div>"; 
-                values += "<a href='/malant/views/board/boardDetailList.jsp'>";       
+                   
                 values += "<div id='comment-area-"+ jsonData.dlist[i].bno +"'>";
                 values += decodeURIComponent(jsonData.dlist[i].ccontent);
-                values += "</div></a>";
+                values += "</div>";
             	
                 values += "</div>";
             }
