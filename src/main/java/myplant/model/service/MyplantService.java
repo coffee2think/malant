@@ -42,9 +42,9 @@ public class MyplantService {
 		return result;
 	}
 
-	public int insertMyplantInformation(Myplant myplant, String UserNo) {
+	public int insertMyplantInformation(Myplant myplant, String userNo) {
 		Connection conn = getConnection();
-		int result = mpdao.insertMyplantInformation(conn, myplant, UserNo);
+		int result = mpdao.insertMyplantInformation(conn, myplant, userNo);
 		if(result > 0 ) {
 			commit(conn);
 		}else {
@@ -61,9 +61,9 @@ public class MyplantService {
 		return myplant;
 	}
 
-	public int deletemyplant(String userNo, String myplantId) {
+	public int deleteMyplant(String userNo, String myplantId) {
 		Connection conn = getConnection();
-		int result = mpdao.deletemyplant(conn, userNo, myplantId);
+		int result = mpdao.deleteMyplant(conn, userNo, myplantId);
 		if(result > 0) {
 			commit(conn);
 		}else {

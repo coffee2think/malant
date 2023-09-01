@@ -69,27 +69,27 @@ public class MyplantUpdateInfomationServlet extends HttpServlet {
 		//mrequest 사용할 것
 		Myplant myplant = new Myplant();
 		
-		myplant.setMyplantId(mrequest.getParameter("myplantId"));
-		myplant.setMyplantName(mrequest.getParameter("myplantName"));
-		myplant.setMyplantVariety(mrequest.getParameter("myplantVariety"));
-		myplant.setMyplantImageURL(mrequest.getParameter("myplantImageURL"));
-		myplant.setMyplantStartDate(Date.valueOf(mrequest.getParameter("myplantStartDate")));
-		myplant.setMyplantMemo(mrequest.getParameter("myplantMemo"));
-		myplant.setPosWindow(mrequest.getParameter("posWindow"));
-		myplant.setPosVeranda(mrequest.getParameter("posVeranda"));
-		myplant.setPosDesk(mrequest.getParameter("posDesk"));
-		myplant.setPosYard(mrequest.getParameter("posYard"));
-		myplant.setPosGarden(mrequest.getParameter("posGarden"));
-		myplant.setEnvSunny(mrequest.getParameter("envSunny"));
-		myplant.setEnvShady(mrequest.getParameter("envShady"));
-		myplant.setEnvWindy(mrequest.getParameter("envWindy"));
-		myplant.setEnvDry(mrequest.getParameter("envDry"));
-		myplant.setEnvHumid(mrequest.getParameter("envHumid"));
-		myplant.setWithPet(mrequest.getParameter("withPet"));
-		myplant.setWithPlant(mrequest.getParameter("withPlant"));
-		myplant.setWithChild(mrequest.getParameter("withChild"));
-		myplant.setWithFriend(mrequest.getParameter("withFriend"));
-		myplant.setWithAlone(mrequest.getParameter("withAlone"));
+		myplant.setUserNo(mrequest.getParameter("USER_NO"));
+		myplant.setMyplantName(mrequest.getParameter("MYPLANT_NAME"));
+		myplant.setMyplantVariety(mrequest.getParameter("MYPLANT_VARIETY"));
+		myplant.setMyplantImageURL(mrequest.getParameter("MYPLANT_IMAGE_URL"));
+		myplant.setMyplantMemo(mrequest.getParameter("MYPLANT_MEMO"));
+		myplant.setMyplantStartDate((Date.valueOf(mrequest.getParameter("MYPLANT_START_DATE"))));
+		myplant.setPosWindow(mrequest.getParameter("POS_WINDOW"));
+		myplant.setPosVeranda(mrequest.getParameter("POS_VERANDA"));
+		myplant.setPosDesk(mrequest.getParameter("POS_DESK"));
+		myplant.setPosYard(mrequest.getParameter("POS_YARD"));
+		myplant.setPosGarden(mrequest.getParameter("POS_GARDEN"));
+		myplant.setEnvSunny(mrequest.getParameter("ENV_SUNNY"));
+		myplant.setEnvShady(mrequest.getParameter("ENV_SHADY"));
+		myplant.setEnvWindy(mrequest.getParameter("ENV_WINDY"));
+		myplant.setEnvDry(mrequest.getParameter("ENV_DRY"));
+		myplant.setEnvHumid(mrequest.getParameter("ENV_HUMID"));
+		myplant.setWithPet(mrequest.getParameter("WITH_PET"));
+		myplant.setWithPlant(mrequest.getParameter("WITH_PLANT"));
+		myplant.setWithChild(mrequest.getParameter("WITH_CHILD"));
+		myplant.setWithFriend(mrequest.getParameter("WITH_FRIEND"));
+		myplant.setWithAlone(mrequest.getParameter("WITH_ALONE"));
 		
 		
 		int currentPage = Integer.parseInt(mrequest.getParameter("page"));
