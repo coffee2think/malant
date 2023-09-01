@@ -1,26 +1,84 @@
 package myplant.model.service;
 
+import static common.JDBCTemplate.*;
+
+import java.sql.Connection;
 import java.util.ArrayList;
+
 
 import myplant.model.dao.MyplantDao;
 import myplant.model.vo.Myplant;
 
 public class MyplantService {
 	
-	private MyplantDao mdao = new MyplantDao();
+	private MyplantDao mpdao = new MyplantDao();
 	
 	public MyplantService(){}
 	
-	public ArrayList<Myplant> selectMyplantList(String) {}
 
-	public int selectMyplantInormation(String, String) {}
-	
-	public int insertMyplantInformation(Myplant, String) {}
-	
-	public int updateMyplantInformation(Myplant, String) {}
-	
-	public int deleteMyplantInformation(String, String) {}
-	
-    
+	public int getListCount(String userNo) {
+		Connection conn = getConnection();
+		int listCount = mpdao.getListCount(conn, userNo);
+		close(conn);
+		return listCount;
+	}
 
+	public ArrayList<Myplant> selectMyplantList(int startRow, int endRow, String userNo) {
+		Connection conn = getConnection();
+		ArrayList<Myplant> list = mpdao.selectList(conn, startRow, endRow, userNo);
+		close(conn);
+		return list;
+	}
+
+	public int updateMyplant(Myplant myplant) {
+		Connection conn = getConnection();
+		int result = mpdao.updateMyplant(conn, myplant);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int insertMyplantInformation(Myplant myplant, String UserNo) {
+		Connection conn = getConnection();
+		int result = mpdao.insertMyplantInformation(conn, myplant, UserNo);
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public Myplant selectMyplantInfo(String userNo, String myplantId) {
+		Connection conn = getConnection();
+		Myplant myplant = mpdao.selectMyplantInfo(conn, userNo, myplantId);
+		close(conn);
+		return myplant;
+	}
+
+	public int deletemyplant(String userNo, String myplantId) {
+		Connection conn = getConnection();
+		int result = mpdao.deletemyplant(conn, userNo, myplantId);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
+	public Myplant selectMyplant(String userNo) {
+		Connection conn = getConnection();
+		Myplant myplant = mpdao.selectMyplant(conn, userNo);
+		close(conn);
+		return myplant;
+	}
+	
 }

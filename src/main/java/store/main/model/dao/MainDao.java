@@ -11,8 +11,9 @@ public class MainDao {
 		
 	}
 	
-	public ArrayList<MainBanner> selectBanner(Connection conn){
-		ArrayList<MainBanner> list = new ArrayList<MainBanner>();
+	public ArrayList<MainContent> selectBanner(Connection conn){
+		
+		ArrayList<MainContent> list = new ArrayList<MainContent>();
 		Statement stmt = null;
 		ResultSet rset = null;
 		
@@ -25,7 +26,7 @@ public class MainDao {
 			rset = stmt.executeQuery(query);
 			
 			while(rset.next()) {
-				MainBanner banner = new MainBanner();
+				MainContent banner = new MainContent();
 				
 				banner.setBannerImage(rset.getString("THUMBNAIL"));
 				banner.setBannerLink(rset.getString("CONTENT"));
@@ -40,19 +41,18 @@ public class MainDao {
 			close(rset);
 			close(stmt);
 		}
-		
 		return list;	
     }
 	
 	
-	
-	public ArrayList<MainProduct> selectMainProductList(Connection conn) {
-		ArrayList<MainProduct> list = new ArrayList<MainProduct>();
+	public ArrayList<MainContent> selectMainProductList(Connection conn) {
+		
+		ArrayList<MainContent> list = new ArrayList<MainContent>();
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String query = "SELECT PRODUCT_ID, PRODUCT_NAME, PRICE, PRODUCT_THUMBNAIL_IMG, THUMBNAIL_DESCRIPTION "
-				+ "FROM PRODUCT "
+		String query = "SELECT PRODUCT_ID, PRODUCT_NAME, PRICE, PRODUCT_THUMBNAIL_IMG "
+				+ "FROM ST_PRODUCT "
 				+ "WHERE EXPOSURE_YN='Y'";
 		
 		try {
@@ -60,13 +60,12 @@ public class MainDao {
 			rset = stmt.executeQuery(query);
 			
 			while(rset.next()) {
-				MainProduct product = new MainProduct();
+				MainContent product = new MainContent();
 				
-				product.setProductId(rset.getString("PRODUCT_ID"));
+				product.setProductId(rset.getInt("PRODUCT_ID"));
 				product.setProductName(rset.getString("PRODUCT_NAME"));
 				product.setPrice(rset.getInt("PRICE"));
 				product.setProductThumbnail(rset.getString("PRODUCT_THUMBNAIL_IMG"));
-				product.setProductSimpleExplan(rset.getString("THUMBNAIL_DESCRIPTION"));
 
 				list.add(product);
 			}

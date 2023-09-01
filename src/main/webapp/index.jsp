@@ -13,7 +13,7 @@
     <script src="/malant/resources/common/js/scroll_behavior.js"></script>
     <script src="/malant/resources/common/js/scroll_loading.js"></script>
     <style type="text/css">
-    	div.container > div {
+    	.container > div {
     		float: left;
     	}
     </style>

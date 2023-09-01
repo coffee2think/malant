@@ -18,76 +18,69 @@
 
 <body>
 
-	<div id="container">
+<div id="container">
+        <%@include file = "../../views/common/sidebar.jsp" %>
+	<div id="main">
 
-		<%@include file="../../views/common/sidebar.jsp"%>
+		<div class="menu"><a href="/malant/views/diary/diary.jsp">다이어리</a></div> 
+		<div class="menu"><a href="/malant/views/diary/calendar.jsp">캘린더</a></div> 
+		<div class="menu"><a href="/malant/views/diary/myplant.jsp">반려식물</a></div>	
 
-		<div id="main">
-		
-		<div id="menu">
-			<div class="menu1"><a href="/malant/views/diary/diary.jsp">다이어리</a></div>
-			<div class="menu2"><a href="/malant/views/diary/calendar.jsp">캘린더</a></div>
-			<div class="menu3"><a>식물추가</a></div>	
-    </div><!-- menu -->
 
-			<div id="calendarbody">
-				<div id="header">
+			<div id="contentbody">
+					<div id="header">
+						
+						<button id="backButton">Back</button>
+						<div id="monthDisplay"></div>
+						<button id="nextButton">Next</button>
+						
+					</div>
+					<br>
+					<!-- header -->
+	
+					<div id="weekdays">
+						<div class="sun">Sunday</div>
+						<div class="mon">Monday</div>
+						<div class="tue">Tuesday</div>
+						<div class="wed">Wednesday</div>
+						<div class="thu">Thursday</div>
+						<div class="fri">Friday</div>
+						<div class="sat">Saturday</div>
+					</div>
+					<br>
+	
+					<div id="calendar">
+						<div class="managing1"></div>
+						<div class="managing2"></div>
+						<div class="managing3"></div>
 					
-					<button id="backButton">Back</button>
-					<div id="monthDisplay"></div>
-					<button id="nextButton">Next</button>
-					
-				</div>
-				<br>
-				<!-- header -->
-
-				<div id="weekdays">
-					<div class="sun">Sunday</div>
-					<div class="mon">Monday</div>
-					<div class="tue">Tuesday</div>
-					<div class="wed">Wednesday</div>
-					<div class="thu">Thursday</div>
-					<div class="fri">Friday</div>
-					<div class="sat">Saturday</div>
-				</div>
-				<br>
-
-				<div id="calendar">
-					<div class="managing1"></div>
-					<div class="managing2"></div>
-					<div class="managing3"></div>
+					</div>
 				
-				</div>
-			</div>
-			<!-- calendarbody -->
-
-			<div id="newEventModal">
-				<!-- this div appear when active eventListner 'click'-->
-				<h2>Memo</h2>
-
-				<input id="eventTitleInput" placeholder="Event Title" />
-
-				<button id="saveButton">Save</button>
-				<button id="cancelButton">Cancel</button>
-			</div>
-
-			<div id="deleteEventModal">
-				<h2>Event</h2>
-
-				<p id="eventText"></p>
-
-				<button id="deleteButton">Delete</button>
-				<button id="closeButton">Close</button>
-			</div>
-			<!-- newEventModal -->
-
-			<div id="modalBackDrop"></div>
-		</div>
-		<!-- main -->
-
-
-	</div>
-	<!-- container -->
+				<div id="newEventModal">
+					<!-- this div appear when active eventListner 'click'-->
+					<h2>Memo</h2>
+	
+					<input id="eventTitleInput" placeholder="Event Title" />
+	
+					<button id="saveButton">Save</button>
+					<button id="cancelButton">Cancel</button>
+				</div><!-- newEventModal -->
+	
+				<div id="deleteEventModal">
+					<h2>Event</h2>
+	
+					<p id="eventText"></p>
+	
+					<button id="deleteButton">Delete</button>
+					<button id="closeButton">Close</button>
+				</div><!-- deleteEventModal -->
+	
+				<div id="modalBackDrop"></div>
+			
+			
+			</div><!-- content body -->
+		</div><!-- main -->
+	</div><!-- container -->
 	<script type="text/javascript" src="/malant/resources/diary/js/calendar.js"></script>
 </body>
 </html>

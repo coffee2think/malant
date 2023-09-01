@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="/malant/resources/common/css/scrolling.css" />
 <link rel="stylesheet" href="/malant/resources/common/css/font.css" />
-<link rel="stylesheet" href="/malant/resources/diary/css/diary.css">
+<link rel="stylesheet" href="/malant/resources/diary/css/diary.css"> 
 <!-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"> -->
 
 
@@ -20,113 +20,46 @@
 
 <body>
 
-	<div id="container">
+<div id="container">
+        <%@include file = "../../views/common/sidebar.jsp" %>
+	<div id="main">
 
-		<%@include file="../../views/common/sidebar.jsp"%>
+		<div class="menu"><a href="/malant/views/diary/diary.jsp">다이어리</a></div> 
+		<div class="menu"><a href="/malant/views/diary/calendar.jsp">캘린더</a></div> 
+		<div class="menu"><a href="/malant/views/diary/myplant.jsp">반려식물</a></div>	
 
-		<div id="main">
-		
-		<div id="menu">
-			<div class="menu1"><a href="/malant/views/diary/diary.jsp">다이어리</a></div>
-			<div class="menu2"><a href="/malant/views/diary/calendar.jsp">캘린더</a></div>
-			<div class="menu3"><a>식물추가</a></div>	
-    </div><!-- menu -->
+    <div id="contentbody">
     
-    
-    <div class="popup-box">
-    	<div class="popup">
-    		<div class="content">
-    			<header>
-    				<p>Add a new Diary</p>
-    				<i class="uil uil-time"></i>
-    			</header>
-    			<form action="#">
-    				<div class="row title">
-    					<label>Title</label>
-    					<input type="text">
-    				</div>
-    				<div class="row description">
-    					<label>Description</label>
-    					<input type="text">
-    				</div>
-    				<button>Add Diary</button>
-    			</form>
-    			
-    		</div>
-    	</div>
-    </div>
-    
-    <div class="wrapper">
-   		<li class="add-box">
-   			<div class="icon"><i class="uil uil-plus"></i></div>
-   			<p>Add new note</p>
-   		</li>
-   		<li class="note">
-	   		<div class="detail">
-	   			<p>This is a Title</p>
-	   			<span>content</span>
-	   		</div>
-	   		<div>
-	   			<span>April 3, 2022</span>
-	   			<div class="setting">
-	   				<i class="uil uil-ellipsis-h"></i>
-	   				<ul class="menu">
-	   					<li><i class="uil uil-pen"></i>Edit</li>
-	   					<li><i class="uil uil-trash"></i>Delete</li>
-	   				</ul>
-	   			</div>
-	   		</div>
-   		</li>
-   		<li class="note">
-	   		<div class="detail">
-	   			<p>This is a Title</p>
-	   			<span>content</span>
-	   		</div>
-	   		<div>
-	   			<span>April 3, 2022</span>
-	   			<div class="setting">
-	   				<i class="uil uil-ellipsis-h"></i>
-	   			</div>
-	   		</div>
-   		</li>
-   		<li class="note">
-	   		<div class="detail">
-	   			<p>This is a Title</p>
-	   			<span>content</span>
-	   		</div>
-	   		<div>
-	   			<span>April 3, 2022</span>
-	   			<div class="setting">
-	   				<i class="uil uil-ellipsis-h"></i>
-	   			</div>
-	   		</div>
-   		</li>
-   		<li class="note">
-	   		<div class="detail">
-	   			<p>This is a Title</p>
-	   			<span>content</span>
-	   		</div>
-	   		<div>
-	   			<span>April 3, 2022</span>
-	   			<div class="setting">
-	   				<i class="uil uil-ellipsis-h"></i>
-	   			</div>
-	   		</div>
-   		</li>
-   		<li class="note">
-	   		<div class="detail">
-	   			<p>This is a Title</p>
-	   			<span>content</span>
-	   		</div>
-	   		<div>
-	   			<span>April 3, 2022</span>
-	   			<div class="setting">
-	   				<i class="uil uil-ellipsis-h"></i>
-	   			</div>
-	   		</div>
-   		</li>
-    </div>
-    
-  
-</body>
+		    <div class="popup-box">
+		      <div class="popup">
+		        <div class="content">
+		          <header>
+		            <p>내용</p>
+		            <img src="#">
+		          </header>
+		          <form action="#">
+		            <div class="row title">
+		              <label>Title</label>
+		              <input type="text" spellcheck="false">
+		            </div>
+		            <div class="row description">
+		              <label>Description</label>
+		              <textarea spellcheck="false"></textarea>
+		            </div>
+		            <button></button>
+		          </form>
+		        </div>
+		      </div>
+		    </div> <!-- popup-box -->
+		    <div class="wrapper">
+		      <div class="add-box">
+		        <div class="icon"><img src="/malant/resources/diary/images/newDiary.png"></div>
+		        <p>Add New Diary</p>
+		      </div>
+		    </div>
+
+     </div><!-- content body -->
+	</div> <!-- main -->
+   </div> <!-- container -->
+<script type="text/javascript" src="/malant/resources/diary/js/diary.js"></script>
 </html>

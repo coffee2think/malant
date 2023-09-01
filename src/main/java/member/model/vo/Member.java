@@ -15,9 +15,6 @@ public class Member implements Serializable {
 	private String nickname;
 	private String profileImg;
 	private String signType;
-	private String userName;
-	private String phone;
-	private String address;
 	private String alarmYn;
 	private String noticeYn;
 	private String blockedYn;
@@ -46,8 +43,7 @@ public class Member implements Serializable {
 	}
 
 	public Member(String userNo, String userId, String userPwd, Date pwdUpdateDate, String email, String nickname,
-			String profileImg, String signType, String userName, String phone, String address,
-			String alarmYn, String noticeYn, String blockedYn, Date createdDate,
+			String profileImg, String signType, String alarmYn, String noticeYn, String blockedYn, Date createdDate,
 			Date lastLoginDate, String dormantYn, String withdrawalYn) {
 		this.userNo = userNo;
 		this.userId = userId;
@@ -57,9 +53,6 @@ public class Member implements Serializable {
 		this.nickname = nickname;
 		this.profileImg = profileImg;
 		this.signType = signType;
-		this.userName = userName;
-		this.phone = phone;
-		this.address = address;
 		this.alarmYn = alarmYn;
 		this.noticeYn = noticeYn;
 		this.blockedYn = blockedYn;
@@ -133,30 +126,6 @@ public class Member implements Serializable {
 		this.signType = signType;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getAlarmYn() {
 		return alarmYn;
 	}
@@ -213,14 +182,17 @@ public class Member implements Serializable {
 		this.withdrawalYn = withdrawalYn;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", pwdUpdateDate="
 				+ pwdUpdateDate + ", email=" + email + ", nickname=" + nickname + ", profileImg=" + profileImg
-				+ ", signType=" + signType + ", userName=" + userName + ", phone=" + phone + ", address=" + address
-				+ ", alarmYn=" + alarmYn + ", noticeYn=" + noticeYn
-				+ ", blockedYn=" + blockedYn + ", createdDate=" + createdDate + ", lastLoginDate="
-				+ lastLoginDate + ", dormantYn=" + dormantYn + ", withdrawalYn=" + withdrawalYn + "]";
+				+ ", signType=" + signType + ", alarmYn=" + alarmYn + ", noticeYn=" + noticeYn + ", blockedYn="
+				+ blockedYn + ", createdDate=" + createdDate + ", lastLoginDate=" + lastLoginDate + ", dormantYn="
+				+ dormantYn + ", withdrawalYn=" + withdrawalYn + "]";
 	}
 	
 }

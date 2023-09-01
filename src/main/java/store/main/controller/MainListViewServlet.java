@@ -2,9 +2,9 @@ package store.main.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,13 +15,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import store.main.model.service.MainService;
-import store.main.model.vo.MainBanner;
-import store.main.model.vo.MainProduct;
+import store.main.model.vo.*;
+
 
 /**
- * Servlet implementation class mainListViewServlet
+ * Servlet implementation class mainBannerServlet
  */
-@WebServlet("/mlist")
+@WebServlet("/smplist")
 public class MainListViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,32 +36,25 @@ public class MainListViewServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+    	ArrayList<MainContent> plist = new MainService().selectMainProductList();
+        ArrayList<MainContent> mlist = new MainService().selectBanner();
 
-		ArrayList<MainProduct> MainProductList = new MainService().selectMainProductList();
-        
-        JSONArray jarr = new JSONArray();
-        
-        for(MainProduct mainpl : MainProductList) {
-        	JSONObject job = new JSONObject();
-        	
-        	job.put("productid", mainpl.getProductId());
-        	job.put("productname", URLEncoder.encode(mainpl.getProductName(), "UTF-8"));
-        	job.put("price", mainpl.getPrice());
-        	job.put("thumbnail", mainpl.getProductThumbnail());
-        	job.put("simpleExp",  URLEncoder.encode(mainpl.getProductSimpleExplan(), "UTF-8")); 	
-        	
-        	jarr.add(job);
+        RequestDispatcher view = null;
+        if (plist.size() > 0) {
+            view = request.getRequestDispatcher("views/store/storeMain.jsp");
+            request.setAttribute("plist", plist);
+            request.setAttribute("mlist", mlist);
+        } else {
+            view = request.getRequestDispatcher("views/common/error.jsp");
+//        	view = request.getRequestDispatcher("views/store/storeMain.jsp");
+            request.setAttribute("message", "메인 데이터 조회 실패");
+//        	request.setAttribute("plist", plist);
+//            request.setAttribute("mlist", mlist);
         }
-        JSONObject sendJson = new JSONObject();
-        sendJson.put("list", jarr);
-        
-        response.setContentType("application/json; charset=utf-8");
-        PrintWriter out = response.getWriter();
-        out.print(sendJson.toJSONString());
-        out.flush();
-        out.close();
-}
+        view.forward(request, response);
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

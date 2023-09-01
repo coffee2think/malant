@@ -6,29 +6,66 @@ public class Comment implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5471428830133210366L;
 
-	private String commentNo;
+	private int commentNo;
+	private int boardNo;
+	private String userNo;
+	private String nickname;
 	private int commentLike;
 	private String commentContent;
 	private Date commentDate;
+	private Date likeDate;
+	private String likeYn;
+	private String reportedYn;
 
 	public Comment() {
 		super();
 	}
 
-	public Comment(String commentNo, int commentLike, String commentContent, Date commentDate) {
+	public Comment(int commentNo, int boardNo, String userNo, String nickname, int commentLike, String commentContent,
+			Date commentDate, Date likeDate, String likeYn, String reportedYn) {
 		super();
 		this.commentNo = commentNo;
+		this.boardNo = boardNo;
+		this.userNo = userNo;
+		this.nickname = nickname;
 		this.commentLike = commentLike;
 		this.commentContent = commentContent;
 		this.commentDate = commentDate;
+		this.likeDate = likeDate;
+		this.likeYn = likeYn;
+		this.reportedYn = reportedYn;
 	}
 
-	public String getCommentNo() {
+	public int getCommentNo() {
 		return commentNo;
 	}
 
-	public void setCommentNo(String commentNo) {
+	public void setCommentNo(int commentNo) {
 		this.commentNo = commentNo;
+	}
+
+	public int getBoardNo() {
+		return boardNo;
+	}
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
+
+	public String getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getCommentLike() {
@@ -55,14 +92,39 @@ public class Comment implements java.io.Serializable {
 		this.commentDate = commentDate;
 	}
 
+	public Date getLikeDate() {
+		return likeDate;
+	}
+
+	public void setLikeDate(Date likeDate) {
+		this.likeDate = likeDate;
+	}
+
+	public String getLikeYn() {
+		return likeYn;
+	}
+
+	public void setLikeYn(String likeYn) {
+		this.likeYn = likeYn;
+	}
+
+	public String getReportedYn() {
+		return reportedYn;
+	}
+
+	public void setReportedYn(String reportedYn) {
+		this.reportedYn = reportedYn;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [commentNo=" + commentNo + ", commentLike=" + commentLike + ", commentContent=" + commentContent
-				+ ", commentDate=" + commentDate + "]";
+		return "Comment [commentNo=" + commentNo + ", boardNo=" + boardNo + ", userNo=" + userNo + ", nickname="
+				+ nickname + ", commentLike=" + commentLike + ", commentContent=" + commentContent + ", commentDate="
+				+ commentDate + ", likeDate=" + likeDate + ", likeYn=" + likeYn + ", reportedYn=" + reportedYn + "]";
 	}
 
 }

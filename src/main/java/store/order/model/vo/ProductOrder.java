@@ -1,8 +1,12 @@
 package store.order.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class ProductOrder {
+public class ProductOrder implements Serializable {
+
+	private static final long serialVersionUID = 4764640135713951068L;
+	
 	private String orderId;
 	private String productId;
 	private String userNo;

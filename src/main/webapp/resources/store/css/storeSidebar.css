@@ -14,6 +14,7 @@ li {
 
 /* 사이드바 */
 .sidebar {
+  position : sticky;
   width: 200px;
   padding-left: 10px;
   padding-right: 10px;
@@ -27,6 +28,11 @@ li {
   justify-content: flex-start;
   padding-top: 20px;
   margin-bottom: 20px;
+}
+
+.back-to-main{
+	display: flex;
+    flex-direction: row-reverse;
 }
 
 /*사이드바 타이틀*/
@@ -49,6 +55,17 @@ ul#new_categories li {
   border-radius: 5px;
   overflow: hidden;
   height: 40px;
+  display: block;
+  color: #505050;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 500;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 ul#new_categories li::before {
@@ -83,21 +100,6 @@ ul#new_categories li:nth-child(6)::before {
 ul#new_categories li:hover::before {
   border-radius: 0 50px 50px 0;
   width: 110%;
-}
-
-ul#new_categories li a {
-  margin-top: 5px;
-  display: block;
-  color: #505050;
-  text-decoration: none;
-  font-size: 22px;
-  font-weight: 500;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
 }
 
 /*로그인 영역*/

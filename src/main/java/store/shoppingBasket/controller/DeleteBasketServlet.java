@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class DeleteBasketServlet
  */
-@WebServlet("/dbasket")
+@WebServlet("/sbdelete")
 public class DeleteBasketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

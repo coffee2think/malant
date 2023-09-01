@@ -14,25 +14,17 @@ public class MainService {
 	
 	public MainService() {}
 	
-	public ArrayList<MainBanner> selectBanner(){
+	public ArrayList<MainContent> selectBanner(){
 		Connection conn = getConnection();
-		ArrayList<MainBanner> list = mdao.selectBanner(conn);
+		ArrayList<MainContent> list = mdao.selectBanner(conn);
 		close(conn);
 		return list;
     }
-
-	public int getListCount() {
-		Connection conn = getConnection();
-		int listCount = mdao.getListCount(conn);
-		close(conn);
-		return listCount;
-	}
 	
-	public ArrayList<MainProduct> selectMainProductList() {
+	public ArrayList<MainContent> selectMainProductList() {
 		Connection conn = getConnection();
-		ArrayList<MainProduct> list = mdao.selectMainProductList(conn);
+		ArrayList<MainContent> list = mdao.selectMainProductList(conn);
 		close(conn);
-		System.out.println(list.toString());
 		return list;
 	}
 

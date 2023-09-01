@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class DeliveryTrackingServlet
  */
-@WebServlet("/dt")
+@WebServlet("/dtrack")
 public class DeliveryTrackingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

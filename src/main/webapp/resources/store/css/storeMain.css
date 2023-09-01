@@ -1,35 +1,79 @@
+@charset "UTF-8";
 
 /* 기본값 초기화 */
-body,
-h1,
-h2,
-h3,
-p,
-ul,
-li {
-  margin: 0;
-  padding: 0;
+body, h1, h2, h3, p, ul, li {
+	margin: 0;
+	padding: 0;
 }
-
 
 /* 전체 스타일 */
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 .container {
-  display: flex;
-  padding : 0;
-}
-.main-content {
-  padding-left: 20px;
-  padding-top:20px;
-  flex-grow: 1;
-  max-width: calc(100% - 260px);
+	display: flex;
+	padding: 0;
 }
 
-.allproduct{
-	font-size : 28px;
+.content {
+	padding-left: 20px;
+	padding-top: 20px;
+	flex-grow: 1;
+	max-width: calc(100% - 260px);
+}
+
+.allproduct {
+	font-size: 28px;
+}
+
+.banner-image {
+	width: 100%
+}
+
+.image-slider {
+	overflow: hidden;
+	width: 100%;
+	max-width: 100%;
+	position: relative;
+}
+
+.image-slider img {
+	width: 100%;
+	height: auto;
+	display: none;
+}
+
+.productcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Adjust as needed */
+  margin: 20px 0; /* Add some margin for spacing */
+}
+
+.product-card {
+  width: calc(33.33% - 20px); /* Adjust width and spacing as needed */
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  text-align: center;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.product-name {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.product-price {
+  margin-top: 5px;
+  color: #333;
 }
