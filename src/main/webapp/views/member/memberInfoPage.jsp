@@ -27,6 +27,10 @@
 	.vertical-align-center {
 		vertical-align : middle;
 	}
+
+	.email-confirm-btn {
+		display: none;
+	}
 </style>
 <script>
 	function changeNicknameBoxState() {
@@ -35,6 +39,8 @@
 	
 	function changeEmailBoxState() {
 		$('#email').attr('disabled', !$('#email').attr('disabled'));
+		$('.email-change-btn').hide();
+		$('.email-confirm-btn').show();
 	}
 
 	function changePwdBoxState() {
@@ -96,7 +102,7 @@
 		return true;
 	}
 
-	function dupCheck() {
+	function checkDupEmail() {
 		$.ajax({
 			url: '/malant/checkdup',
 			type: 'post',
@@ -144,13 +150,16 @@
 					<tr><th>아이디</th><td colspan="2"><%= member.getUserId() %></td></tr>
 					<tr>
 						<th>닉네임</th>
-						<td><input type="text" id="nickname" name="nickname" value="<%= loginMember.getNickname() %>" maxlength="8" placeholder="<%= loginMember.getNickname() %>" disabled></td>
+						<td><input type="text" id="nickname" name="nickname" value="<%= member.getNickname() %>" maxlength="8" placeholder="<%= member.getNickname() %>" disabled></td>
 						<td><input type="button" class="nick-change-btn" value="변경" onclick="return changeNicknameBoxState();"></td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td><input type="text" id="email" name="email" value="<%= loginMember.getEmail() %>" placeholder="<%= loginMember.getEmail() %>" disabled></td>
-						<td><input type="button" class="email-change-btn" value="변경" onclick="return changeEmailBoxState();"></td>
+						<td><input type="text" id="email" name="email" value="<%= member.getEmail() %>" placeholder="<%= member.getEmail() %>" disabled></td>
+						<td>
+							<input type="button" class="email-change-btn" value="변경" onclick="return changeEmailBoxState();">
+							<input type="button" class="email-confirm-btn" value="중복 확인" onclick="return checkDupEmail();">
+						</td>
 					</tr>
 					<tr>
 						<th>새 비밀번호</th>
