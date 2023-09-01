@@ -34,7 +34,6 @@ public class SelectProductListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("왔다~~~~~~~~~~~~~~");
 		String productid = request.getParameter("categoryid");
 
 		ArrayList<ProductDetail> list = new ProductService().selectProductList(productid);
@@ -46,7 +45,7 @@ public class SelectProductListServlet extends HttpServlet {
 		} else {
 			System.out.println("servlet실패 : ");
 			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", productid + " 상품정보 조회 실패");
+			request.setAttribute("message", "조회된 상품이 없습니다.");
 		}
 		view.forward(request, response);
 	}
