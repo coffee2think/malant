@@ -164,44 +164,49 @@ public class MyplantDao {
 		return result;
 	}
 
-	public int insertMyplantInformation(Connection conn, Myplant myplant, String UserNo) {
+	public int insertMyplantInformation(Connection conn, Myplant myplant, String userNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into my_plant values "
-						+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? "
-						+ "where user_no = ? ";	
-		
-		
+		String query = "insert into my_plant "
+					+ "(MYPLANT_ID, USER_NO, MYPLANT_NAME, MYPLANT_VARIETY, MYPLANT_IMAGE_URL, "
+					+ "MYPLANT_MEMO, MYPLANT_START_DATE, POS_WINDOW, POS_VERANDA, POS_DESK, POS_YARD, "
+					+ "POS_GARDEN, ENV_SUNNY, ENV_SHADY, ENV_WINDY, ENV_DRY, ENV_HUMID, WITH_PET, "
+					+ "WITH_PLANT, WITH_CHILD, WITH_FRIEND, WITH_ALONE, CREATED_DATE)  "
+					+ "values (my_plant_seq.NEXTVAL, ?, ?, ?, ?, ?, "
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?,  "
+					+ "?, ?, ?, ?, ?, ?, ?, DEFAULT)";	
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setString(1, myplant.getMyplantName());
-			pstmt.setString(2, myplant.getMyplantVariety());
-			pstmt.setString(3, myplant.getMyplantImageURL());
-			pstmt.setString(4, myplant.getMyplantMemo());
-			pstmt.setDate(5, myplant.getMyplantStartDate());
-			pstmt.setString(6, myplant.getPosWindow());
-			pstmt.setString(7, myplant.getPosVeranda());
-			pstmt.setString(8, myplant.getPosDesk());
-			pstmt.setString(9, myplant.getPosYard());
-			pstmt.setString(10, myplant.getPosGarden());
-			pstmt.setString(11, myplant.getEnvSunny());
-			pstmt.setString(12, myplant.getEnvShady());
-			pstmt.setString(13, myplant.getEnvWindy());
-			pstmt.setString(14, myplant.getEnvDry());
-			pstmt.setString(15, myplant.getEnvHumid());
-			pstmt.setString(16, myplant.getWithPet());
-			pstmt.setString(17, myplant.getWithPlant());
-			pstmt.setString(18, myplant.getWithChild());
-			pstmt.setString(19, myplant.getWithFriend());
-			pstmt.setString(20, myplant.getWithAlone());
-			pstmt.setString(21, myplant.getUserNo());
+			pstmt.setString(1, myplant.getUserNo());
+			pstmt.setString(2, myplant.getMyplantName());
+			pstmt.setString(3, myplant.getMyplantVariety());
+			pstmt.setString(4, myplant.getMyplantImageURL());
+			pstmt.setString(5, myplant.getMyplantMemo());
+			pstmt.setDate(6, myplant.getMyplantStartDate());
+			pstmt.setString(7, myplant.getPosWindow());
+			pstmt.setString(8, myplant.getPosVeranda());
+			pstmt.setString(9, myplant.getPosDesk());
+			pstmt.setString(10, myplant.getPosYard());
+			pstmt.setString(11, myplant.getPosGarden());
+			pstmt.setString(12, myplant.getEnvSunny());
+			pstmt.setString(13, myplant.getEnvShady());
+			pstmt.setString(14, myplant.getEnvWindy());
+			pstmt.setString(15, myplant.getEnvDry());
+			pstmt.setString(16, myplant.getEnvHumid());
+			pstmt.setString(17, myplant.getWithPet());
+			pstmt.setString(18, myplant.getWithPlant());
+			pstmt.setString(19, myplant.getWithChild());
+			pstmt.setString(20, myplant.getWithFriend());
+			pstmt.setString(21, myplant.getWithAlone());
 			
 			result = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
 		return result;
@@ -256,11 +261,11 @@ public class MyplantDao {
 		return myplant;
 	}
 
-	public int deletemyplant(Connection conn, String userNo, String myplantId) {
+	public int deleteMyplant(Connection conn, String userNo, String myplantId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "delete from my_plant where user_no = ?, myplant_id = ? ";
+		String query = "delete from my_plant where USER_NO = ? and MYPLANT_ID = ? ";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
