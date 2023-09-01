@@ -4,6 +4,7 @@
 <%
 	ArrayList<Myplant> list = (ArrayList<Myplant>)request.getAttribute("list");	
 
+    Myplant myp = new Myplant(); 
 	int nowpage = 1;
 	if(request.getAttribute("currentPage") != null){
 		nowpage = ((Integer)request.getAttribute("currentPage")).intValue();
@@ -25,7 +26,11 @@
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 
+function requestDelete() {
+	
+location.href = "/malant/mpdelete?userNo=<%= myp.getUserNo() %>&myplantId=<%= myp.getMyplantId() %>";
 
+}
 </script>
 </head>
 <body>
@@ -51,33 +56,33 @@
 			<div id="myplantAdd" class="myplantAdd"> 반려식물 등록화면 (팝업)
 	<!-- 			<form action="/first/binsert" method="post" enctype="multipart/form-data"> -->
 					
-					<div>애칭 &nbsp; <input type="text" name="myplantName"></div>
-					<div>품종 &nbsp; <input type="text" name="myplantVariety"></div>
-					<div>사진 &nbsp; <input type="file" name="myplantImageURL"></div>
-					<div>메모 &nbsp; <input type="text" name="myplantMemo"></div>
-					<div>키우기 시작한 날 &nbsp; <input type="date" name="myplantStartDate"></div>
+					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME"></div>
+					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"></div>
+					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL"></div>
+					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
+					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE"></div>
 					<div>함께한 날 &nbsp; </div>
 					<div>성장환경 : 
 						<div class="position"> 어떤 장소에서 키우나요 <br>
-							<input type="radio" name="posWindow">창가 
-							<input type="radio" name="posVeranda">베란다 
-							<input type="radio" name="posDesk">책상
-							<input type="radio" name="posYard">마당 
-							<input type="radio" name="posGarden">텃밭 
+							<input type="radio" name="POS_WINDOW">창가 
+							<input type="radio" name="POS_VERANDA">베란다 
+							<input type="radio" name="POS_DESK">책상
+							<input type="radio" name="POS_YARD">마당 
+							<input type="radio" name="POS_GARDEN">텃밭 
 						</div>
 						<div class="environment"> 어떤 환경에서 키우나요 <br>
-							<input type="radio" name="envSunny">볕이 좋은
-							<input type="radio" name="envShady">그늘진 
-							<input type="radio" name="envWindy">바람 부는
-							<input type="radio" name="envDry">건조한
-							<input type="radio" name="envHumid">습한
+							<input type="radio" name="ENV_SUNNY">볕이 좋은
+							<input type="radio" name="ENV_SHADY">그늘진 
+							<input type="radio" name="ENV_WINDY">바람 부는
+							<input type="radio" name="ENV_DRY">건조한
+							<input type="radio" name="ENV_HUMID">습한
 						</div>
 						<div class="with"> 누구와 함께 키우나요 <br>
-							<input type="radio" name="withPet">애완동물과함께
-							<input type="radio" name="withPlant">식물들과함께
-							<input type="radio" name="withChild">아이들과함께
-							<input type="radio" name="withFriend">친구와함께
-							<input type="radio" name="withAlone">혼자 
+							<input type="radio" name="WITH_PET">애완동물과함께
+							<input type="radio" name="WITH_PLANT">식물들과함께
+							<input type="radio" name="WITH_CHILD">아이들과함께
+							<input type="radio" name="WITH_FRIEND">친구와함께
+							<input type="radio" name="WITH_ALONE">혼자 
 						</div>
 					</div>
 					<div>
@@ -104,12 +109,12 @@
 					</div><!-- myplantbox -->
 	
 				<div id="myplantDetail" class="myplantDetail"> 디테일화면 (팝업)
-	<!-- 			<form action="/first/binsert" method="post" enctype="multipart/form-data"> -->
+
 					
 					<div>애칭: <%= mp.getMyplantName() %></div>
 					<div>품종: <%= mp.getMyplantVariety() %></div>
 					<div><img src="<%= mp.getMyplantImageURL() %>"></div>0
-					<div>키우기 시작한 날: </div>
+					<div>키우기 시작한 날: <%= mp.getMyplantStartDate() %></div>
 					<div>함께한 날: </div>
 					<div>메모: <%= mp.getMyplantMemo() %></div>
 					<div>성장환경 : 
@@ -136,9 +141,9 @@
 						</div>
 					</div>
 					<div>
-						<button id="modify" class="modify" >수정</button>
-						<button onclick="requestDelete(); return false;">삭제</button>
-						<button class="close-btn">확인</button>	
+						<input type="button" id="modify" class="modify" value="수정">
+						<input type="button" onclick="requestDelete(); return false;" value="삭제">
+						<input type="button" class="close-btn" value="확인">
 					</div>
 	
 					</div> <!-- myplantDetail -->
@@ -146,41 +151,41 @@
 					
 					<form action="/malant/mpupdate" method="post" enctype="multipart/form-data">
 					<div id="myplantModify" class="myplantModify"> 디테일 편집화면 (팝업)
-	<!-- 			<form action="/first/binsert" method="post" enctype="multipart/form-data"> -->
+
 					
-					<div>애칭: <%= mp.getMyplantName() %></div>
-					<div>품종: <%= mp.getMyplantVariety() %></div>
-					<div><img src="<%= mp.getMyplantImageURL() %>"></div>0
-					<div>키우기 시작한 날: </div>
-					<div>함께한 날: </div>
-					<div>메모: <%= mp.getMyplantMemo() %></div>
+					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME" value="<%= mp.getMyplantName() %>"></div>
+					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY" value="<%= mp.getMyplantVariety() %>"></div>
+					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" value="<%= mp.getMyplantImageURL() %>"></div>
+					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO" value="<%= mp.getMyplantMemo() %>"></div>
+					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE" value="<%= mp.getMyplantStartDate() %>"></div>
+					<div>함께한 날 &nbsp; </div>
 					<div>성장환경 : 
-						<div class="position">
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">창가 
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">베란다 
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">책상
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">마당 
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">텃밭 
+						<div class="position"> 어떤 장소에서 키우나요 <br>
+							<input type="radio" name="POS_WINDOW" value="<%= mp.getPosWindow() %>">창가 
+							<input type="radio" name="POS_VERANDA" value="<%= mp.getPosWindow() %>">베란다 
+							<input type="radio" name="POS_DESK" value="<%= mp.getPosWindow() %>">책상
+							<input type="radio" name="POS_YARD" value="<%= mp.getPosWindow() %>">마당 
+							<input type="radio" name="POS_GARDEN" value="<%= mp.getPosWindow() %>">텃밭 
 						</div>
-						<div class="environment">
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">볕이 좋은
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">그늘진 
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">바람 부는
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">건조한
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">습한
+						<div class="environment"> 어떤 환경에서 키우나요 <br>
+							<input type="radio" name="ENV_SUNNY" value="<%= mp.getPosWindow() %>">볕이 좋은
+							<input type="radio" name="ENV_SHADY" value="<%= mp.getPosWindow() %>">그늘진 
+							<input type="radio" name="ENV_WINDY" value="<%= mp.getPosWindow() %>">바람 부는
+							<input type="radio" name="ENV_DRY" value="<%= mp.getPosWindow() %>">건조한
+							<input type="radio" name="ENV_HUMID" value="<%= mp.getPosWindow() %>">습한
 						</div>
-						<div class="with">
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">애완동물과함께
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">식물들과함께
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">아이들과함께
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">친구와함께
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">혼자 
+						<div class="with"> 누구와 함께 키우나요 <br>
+							<input type="radio" name="WITH_PET" value="<%= mp.getPosWindow() %>">애완동물과함께
+							<input type="radio" name="WITH_PLANT" value="<%= mp.getPosWindow() %>">식물들과함께
+							<input type="radio" name="WITH_CHILD" value="<%= mp.getPosWindow() %>">아이들과함께
+							<input type="radio" name="WITH_FRIEND" value="<%= mp.getPosWindow() %>">친구와함께
+							<input type="radio" name="WITH_ALONE" value="<%= mp.getPosWindow() %>">혼자 
 						</div>
 					</div>
 					<div>
-						<button class="close-btn">취소</button>
-						<button onclick="requestDelete(); return false;">삭제</button>
-						<button class="save-close-btn">저장</button>	
+						<input type="reset" class="close-btn" value="취소">
+						<input type="button" onclick="requestDelete(); return false;" value="삭제">
+						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
 	
 					</div> <!-- myplantModify -->
@@ -195,40 +200,40 @@
 			
 			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
 			<div id="myplantAdd" class="myplantAdd"> 반려식물 등록화면 (팝업)
-	<!-- 			<form action="/first/binsert" method="post" enctype="multipart/form-data"> -->
+
 					
-					<div>애칭: </div>
-					<div>품종: </div>
-					<div><img src="#"></div>0
-					<div>키우기 시작한 날: </div>
-					<div>함께한 날: </div>
-					<div>메모: </div>
+					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME"></div>
+					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"></div>
+					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL"></div>
+					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
+					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE"></div>
+					<div>함께한 날 &nbsp; </div>
 					<div>성장환경 : 
-						<div class="position">
-							<input type="radio" readonly >창가 
-							<input type="radio" readonly >베란다 
-							<input type="radio" readonly >책상
-							<input type="radio" readonly >마당 
-							<input type="radio" readonly >텃밭 
+						<div class="position"> 어떤 장소에서 키우나요 <br>
+							<input type="radio" name="POS_WINDOW">창가 
+							<input type="radio" name="POS_VERANDA">베란다 
+							<input type="radio" name="POS_DESK">책상
+							<input type="radio" name="POS_YARD">마당 
+							<input type="radio" name="POS_GARDEN">텃밭 
 						</div>
-						<div class="environment">
-							<input type="radio" readonly >볕이 좋은
-							<input type="radio" readonly >그늘진 
-							<input type="radio" readonly >바람 부는
-							<input type="radio" readonly >건조한
-							<input type="radio" readonly >습한
+						<div class="environment"> 어떤 환경에서 키우나요 <br>
+							<input type="radio" name="ENV_SUNNY">볕이 좋은
+							<input type="radio" name="ENV_SHADY">그늘진 
+							<input type="radio" name="ENV_WINDY">바람 부는
+							<input type="radio" name="ENV_DRY">건조한
+							<input type="radio" name="ENV_HUMID">습한
 						</div>
-						<div class="with">
-							<input type="radio" readonly >애완동물과함께
-							<input type="radio" readonly >식물들과함께
-							<input type="radio" readonly >아이들과함께
-							<input type="radio" readonly >친구와함께
-							<input type="radio" readonly >혼자 
+						<div class="with"> 누구와 함께 키우나요 <br>
+							<input type="radio" name="WITH_PET">애완동물과함께
+							<input type="radio" name="WITH_PLANT">식물들과함께
+							<input type="radio" name="WITH_CHILD">아이들과함께
+							<input type="radio" name="WITH_FRIEND">친구와함께
+							<input type="radio" name="WITH_ALONE">혼자 
 						</div>
 					</div>
 					<div>
-						<button class="close-btn">취소</button>
-						<button class="save-close-btn">저장</button>	
+						<input type="reset" class="close-btn" value="취소">
+						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
 	
 					</div> <!-- myplantAdd -->
