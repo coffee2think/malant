@@ -69,11 +69,12 @@ public class MyplantInsertInformationServlet extends HttpServlet {
 		Myplant myplant = new Myplant();
 
 		/* myplant.setMyplantId(mrequest.getParameter("myplant_id")); */
+		myplant.setUserNo(mrequest.getParameter("USER_NO"));
 		myplant.setMyplantName(mrequest.getParameter("MYPLANT_NAME"));
 		myplant.setMyplantVariety(mrequest.getParameter("MYPLANT_VARIETY"));
 		myplant.setMyplantImageURL(mrequest.getParameter("MYPLANT_IMAGE_URL"));
 		myplant.setMyplantMemo(mrequest.getParameter("MYPLANT_MEMO"));
-		myplant.setMyplantStartDate((Date.valueOf("MYPLANT_START_DATE")));
+		myplant.setMyplantStartDate((Date.valueOf(mrequest.getParameter("MYPLANT_START_DATE"))));
 		myplant.setPosWindow(mrequest.getParameter("POS_WINDOW"));
 		myplant.setPosVeranda(mrequest.getParameter("POS_VERANDA"));
 		myplant.setPosDesk(mrequest.getParameter("POS_DESK"));
@@ -89,7 +90,6 @@ public class MyplantInsertInformationServlet extends HttpServlet {
 		myplant.setWithChild(mrequest.getParameter("WITH_CHILD"));
 		myplant.setWithFriend(mrequest.getParameter("WITH_FRIEND"));
 		myplant.setWithAlone(mrequest.getParameter("WITH_ALONE"));
-		myplant.setUserNo(mrequest.getParameter("USER_NO"));
 		
 		
 		//6. 업로드된 원본 파일 이름 추출

@@ -36,7 +36,7 @@ public class Ar_BreifSelectServlet extends HttpServlet {
 		ArrayList<Arboretum> list = aservice.briefInfoList();
 		RequestDispatcher view = null;
 		if(list.size() > 0) {
-			view = request.getRequestDispatcher("/views/map/mapMain.jsp");
+			view = request.getRequestDispatcher("views/map/mapMain.jsp");
 			request.setAttribute("list", list);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

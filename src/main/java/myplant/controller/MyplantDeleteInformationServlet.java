@@ -33,11 +33,11 @@ public class MyplantDeleteInformationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//반려식물 삭제 처리용 컨트롤러
 		
-		String userNo = request.getParameter("userno");
-		String myplantId = request.getParameter("myplantId");
+		String userNo = request.getParameter("user_no");
+		String myplantId = request.getParameter("MYPLANT_ID");
 		
 		//서비스 메소드로 삭제 실행하고 결과받아서 성공/실패 뷰 내보내기
-		if(new MyplantService().deletemyplant(userNo, myplantId) > 0) {
+		if(new MyplantService().deleteMyplant(userNo, myplantId) > 0) {
 			//받은 결과가 성공 일때 저장 폴더의 파일도 삭제처리
 			String inFileName = request.getParameter("infile");
 			if(inFileName != null) {
@@ -47,7 +47,7 @@ public class MyplantDeleteInformationServlet extends HttpServlet {
 			
 			response.sendRedirect("/malant/mplist?page=1");
 		}else {
-			RequestDispatcher view = request.getRequestDispatcher("view/common/error.jdp");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "반려식물 삭제 실패");
 			view.forward(request, response);
 		}
