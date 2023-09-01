@@ -33,7 +33,6 @@ public class ArboretumDao {
 				arboretum.setArboretum_longitude(rset.getDouble("arboretum_longitude"));
 				arboretum.setArboretum_address(rset.getString("arboretum_address"));
 				
-				
 				list.add(arboretum);
 			}
 			
