@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="notice-detail">
-		<%@include file="../../views/common/sidebar.html"%>
+		<%@include file="../../views/common/sidebar.jsp"%>
 		<div class="container"></div>
 		<h1>asd</h1>
 	</div>

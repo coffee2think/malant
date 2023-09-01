@@ -13,11 +13,11 @@ public class OrderDao {
 	}	
 	
 	public int updatePayCancel() {
-		
+		return 0;
 	}
 	
 	public int updatePayOk() {
-		
+		return 0;
 	}
 	
 	public ProductOrder addOrderList(Connection conn, ProductOrder productOrder) {

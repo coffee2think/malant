@@ -3,7 +3,6 @@ package store.common.model.dao;
 import java.sql.Connection;
 
 import store.common.model.vo.ProductSimpleInfo;
-import store.product.model.vo.Product;
 
 public class CommonDao {
 

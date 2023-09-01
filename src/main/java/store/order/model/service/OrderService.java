@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 import store.order.model.dao.OrderDao;
 import store.order.model.vo.ProductOrder;
-import store.product.model.vo.Product;
 
 public class OrderService {
+	
 	private OrderDao odao = new OrderDao();
 	
 	public OrderService() {}
@@ -22,11 +22,11 @@ public class OrderService {
 	}
 	
 	public int updatePayCancel() {
-		
+		return 0;
 	}
 	
 	public int updatePayOk() {
-		
+		return 0;
 	}
 	
 	public ProductOrder addOrderList(ProductOrder productOrder) {

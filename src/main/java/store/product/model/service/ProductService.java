@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import store.product.model.dao.ProductDao;
-import store.product.model.vo.Product;
 import store.product.model.vo.ProductDetail;
 
 import static common.JDBCTemplate.*;
@@ -15,31 +14,33 @@ public class ProductService {
 	public ProductService() {
 	}
 
-	public int getListCount() {
-		Connection conn = getConnection();
-		int listCount = pdao.getListCount(conn);
-		close(conn);
-		return listCount;
-	}
+//	public int getListCount() {
+//		Connection conn = getConnection();
+//		int listCount = pdao.getListCount(conn);
+//		close(conn);
+//		return listCount;
+//	}
 
-	public ArrayList<Product> selectProductList(int startRow, int endRow) {
+	public ArrayList<ProductDetail> selectProductList(String categoryid) {
 		Connection conn = getConnection();
-		ArrayList<Product> list = pdao.selectProductList(conn, startRow, endRow);
+		ArrayList<ProductDetail> list = pdao.selectProductList(conn, categoryid);
 
 		return list;
 	}
 
-	public ArrayList<Product> selectFilterList(String parentCategoryId, String[] categoryName) {
+	public ArrayList<ProductDetail> selectFilterList(String[] parentCategoryId) {
 		Connection conn = getConnection();
-		ArrayList<Product> list = pdao.selectFilterList(parentCategoryId, categoryName);
+		ArrayList<ProductDetail> list = pdao.selectFilterList(parentCategoryId);
 		return list;
 	}
 	
-	public ProductDetail selectProductDetail(String productid){
-		Connection conn = getConnection();
-		ProductDetail productInfo = pdao.selectProductDetail(conn, productid);
+	public ArrayList<ProductDetail> selectProductDetail(String productid){
 		
-		return productInfo;
+		Connection conn = getConnection();
+		ArrayList<ProductDetail> list = pdao.selectProductDetail(conn, productid);
+		close(conn);
+
+		return list;
 	}
 
 	public int addViewCount(int productViewCount) {

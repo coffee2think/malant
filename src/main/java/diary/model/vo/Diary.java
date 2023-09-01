@@ -2,7 +2,9 @@ package diary.model.vo;
 
 import java.sql.Date;
 
-public class Diary implements java.io.Serializable{
+public class Diary implements java.io.Serializable {
+	
+	private static final long serialVersionUID = 389267166750680966L;
 	
 	private String memberNo;
 	private int diaryNo;
@@ -24,7 +26,7 @@ public class Diary implements java.io.Serializable{
 		
 	}
 
-
+	
 	public Diary(String memberNo, int diaryNo, String petPlantNo, Date diaryWritingDate, String diaryContent,
 			String diaryImage1URL, String diaryImage2URL, String diaryImage3URL, String diaryImage4URL,
 			String diaryManaging1, String diaryManaging2, String diaryManaging3, String diaryManaging4) {

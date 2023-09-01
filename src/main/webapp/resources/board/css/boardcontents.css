@@ -1,54 +1,76 @@
 @charset "UTF-8";
 
+
+
+/* 사이드바 스타일 */
+.sidebar {
+	position: fixed;
+	z-index: 1; /* 레이어 순서 설정 */
+}
+
+/* 메인 컨텐츠 스타일 */
+.main-content {
+	margin-left: 200px; /* 사이드바의 너비만큼 여백 확보 */
+	z-index: 0; /* 레이어 순서 설정 */
+}
+
 .board-main {
 	display: flex;
 }
 
-.board-image {
+.board-like {
 	display: flex;
-	flex-direction: row;
-	align-content: flex-start;
-	flex-wrap: wrap;
-	margin-left: 20px;
+	margin-top: 50px;
+	width: 100%;
+	justify-content: center; /* 가운데 정렬 */
+
 }
 
-.board-image-main {
-	display: flex;
-	margin: 0 auto;
-	margin-top: 20px;
+.board-like a {
+	margin-right: 50px; /* 이미지 간격 설정 */
 }
 
-.board-title {
-	font-size: 20px;
-	outline: solid 5px green;
-	width: 200px;
-	height: 50px;
-	margin: 0 auto;
+.image-style {
+	width: 250px;
+	height: 200px;
+}
+
+.board-main {
+	display: flex;
 }
 
 .board-like {
 	display: flex;
-	width: 300px;
-	height: 230px;
-	border: 1px solid green;
-	margin: 0 auto;
 	margin-top: 50px;
-	width: 300px;
-	position: relative; /* 추가: 상대 위치 설정 */
+	width: 100%;
+	justify-content: center;
+	margin-left: 100px;
 }
 
-.like-btn {
-	width: 60px;
-	height: 25px;
-	position: absolute; /* 절대 위치 설정 */
-	bottom: 0; /* 하단 위치 설정 */
-	left: 0; /* 왼쪽 위치 설정 */
+.board-like a {
+	margin-right: 50px;
 }
 
-.profile-picture {
-	width: 60px;
+
+
+.title-style {
+	border: 1px solid green;
+	width: 50px;
+	height: 50px;
+	float: right;
+	margin-right: 50px;
+}
+
+.likeBtn-style {
+	display: inline-block;
+	padding: 5px 10px; /* 작은 버튼의 패딩을 조절 */
+	background-color: red;
+	color: red;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	width: 30px;
 	height: 30px;
-	position: absolute; /* 절대 위치 설정 */
-	bottom: 0; /* 하단 위치 설정 */
-	right: 0; /* 오른쪽 위치 설정 */
 }
+

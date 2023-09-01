@@ -2,8 +2,10 @@ package calendar.model.vo;
 
 import java.sql.Date;
 
-public class Calendar implements java.io.Serializable{
+public class Calendar implements java.io.Serializable {
 
+	private static final long serialVersionUID = -6383203623916677862L;
+	
 	private String memberNo;
 	private String petPlantNo;
 	private Date calendarDate;

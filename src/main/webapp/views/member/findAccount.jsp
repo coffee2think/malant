@@ -14,18 +14,6 @@
 		<input type="radio" name="choice" value="findpwd"> 비밀번호 재설정
 	</div>
 	<div class="view-choice">
-		<% if(findType.equals("id") { %>
-		<div>
-			<form action="/malant/find">
-				<input type="email" placeholer="이메일을 입력하세요." required>
-				<input type="submit" onsubmit="return ">
-			</form>
-		</div>
-		<% } else if(findType.equals("pwd") { %>
-		<div>
-		
-		</div>
-		<% } %>
 	</div>
 </body>
 </html>

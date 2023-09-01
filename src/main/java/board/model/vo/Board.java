@@ -6,7 +6,7 @@ public class Board implements java.io.Serializable {
 
 	private static final long serialVersionUID = -5219066150385199445L;
 
-	private String boardNo;
+	private int boardNo;
 	private String userNo;
 	private String nickname;
 	private String boardTitle;
@@ -19,14 +19,15 @@ public class Board implements java.io.Serializable {
 	private String likeYN;
 	private int hashtagNo;
 	private String hashtagContent;
+	private String reportedYN;
 
 	public Board() {
 		super();
 	}
 
-	public Board(String boardNo, String userNo, String nickname, String boardTitle, String boardContent, int boardLike,
+	public Board(int boardNo, String userNo, String nickname, String boardTitle, String boardContent, int boardLike,
 			Date boardDate, String boardPhoto, int viewcount, Date likeDate, String likeYN, int hashtagNo,
-			String hashtagContent) {
+			String hashtagContent, String reportedYN) {
 		super();
 		this.boardNo = boardNo;
 		this.userNo = userNo;
@@ -41,13 +42,22 @@ public class Board implements java.io.Serializable {
 		this.likeYN = likeYN;
 		this.hashtagNo = hashtagNo;
 		this.hashtagContent = hashtagContent;
+		this.reportedYN = reportedYN;
 	}
 
-	public String getBoardNo() {
+	public String getReportedYN(String reportedYN) {
+		return reportedYN;
+	}
+
+	public void setReportedYN(String reportedYN) {
+		this.reportedYN = reportedYN;
+	}
+
+	public int getBoardNo() {
 		return boardNo;
 	}
 
-	public void setBoardNo(String boardNo) {
+	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
 
@@ -156,7 +166,8 @@ public class Board implements java.io.Serializable {
 		return "Board [boardNo=" + boardNo + ", userNo=" + userNo + ", nickname=" + nickname + ", boardTitle="
 				+ boardTitle + ", boardContent=" + boardContent + ", boardLike=" + boardLike + ", boardDate="
 				+ boardDate + ", boardPhoto=" + boardPhoto + ", viewcount=" + viewcount + ", likeDate=" + likeDate
-				+ ", likeYN=" + likeYN + ", hashtagNo=" + hashtagNo + ", hashtagContent=" + hashtagContent + "]";
+				+ ", likeYN=" + likeYN + ", hashtagNo=" + hashtagNo + ", hashtagContent=" + hashtagContent
+				+ ", reportedYN " + reportedYN + "]";
 	}
 
 }

@@ -11,7 +11,7 @@
 <body>
 	<div class="notice-main">
 		<div class="container">
-			<%@ include file="../../views/common/sidebar.html"%>
+			<%@ include file="../../views/common/sidebar.jsp"%>
 		</div>
 		<a href="/malant/views/notice/noticeDetailList.jsp">
 			<div class="notice-container">

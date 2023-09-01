@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+/* 기본값 초기화 */
+body, h1, h2, h3, p, ul, li {
+	margin: 0;
+	padding: 0;
+}
+
+/* 전체 스타일 */
+body {
+	font-family: "NanumGothicEB";
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	display: flex;
+	padding: 0;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 20px;
+}
+
+.content {
+	padding-left: 20px;
+	padding-top: 20px;
+	flex-grow: 1;
+	max-width: calc(100% - 260px);
+	flex: 1;
+	padding: 20px;
+	background-color: #f5f5f5;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#pdetail-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#pdetail-seller-price {
+  margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#pdetail-seller-price th,
+#pdetail-seller-price td {
+  padding: 8px;
+  text-align: left;
+}
+
+#quantity {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.cartButton,
+.orderButton {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cartButton {
+  background-color: #3498db;
+  color: white;
+}
+
+.orderButton {
+  background-color: #e74c3c;
+  color: white;
+}
+
+#pdetail-thumnail img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  float: right;
+}
+
+.pdetail-detailimg {
+  margin-top: 20px;
+}
+
+.pdetail-detailimg img {
+  width: 100%;
+}

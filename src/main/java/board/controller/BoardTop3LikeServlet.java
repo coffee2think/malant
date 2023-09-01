@@ -16,6 +16,8 @@ import org.json.simple.JSONObject;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardTop3LikeServlet
@@ -29,7 +31,6 @@ public class BoardTop3LikeServlet extends HttpServlet {
 	 */
 	public BoardTop3LikeServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -41,23 +42,26 @@ public class BoardTop3LikeServlet extends HttpServlet {
 		// ajax 요청으로 조회수 많은 인기 게시글 3개 조회 요청 처리용 컨트롤러
 
 		ArrayList<Board> list = new BoardService().selectTop3Like();
-
+		//System.out.println(list.toString());
 		JSONArray jarr = new JSONArray();
 
 		for (Board board : list) {
 			JSONObject job = new JSONObject();
-
+			Member member = new MemberService().selectMemberByUserNo(board.getUserNo());
 			// 한글이 있는 값 인코딩 처리
+			System.out.println(board.getBoardNo());
+			job.put("bno", board.getBoardNo());
 			job.put("bnick", URLEncoder.encode(board.getNickname(), "utf-8"));
 			job.put("btitle", URLEncoder.encode(board.getBoardTitle(), "utf-8"));
 			job.put("blike", board.getBoardLike());
 			job.put("bphoto", URLEncoder.encode(board.getBoardPhoto(), "utf-8"));
-
+			job.put("bprofile", URLEncoder.encode(member.getProfileImg(), "utf-8"));
+			// System.out.println(member);
 			jarr.add(job);
 		}
 
 		JSONObject sendJson = new JSONObject();
-		sendJson.put("list", jarr);
+		sendJson.put("blist", jarr);
 
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -78,5 +82,3 @@ public class BoardTop3LikeServlet extends HttpServlet {
 	}
 
 }
-
-

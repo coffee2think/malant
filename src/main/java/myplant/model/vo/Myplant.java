@@ -4,14 +4,16 @@ import java.sql.Date;
 
 public class Myplant implements java.io.Serializable{
 
-	private String memberNo;
-	private String petPlantNo;
+	private static final long serialVersionUID = -3469451666664641172L;
+	
+	private String userNo;
+	private String myplantId;
 	private String myplantName;
 	private String myplantVariety;
 	private String myplantImageURL;
 	private String myplantMemo;
 	private Date myplantStartDate;
-	private String posWindows;
+	private String posWindow;
 	private String posVeranda;
 	private String posDesk;
 	private String posYard;
@@ -26,6 +28,8 @@ public class Myplant implements java.io.Serializable{
 	private String withChild;
 	private String withFriend;
 	private String withAlone;
+	private Date createdDate;
+
 	
 	
 	public Myplant() {
@@ -34,20 +38,20 @@ public class Myplant implements java.io.Serializable{
 	}
 
 
-	public Myplant(String memberNo, String petPlantNo, String myplantName, String myplantVariety,
-			String myplantImageURL, String myplantMemo, Date myplantStartDate, String posWindows, String posVeranda,
+	public Myplant(String userNo, String myplantId, String myplantName, String myplantVariety,
+			String myplantImageURL, String myplantMemo, Date myplantStartDate, String posWindow, String posVeranda,
 			String posDesk, String posYard, String posGarden, String envSunny, String envShady, String envWindy,
 			String envDry, String envHumid, String withPet, String withPlant, String withChild, String withFriend,
 			String withAlone) {
 		super();
-		this.memberNo = memberNo;
-		this.petPlantNo = petPlantNo;
+		this.userNo = userNo;
+		this.myplantId = myplantId;
 		this.myplantName = myplantName;
 		this.myplantVariety = myplantVariety;
 		this.myplantImageURL = myplantImageURL;
 		this.myplantMemo = myplantMemo;
 		this.myplantStartDate = myplantStartDate;
-		this.posWindows = posWindows;
+		this.posWindow = posWindow;
 		this.posVeranda = posVeranda;
 		this.posDesk = posDesk;
 		this.posYard = posYard;
@@ -67,9 +71,9 @@ public class Myplant implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Myplant [memberNo=" + memberNo + ", petPlantNo=" + petPlantNo + ", myplantName=" + myplantName
+		return "Myplant [userNO=" + userNo + ", myplantId=" + myplantId + ", myplantName=" + myplantName
 				+ ", myplantVariety=" + myplantVariety + ", myplantImageURL=" + myplantImageURL + ", myplantMemo="
-				+ myplantMemo + ", myplantStartDate=" + myplantStartDate + ", posWindows=" + posWindows
+				+ myplantMemo + ", myplantStartDate=" + myplantStartDate + ", posWindow=" + posWindow
 				+ ", posVeranda=" + posVeranda + ", posDesk=" + posDesk + ", posYard=" + posYard + ", posGarden="
 				+ posGarden + ", envSunny=" + envSunny + ", envShady=" + envShady + ", envWindy=" + envWindy
 				+ ", envDry=" + envDry + ", envHumid=" + envHumid + ", withPet=" + withPet + ", withPlant=" + withPlant
@@ -77,23 +81,23 @@ public class Myplant implements java.io.Serializable{
 	}
 
 
-	public String getMemberNo() {
-		return memberNo;
+	public String getUserNo() {
+		return userNo;
 	}
 
 
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
 	}
 
 
-	public String getPetPlantNo() {
-		return petPlantNo;
+	public String getMyplantId() {
+		return myplantId;
 	}
 
 
-	public void setPetPlantNo(String petPlantNo) {
-		this.petPlantNo = petPlantNo;
+	public void setMyplantId(String myplantId) {
+		this.myplantId = myplantId;
 	}
 
 
@@ -147,13 +151,13 @@ public class Myplant implements java.io.Serializable{
 	}
 
 
-	public String getPosWindows() {
-		return posWindows;
+	public String getPosWindow() {
+		return posWindow;
 	}
 
 
-	public void setPosWindows(String posWindows) {
-		this.posWindows = posWindows;
+	public void setPosWindow(String posWindow) {
+		this.posWindow = posWindow;
 	}
 
 
@@ -297,7 +301,14 @@ public class Myplant implements java.io.Serializable{
 	}
 
 
-	
-	
-	
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+
 }

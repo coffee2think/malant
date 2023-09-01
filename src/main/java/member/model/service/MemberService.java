@@ -14,11 +14,11 @@ public class MemberService {
 	
 	public MemberService() {}
 
-	public int selectCheckId(String userId) {
+	public int[] selectCheckDuplicate(String userId, String email) {
 		Connection conn = getConnection();
-		int idCount = mdao.selectCheckId(conn, userId);
+		int[] result = mdao.selectCheckDuplicate(conn, userId, email);
 		close(conn);
-		return idCount;
+		return result;
 	}
 	
 	public Member selectLogin(String userId, String userPwd) {
@@ -58,5 +58,26 @@ public class MemberService {
 		close(conn);
 		return member;
 	}
+	
+	public Member selectMemberByUserNo(String userNo) {
+		Connection conn = getConnection();
+		Member member = mdao.selectMemberByUserNo(conn, userNo);
+		close(conn);
+		return member;
+	} 
+
+	public int updateMember(Member member) {
+		Connection conn = getConnection();
+		int result = mdao.updateMember(conn, member);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	
 
 }

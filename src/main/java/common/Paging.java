@@ -11,14 +11,16 @@ public class Paging implements java.io.Serializable {
 	private int maxPage;   //총 페이지 수
 	private int startPage;   //페이지 그룹의 시작값
 	private int endPage;   //페이지 그룹의 끝값
+	private String urlMapping;
 	
 	//기본 생성자 없음
 	
 	//매개변수 있는 생성자
-	public Paging(int listCount, int currentPage, int limit) {
+	public Paging(int listCount, int currentPage, int limit, String urlMapping) {
 		this.listCount = listCount;
 		this.currentPage = currentPage;
 		this.limit = limit;
+		this.urlMapping = urlMapping;
 	}
 
 	//페이지 계산 함수
@@ -114,11 +116,19 @@ public class Paging implements java.io.Serializable {
 		return serialVersionUID;
 	}
 
+	public String getUrlMapping() {
+		return urlMapping;
+	}
+
+	public void setUrlMapping(String urlMapping) {
+		this.urlMapping = urlMapping;
+	}
+
 	@Override
 	public String toString() {
 		return "Paging [startRow=" + startRow + ", endRow=" + endRow + ", listCount=" + listCount + ", limit=" + limit
 				+ ", currentPage=" + currentPage + ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage="
-				+ endPage + "]";
+				+ endPage + ", urlMapping=" + urlMapping + "]";
 	}
 	
 }

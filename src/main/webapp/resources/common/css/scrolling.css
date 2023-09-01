@@ -1,8 +1,8 @@
 /*scrolling.css*/
 
-.main-content.scrolling {
+.content.scrolling {
 /* 스크롤링 중일 때*/
-  margin-left: 288px;
+  margin-left: 220px;
 }
 
 .fixed-sidebar {
