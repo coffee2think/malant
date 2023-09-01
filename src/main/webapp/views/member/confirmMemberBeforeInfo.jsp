@@ -20,33 +20,6 @@
                     margin: auto;
                 }
             </style>
-            <script>
-                function checkPwd() {
-                    $.ajax({
-                        url: '/malant/login/checkpwd',
-                        type: 'post',
-                        data: {
-                            userid: $('#userid').val(),
-                            userpwd: $('#userpwd').val()
-                        },
-                        success: function (data) {
-                            console.log("id : " + $('#userid').val() + ", pwd : " + $('#userpwd').val());
-                            console.log("date : " + data + ", datatype : " + typeof (data));
-                            if (data == "fail") {
-                                alert("비밀번호가 일치하지 않습니다.");
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
-                            alert("회원정보 확인 실패");
-                            return false;
-                        }
-                    });
-                }
-            </script>
         </head>
 
         <body>
@@ -61,7 +34,7 @@
                     <p1>회원정보 확인</p1>
                     <p4>
                         <%= loginMember.getNickname() %> 님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인합니다.</p4>
-                    <form action="/malant/login/minfo" method="post">
+                    <form action="/malant/loginminfo" method="post">
                         <input type="hidden" id="userid" name="userid" value="<%= userid %>">
 
                         <table>
