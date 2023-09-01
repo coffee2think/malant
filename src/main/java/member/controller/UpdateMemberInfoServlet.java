@@ -49,12 +49,6 @@ public class UpdateMemberInfoServlet extends HttpServlet {
 		member.setAlarmYn(request.getParameter("check_alarm") != null ? "Y" : "N");
 		member.setNoticeYn(request.getParameter("check_notice") != null ? "Y" : "N");
 		
-		System.out.println(request.getParameter("userid"));
-		System.out.println(request.getParameter("nickname"));
-		System.out.println(request.getParameter("newpwd"));
-		System.out.println(request.getParameter("check_alarm"));
-		System.out.println(request.getParameter("check_notice"));
-		
 		if(newPwd != null) {
 			String cryptoUserpwd = null;
 			
