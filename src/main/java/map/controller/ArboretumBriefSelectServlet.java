@@ -17,13 +17,13 @@ import map.model.vo.Arboretum;
  * Servlet implementation class Ar_BreifSelectServlet
  */
 @WebServlet("/arbriefinfo")
-public class Ar_BreifSelectServlet extends HttpServlet {
+public class ArboretumBriefSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Ar_BreifSelectServlet() {
+    public ArboretumBriefSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
