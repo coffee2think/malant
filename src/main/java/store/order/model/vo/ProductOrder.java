@@ -17,8 +17,14 @@ public class ProductOrder implements Serializable {
 	private String recipient;
 	private String recipientContact;
 	private int price;
-	private int deliveryChage;
+	private int deliveryCharge;
 	private int totalPrice;
+	
+	//상품 필드 추가
+	private String productName;
+	private String thumbnailImg;
+	private String sellerNo;
+	private String storeName;
 	
 	//주소 받는 부분
 	private String shippingAddressName;
@@ -37,10 +43,10 @@ public class ProductOrder implements Serializable {
 	}
 
 	public ProductOrder(String orderId, String productId, String userNo, int quantity, Date orderDate, String buyerName,
-			String buyerContact, String recipient, String recipientContact, int price, int deliveryChage,
-			int totalPrice, String shippingAddressName, String codePostal, String deliveryAddress,
-			String deliveryAddress2, String deliveryNote, String paymentType, String orderProgress,
-			String paymentStatus) {
+			String buyerContact, String recipient, String recipientContact, int price, int deliveryCharge,
+			int totalPrice, String productName, String thumbnailImg, String sellerNo, String storeName,
+			String shippingAddressName, String codePostal, String deliveryAddress, String deliveryAddress2,
+			String deliveryNote, String paymentType, String orderProgress, String paymentStatus) {
 		super();
 		this.orderId = orderId;
 		this.productId = productId;
@@ -52,8 +58,12 @@ public class ProductOrder implements Serializable {
 		this.recipient = recipient;
 		this.recipientContact = recipientContact;
 		this.price = price;
-		this.deliveryChage = deliveryChage;
+		this.deliveryCharge = deliveryCharge;
 		this.totalPrice = totalPrice;
+		this.productName = productName;
+		this.thumbnailImg = thumbnailImg;
+		this.sellerNo = sellerNo;
+		this.storeName = storeName;
 		this.shippingAddressName = shippingAddressName;
 		this.codePostal = codePostal;
 		this.deliveryAddress = deliveryAddress;
@@ -144,12 +154,12 @@ public class ProductOrder implements Serializable {
 		this.price = price;
 	}
 
-	public int getDeliveryChage() {
-		return deliveryChage;
+	public int getDeliveryCharge() {
+		return deliveryCharge;
 	}
 
-	public void setDeliveryChage(int deliveryChage) {
-		this.deliveryChage = deliveryChage;
+	public void setDeliveryCharge(int deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
 	}
 
 	public int getTotalPrice() {
@@ -158,6 +168,38 @@ public class ProductOrder implements Serializable {
 
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getThumbnailImg() {
+		return thumbnailImg;
+	}
+
+	public void setThumbnailImg(String thumbnailImg) {
+		this.thumbnailImg = thumbnailImg;
+	}
+
+	public String getSellerNo() {
+		return sellerNo;
+	}
+
+	public void setSellerNo(String sellerNo) {
+		this.sellerNo = sellerNo;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
 	}
 
 	public String getShippingAddressName() {
@@ -233,14 +275,12 @@ public class ProductOrder implements Serializable {
 		return "ProductOrder [orderId=" + orderId + ", productId=" + productId + ", userNo=" + userNo + ", quantity="
 				+ quantity + ", orderDate=" + orderDate + ", buyerName=" + buyerName + ", buyerContact=" + buyerContact
 				+ ", recipient=" + recipient + ", recipientContact=" + recipientContact + ", price=" + price
-				+ ", deliveryChage=" + deliveryChage + ", totalPrice=" + totalPrice + ", shippingAddressName="
-				+ shippingAddressName + ", codePostal=" + codePostal + ", deliveryAddress=" + deliveryAddress
-				+ ", deliveryAddress2=" + deliveryAddress2 + ", deliveryNote=" + deliveryNote + ", paymentType="
-				+ paymentType + ", orderProgress=" + orderProgress + ", paymentStatus=" + paymentStatus + "]";
+				+ ", deliveryCharge=" + deliveryCharge + ", totalPrice=" + totalPrice + ", productName=" + productName
+				+ ", thumbnailImg=" + thumbnailImg + ", sellerNo=" + sellerNo + ", storeName=" + storeName
+				+ ", shippingAddressName=" + shippingAddressName + ", codePostal=" + codePostal + ", deliveryAddress="
+				+ deliveryAddress + ", deliveryAddress2=" + deliveryAddress2 + ", deliveryNote=" + deliveryNote
+				+ ", paymentType=" + paymentType + ", orderProgress=" + orderProgress + ", paymentStatus="
+				+ paymentStatus + "]";
 	}
-	
-	
-	
-	
-	
+
 }

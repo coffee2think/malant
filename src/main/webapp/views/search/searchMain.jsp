@@ -25,13 +25,6 @@
 		margin: auto;
 	}
 
-	.bestboards {
-		width:500px;
-		height:300px;
-		border:1px solid red;
-		margin: auto;
-	}
-
 	.searchbox {
 		width: 450px;
 		height: 45px;
@@ -40,6 +33,13 @@
 	.searchbtn {
 		width: 40px;
 		height: 45px;
+	}
+	
+	.bestboards {
+		width:500px;
+		height:300px;
+		border:1px solid red;
+		margin: auto;
 	}
 </style>
 </head>

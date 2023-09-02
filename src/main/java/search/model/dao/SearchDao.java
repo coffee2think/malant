@@ -108,4 +108,79 @@ public class SearchDao {
 		return list;
 	}
 
+	public Plant selectPlant(Connection conn, int plantNo) {
+		Plant plant = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from plant where plant_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, plantNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				plant = new Plant();
+				
+				// select한 모든 결과 받기
+				plant.setEcology(rset.getString("ecology"));
+				plant.setViewType(rset.getString("view_type"));
+				plant.setSmell(rset.getString("smell"));
+				plant.setToxicity(rset.getString("toxicity"));
+				plant.setDifficulty(rset.getString("difficulty"));
+				plant.setRequiredManagement(rset.getString("required_management"));
+				plant.setGrowthRate(rset.getString("growth_rate"));
+				plant.setTemperature(rset.getString("temperature"));
+				plant.setWinterTemperature(rset.getString("winter_temperature"));
+				plant.setLight(rset.getString("light"));
+				plant.setHumidity(rset.getString("humidity"));
+				plant.setFertilizer(rset.getString("fertilizer"));
+				plant.setSoil(rset.getString("soil"));
+				plant.setWateringSpring(rset.getString("watering_spring"));
+				plant.setWateringSummer(rset.getString("watering_summer"));
+				plant.setWateringAutumn(rset.getString("watering_autumn"));
+				plant.setWateringWinter(rset.getString("watering_winter"));
+				plant.setEffectPurification(rset.getString("effect_purification"));
+				plant.setPlacement(rset.getString("placement"));
+				plant.setSeasonBlooming(rset.getString("season_blooming"));
+				plant.setSeasonFruiting(rset.getString("season_fruiting"));
+				plant.setSeasonPropagation(rset.getString("season_propagation"));
+				plant.setPropagationMethod(rset.getString("propagation_method"));
+				plant.setManagingDiseasesPests(rset.getString("managing_diseases_pests"));
+				plant.setUsefulInfo(rset.getString("useful_info"));
+				plant.setManagingTips(rset.getString("managing_tips"));
+				plant.setCreatedDate(rset.getDate("created_date"));
+				plant.setUpdateDate(rset.getDate("update_date"));
+				plant.setViewCount(rset.getInt("view_count"));
+				plant.setPlantNo(rset.getInt("plant_no"));
+				plant.setPlantName(rset.getString("plant_name"));
+				plant.setScientificName(rset.getString("scientific_name"));
+				plant.setEnglishName(rset.getString("english_name"));
+				plant.setFamilyName(rset.getString("family_name"));
+				plant.setOriginalHabitat(rset.getString("original_habitat"));
+				plant.setPlantImg(rset.getString("plant_img"));
+				plant.setPlantThumbnail(rset.getString("plant_thumbnail"));
+				plant.setUsecase(rset.getString("usecase"));
+				plant.setGrowthWidth(rset.getInt("growth_width"));
+				plant.setGrowthHeight(rset.getInt("growth_height"));
+				plant.setLeafShape(rset.getString("leaf_shape"));
+				plant.setLeafPattern(rset.getString("leaf_pattern"));
+				plant.setLeafColor(rset.getString("leaf_color"));
+				plant.setRootShape(rset.getString("root_shape"));
+				plant.setGrowthForm(rset.getString("growth_form"));
+				plant.setFlowerColor(rset.getString("flower_color"));
+				plant.setFruitColor(rset.getString("fruit_color"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return plant;
+	}
+
 }

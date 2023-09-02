@@ -5,17 +5,17 @@ import static common.JDBCTemplate.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import store.main.model.vo.MainContent;
 import store.product.model.vo.ProductDetail;
 
 public class ProductDao {
 
-	public ArrayList<ProductDetail> selectFilterList(Connection conn, ArrayList<String> options) {
+	public ArrayList<MainContent> selectFilterList(Connection conn, ArrayList<String> options) {
 		System.out.println(options.toString());
 		ArrayList<Integer> productids = new ArrayList<Integer>();
-		ArrayList<ProductDetail> list = new ArrayList<ProductDetail>();
+		ArrayList<MainContent> list = new ArrayList<MainContent>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
@@ -98,14 +98,12 @@ public class ProductDao {
 			rsetT = pstmtT.executeQuery();
 
 			while (rsetT.next()) {
-				ProductDetail pdetail = new ProductDetail();
+				MainContent pdetail = new MainContent();
 
-				pdetail.setProductId(rsetT.getString("PRODUCT_ID"));
+				pdetail.setProductId(rsetT.getInt("PRODUCT_ID"));
 				pdetail.setProductName(rsetT.getString("PRODUCT_NAME"));
-				pdetail.setSellerName(rsetT.getString("DISPLAYED_STORE_NAME"));
 				pdetail.setPrice(rsetT.getInt("PRICE"));
-				pdetail.setSellerNo(rsetT.getString("SELLER_NO"));
-				pdetail.setThumbnailImg(rsetT.getString("PRODUCT_THUMBNAIL_IMG"));
+				pdetail.setProductThumbnail(rsetT.getString("PRODUCT_THUMBNAIL_IMG"));
 				pdetail.setExposureYn(rsetT.getString("EXPOSURE_YN"));
 
 				list.add(pdetail);

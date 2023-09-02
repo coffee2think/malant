@@ -158,6 +158,10 @@ ul#new_categories li:hover::before {
   color: #ddd;
 }
 
+.content{
+  font-family: GmarketSansBold;
+}
+
 
 /* ----------------------------------------------미디어 쿼리------------------------------------- */
 

@@ -59,7 +59,6 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 			}
 		});
 	}
-	
 </script>
 
 
@@ -145,7 +144,5 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 			<% } %>
 		</div>
 	</div>
-
-
 </body>
 </html>

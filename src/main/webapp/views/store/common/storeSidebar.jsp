@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" import="store.product.model.vo.ProductDetail, java.util.ArrayList, member.model.vo.Member"%>
+pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayList, member.model.vo.Member"%>
 <%
-	ArrayList<ProductDetail> pdetail = (ArrayList<ProductDetail>) request.getAttribute("plistf");
+	ArrayList<MainContent> plistf = (ArrayList<MainContent>) request.getAttribute("plistf");
 	Member loginMember = (Member) session.getAttribute("loginMember");
 %>
 
