@@ -39,14 +39,9 @@ public class SearchPlantServlet extends HttpServlet {
 		ArrayList<Plant> list = new SearchService().selectPlantList(keyword);
 		
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
-			view = request.getRequestDispatcher("views/search/searchListView.jsp");
-			request.setAttribute("keyword", keyword);
-			request.setAttribute("result_list", list);
-		} else {
-			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", keyword +  " 검색 실패");
-		}
+		view = request.getRequestDispatcher("views/search/searchResultView.jsp");
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("list", list);
 		
 		view.forward(request, response);
 	}

@@ -1,12 +1,14 @@
 package store.product.model.service;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import store.main.model.vo.MainContent;
 import store.product.model.dao.ProductDao;
 import store.product.model.vo.ProductDetail;
-
-import static common.JDBCTemplate.*;
 
 public class ProductService {
 	private ProductDao pdao = new ProductDao();
@@ -24,13 +26,14 @@ public class ProductService {
 	public ArrayList<ProductDetail> selectProductList(String categoryid) {
 		Connection conn = getConnection();
 		ArrayList<ProductDetail> list = pdao.selectProductList(conn, categoryid);
-
+		close(conn);
 		return list;
 	}
 
-	public ArrayList<ProductDetail> selectFilterList(String[] parentCategoryId) {
+	public ArrayList<MainContent> selectFilterList(ArrayList<String> options) {
 		Connection conn = getConnection();
-		ArrayList<ProductDetail> list = pdao.selectFilterList(parentCategoryId);
+		ArrayList<MainContent> list = pdao.selectFilterList(conn, options);
+		close(conn);
 		return list;
 	}
 	
@@ -39,7 +42,6 @@ public class ProductService {
 		Connection conn = getConnection();
 		ArrayList<ProductDetail> list = pdao.selectProductDetail(conn, productid);
 		close(conn);
-
 		return list;
 	}
 

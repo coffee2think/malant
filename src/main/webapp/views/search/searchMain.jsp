@@ -15,18 +15,12 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		margin: auto;
 	}
 	
 	.searchbar {
 		width: 500px;
 		height: 50px;
-		border:1px solid red;
-		margin: auto;
-	}
-
-	.bestboards {
-		width:500px;
-		height:300px;
 		border:1px solid red;
 		margin: auto;
 	}
@@ -39,6 +33,13 @@
 	.searchbtn {
 		width: 40px;
 		height: 45px;
+	}
+	
+	.bestboards {
+		width:500px;
+		height:300px;
+		border:1px solid red;
+		margin: auto;
 	}
 </style>
 </head>

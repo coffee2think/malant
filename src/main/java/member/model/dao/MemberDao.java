@@ -3,8 +3,11 @@ package member.model.dao;
 import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import javax.print.attribute.PrintJobAttribute;
 
 import member.model.vo.Member;
 import member.model.vo.Seller;
@@ -85,10 +88,9 @@ public class MemberDao {
 	public int insertMember(Connection conn, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
 		
 		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn)\n"
-				+ "values (replace(? || decode((select to_char(max(to_number(substr(user_no, 4))) + 1, '0000000') from member), null, '0000001', (select to_char(max(to_number(substr(user_no, 4))) + 1, '0000000') from member)), ' ', ''), "
+				+ "values (replace(? || '-' || decode((select to_char(max(to_number(substr(user_no, 5))) + 1, '000000') from member), null, '000001', (select to_char(max(to_number(substr(user_no, 5))) + 1, '000000') from member)), ' ', ''), "
 				+ "?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
@@ -116,7 +118,6 @@ public class MemberDao {
 	public int insertSeller(Connection conn, Seller seller) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
 		
 		String query = "insert into st_seller (seller_no, business_no, seller_id, seller_pwd, contact, email, store_name, address) "
 				+ "values (replace(? || (select to_char(max(to_number(substr(seller_no, 4))) + 1, '0000000') from st_seller), ' ', ''), ?, ?, ?, ?, ?, ?, ?)";
@@ -186,7 +187,6 @@ public class MemberDao {
 	public int updateMember(Connection conn, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
 		
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("update member ")
@@ -275,6 +275,98 @@ public class MemberDao {
 		}
 		
 		return member;
+	}
+
+	public int updateWithdrawal(Connection conn, String userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update member "
+				+ "set withdrawal_yn = decode((select WITHDRAWAL_YN from member where user_no = ?), 'Y', 'N', 'Y') "
+				+ "where user_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userNo);
+			pstmt.setString(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertWithdrawal(Connection conn, String userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into mb_withdrawal "
+				+ "values (?, sysdate, sysdate + 15)";				
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Date selectWithdrawalDate(Connection conn, String userNo) {
+		Date withdrawalDate = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select withdrawal_date from mb_withdrawal "
+				+ "where user_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				withdrawalDate = rset.getDate(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return withdrawalDate;		
+	}
+
+	public int deleteWithdrawal(Connection conn, String userNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "delete from mb_withdrawal "
+				+ "where user_no = ?";				
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	

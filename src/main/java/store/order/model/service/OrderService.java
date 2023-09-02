@@ -1,12 +1,13 @@
 package store.order.model.service;
 
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import store.order.model.dao.OrderDao;
 import store.order.model.vo.ProductOrder;
+import store.product.model.vo.ProductDetail;
 
 public class OrderService {
 	
@@ -14,10 +15,10 @@ public class OrderService {
 	
 	public OrderService() {}
 	
-	public ArrayList<ProductOrder> selectProductOrder(String userNo, String productId, int quantity) {
+	public ProductOrder selectProductOrder(String productId, int quantity) {
 		Connection conn = getConnection();
-		ArrayList<ProductOrder> list = odao.selectProductOrder(conn, userNo, productId, quantity);
-		
+		ProductOrder list = odao.selectProductOrder(conn, productId, quantity);
+		close(conn);
 		return list;
 	}
 	
@@ -32,13 +33,14 @@ public class OrderService {
 	public ProductOrder addOrderList(ProductOrder productOrder) {
 		Connection conn = getConnection();
 		ProductOrder list = odao.addOrderList(conn, productOrder);
-		
+		close(conn);
 		return list;
 	}
 	
 	public String MakeOrderId(String productOrder) {
 		Connection conn = getConnection();
 		String orderid = odao.MakeOrderId(conn, productOrder);
+		close(conn);		
 		return orderid;
 	}
 }

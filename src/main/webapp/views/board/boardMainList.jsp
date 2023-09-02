@@ -185,7 +185,7 @@ function likeCountDate (boardNo){
 		<script type="text/javascript">
 		var member = '<%= loginMember %>';
 		function checkLogin(boardNo){
-			if (member != 'null'){ <%-- '<%= loginMember %>';를 ''안에 넣어서 문자열로 확인 --%>
+			if (member == 'null'){ <%-- '<%= loginMember %>';를 ''안에 넣어서 문자열로 확인 --%>
 				if (confirm("로그인 하시겠습니까?")) {
 					window.location.href = "/malant/views/member/loginPage.jsp";
 				} 

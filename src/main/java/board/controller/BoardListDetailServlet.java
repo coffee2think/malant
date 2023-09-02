@@ -34,12 +34,12 @@ public class BoardListDetailServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		int bnum = Integer.parseInt(request.getParameter("bno"));
 		
-		Board board = new BoardService().selectBoardByBoardNo(bnum);
+		//Board board = new BoardService().selectBoardByBoardNo(bnum);
 		
 		RequestDispatcher view = null;
 			
 		view = request.getRequestDispatcher("views/board/boardDetailList.jsp");
-		request.setAttribute("board", board);
+		//request.setAttribute("board", board);
 		
 		view.forward(request, response);
 	}

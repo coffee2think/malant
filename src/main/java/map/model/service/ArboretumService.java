@@ -22,6 +22,10 @@ public class ArboretumService {
 		return list;
 	}
 
-	public void selectDetailInformation() {
+	public Arboretum selectDetailInformation(String arboretumId) {
+		Connection conn = getConnection();
+		Arboretum arboretum = adao.selectInformation(conn, arboretumId);
+		close(conn);
+		return arboretum;
 	}
 }

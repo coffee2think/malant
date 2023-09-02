@@ -5,19 +5,118 @@ import static common.JDBCTemplate.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import store.main.model.vo.MainContent;
 import store.product.model.vo.ProductDetail;
 
 public class ProductDao {
 
-	
-	 public ArrayList<ProductDetail> selectFilterList(String[] parentCategoryId){
-		 
-		 return null;
-	 }
-	 
+	public ArrayList<MainContent> selectFilterList(Connection conn, ArrayList<String> options) {
+		System.out.println(options.toString());
+		ArrayList<Integer> productids = new ArrayList<Integer>();
+		ArrayList<MainContent> list = new ArrayList<MainContent>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		StringBuilder queryBuilder = new StringBuilder();
+
+		queryBuilder.append("select product_id from ");
+
+		for (int i = 1; i <= options.size(); i++) {
+			if (1 == options.size()) {
+				queryBuilder.append(
+						"(select product_id from ST_PROD_CATE where CATEGORY_ID = (select CATEGORY_ID from ST_CATEGORY where category_name= ? )) ");
+				break;
+			}
+			if (i == 1)
+				queryBuilder.append(
+						"(select product_id from ST_PROD_CATE where CATEGORY_ID = (select CATEGORY_ID from ST_CATEGORY where category_name= ? )) ");
+			if (i < options.size() && i != 1)
+				queryBuilder.append(
+						"join (select product_id from ST_PROD_CATE where CATEGORY_ID = (select CATEGORY_ID from ST_CATEGORY where category_name= ? )) using(product_id) ");
+			if (i == options.size())
+				queryBuilder.append(
+						"join (select product_id from ST_PROD_CATE where CATEGORY_ID = (select CATEGORY_ID from ST_CATEGORY where category_name= ? )) using(product_id) ");
+		}
+
+		String query = queryBuilder.toString();
+		System.out.println(query);
+
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			for (int i = 1; i <= options.size(); i++) {
+				pstmt.setString(i, options.get(i - 1).trim());
+
+				System.out.println("들어가는 옵션 : " + options.get(i - 1));
+			}
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				productids.add(rset.getInt("PRODUCT_ID"));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		System.out.println("productids : " + productids.toString());
+
+		PreparedStatement pstmtT = null;
+		ResultSet rsetT = null;
+
+		StringBuilder queryBuilder2 = new StringBuilder();
+
+		queryBuilder2.append("select * " + "from ST_PRODUCT " + "join ST_SELLER using(SELLER_NO) "
+							+ "where PRODUCT_ID in (");
+
+		for (int i = 1; i <= productids.size(); i++) {
+			queryBuilder2.append("?");
+			if (i < productids.size()) {
+				queryBuilder2.append(",");
+			}
+		}
+		queryBuilder2.append(")");
+
+		String query2 = queryBuilder2.toString();
+		System.out.println(queryBuilder2.toString());
+
+		System.out.println("productids size : "+productids.size());
+		try {
+			pstmtT = conn.prepareStatement(query2);
+
+			for (int i = 1; i <= productids.size(); i++) {
+				pstmtT.setInt(i, productids.get(i - 1));
+				System.out.println(productids.get(i - 1).toString());
+			}
+
+			rsetT = pstmtT.executeQuery();
+
+			while (rsetT.next()) {
+				MainContent pdetail = new MainContent();
+
+				pdetail.setProductId(rsetT.getInt("PRODUCT_ID"));
+				pdetail.setProductName(rsetT.getString("PRODUCT_NAME"));
+				pdetail.setPrice(rsetT.getInt("PRICE"));
+				pdetail.setProductThumbnail(rsetT.getString("PRODUCT_THUMBNAIL_IMG"));
+				pdetail.setExposureYn(rsetT.getString("EXPOSURE_YN"));
+
+				list.add(pdetail);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rsetT);
+			close(pstmtT);
+		}
+		System.out.println("dao 마지막 값 : " + list.toString());
+		return list;
+	}
 
 //	public int getListCount(Connection conn) {
 //		int listCount = 0;
@@ -88,18 +187,15 @@ public class ProductDao {
 		}
 		return list;
 	}
-	
+
 	public ArrayList<ProductDetail> selectProductList(Connection conn, String categoryid) {
 		ArrayList<ProductDetail> list = new ArrayList<ProductDetail>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * "
-				+ "from ST_PRODUCT "
-				+ "join ST_SELLER using(SELLER_NO) "
-				+ "join ST_PROD_CATE using(PRODUCT_ID) "
-				+ "join ST_CATEGORY using(CATEGORY_ID) "
+		String query = "select * " + "from ST_PRODUCT " + "join ST_SELLER using(SELLER_NO) "
+				+ "join ST_PROD_CATE using(PRODUCT_ID) " + "join ST_CATEGORY using(CATEGORY_ID) "
 				+ "where CATEGORY_ID = ?";
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, categoryid);
@@ -137,8 +233,6 @@ public class ProductDao {
 		}
 		return list;
 	}
-	
-	
 
 	public int addViewCount(Connection conn, int productViewCount) {
 		int result = 0;
@@ -161,8 +255,6 @@ public class ProductDao {
 
 		return result;
 	}
-
-
 
 	/*
 	 * public void addReadCount(int ---) { Connection conn = getConnection(); int
