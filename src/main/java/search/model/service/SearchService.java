@@ -21,4 +21,11 @@ public class SearchService {
 		return list;
 	}
 
+	public Plant selectPlant(int plantNo) {
+		Connection conn = getConnection();
+		Plant plant = sdao.selectPlant(conn, plantNo);
+		close(conn);
+		return plant;
+	}
+
 }
