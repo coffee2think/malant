@@ -2,6 +2,7 @@ package map.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import map.model.service.ArboretumService;
+import map.model.vo.Arboretum;
 
 /**
  * Servlet implementation class Ar_DetailSelectServlet
@@ -30,7 +32,22 @@ public class ArboretumDetailSelectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArboretumService aservice = new ArboretumService();
-		aservice.selectDetailInformation();
+		
+		Arboretum arboretum = aservice.selectDetailInformation();
+		
+		RequestDispatcher view = null;
+		if(arboretum != null) {
+			view = request.getRequestDispatcher("views/map/ArboretumDetailInfoPage.jsp");
+			
+			request.setAttribute("arboretum", arboretum);
+		}else {
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			
+			request.setAttribute("message", "해당 수목원의 정보를 불러올 수 없음!!");
+		}
+		
+		view.forward(request, response);
+		
 	}
 
 	/**

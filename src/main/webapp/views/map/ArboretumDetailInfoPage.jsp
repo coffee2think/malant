@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
+	 pageEncoding="UTF-8" import="map.model.vo.Arboretum"%>
+<% 
+	Arboretum arboretum = (Arboretum)request.getAttribute("arboretum"); 
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -51,24 +55,24 @@
 </head>
 <body>
   <div class="tree-title">
-    <h2 id="name">국립백두대간수목원</h2>
+    <h2 id="name"><%= arboretum.getArboretum_name() %></h2>
   </div>
   <div class="info-container">
     <div class="tree-card">
       <h2 id="address">주소</h2>
-    	<div class="content">봉화군 춘양면 춘양로 1501</div>
+    	<div class="content"><%= arboretum.getArboretum_address() %></div>
     </div>
     <div class="tree-card">
       <h2 id="website">홈페이지</h2>
-      	<div class="content"><a href="http://www.sjna.or.kr">www.sjna.or.kr</a></div>
+      	<div class="content"><a href="<%= arboretum.getArboretum_homepage() %>"><%= arboretum.getArboretum_homepage() %></a></div>
     </div>
     <div class="tree-card">
       <h2 id="phone">전화번호</h2>
-      	<div class="content">044-251-0001</div>
+      	<div class="content"><%= arboretum.getArboretum_tel() %></div>
     </div>
     <div class="tree-card">
       <h2 id="entranceFee">입장료</h2>
-      	<div class="info-content">여/부 : Y 
+      	<div class="info-content">여/부 : <%= arboretum %> <!-- 230902 15:47 작업진행중인 부분 -->
 	      <br>성인 : 5000
 	      <br>청소년 : 4000
 	      <br>어린이입장료 : 3000
