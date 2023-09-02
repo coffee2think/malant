@@ -31,9 +31,12 @@ public class ArboretumDetailSelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String arboretumId = request.getParameter("arid");
+		
 		ArboretumService aservice = new ArboretumService();
 		
-		Arboretum arboretum = aservice.selectDetailInformation();
+		Arboretum arboretum = aservice.selectDetailInformation(arboretumId);
 		
 		RequestDispatcher view = null;
 		if(arboretum != null) {
