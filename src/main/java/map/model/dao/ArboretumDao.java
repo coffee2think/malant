@@ -17,7 +17,7 @@ public class ArboretumDao {
 		ResultSet rset = null;
 		
 		//관리자를 제외한 일반회원만 전체 조회
-		String query = "select arboretum_latitude, arboretum_longitude, arboretum_name, arboretum_address"
+		String query = "select arboretum_latitude, arboretum_longitude, arboretum_name, arboretum_address, arboretum_id"
 					+ " from arboretum";
 		try {
 			pstmt = conn.prepareStatement(query);					
@@ -28,6 +28,7 @@ public class ArboretumDao {
 				Arboretum arboretum = new Arboretum();
 				
 				//결과매핑 : 컬럼값 꺼내서 필드에 옮기기
+				arboretum.setArboretum_id(rset.getString("arboretum_id"));
 				arboretum.setArboretum_name(rset.getString("arboretum_name"));
 				arboretum.setArboretum_latitude(rset.getDouble("arboretum_latitude"));
 				arboretum.setArboretum_longitude(rset.getDouble("arboretum_longitude"));
@@ -48,15 +49,17 @@ public class ArboretumDao {
 	}
 	
 	
-	public Arboretum selectInformation(Connection conn) {
+	public Arboretum selectInformation(Connection conn, String arboretumId) {
 		Arboretum arboretum = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from arboretum";
+		String query = "select * from arboretum where arboretum_id = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, arboretumId);
 			
 			rset = pstmt.executeQuery();
 			
