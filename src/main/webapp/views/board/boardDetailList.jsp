@@ -110,21 +110,21 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 		<div class='board-title'>
 			<h1>
 				제목 :
-				<%=board.getBoardTitle()%>
+				<%=board(0).getBoardTitle()%>
 			</h1>
 			<h3>
 				닉네임 :
-				<%=board.getNickname()%>
+				<%=board(0).getNickname()%>
 			</h3>
 			<h3>
 				좋아요 수 :
-				<%=board.getBoardLike()%>
+				<%=board(0).getBoardLike()%>
 			</h3>
 			<button class="like-button"
 				onclick='likeCountDetail(<%=board.getBoardNo()%>);'></button>
 			<h3>
 				게시글 날짜 :
-				<%=board.getBoardDate()%>
+				<%=board(0).getBoardDate()%>
 			</h3>
 			<br>
 			<div>
@@ -132,20 +132,20 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 					<input type="hidden" name="userno" value="<%= loginMember.getUserNo() %>">
 					<input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
 					<input type="hidden" name="profile" value="<%= loginMember.getProfileImg() %>">
+					<input type="hidden" name="nickname" value="<%= loginMember.getNickname() %>">
 					<input type="text" name="comment" placeholder="댓글을 입력하세요"> 
 					<input type="submit">
 				</form>
 			</div>
+			<% for(int i = 0; i <= board.size; ) {%>
 			<div style="board: 1px solid green; whidth 300px; height: 400px; overflow-y: scroll">
-				<%=board.getBoardContent()%>
+				<%= board.getBoardContent()%>
 				<hr>
 			</div>
+			<% } %>
 		</div>
 	</div>
-	<div class="modal-content">
-		<span class="close" onclick="closeCommentModal();">&times;</span>
-		<h2>댓글 작성</h2>
-	</div>
+
 
 </body>
 </html>
