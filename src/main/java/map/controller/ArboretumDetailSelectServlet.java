@@ -14,13 +14,13 @@ import map.model.service.ArboretumService;
  * Servlet implementation class Ar_DetailSelectServlet
  */
 @WebServlet("/ardetailinfo")
-public class Ar_DetailSelectServlet extends HttpServlet {
+public class ArboretumDetailSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Ar_DetailSelectServlet() {
+    public ArboretumDetailSelectServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
