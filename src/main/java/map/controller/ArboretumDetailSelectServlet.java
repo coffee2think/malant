@@ -3,6 +3,7 @@ package map.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import map.model.service.ArboretumService;
+
 import map.model.vo.Arboretum;
 
 /**
@@ -50,8 +52,7 @@ public class ArboretumDetailSelectServlet extends HttpServlet {
 		}
 		
 		view.forward(request, response);
-		
-	}
+  }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

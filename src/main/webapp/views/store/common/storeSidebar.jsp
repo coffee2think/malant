@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8" import="store.product.model.vo.ProductDetail, java.util.ArrayList, member.model.vo.Member"%>
 <%
-	ArrayList<ProductDetail> pdetail = (ArrayList<ProductDetail>) request.getAttribute("list");
+	ArrayList<ProductDetail> pdetail = (ArrayList<ProductDetail>) request.getAttribute("plistf");
 	Member loginMember = (Member) session.getAttribute("loginMember");
 %>
 
@@ -42,22 +42,22 @@ pageEncoding="UTF-8" import="store.product.model.vo.ProductDetail, java.util.Arr
 		</div>
 		<section>
 			<ul id="new_categories">
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plist?categoryid=plant';">
+				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=식물';">
 				<li><a>식&nbsp;&nbsp;&nbsp;물</a></li>
 				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plist?categoryid=pot';">
+				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=화분';">
 				<li><a>화&nbsp;&nbsp;&nbsp;분</a></li>
 				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plist?categoryid=soil';">
+				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=자갈/모래/흙';">
 				<li><a>자갈/모래/흙</a></li>
 				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plist?categoryid=nutrients';">
+				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=영양제/비료';">
 				<li><a>영양제/비료</a></li>
 				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plist?categoryid=light';">
+				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=식물조명';">
 				<li><a>식물조명</a></li>
 				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plist?categoryid=etc';">
+				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=기타';">
 				<li><a>기&nbsp;&nbsp;&nbsp;타</a></li>
 				</div>
 			</ul>

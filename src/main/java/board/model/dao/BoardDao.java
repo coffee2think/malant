@@ -166,8 +166,8 @@ public class BoardDao {
 		}
 		return list;
 	}
-	public Board selectBoardByBoardNo(Connection conn, int boardNo) {
-		Board board = null;
+	public ArrayList<Board> selectBoardByBoardNo(Connection conn, int boardNo) {
+		ArrayList<Board> list = new ArrayList<Board>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
@@ -178,8 +178,8 @@ public class BoardDao {
 			pstmt.setInt(1, boardNo);
 			rset = pstmt.executeQuery();
 
-			if (rset.next()) {
-				board = new Board();
+			while (rset.next()) {
+				Board board = new Board();
 				
 				board.setBoardNo(rset.getInt("BOARD_NO"));
 				board.setUserNo(rset.getString("USER_NO"));
@@ -192,8 +192,9 @@ public class BoardDao {
 				board.setViewcount(rset.getInt("VIEW_COUNT"));
 				board.setReportedYN(rset.getString("REPORTED_YN"));
 			
-				
+				list.add(board);
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -201,7 +202,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 
-		return board;
+		return list;
 	}
 
 	public Comment selectBestComment(Connection conn, int boardNo) {
