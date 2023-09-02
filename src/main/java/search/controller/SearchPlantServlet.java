@@ -40,9 +40,9 @@ public class SearchPlantServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {
-			view = request.getRequestDispatcher("views/search/searchListView.jsp");
+			view = request.getRequestDispatcher("views/search/searchResultView.jsp");
 			request.setAttribute("keyword", keyword);
-			request.setAttribute("result_list", list);
+			request.setAttribute("list", list);
 		} else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", keyword +  " 검색 실패");

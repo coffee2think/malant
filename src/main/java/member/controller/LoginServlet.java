@@ -3,6 +3,7 @@ package member.controller;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.sql.Date;
 import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
@@ -51,31 +52,32 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		// 서비스 메소드로 값 전달 실행하고 결과 받기
-		Member loginMember = new MemberService().selectLogin(userId, cryptoUserpwd);
+		Member member = new MemberService().selectLogin(userId, cryptoUserpwd);
 		
 		
 		// 받은 결과를 가지고 성공/실패 페이지 내보내기
-		if(loginMember != null && loginMember.getBlockedYn().equals("N")) { // 로그인 성공
-			// 로그인 상태 확인용 세션 객체 생성
+		RequestDispatcher view = null;
+		if(member != null && member.getWithdrawalYn().equals("Y")) { // 탈퇴한 회원인 경우
+			Date withdrawalDate = new MemberService().selectWithdrawalDate(member.getUserNo());
+			
+			view = request.getRequestDispatcher("views/member/withdrawalRestore.jsp");
+			request.setAttribute("userNo", member.getUserNo());
+			request.setAttribute("withdrawalDate", withdrawalDate);
+			
+			view.forward(request, response);
+		} else if(member != null && member.getBlockedYn().equals("N")) { // 로그인 성공
 			HttpSession session = request.getSession();
-			
-			// 로그인한 회원의 정보를 세션객체에 저장함
-			session.setAttribute("loginMember", loginMember);
-			
-			// 로그인 성공시 내보낼 페이지 지정
+			session.setAttribute("loginMember", member);
 			response.sendRedirect("index.jsp");
 		} else { // 로그인 실패
-			// 에러페이지 뷰 객체 생성
-			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
+			view = request.getRequestDispatcher("views/common/error.jsp");
 			
-			// 뷰로 보낼 메시지 설정
-			if(loginMember != null && loginMember.getBlockedYn().equals("Y")) { // 제한된 회원이라면
+			if(member != null && member.getBlockedYn().equals("Y")) { // 제한된 회원이라면
 				request.setAttribute("message", "로그인이 제한된 회원입니다. 관리자에게 문의하세요.");
-			} else if(loginMember == null) {
+			} else if(member == null) { // 회원 정보가 없을 경우
 				request.setAttribute("message", "로그인 실패. 아이디 또는 암호를 확인하세요.");
 			}
 			
-			// 요청한 클라이언트로 전송함
 			view.forward(request, response);
 		}
 	}
