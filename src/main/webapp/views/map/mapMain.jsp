@@ -13,7 +13,7 @@
 }
 </style>
     <meta charset="utf-8">
-    <title>마커</title>
+    <title>수목원 맵</title>
     
 </head>
 <body>
@@ -31,13 +31,6 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         center: new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표
         level: 13 // 지도의 확대 레벨
     };
-    
-/* var clusterer = new kakao.maps.MarkerClusterer({
-    map: map,
-    averageCenter: true,
-    minLevel: 10,
-    disableClickZoom: false
-}); */
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
@@ -52,7 +45,7 @@ imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵�
 	var marker = new kakao.maps.Marker({
 	    position: markerPosition,
 	    image: markerImage
-	}); 	
+	});
 	
 	marker.setMap(map);
 	
@@ -78,9 +71,6 @@ imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵�
     })(marker, infowindow);
 	
 <% } %>
-
-/* //마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
-marker.setClickable(true); */
 
 </script>
 </body>
