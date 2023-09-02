@@ -47,17 +47,16 @@ public class InputOrderInfoServlet extends HttpServlet {
 		String quantitystr = request.getParameter("quantity");
 		int quantity = Integer.valueOf(quantitystr);
 		
-		System.out.printf(productid, quantitystr);
+		System.out.printf(productid, quantity);
 		
-		ArrayList<ProductDetail> list = new OrderService().selectProductOrder(productid, quantity);
+		ProductOrder porder = new OrderService().selectProductOrder(productid, quantity);
 
 		
 		RequestDispatcher view = null;
-		if (list.size() > 0) {
+		if (porder != null) {
 			view = request.getRequestDispatcher("views/store/order/orderInput.jsp");
-			request.setAttribute("list", list);
-			request.setAttribute("quantity", quantity);
-			System.out.println("servlet성공 : " + list.toString());
+			request.setAttribute("porder", porder);
+			System.out.println("servlet성공 : " + porder.toString());
 		} else {
 			System.out.println("servlet실패 : ");
 			view = request.getRequestDispatcher("views/common/error.jsp");

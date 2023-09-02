@@ -12,9 +12,9 @@ import store.product.model.vo.ProductDetail;
 
 public class OrderDao {
 
-	public ArrayList<ProductDetail> selectProductOrder(Connection conn, String productId, int quantity) {
+	public ProductOrder selectProductOrder(Connection conn, String productId, int quantity) {
 		
-		ArrayList<ProductDetail> list = new ArrayList<ProductDetail>();
+		ProductOrder porder = new ProductOrder();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -25,18 +25,17 @@ public class OrderDao {
 			pstmt.setString(1, productId);
 			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
-			
-			ProductDetail pdetail = new ProductDetail();
-			
-			pdetail.setProductId(productId);
-			pdetail.setProductName(rset.getString("PRODUCT_NAME"));
-			pdetail.setPrice(rset.getInt("PRICE"));
-			pdetail.setDeliveryCharge(rset.getInt("DELIVERY_CHARGE"));
-			pdetail.setThumbnailImg(rset.getString("PRODUCT_THUMBNAIL_IMG"));
-			
-			list.add(pdetail);
+			if(rset.next()) {
+			porder.setProductId(productId);
+			porder.setProductName(rset.getString("PRODUCT_NAME"));
+			porder.setPrice(rset.getInt("PRICE"));
+			porder.setDeliveryCharge(rset.getInt("DELIVERY_CHARGE"));
+			porder.setThumbnailImg(rset.getString("PRODUCT_THUMBNAIL_IMG"));
+			porder.setQuantity(quantity);
+			porder.setStoreName(rset.getString("DISPLAYED_STORE_NAME"));
 			}
+			
+			System.out.println("dao : "+ porder.toString());
 
 		} catch(Exception e){
 			e.printStackTrace();
@@ -44,7 +43,7 @@ public class OrderDao {
 			close(rset);
 			close(pstmt);
 		}
-		return list;
+		return porder;
 	}	
 	
 	public int updatePayCancel() {

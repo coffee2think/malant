@@ -62,7 +62,7 @@ function populateDropdown1() {
         options7 = ["크기", "소형", "중형","대형"]
         options8 = ["용도", "관상용", "식용", "조경용"]
     } else if (selectedOption === "화분") {
-        options2 = ["세라믹", "도자기", "플라스틱", "대리석", "시멘트", "고무"];
+        options2 = ["재질", "세라믹", "도자기", "플라스틱", "대리석", "시멘트", "고무"];
         options3 = ["크기", "소형", "중형", "대형", "특대"];
     } else if (selectedOption === "자갈/모래/흙") {
         options2 = ["종류", "자연토양", "인공토양"];
@@ -200,11 +200,11 @@ populateDropdown1();
 			</form>
 			<div class="productcontainer">
 				<%
-				for (ProductDetail p : pdetail) {
+				for (MainContent p : plistf) {
 				%>
 				<div class="product-card"
 					onclick="javascript:location.href='/malant/pdetail?productid=<%=p.getProductId()%>';">
-					<img class="product-image" src="<%=p.getThumbnailImg()%>">
+					<img class="product-image" src="<%=p.getProductThumbnail()%>">
 					<div class="product-name"><%=p.getProductName()%></div>
 					<div class="product-price"><%=p.getPrice() + "원"%></div>
 				</div>
