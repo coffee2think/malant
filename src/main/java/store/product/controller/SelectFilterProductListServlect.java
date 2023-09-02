@@ -19,41 +19,77 @@ import store.product.model.vo.ProductDetail;
 @WebServlet("/plistf")
 public class SelectFilterProductListServlect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SelectFilterProductListServlect() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public SelectFilterProductListServlect() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String productid = request.getParameter("productid");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		ArrayList<String> options = new ArrayList<String>();
+
+		request.setCharacterEncoding("utf-8");
+		String option5 = request.getParameter("option5");
+		String option6 = request.getParameter("option6");
+
+		for (int i = 1; i <= 8; i++) {
+			if (request.getParameter("option" + i) != null) {
+				if (!(request.getParameter("option" + i).equals("난이도")
+						|| request.getParameter("option" + i).equals("일조량")
+						|| request.getParameter("option" + i).equals("습도")
+						|| request.getParameter("option" + i).equals("정화능력")
+						|| request.getParameter("option" + i).equals("가습효과")
+						|| request.getParameter("option" + i).equals("크기")
+						|| request.getParameter("option" + i).equals("용도")
+						|| request.getParameter("option" + i).equals("재질")
+						|| request.getParameter("option" + i).equals("종류"))) {
+					if ("유".equals(request.getParameter("option" + i)) && i == 5) {
+						option5 = "purification";
+					} else if ("유".equals(request.getParameter("option" + i)) && i == 6) {
+						option6 = "humidifying";
+					} else {
+						option5 = null;
+						option6 = null;
+					}
+					options.add(request.getParameter("option" + i));
+				}
+			}
+		}
+
+		System.out.println(options.toString());
 		
-		ArrayList<ProductDetail> list = new ProductService().selectProductDetail(productid);
+		ArrayList<ProductDetail> plistf = new ProductService().selectFilterList(options);
+
 		RequestDispatcher view = null;
-		if (list.size() > 0) { 
-			view = request.getRequestDispatcher("views/store/product/productFilterView.jsp");
-			request.setAttribute("list", list);
-			System.out.println("servlet성공 : " + list.toString());
+		System.out.println("서블릿 마지막 : "+plistf.toString());
+
+		if (plistf.size() > 0) {
+			view = request.getRequestDispatcher("views/store/product/selectProductView.jsp");
+			request.setAttribute("plistf", plistf);
 		} else {
 			System.out.println("servlet실패 : ");
 			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", productid + " 상품정보 조회 실패");
+			request.setAttribute("message", plistf + " 상품정보 조회 실패");
 		}
-		
 		view.forward(request, response);
 	}
 

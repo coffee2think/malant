@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import store.order.model.dao.OrderDao;
 import store.order.model.vo.ProductOrder;
+import store.product.model.vo.ProductDetail;
 
 public class OrderService {
 	
@@ -14,10 +15,9 @@ public class OrderService {
 	
 	public OrderService() {}
 	
-	public ArrayList<ProductOrder> selectProductOrder(String userNo, String productId, int quantity) {
+	public ArrayList<ProductDetail> selectProductOrder(String productId, int quantity) {
 		Connection conn = getConnection();
-		ArrayList<ProductOrder> list = odao.selectProductOrder(conn, userNo, productId, quantity);
-		
+		ArrayList<ProductDetail> list = odao.selectProductOrder(conn, productId, quantity);
 		return list;
 	}
 	
