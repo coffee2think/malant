@@ -65,12 +65,12 @@ public class BoardService {
 		return list;
 	}
 	
-	public Board selectBoardByBoardNo(int boardNo) {
+	public ArrayList<Board> selectBoardByBoardNo(int boardNo) {
 		Connection conn = getConnection();
-		Board board = bdao.selectBoardByBoardNo(conn, boardNo);
+		ArrayList<Board> list = bdao.selectBoardByBoardNo(conn, boardNo);
 		close(conn);
 
-		return board;
+		return list;
 	}
 
 	public Comment selectBestComment(int boardNo) {

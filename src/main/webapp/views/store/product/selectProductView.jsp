@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="store.product.model.vo.ProductDetail, java.util.ArrayList"%>
+	import="store.product.model.vo.ProductDetail, java.util.ArrayList"%>	
+
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,82 +16,126 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
 <script>
-//1번 드롭다운 메뉴
+//1번 옵션
 function populateDropdown1() {
     console.log("Dropdown 1이 변경되었습니다.")
     var dropdown1 = document.getElementById("dropdown1");
     var selectedOption = dropdown1.options[dropdown1.selectedIndex].value;
 
-    // 2번 드롭다운 메뉴 초기화
+    // 드롭다운 메뉴 초기화
     var dropdown2 = document.getElementById("dropdown2");
     dropdown2.innerHTML = "";
     
     var dropdown3 = document.getElementById("dropdown3");
     dropdown3.innerHTML = "";
+    
+    var dropdown4 = document.getElementById("dropdown4");
+    dropdown4.innerHTML = "";
+    
+    var dropdown5 = document.getElementById("dropdown5");
+    dropdown5.innerHTML = "";
+    
+    var dropdown6 = document.getElementById("dropdown6");
+    dropdown6.innerHTML = "";
+    
+    var dropdown7 = document.getElementById("dropdown7");
+    dropdown7.innerHTML = "";
 
-    // 2번 드롭다운 메뉴의 옵션을 설정
+    var dropdown8 = document.getElementById("dropdown8");
+    dropdown8.innerHTML = "";
+
+    
+    // 2~8번 드롭다운 메뉴의 옵션을 설정
     var options2 = [];
+    var options3 = [];
+    var options4 = [];
+    var options5 = [];
+    var options6 = [];
+    var options7 = [];
+    var options8 = [];
     if (selectedOption === "식물") {
-        options2 = ["일조량", "공기정화", "가습효과", "크기", "용도"];
+        options2 = ["난이도", "초보자", "경험자", "전문가"];
+        options3 = ["일조량", "직사광선", "간접광선"];
+        options4 = ["습도", "습한환경", "보통", "건조한환경"];
+        options5 = ["정화능력", "유", "무"]
+        options6 = ["가습효과", "유", "무"]
+        options7 = ["크기", "소형", "중형","대형"]
+        options8 = ["용도", "관상용", "식용", "조경용"]
     } else if (selectedOption === "화분") {
-        options2 = ["재질", "크기"];
+        options2 = ["세라믹", "도자기", "플라스틱", "대리석", "시멘트", "고무"];
+        options3 = ["크기", "소형", "중형", "대형", "특대"];
     } else if (selectedOption === "자갈/모래/흙") {
-        options2 = ["재질", "크기"];
+        options2 = ["종류", "자연토양", "인공토양"];
     }
 
-    // 2번 드롭다운 메뉴에 옵션을 추가
+    // 옵션에 추가
     for (var i = 0; i < options2.length; i++) {
         var option = document.createElement("option");
         option.value = options2[i];
         option.text = options2[i];
         dropdown2.appendChild(option);
     }
-
-    // 첫 번째 드롭다운 메뉴가 선택되었을 때만 두 번째 드롭다운 메뉴를 표시
-    if (selectedOption !== "전체") {
-        dropdown2.style.display = "inline"; // 나타나게 함
-    } else {
-        dropdown2.style.display = "none"; // 숨김 처리
+    for (var i = 0; i < options3.length; i++) {
+        var option = document.createElement("option");
+        option.value = options3[i];
+        option.text = options3[i];
+        dropdown3.appendChild(option);
+    }
+    for (var i = 0; i < options4.length; i++) {
+        var option = document.createElement("option");
+        option.value = options4[i];
+        option.text = options4[i];
+        dropdown4.appendChild(option);
+    }
+    for (var i = 0; i < options5.length; i++) {
+        var option = document.createElement("option");
+        option.value = options5[i];
+        option.text = options5[i];
+        dropdown5.appendChild(option);
+    }
+    for (var i = 0; i < options6.length; i++) {
+        var option = document.createElement("option");
+        option.value = options6[i];
+        option.text = options6[i];
+        dropdown6.appendChild(option);
+    }
+    for (var i = 0; i < options7.length; i++) {
+        var option = document.createElement("option");
+        option.value = options7[i];
+        option.text = options7[i];
+        dropdown7.appendChild(option);
+    }
+    for (var i = 0; i < options8.length; i++) {
+        var option = document.createElement("option");
+        option.value = options8[i];
+        option.text = options8[i];
+        dropdown8.appendChild(option);
     }
 
-    // 2번 드롭다운 메뉴가 변경될 때 세 번째 드롭다운 메뉴를 나타나게 하고 해당 메뉴의 옵션 값을 설정
-    dropdown2.addEventListener("change", function () {
-        var selectedOption2 = dropdown2.options[dropdown2.selectedIndex].value;
-        var dropdown3 = document.getElementById("dropdown3");
-        dropdown3.innerHTML = "";
-
-        // 3번 드롭다운 메뉴의 옵션을 설정
-        var options3 = [];
-        if (selectedOption2 === "난이도") {
-            options3 = ["초보", "경험자", "전문가"];
-        } else if (selectedOption2 === "일조량") {
-            options3 = ["직사광선", "간접광선"];
-        } else if (selectedOption2 === "습도") {
-            options3 = ["습한환경", "보통", "건조한환경"];
-        } else if (selectedOption2 === "크기") {
-            options3 = ["소형", "중형", "대형"];
-        } else if (selectedOption2 === "용도") {
-            options3 = ["관상용", "식용", "조경용"];
-        } else if (selectedOption2 === "재질") {
-            options3 = ["세라믹", "도자기", "플라스틱", "대리석", "시멘트", "고무"];
-        }
-
-        // 3번 드롭다운 메뉴에 옵션을 추가
-        for (var j = 0; j < options3.length; j++) {
-            var option3 = document.createElement("option");
-            option3.value = options3[j];
-            option3.text = options3[j];
-            dropdown3.appendChild(option3);
-        }
-
-        // 두 번째 드롭다운 메뉴가 선택되었을 때만 세 번째 드롭다운 메뉴를 표시
-        if (selectedOption2 !== "필터2") {
-            dropdown3.style.display = "inline";
-        } else {
-            dropdown3.style.display = "none";
-        }
-    });
+    // 첫 번째 옵션이 선택되었을 때만 옵션들 표시
+    if (selectedOption !== "전체") {
+        dropdown2.style.display = "inline";
+        dropdown3.style.display = "inline";
+        dropdown4.style.display = "inline";
+        dropdown5.style.display = "inline";
+        dropdown6.style.display = "inline";
+        dropdown7.style.display = "inline";
+        dropdown8.style.display = "inline";
+    } else {
+        dropdown2.style.display = "none";
+        dropdown3.style.display = "none";
+        dropdown4.style.display = "none";
+        dropdown5.style.display = "none";
+        dropdown6.style.display = "none";
+        dropdown7.style.display = "none";
+        dropdown8.style.display = "none";
+    }
 }
+
+document.getElementById("dropdown1").addEventListener("change", function () {
+    populateDropdown1();
+});
+
 
 // 초기화
 populateDropdown1();
@@ -99,7 +144,7 @@ populateDropdown1();
 
 <style>
 .dropdown {
-	width: 200px;
+	width: 100px;
 	padding: 5px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
@@ -130,26 +175,29 @@ populateDropdown1();
 		<%@ include file="../common/storeSidebar.jsp"%>
 
 		<div class="content">
-			<div class="dropdownFilter">
-				<select id="dropdown1" class="dropdown"
-					onchange="populateDropdown1()">
-					<option value="전체">전체</option>
-					<option value="식물">식물</option>
-					<option value="화분">화분</option>
-					<option value="자갈/모래/흙">자갈/모래/흙</option>
-					<option value="영양제/비료">영양제/비료</option>
-					<option value="식물조명">식물조명</option>
-					<option value="기타">기타</option>
+			<form action="/malant/plistf" method="post">
+				<div class="dropdownFilter">
+					<select id="dropdown1" class="dropdown"
+						onchange="populateDropdown1()" name="option1">
+						<option value="전체">전체</option>
+						<option value="식물">식물</option>
+						<option value="화분">화분</option>
+						<option value="자갈/모래/흙">자갈/모래/흙</option>
+						<option value="영양제/비료">영양제/비료</option>
+						<option value="식물조명">식물조명</option>
+						<option value="기타">기타</option>
 
-				</select> <select id="dropdown2" class="dropdown">
-					<option value="필터2"></option>
-					
-				</select> <select id="dropdown3" class="dropdown">
-					<option value="필터3"></option>
-				</select>
-
-
-			</div>
+					</select>
+					<select id="dropdown2" class="dropdown" name="option2"></select>
+					<select id="dropdown3" class="dropdown" name="option3"></select>
+					<select id="dropdown4" class="dropdown" name="option4"></select>
+					<select id="dropdown5" class="dropdown" name="option5"></select>
+					<select id="dropdown6" class="dropdown" name="option6"></select>
+					<select id="dropdown7" class="dropdown" name="option7"></select>
+					<select id="dropdown8" class="dropdown" name="option8"></select>
+					<input type="submit" value="검색">
+				</div>
+			</form>
 			<div class="productcontainer">
 				<%
 				for (ProductDetail p : pdetail) {

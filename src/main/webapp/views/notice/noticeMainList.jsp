@@ -13,40 +13,9 @@
 		<div class="container">
 			<%@ include file="../../views/common/sidebar.jsp"%>
 		</div>
-		<a href="/malant/views/notice/noticeDetailList.jsp">
-			<div class="notice-container">
-				<div class="notice-image">
-					<img class="notice-image-main"
-						src="/malant/resources/notice/notice_upfile/식물이미지.jpeg">
-				</div>
-
-				<div class="notice-title">
-					<h4>제목</h4>
-			    </div>
-		</a>
-	</div>
-	<a href="/malant/views/notice/noticeDetailList.jsp">
-		<div class="notice-container">
-			<div class="notice-image">
-				<img class="notice-image-main"
-					src="/malant/resources/notice/notice_upfile/식물이미지.jpeg">
-			</div>
-			<div class="notice-title">
-				<h4>제목</h4>
-			</div>
-	</a>
-	</div>
-	<a href="/malant/views/notice/noticeDetailList.jsp">
-		<div class="notice-container">
-			<div class="notice-image">
-				<img class="notice-image-main"
-					src="/malant/resources/notice/notice_upfile/식물이미지.jpeg">
-			</div>
-			<div class="notice-title">
-				<h4>제목</h4>
-			</div>
-	</a>
-	</div>
+		<div class="notice-image" src="<%= %>">
+				
+		</div>
 	</div>
 
 </body>
