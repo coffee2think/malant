@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import store.main.model.vo.MainContent;
 import store.product.model.service.ProductService;
-import store.product.model.vo.ProductDetail;
 
 /**
  * Servlet implementation class SelectFilterProductListServlect
@@ -77,7 +77,7 @@ public class SelectFilterProductListServlect extends HttpServlet {
 
 		System.out.println(options.toString());
 		
-		ArrayList<ProductDetail> plistf = new ProductService().selectFilterList(options);
+		ArrayList<MainContent> plistf = new ProductService().selectFilterList(options);
 
 		RequestDispatcher view = null;
 		System.out.println("서블릿 마지막 : "+plistf.toString());
@@ -87,8 +87,8 @@ public class SelectFilterProductListServlect extends HttpServlet {
 			request.setAttribute("plistf", plistf);
 		} else {
 			System.out.println("servlet실패 : ");
-			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", plistf + " 상품정보 조회 실패");
+			view = request.getRequestDispatcher("views/store/product/selectProductView.jsp");
+			request.setAttribute("message", plistf + "조회된 상품이 없습니다.");
 		}
 		view.forward(request, response);
 	}
