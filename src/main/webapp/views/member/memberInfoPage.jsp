@@ -147,7 +147,7 @@
 			<form action="/malant/mupdate" method="post" onsubmit="return validate();">
 				<input type="hidden" id="userid" name="userid" value="<%= loginMember.getUserId() %>">
 				<table class="info-table" border="1" cellspacing="0" cellpadding="1">
-					<tr><th>아이디</th><td colspan="2"><%= member.getUserId() %></td></tr>
+					<tr><th>아이디</th><td colspan="2"><%= loginMember.getUserId() %></td></tr>
 					<tr>
 						<th>닉네임</th>
 						<td><input type="text" id="nickname" name="nickname" value="<%= member.getNickname() %>" maxlength="8" placeholder="<%= member.getNickname() %>" disabled></td>
@@ -183,7 +183,7 @@
 					>공지사항 및 이벤트 소식</label></td></tr>
 					<tr>
 						<th colspan="3">
-							<input type="button" value="회원탈퇴" onclick="javascript: location.href = ''"> &nbsp; &nbsp; &nbsp; 
+							<input type="button" value="회원탈퇴" onclick="javascript: location.href='/malant/mleave?userno=<%= loginMember.getUserNo() %>'"> &nbsp; &nbsp; &nbsp; 
 							<input type="submit" value="변경하기">
 						</th>
 					</tr>
