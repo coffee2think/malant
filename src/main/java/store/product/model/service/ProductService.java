@@ -28,9 +28,9 @@ public class ProductService {
 		return list;
 	}
 
-	public ArrayList<ProductDetail> selectFilterList(String[] parentCategoryId) {
+	public ArrayList<ProductDetail> selectFilterList(ArrayList<String> options) {
 		Connection conn = getConnection();
-		ArrayList<ProductDetail> list = pdao.selectFilterList(parentCategoryId);
+		ArrayList<ProductDetail> list = pdao.selectFilterList(conn, options);
 		return list;
 	}
 	

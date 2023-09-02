@@ -48,40 +48,39 @@ public class ArboretumDao {
 	}
 	
 	
-	public Arboretum selectInformation(Connection conn, String arboretum_id) {
+	public Arboretum selectInformation(Connection conn) {
 		Arboretum arboretum = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from arboretum where arboretum_id = ?";
+		String query = "select * from arboretum";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			
-			pstmt.setString(1, arboretum_id);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				arboretum = new Arboretum();
 				
-				arboretum.setArboretum_id(arboretum_id);
-				arboretum.setArboretum_name(rset.getString(0));
-				arboretum.setArboretum_address(rset.getString(0));
-				arboretum.setArboretum_homepage(rset.getString(0));
-				arboretum.setArboretum_tel(rset.getString(0));
-				arboretum.setEntrance_fee_yn(rset.getString(0));
-				arboretum.setFee_teenage(rset.getInt(0));;
-				arboretum.setFee_child(rset.getInt(0));
-				arboretum.setFee_disabled(rset.getInt(0));
-				arboretum.setFee_etc(rset.getString(0));
-				arboretum.setOpen_days(rset.getString(0));
-				arboretum.setClosed_days(rset.getString(0));
-				arboretum.setWith_pet_yn(rset.getString(0));
-				arboretum.setWith_guidedog_yn(rset.getString(0));
-				arboretum.setEdu_program_yn(rset.getString(0));
-				arboretum.setEdu_program_name(rset.getString(0));
-				arboretum.setEdu_pro_reservation(rset.getString(0));
+				arboretum.setArboretum_id(rset.getString("arboretum_id"));
+				arboretum.setArboretum_name(rset.getString("arboretum_name"));
+				arboretum.setArboretum_address(rset.getString("arboretum_address"));
+				arboretum.setArboretum_homepage(rset.getString("arboretum_homepage"));
+				arboretum.setArboretum_tel(rset.getString("arboretum_tel"));
+				arboretum.setEntrance_fee_yn(rset.getString("entrance_fee_yn"));
+				arboretum.setFee_adult(rset.getInt("fee_adult"));
+				arboretum.setFee_teenage(rset.getInt("fee_teenage"));
+				arboretum.setFee_child(rset.getInt("fee_child"));
+				arboretum.setFee_disabled(rset.getInt("fee_disabled"));
+				arboretum.setFee_etc(rset.getString("fee_etc"));
+				arboretum.setOpen_days(rset.getString("open_days"));
+				arboretum.setClosed_days(rset.getString("closed_days"));
+				arboretum.setWith_pet_yn(rset.getString("with_pet_yn"));
+				arboretum.setWith_guidedog_yn(rset.getString("with_guidedog_yn"));
+				arboretum.setEdu_program_yn(rset.getString("edu_program_yn"));
+				arboretum.setEdu_program_name(rset.getString("edu_program_name"));
+				arboretum.setEdu_pro_reservation(rset.getString("edu_pro_reservation"));
 			}
 			
 		} catch (Exception e) {
