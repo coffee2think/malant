@@ -16,10 +16,11 @@ import javax.servlet.http.HttpSession;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
+
 /**
  * Servlet implementation class LoginMemberInfoServlet
  */
-@WebServlet("/login/minfo")
+@WebServlet("/loginminfo")
 public class LoginMemberInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -54,27 +55,15 @@ public class LoginMemberInfoServlet extends HttpServlet {
 		Member loginMember = new MemberService().selectLogin(userId, cryptoUserpwd);
 		
 		// 받은 결과를 가지고 성공/실패 페이지 내보내기
+		RequestDispatcher view = null;
 		if(loginMember != null) { // 로그인 성공
-			// 로그인 상태 확인용 세션 객체 생성
-			HttpSession session = request.getSession();
-			
-			// 로그인한 회원의 정보를 세션객체에 저장함
-			session.setAttribute("loginMember", loginMember);
-			
-			// 로그인 성공시 내보낼 페이지 지정
+			view = request.getRequestDispatcher("minfo");
 			request.setAttribute("userid", userId);
-			response.sendRedirect("minfo");
 		} else { // 로그인 실패
-			// 에러페이지 뷰 객체 생성
-			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
-			
-			// 뷰로 보낼 메시지 설정
+			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "로그인 실패. 아이디 또는 암호를 확인하세요.");
-			
-			// 요청한 클라이언트로 전송함
-			view.forward(request, response);
 		}
-		
+		view.forward(request, response);
 	}
 
 	/**
