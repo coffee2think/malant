@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.service.BoardService;
 import board.model.service.CommentService;
+import board.model.vo.Board;
 import board.model.vo.Comment;
 
 /**
@@ -36,11 +38,15 @@ public class InsertCommentServlet extends HttpServlet {
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
 		Comment comment = new Comment();
+		// getParameter 사용시 디비에서 값을 가져오는게 아니라 프론트에서 값을 받아 사용자에게 보여주는것으로
+		// 프론트 values 에 해당 값을 이름을 지정해 보낼 수 있게 해준다 getParameter("jsp 에서 보내준 이름")
+		// 프로필, 댓글내용, 댓글 날짜, 댓글의좋아요수, 보드번호, 사용자 닉네임
+		comment.setUserNo(request.getParameter("userno"));
+		comment.setBoardNo(Integer.parseInt(request.getParameter("bno"))); // 데이블명X
+		comment.setCommentContent(request.getParameter("comment"));
+		comment.setCommentContent(request.getParameter("profile"));
 		
-		comment.setUserNo(request.getParameter("USER_NO"));
-		comment.setBoardNo(Integer.parseInt(request.getParameter("BOARD_NO")));
-		comment.setCommentContent(request.getParameter("COMMENT_CONTENT"));
-		comment.setCommentLike(Integer.parseInt(request.getParameter("COMMENT_LIKE")));
+		
 		
 		String commentDateStr = request.getParameter("COMMENT_DATE");
 		Date commentDate = Date.valueOf(commentDateStr);

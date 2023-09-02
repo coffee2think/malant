@@ -4,6 +4,7 @@
 	import="board.model.vo.Board,java.util.ArrayList, board.model.vo.Comment"%>
 <%
 Board board = (Board) request.getAttribute("board");
+
 ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 %>
 <!DOCTYPE html>
@@ -58,6 +59,7 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 			}
 		});
 	}
+	
 </script>
 
 
@@ -100,8 +102,9 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 		<div class="container">
 			<%@ include file="../../views/common/sidebar.jsp"%>
 		</div>
-
+		
 		<div>
+
 			<img class='board-photo' src="<%=board.getBoardPhoto()%>">
 		</div>
 		<div class='board-title'>
@@ -125,11 +128,15 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 			</h3>
 			<br>
 			<div>
-				<input type="text" placeholder="댓글을 입력하세요">
-				<input type="submit">
+				<form action="/malant/cminsert">
+					<input type="hidden" name="userno" value="<%= loginMember.getUserNo() %>">
+					<input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
+					<input type="hidden" name="profile" value="<%= loginMember.getProfileImg() %>">
+					<input type="text" name="comment" placeholder="댓글을 입력하세요"> 
+					<input type="submit">
+				</form>
 			</div>
-			<div
-				style="board: 1px solid green; whidth 300px; height: 400px; overflow-y: scroll">
+			<div style="board: 1px solid green; whidth 300px; height: 400px; overflow-y: scroll">
 				<%=board.getBoardContent()%>
 				<hr>
 			</div>
