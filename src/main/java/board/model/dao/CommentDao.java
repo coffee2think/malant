@@ -54,6 +54,7 @@ public class CommentDao {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
+		System.out.println("comment : "+comment.toString());
 		
 		String query = "insert into cm_comment values (?, (select max(comment_no) +1 from cm_comment), "
 				+ " ?, ?, default, ?, default, default)";
@@ -67,7 +68,7 @@ public class CommentDao {
 			pstmt.setString(4, comment.getCommentContent());
 			
 			result = pstmt.executeUpdate();
-			
+			System.out.println("들어간다 댓글");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
