@@ -4,8 +4,8 @@
 	import="board.model.vo.Board,java.util.ArrayList, board.model.vo.Comment"%>
 <%
 Board board = (Board) request.getAttribute("board");
-
-ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
+ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("clist");
+ArrayList<String> cdate = (ArrayList<String>) request.getAttribute("cdate");
 %>
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 			}
 		});
 	}
-
+	
 	function likeCountDetail(boardNo) {
 		$.ajax({
 			url : "/malant/bbtn",
@@ -59,6 +59,7 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 			}
 		});
 	}
+	
 </script>
 
 
@@ -109,39 +110,45 @@ ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("comment");
 		<div class='board-title'>
 			<h1>
 				제목 :
-				<%=board(0).getBoardTitle()%>
+				<%=board.getBoardTitle()%>
 			</h1>
 			<h3>
 				닉네임 :
-				<%=board(0).getNickname()%>
+				<%=board.getNickname()%>
 			</h3>
 			<h3>
 				좋아요 수 :
-				<%=board(0).getBoardLike()%>
+				<%=board.getBoardLike()%>
 			</h3>
 			<button class="like-button"
 				onclick='likeCountDetail(<%=board.getBoardNo()%>);'></button>
 			<h3>
 				게시글 날짜 :
-				<%=board(0).getBoardDate()%>
+				<%=board.getBoardDate()%>
 			</h3>
 			<br>
 			<div>
 				<form action="/malant/cminsert">
 					<input type="hidden" name="userno" value="<%= loginMember.getUserNo() %>">
-					<input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
+					<input type="hidden" name="bno" value="<%=board.getBoardNo() %>">
 					<input type="hidden" name="profile" value="<%= loginMember.getProfileImg() %>">
 					<input type="hidden" name="nickname" value="<%= loginMember.getNickname() %>">
 					<input type="text" name="comment" placeholder="댓글을 입력하세요"> 
 					<input type="submit">
 				</form>
 			</div>
-			<% for(int i = 0; i <= board.size; ) {%>
-			<div style="board: 1px solid green; whidth 300px; height: 400px; overflow-y: scroll">
-				<%= board.getBoardContent()%>
-				<hr>
+		
+			<div style="border: 1px solid green; width: 1000px; height: 400px; overflow-y: scroll">
+				<% for (int i = 0; i < clist.size(); i++){%>
+  					<%= clist.get(i).getCommentContent() %>
+  					<%= clist.get(i).getNickname() %>
+  					<%= cdate.get(i) %>
+  					<br>
+  					<hr>
+  				<% } %>
+				
 			</div>
-			<% } %>
+		
 		</div>
 	</div>
 </body>

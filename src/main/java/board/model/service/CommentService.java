@@ -17,9 +17,9 @@ public class CommentService {
 	public CommentService() {
 	}
 
-	public ArrayList<Comment> selectCommentList() {
+	public ArrayList<Comment> selectCommentList(int bnum) {
 		Connection conn = getConnection();
-		ArrayList<Comment> list = cdao.selectCommentList(conn);
+		ArrayList<Comment> list = cdao.selectCommentList(conn, bnum);
 		close(conn);
 
 		return list;
