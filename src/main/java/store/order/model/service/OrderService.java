@@ -37,10 +37,14 @@ public class OrderService {
 		return list;
 	}
 	
-	public String MakeOrderId(String productOrder) {
+	public String saveOrderSheet(ProductOrder productOrder) {
 		Connection conn = getConnection();
-		String orderid = odao.MakeOrderId(conn, productOrder);
+		int result = odao.saveOrderSheet(conn, productOrder);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
 		close(conn);		
-		return orderid;
+		return result;
 	}
 }

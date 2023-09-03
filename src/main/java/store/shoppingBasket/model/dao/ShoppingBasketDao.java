@@ -42,8 +42,8 @@ public class ShoppingBasketDao {
                 sb.setDeliveryChage(rset.getInt("DELIVERY_CHARGE"));
                 sb.setTotalPrice(totalPrice);
                 sb.setProductThumnail(rset.getString("PRODUCT_THUMBNAIL_IMG"));
-                sb.setProductName(rset.getString("DISPLAYED_STORE_NAME"));
-                sb.setStoreName(rset.getString("SELLER_NAME"));
+                sb.setProductName(rset.getString("PRODUCT_NAME"));
+                sb.setStoreName(rset.getString("DISPLAYED_STORE_NAME"));
 
                 System.out.println(sb+"\n");
                 

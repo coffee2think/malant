@@ -39,9 +39,7 @@ public class AddShoppingBasketServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		System.out.println("addbasket 들어옴");
-		
+
 		String productidstr = request.getParameter("productid");
 		String userno = request.getParameter("userno");
 		String quantitystr = request.getParameter("quantity");

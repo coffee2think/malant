@@ -21,6 +21,8 @@ session.setAttribute("sblist", sblist);
 	margin: 0 auto;
 	text-align: center;
 	margin-top: 20px;
+	width: 100px;
+	height: 50px;
 }
 </style>
 
@@ -69,7 +71,7 @@ session.setAttribute("sblist", sblist);
 						%></td>
 					</tr>
 				</table>
-					<a href="/malant/views/store/order/orderSheet.jsp"><button >전체 구매하기</button>
+				<button id="all-buy" onClick="location.href='/malant/views/store/order/orderSheet.jsp'">전체 구매하기</button>
 			</div>
 		</div>
 	</div>
