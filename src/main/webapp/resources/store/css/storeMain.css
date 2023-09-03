@@ -17,14 +17,6 @@ body {
 	display: flex;
 	padding: 0;
 }
-
-.content {
-	padding-left: 20px;
-	padding-top: 20px;
-	flex-grow: 1;
-	max-width: calc(100% - 260px);
-}
-
 .allproduct {
 	font-size: 28px;
 }

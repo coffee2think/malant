@@ -14,6 +14,7 @@ ArrayList<MainContent> plist = (ArrayList<MainContent>) request.getAttribute("pl
 <title>Malant Store</title>
 <link rel="stylesheet" href="/malant/resources/common/css/font.css" />
 <link rel="stylesheet" href="/malant/resources/store/css/storeMain.css" />
+
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <style>
 .body {

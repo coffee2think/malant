@@ -18,7 +18,8 @@ public class OrderDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from ST_PRODUCT where product_id = ?";
+		String query = "select * from ST_PRODUCT "
+				+ "join ST_SELLER using(SELLER_NO) where product_id = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);

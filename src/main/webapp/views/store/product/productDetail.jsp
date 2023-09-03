@@ -37,10 +37,12 @@
 				</tr>
 			</table>
 
-			<form class="oinputform" action="/malant/oinput" method="post">
+			<form class="oinputform" action="/malant/sbadd" method="post" id="goorder">
 				<input type="hidden" name="productid"
-					value="<%=pdetail.get(0).getProductId()%>"> <label
-					for="quantity">수량 선택</label>
+					value="<%=pdetail.get(0).getProductId()%>">
+				<input type="hidden" name="userno" value="<%=loginMember.getUserNo()%>">
+				
+					<label for="quantity">수량 선택</label>
 					<select id="quantity" name="quantity">
 					<%
         				for (int i = 1; i <= 99; i++) {
@@ -50,11 +52,10 @@
        				 }
         			%>
 				</select>
-				<input type="submit" value="구매하기">
 			</form>
 
 			<div class="buttons">
-				<button class="cartButton">장바구니</button>
+				<button class="orderButton" type="submit" form="goorder">구매하기</button>
 			</div>
 			<div id="pdetail-thumnail">
 				<img src="<%=pdetail.get(0).getThumbnailImg()%>" width="400px"

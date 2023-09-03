@@ -13,23 +13,6 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 <link rel="stylesheet" href="/malant/resources/common/css/font.css" />
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 
-<script>
-  window.onload = function() {
-    const sidebar = document.querySelector('.sidebar');
-
-    window.addEventListener('scroll', function() {
-    	const topOffset = 0;
-        const scrollTop = window.scrollY;
-        const contentTop = document.querySelector('.content').offsetTop;
-        const sidebarHeight = sidebar.clientHeight;
-        const contentHeight = document.querySelector('.content').clientHeight;
-        const maxTop = contentTop + contentHeight - sidebarHeight;
-        const newTop = Math.max(topOffset, Math.min(maxTop, scrollTop));
-        sidebar.style.top = newTop + 'px';
-    });
-  };
-</script>
-
 </head>
 <body>
 	<div class="sidebar">
@@ -81,7 +64,7 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 		<% } else { %>
 			<div class="login-section">
 				<%= loginMember.getNickname() %>님 환영합니다.<br>
-				
+				<a href="/malant/sblist?userNo=<%= loginMember.getUserNo() %>">장바구니</a>
 				<a href="/malant/views/member/confirmMemberBeforeInfo.jsp?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp; 
 				<a href="/malant/logout">로그아웃</a>
 			</div>
