@@ -17,7 +17,7 @@ public class ShoppingBasketService {
 	public ArrayList<ShoppingBasket> selectSblist(String userNo) {
 		Connection conn = getConnection();
 		ArrayList<ShoppingBasket> list = sdao.selectSblist(conn, userNo);
-
+		close(conn);
 		return list;
 	}
 
@@ -32,11 +32,18 @@ public class ShoppingBasketService {
 		return result;
 	}
 
-	public ShoppingBasket addBasket(String userNo, String productId) {
+	public int addBasket(String userNo, int productId, int quantity) {
 		Connection conn = getConnection();
-		ShoppingBasket sbasket = sdao.addBasket(conn, userNo, productId);
-
-		return sbasket;
+		
+		int sbadd = sdao.addBasket(conn, userNo, productId, quantity);
+		
+		if(sbadd > 0)
+			commit(conn);
+		else
+			rollback(conn);
+			
+		close(conn);
+		return sbadd;
 	}
 
 }

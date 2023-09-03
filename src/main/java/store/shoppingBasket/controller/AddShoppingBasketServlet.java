@@ -1,11 +1,16 @@
 package store.shoppingBasket.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import store.shoppingBasket.model.service.ShoppingBasketService;
+import store.shoppingBasket.model.vo.ShoppingBasket;
 
 /**
  * Servlet implementation class AddShoppingBasketServlet
@@ -27,15 +32,39 @@ public class AddShoppingBasketServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+		System.out.println("addbasket 들어옴");
+		
+		String productidstr = request.getParameter("productid");
+		String userno = request.getParameter("userno");
+		String quantitystr = request.getParameter("quantity");
+		int quantity = Integer.valueOf(quantitystr);
+		int productid = Integer.valueOf(productidstr);
+		System.out.println(quantity+" , "+productid+" , "+userno);
+		
+		
+		int result = new ShoppingBasketService().addBasket(userno, productid, quantity);
+		
+		System.out.println(result);
+		
+		RequestDispatcher view = null;
+		
+		if (result > 0 ) {
+			response.sendRedirect("/malant/views/store/basket/addBasketOk.jsp");
+		} else {
+			System.out.println("servlet실패 : ");
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", "조회된 상품이 없습니다.");
+			view.forward(request, response);
+		}
+		
 	}
 
 }

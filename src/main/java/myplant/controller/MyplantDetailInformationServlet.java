@@ -32,7 +32,8 @@ public class MyplantDetailInformationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//게시글 상세보기 처리용 컨트롤러
-		 
+		request.setCharacterEncoding("utf-8"); 
+		
 		String userNo = request.getParameter("userno");
 		String myplantId = request.getParameter("myplantId");
 		

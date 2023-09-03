@@ -33,10 +33,14 @@ public class MyplantListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		// myplant list 조회서블릿
+		String userNo = request.getParameter("user_no");
+		
+		System.out.println("listservlet : " + userNo);
+		
 		
 		//list 가져올 userNo
-		String userNo = request.getParameter("user_no");
 
 		//출력할 페이지 지정
 		int currentPage = 1;
@@ -60,16 +64,20 @@ public class MyplantListServlet extends HttpServlet {
 		paging.calculator();
 		
 		//모델 서비스로 해당 페이지에 출력할 게시글만 조회해 옴 
-		ArrayList<Myplant> list = mpservice.selectMyplantList(paging.getStartRow(), paging.getEndRow(), userNo);
+		ArrayList<Myplant> list = mpservice.selectMyplantList(paging.getStartRow(), paging.getEndRow());
 		
 		//받은 결과에 따라 성공 또는 실패 페이지 내보내기 
 		RequestDispatcher view = null;
 		if(list.size() >= 0) {
 			view = request.getRequestDispatcher("views/diary/myplant.jsp");
 			
+			System.out.println("listservlet result : " + userNo);
+			
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
-			request.setAttribute("currentPage", currentPage);		
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("user_no", userNo);
+			
 			
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

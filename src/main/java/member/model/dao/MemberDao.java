@@ -89,9 +89,9 @@ public class MemberDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, profile_img, sign_type, alarm_yn, notice_yn)\n"
+		String query = "insert into member (user_no, user_id, user_pwd, nickname, email, sign_type, alarm_yn, notice_yn) "
 				+ "values (replace(? || '-' || decode((select to_char(max(to_number(substr(user_no, 5))) + 1, '000000') from member), null, '000001', (select to_char(max(to_number(substr(user_no, 5))) + 1, '000000') from member)), ' ', ''), "
-				+ "?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -100,10 +100,9 @@ public class MemberDao {
 			pstmt.setString(3, member.getUserPwd());
 			pstmt.setString(4, member.getNickname());
 			pstmt.setString(5, member.getEmail());
-			pstmt.setString(6, member.getProfileImg());
-			pstmt.setString(7, member.getSignType());
-			pstmt.setString(8, member.getAlarmYn());
-			pstmt.setString(9, member.getNoticeYn());
+			pstmt.setString(6, member.getSignType());
+			pstmt.setString(7, member.getAlarmYn());
+			pstmt.setString(8, member.getNoticeYn());
 			
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {

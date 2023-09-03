@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="board.model.vo.Board, java.util.ArrayList, board.model.vo.Comment"%>
+	pageEncoding="UTF-8"
+	import="board.model.vo.Board, java.util.ArrayList, board.model.vo.Comment"%>
 <!DOCTYPE html>
 <%
 ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
-
 %>
 <html>
 <head>
@@ -12,44 +12,53 @@ ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 <link rel="stylesheet" type="text/css"
 	href="/malant/resources/board/css/boardcontents.css">
 <style>
-.like-style{
-	margin-left: 100px;
+.board-all {
+    margin: 0 auto; /* 가로 가운데 정렬 */
 }
-.board-item {
-	margin-left: 100px;
+
+#toplist {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
+
+/* #hashlist 내의 내용 가운데 정렬 */
+#hashlist {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.like-style, .board-item {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .board-date-image {
-    width: 250x; /* 이미지의 너비를 조절 */
-    height:350px; /* 이미지의 높이를 조절 */
+	width: 350px; /* 이미지의 너비를 조절 */
+	height: 350px; /* 이미지의 높이를 조절 */
 }
+
 .bdlist {
 	display: flex;
-	width : 400px;
-	height: 200px;
-	margin-left: 450px;
-}
-.board-like {
-	margin-left: 300px; 
-}
-div#hashlist{
-	margin-left: 550px;
-	display: flex;
-	padding: 10px 15px;
-	gap: 200px; /* 요소 간격을 설정 */
-	font-size: 50px; /* 글자 크기를 크게 조정 */
-	
-}
-.hash {
-	color: #ff5733; /* 원하는 색상으로 변경 */
-	
-}
-a{
-text-decoration-line: none;
+	flex-direction: column; /* 세로로 나타나도록 설정 */
+	align-items: center; /* 요소를 가운데 정렬 */
+	justify-content: center; /* 세로 가운데 정렬 */
 }
 
+.board-all {
+	margin: 10px; /* 각 아이템 사이의 간격을 조절합니다. */
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 500px; /* 아이템의 폭을 조절합니다. */
+}
 
+.comment-area {
+    margin-left: auto;
+    margin-right: auto;
+}
 </style>
-
 <script type="text/javascript"
 	src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script>
@@ -61,7 +70,6 @@ $(function() {
         success: function(data) {
             var str = JSON.stringify(data);
             var json = JSON.parse(str);
-  
             values = "<div class='board-like'>";
             for (var i in json.blist) {
                 values += "<div class='board-item' id='bno-" + json.blist[i].bno + "'>"
@@ -74,32 +82,29 @@ $(function() {
                     + decodeURIComponent(json.blist[i].btitle)
                     + "<img class='title-style' src='" + decodeURIComponent(json.blist[i].bprofile) + "'>" 
                     + "</div>" 
-                    + "</div>" ; 
+                    + "</div>";
             }
             values += "</div>";
             $('#toplist').html(values);
         }
     });
-    
+
     $.ajax({
-    	url : "/malant/btophash",
-    	type: "get",
+        url : "/malant/btophash",
+        type: "get",
         dataType: "json",
         success: function(data) {
-        	var str = JSON.stringify(data);
+            var str = JSON.stringify(data);
             var json = JSON.parse(str);
-            var values = ""; 
-    		  
+            var values = "";
             for (var i in json.hlist){
-         
-              	 values += "<div class='hash'>" + "#"+ decodeURIComponent(json.hlist[i].hashContent);
-              	 values += "</div>";
-             
-              }
-    		   $('#hashlist').html(values);
+                values += "<div class='hash'>" + "#"+ decodeURIComponent(json.hlist[i].hashContent);
+                values += "</div>";
+            }
+            $('#hashlist').html(values);
         }
     });
-    
+
     $.ajax({
         url: "/malant/bdlist",
         type: "get",
@@ -108,20 +113,15 @@ $(function() {
             var str = JSON.stringify(data);
             var jsonData = JSON.parse(str);
             var values = "";
-            console.log("success : " + jsonData);
-            console.log(jsonData);
-          
             values += "<div class='bdlist'>";
             var itemsPerColumn = Math.ceil(jsonData.dlist.length / 3); // 열당 이미지 수
             var columnIndex = 0; // 현재 열 인덱스
-
             for (var i in jsonData.dlist) {
-             
-			
-              	values += "<div class='board-all'>";
+                values += "<div class='board-all'>";
                 values += "<div class='board-item'>";
                 values += "<a onclick='checkLogin("+ jsonData.dlist[i].bno +");'>"
-                values += "<img class='board-date-image' src='" + jsonData.dlist[i].bphoto + "'></a></div>";
+                values += "<img class='board-date-image' src='" + jsonData.dlist[i].bphoto + "'></a>";
+                values += "</div>";
                 values += "<div class='like-style' id='d-" + jsonData.dlist[i].bno + "'>";
                 values += "<div>";
                 values += "<button class='likeBtn-style' onclick='likeCountDate(" + jsonData.dlist[i].bno + ");'></button>";
@@ -129,78 +129,95 @@ $(function() {
                 values += "<img class='title-style' src='" + decodeURIComponent(jsonData.dlist[i].bprofile) + "'>";
                 values += decodeURIComponent(jsonData.dlist[i].btitle);
                 values += "</div>";
-                values += "</div>"; 
-                   
-                values += "<div id='comment-area-"+ jsonData.dlist[i].bno +"'>";
+                values += "</div>";
+                values += "<div class='comment-area'>";
                 values += decodeURIComponent(jsonData.dlist[i].ccontent);
                 values += "</div>";
-            	
                 values += "</div>";
             }
             values += "</div>";
             $('#dlist').html(values);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-        	console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+            console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
         }
     });
 });
+
 function likeCount (boardNo){  
-	$.ajax({
-		 url: "/malant/bbtn",
-	     type: "get",
-	     dataType: "text",
-	     data : {
-	    	'boardNo': boardNo
-	     },
-	     success  : function(data){
-	    	 $("#blike-" + boardNo).text(parseInt($("#blike-" + boardNo).text()) + 1);
-	     }
-	});
+    $.ajax({
+         url: "/malant/bbtn",
+         type: "get",
+         dataType: "text",
+         data : {
+            'boardNo': boardNo
+         },
+         success  : function(data){
+             $("#blike-" + boardNo).text(parseInt($("#blike-" + boardNo).text()) + 1);
+         }
+    });
 }
+
 function likeCountDate (boardNo){  
-	$.ajax({
-		 url: "/malant/bbtn",
-	     type: "get",
-	     dataType: "text",
-	     data : {
-	    	'boardNo': boardNo
-	     },
-	     success  : function(data){
-	    	 $("#dlike-" + boardNo).text(parseInt($("#dlike-" + boardNo).text()) + 1);
-	     }
-	});
+    $.ajax({
+         url: "/malant/bbtn",
+         type: "get",
+         dataType: "text",
+         data : {
+            'boardNo': boardNo
+         },
+         success  : function(data){
+             $("#dlike-" + boardNo).text(parseInt($("#dlike-" + boardNo).text()) + 1);
+         }
+    });
 }
+
+// 스크롤 스티키 버튼을 클릭하면 페이지 상단으로 스크롤
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+//스크롤 위치에 따라 스티키 버튼 표시/숨기기
+window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY;
+    var stickyButton = document.getElementById('scroll-sticky-button');
+    var stickyButtonContainer = document.querySelector('.sticky-button-container');
+    
+    if (scrollY > 200) {
+        stickyButtonContainer.style.display = 'block'; // 스티키 버튼 표시
+    } else {
+        stickyButtonContainer.style.display = 'none'; // 스티키 버튼 숨김
+    }
+});
 
 </script>
-
-
 </head>
 <body>
 	<div>
-	<div class="board-main">
-		<div class="container">
-			<%@ include file="../../views/common/sidebar.jsp"%>
+		<div class="board-main">
+			<div class="container">
+				<%@ include file="../../views/common/sidebar.jsp"%>
+			</div>
+			<div class="sticky-button-container">
+				<button id="scroll-sticky-button" class="sticky-button"
+					onclick="scrollToTop()">Scroll to Top</button>
+			</div>
+			<script type="text/javascript">
+        var member = '<%=loginMember%>';
+        function checkLogin(boardNo){
+            if (member == 'null'){
+                if (confirm("로그인 하시겠습니까?")) {
+                    window.location.href = "/malant/views/member/loginPage.jsp";
+                } 
+            } else {
+                location.href="/malant/bdetail?bno=" + boardNo;
+            }
+        }
+        </script>
+			<div id="toplist"></div>
 		</div>
-		<script type="text/javascript">
-		var member = '<%= loginMember %>';
-		function checkLogin(boardNo){
-			if (member == 'null'){ <%-- '<%= loginMember %>';를 ''안에 넣어서 문자열로 확인 --%>
-				if (confirm("로그인 하시겠습니까?")) {
-					window.location.href = "/malant/views/member/loginPage.jsp";
-				} 
-			}else{
-				location.href="/malant/bdetail?bno=" + boardNo;
-			}
-		}
-		</script>
-		<div id="toplist"></div>
+		<div id="hashlist"></div>
+		<div id="dlist"></div>
 	</div>
-   		 <div id="hashlist"></div>
-   		 <div id="dlist"></div>
-   		
-    </div>
 </body>
 </html>
-
-

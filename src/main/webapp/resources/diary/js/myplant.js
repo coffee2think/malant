@@ -16,6 +16,7 @@
 
 //******************************************************************************************** */
 
+
 //등록된 반려식물 클릭 시 상세페이지 팝업
 	document.querySelector("#myplantbox").addEventListener("click",function(){
 	   document.querySelector(".myplantDetail").classList.add("active");

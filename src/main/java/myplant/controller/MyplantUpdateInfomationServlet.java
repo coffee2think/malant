@@ -43,6 +43,10 @@ public class MyplantUpdateInfomationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//게시글 원글 수정 처리용 컨트롤러
+		request.setCharacterEncoding("utf-8");
+		
+		String userNo = request.getParameter("USER_NO");
+		String myplantId = request.getParameter("myplant_id");
 		
 		//1. multipart 방식으로 인코딩되어서 전송왔는지 확인
 		//아니면 에러페이지 내보냄
@@ -69,6 +73,7 @@ public class MyplantUpdateInfomationServlet extends HttpServlet {
 		//mrequest 사용할 것
 		Myplant myplant = new Myplant();
 		
+		myplant.setMyplantId(mrequest.getParameter("MYPLANT_ID"));
 		myplant.setUserNo(mrequest.getParameter("USER_NO"));
 		myplant.setMyplantName(mrequest.getParameter("MYPLANT_NAME"));
 		myplant.setMyplantVariety(mrequest.getParameter("MYPLANT_VARIETY"));
@@ -146,7 +151,7 @@ public class MyplantUpdateInfomationServlet extends HttpServlet {
 		}
 			
 		// 6. 서비스 메소드로 전달하고 결과받기
-		int result = new MyplantService().updateMyplant(myplant);
+		int result = new MyplantService().updateMyplant(myplant, userNo, myplantId);
 
 		// 7. 받은 결과로 성공/실패 페이지 내보내기
 		if (result > 0) {

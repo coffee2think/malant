@@ -34,6 +34,7 @@ public class DiaryListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//다이어리 목록 출력 서블렛
+		String userNo = request.getParameter("user_no");
 		
 		//출력할 페이지 지정
 		int currentPage = 1;
@@ -57,7 +58,7 @@ public class DiaryListServlet extends HttpServlet {
 		paging.calculator();
 		
 		//모델 서비스로 해당 페이지에 출력할 게시글만 조회해 옴
-		ArrayList<Diary> list = dservice.selectList(paging.getStartRow(), paging.getEndRow());	
+		ArrayList<Diary> list = dservice.selectList(userNo, paging.getStartRow(), paging.getEndRow());	
 		
 		//받은 결과에 따라 성공 또는 실패 페이지 내보내기
 		RequestDispatcher view = null;

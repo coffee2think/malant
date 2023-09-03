@@ -32,6 +32,8 @@ public class MyplantDeleteInformationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//반려식물 삭제 처리용 컨트롤러
+		request.setCharacterEncoding("utf-8");
+		
 		
 		String userNo = request.getParameter("user_no");
 		String myplantId = request.getParameter("MYPLANT_ID");
