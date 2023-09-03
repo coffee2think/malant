@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.compiler.NewlineReductionServletWriter;
+
+import calendar.model.vo.Calendar;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
@@ -69,6 +73,9 @@ public class LoginServlet extends HttpServlet {
 		} else if(member != null && member.getBlockedYn().equals("N")) { // 로그인 성공
 			// 마지막 접속일 업데이트
 			member.setLastLoginDate(new Date(System.currentTimeMillis()));
+			Date date = new Date(System.currentTimeMillis());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+			System.out.println(sdf.format(date));
 			new MemberService().updateMember(member);
 			
 			HttpSession session = request.getSession();

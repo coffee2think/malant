@@ -5,43 +5,44 @@ import static common.JDBCTemplate.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import search.model.vo.Plant;
 
 public class SearchDao {
 
-	public ArrayList<Plant> selectPlantList(Connection conn, String keyword) {
+	public ArrayList<Plant> selectPlantList(Connection conn, String keyword, int startRow, int endRow) {
 		ArrayList<Plant> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
 		String[] keywords = keyword.split(" ");
 		
+		// 쿼리 생성
 		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("select * from plant ");
-		queryBuilder.append("where 1=1 ");
-		
+		queryBuilder.append("select * ");
+		queryBuilder.append("from (select rownum, A.* ");
+		queryBuilder.append("	from (select * from plant order by plant_name) A ");
+		queryBuilder.append("	where 1=1 ");
 		for(int i = 0; i < keywords.length; i++) {
-			queryBuilder.append("and regexp_like(plant_name, ?) ");
+			queryBuilder.append("and plant_name like ? ");
 		}
-		queryBuilder.append("union ");
-		queryBuilder.append("select * from plant ")
-					.append("where regexp_like(plant_name, '")
-					.append(String.join("|", keywords))
-					.append("')");
-		
+		queryBuilder.append(") ");
+		queryBuilder.append("where rownum >= ? and rownum <= ?");
 		String query = queryBuilder.toString();
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			
+			int cnt = 1;
 			for(int i = 0; i < keywords.length; i++) {
-				pstmt.setString(i + 1, keywords[i]);
+				pstmt.setString(cnt++, "%" + keywords[i] + "%");
 			}
+			pstmt.setInt(cnt++, startRow);
+			pstmt.setInt(cnt++, endRow);
 			
 			rset = pstmt.executeQuery();
-			
+
 			while(rset.next()) {
 				Plant plant = new Plant();
 				
@@ -93,8 +94,6 @@ public class SearchDao {
 				plant.setFlowerColor(rset.getString("flower_color"));
 				plant.setFruitColor(rset.getString("fruit_color"));
 				
-				System.out.println(plant);
-				
 				list.add(plant);
 			}
 			
@@ -124,7 +123,6 @@ public class SearchDao {
 			if(rset.next()) {
 				plant = new Plant();
 				
-				// select한 모든 결과 받기
 				plant.setEcology(rset.getString("ecology"));
 				plant.setViewType(rset.getString("view_type"));
 				plant.setSmell(rset.getString("smell"));
@@ -181,6 +179,45 @@ public class SearchDao {
 		}
 		
 		return plant;
+	}
+
+	public int getListCount(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String[] keywords = keyword.split(" ");
+		
+		// 쿼리 생성
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("select count(*) from plant ");
+		queryBuilder.append("where 1=1 ");
+		for(int i = 0; i < keywords.length; i++) {
+			queryBuilder.append("and plant_name like ? ");
+		}
+		String query = queryBuilder.toString();
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			int cnt = 1;
+			for(int i = 0; i < keywords.length; i++) {
+				pstmt.setString(cnt++, "%" + keywords[i] + "%");
+			}
+			
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 }

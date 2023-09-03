@@ -203,6 +203,9 @@ public class MemberDao {
 			queryBuilder.append(", user_pwd = ?");
 			queryBuilder.append(", pwd_update_date = ?");
 		}
+		if(member.getLastLoginDate() != null) {
+			queryBuilder.append(", last_login_date = ?");
+		}
 		
 		queryBuilder.append(" where user_id = ?");
 		
@@ -222,6 +225,9 @@ public class MemberDao {
 			if(member.getUserPwd() != null) {
 				pstmt.setString(cnt++, member.getUserPwd());
 				pstmt.setDate(cnt++, member.getPwdUpdateDate());
+			}
+			if(member.getLastLoginDate() != null) {
+				pstmt.setDate(cnt++, member.getLastLoginDate());
 			}
 			pstmt.setString(cnt++, member.getUserId());
 			
