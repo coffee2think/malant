@@ -21,14 +21,14 @@ public class SearchDao {
 		// 쿼리 생성
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("select * ");
-		queryBuilder.append("from (select rownum, A.* ");
+		queryBuilder.append("from (select rownum rnum, A.* ");
 		queryBuilder.append("	from (select * from plant order by plant_name) A ");
 		queryBuilder.append("	where 1=1 ");
 		for(int i = 0; i < keywords.length; i++) {
 			queryBuilder.append("and plant_name like ? ");
 		}
 		queryBuilder.append(") ");
-		queryBuilder.append("where rownum >= ? and rownum <= ?");
+		queryBuilder.append("where rnum >= ? and rnum <= ?");
 		String query = queryBuilder.toString();
 		
 		try {
