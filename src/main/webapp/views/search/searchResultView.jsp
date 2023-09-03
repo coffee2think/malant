@@ -11,7 +11,10 @@
 <title><%= keyword %> 검색 결과</title>
 <style>
 .container {
+	height: 100vh;
 	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
 }
 
 .content {
@@ -112,7 +115,7 @@
 }
 
 .sort-items {
-	width: 200px;
+	width: 300px;
 	border: 1px solid blue;
 	display: flex;
 	align-content: center;
@@ -182,6 +185,7 @@
 							<h4>'<%= keyword %>' 에 대한 검색 결과입니다.(<%= list.size() %> 건)</h4>
 						</div>
 						<div class="sort-items">
+							<div class="sort-item"><a href="/">관련도순</a></div>
 							<div class="sort-item"><a href="#">인기순</a></div>
 							<div class="sort-item"><a href="#">이름순</a></div>
 						</div>

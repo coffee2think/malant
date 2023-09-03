@@ -14,7 +14,10 @@
     <script src="/malant/resources/common/js/scroll_loading.js"></script>
     <style type="text/css">
     	.container {
+    		height: 100vh;
     		display: flex;
+    		flex-wrap: wrap;
+    		align-content: center;
     	}
     </style>
   </head>
