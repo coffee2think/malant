@@ -34,19 +34,8 @@
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section">
-				<hr solid color="#ddd" />
-				<div class="login-box" onclick="location.href='/malant/views/member/loginPage.jsp;'">
-					로그인하러 가기
-				</div>
-			</div>
-			
-			<!-- 회원가입/아이디/비밀번호 찾기 영역 -->
-			<div class="account-section">
-				<a href="/malant/views/member/enrollMember.jsp" class="account-link">회원가입</a><span class="login-divide">|</span>
-				<!-- 아이디/비밀번호 찾기는 새창을 띄워 진행 -->
-				<a href="#" class="account-link" onclick="window.open('/malant/findAccount.jsp?find=id', '_blank', 'width=900, height=1000');">아이디찾기</a><span class="login-divide">|</span>
-				<a href="#"	class="account-link" onclick="window.open('/malant/findAccount.jsp?find=pwd', '_blank', 'width=900, height=1000');">비밀번호재설정</a>
+			<div class="login-section" onclick="location.href='/malant/views/member/loginPage.jsp;'">
+				로그인/회원가입
 			</div>
 		<% } else { %>
 			<div class="login-section">
