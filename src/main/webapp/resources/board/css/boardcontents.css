@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-
-
 /* 사이드바 스타일 */
 .sidebar {
 	position: fixed;
@@ -16,6 +14,7 @@
 
 .board-main {
 	display: flex;
+	  flex-direction: column;
 }
 
 .board-like {
@@ -23,7 +22,6 @@
 	margin-top: 50px;
 	width: 100%;
 	justify-content: center; /* 가운데 정렬 */
-
 }
 
 .board-like a {
@@ -51,8 +49,6 @@
 	margin-right: 50px;
 }
 
-
-
 .title-style {
 	border: 1px solid green;
 	width: 50px;
@@ -73,4 +69,3 @@
 	width: 30px;
 	height: 30px;
 }
-

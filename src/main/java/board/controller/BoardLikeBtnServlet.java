@@ -38,8 +38,7 @@ public class BoardLikeBtnServlet extends HttpServlet {
 		int result = new BoardService().updateBoardLike(boardNo);
 		
 		response.setContentType("text/html; charset=utf-8");
-		// jsp 에 타입을 정해줌
-		
+
 		// response.sendRedirect("/malant/blist"); // 새로고침
 		PrintWriter out = response.getWriter();
 		out.print(result);

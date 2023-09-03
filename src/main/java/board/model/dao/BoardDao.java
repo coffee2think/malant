@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import board.model.vo.Board;
 import board.model.vo.Comment;
 
-
 public class BoardDao {
 
 	public ArrayList<Board> selectTop3Like(Connection conn) {
@@ -93,19 +92,11 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "SELECT hashtag_content, hashtag_no "
-				+ "FROM ( "
-				+ "    SELECT hashtag_content, hashtag_no, "
-				+ "           ROWNUM as r_num "
-				+ "    FROM ( "
-				+ "        SELECT hashtag_content, hashtag_no, COUNT(*) as usage_count "
-				+ "        FROM cm_hashtag "
-				+ "        JOIN cm_board_hashtag USING (hashtag_no) "
-				+ "        GROUP BY hashtag_content, hashtag_no "
-				+ "        ORDER BY usage_count DESC "
-				+ "    ) "
-				+ ") "
-				+ "WHERE r_num <= 5";
+		String query = "SELECT hashtag_content, hashtag_no " + "FROM ( " + "    SELECT hashtag_content, hashtag_no, "
+				+ "           ROWNUM as r_num " + "    FROM ( "
+				+ "        SELECT hashtag_content, hashtag_no, COUNT(*) as usage_count " + "        FROM cm_hashtag "
+				+ "        JOIN cm_board_hashtag USING (hashtag_no) " + "        GROUP BY hashtag_content, hashtag_no "
+				+ "        ORDER BY usage_count DESC " + "    ) " + ") " + "WHERE r_num <= 5";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -154,7 +145,7 @@ public class BoardDao {
 				board.setBoardContent(rset.getString("BOARD_CONTENT"));
 				board.setBoardDate(rset.getDate("BOARD_DATE"));
 				board.setUserNo(rset.getString("USER_NO"));
-			
+
 				list.add(board);
 			}
 		} catch (Exception e) {
@@ -166,8 +157,9 @@ public class BoardDao {
 		}
 		return list;
 	}
-	public ArrayList<Board> selectBoardByBoardNo(Connection conn, int boardNo) {
-		ArrayList<Board> list = new ArrayList<Board>();
+
+	public Board selectBoardByBoardNo(Connection conn, int boardNo) {
+		Board board = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
@@ -176,11 +168,12 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardNo);
+
 			rset = pstmt.executeQuery();
 
-			while (rset.next()) {
-				Board board = new Board();
-				
+			if (rset.next()) {
+				board = new Board();
+
 				board.setBoardNo(rset.getInt("BOARD_NO"));
 				board.setUserNo(rset.getString("USER_NO"));
 				board.setNickname(rset.getString("NICKNAME"));
@@ -191,10 +184,8 @@ public class BoardDao {
 				board.setBoardPhoto(rset.getString("BOARD_PHOTO"));
 				board.setViewcount(rset.getInt("VIEW_COUNT"));
 				board.setReportedYN(rset.getString("REPORTED_YN"));
-			
-				list.add(board);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -202,7 +193,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 
-		return list;
+		return board;
 	}
 
 	public Comment selectBestComment(Connection conn, int boardNo) {
@@ -212,11 +203,8 @@ public class BoardDao {
 
 		String query = "select *  "
 				+ "from (select board_no, comment_no, user_no, nickname, comment_like, comment_content, comment_date, reported_yn, rownum "
-				+ "from cm_comment "
-				+ "left join cm_comment_like using (comment_no, board_no, user_no) "
-				+ "where board_no = ? "
-				+ "order by comment_like desc) "
-				+ "where rownum = 1";
+				+ "from cm_comment " + "left join cm_comment_like using (comment_no, board_no, user_no) "
+				+ "where board_no = ? " + "order by comment_like desc) " + "where rownum = 1";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -225,7 +213,7 @@ public class BoardDao {
 
 			if (rset.next()) {
 				comment = new Comment();
-				
+
 				comment.setBoardNo(rset.getInt("BOARD_NO"));
 				comment.setUserNo(rset.getString("USER_NO"));
 				comment.setNickname(rset.getString("NICKNAME"));
@@ -235,8 +223,8 @@ public class BoardDao {
 				comment.setCommentDate(rset.getDate("COMMENT_DATE"));
 				comment.setReportedYn(rset.getString("REPORTED_YN"));
 
-				//System.out.println("댓글 출력 확인 : " + comment.toString());
-				
+				// System.out.println("댓글 출력 확인 : " + comment.toString());
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -247,6 +235,5 @@ public class BoardDao {
 
 		return comment;
 	}
-
 
 }

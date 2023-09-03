@@ -1,6 +1,7 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.service.CommentService;
 import board.model.vo.Board;
+import board.model.vo.Comment;
 
 /**
  * Servlet implementation class BoardListDetailServlet
@@ -33,13 +36,30 @@ public class BoardListDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int bnum = Integer.parseInt(request.getParameter("bno"));
+	
+		BoardService bservice = new BoardService();
 		
-		//Board board = new BoardService().selectBoardByBoardNo(bnum);
+		ArrayList<Comment> clist = new CommentService().selectCommentList(bnum);
+		ArrayList<String> cdate = new ArrayList<String>(clist.size());
 		
+		for(int i = 0; i < clist.size(); i++) {
+			String dateStr = clist.get(i).getCommentDate().toString();
+			cdate.add(dateStr);
+		}
+		
+		Board board = bservice.selectBoardByBoardNo(bnum);
+
 		RequestDispatcher view = null;
-			
-		view = request.getRequestDispatcher("views/board/boardDetailList.jsp");
-		//request.setAttribute("board", board);
+	
+		if(board != null) {
+			view = request.getRequestDispatcher("views/board/boardDetailList.jsp");
+			request.setAttribute("clist", clist);
+			request.setAttribute("board", board);
+			request.setAttribute("cdate", cdate);
+		}else {
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", bnum + "번 글 상세조회 실패!");
+		}
 		
 		view.forward(request, response);
 	}

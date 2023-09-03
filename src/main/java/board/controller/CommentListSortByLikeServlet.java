@@ -3,9 +3,9 @@ package board.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,33 +40,26 @@ public class CommentListSortByLikeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ArrayList<Comment> list = new CommentService().selectCommentList();
-		JSONArray jarr = new JSONArray();
-
-		for (Comment comment : list) {
-			JSONObject job = new JSONObject();
-			Board board = new BoardService().selectBoardByBoardNo(comment.getBoardNo());
-			job.put("cno", comment.getCommentNo());
-			job.put("bno", comment.getBoardNo());
-			job.put("userno", URLEncoder.encode(comment.getUserNo(), "utf-8"));
-			job.put("nickname", URLEncoder.encode(comment.getNickname(), "utf-8"));
-			job.put("clike", comment.getCommentLike());
-			job.put("ccontent", URLEncoder.encode(comment.getCommentContent(), "utf-8"));
-			job.put("cdate", comment.getCommentDate());
-			job.put("clike", comment.getLikeDate().toString());
-			job.put("clikeyn", comment.getLikeYn());
-
-			jarr.add(job);
-			//System.out.println("댓글 확인 :" + comment.toString());
-		}
-		JSONObject sendJson = new JSONObject();
-		sendJson.put("commentlist", jarr);
+		int bnum = Integer.parseInt(request.getParameter("bno"));
+		BoardService bservice = new BoardService();
+		ArrayList<Comment> clist = new CommentService().selectCommentList(bnum);
 		
-		response.setContentType("application/json; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.print(sendJson.toJSONString());
-		out.flush();
-		out.close();
+		Board board = bservice.selectBoardByBoardNo(bnum);
+		
+		RequestDispatcher view = null;
+		
+		if(board != null) {
+			view = request.getRequestDispatcher("views/board/boardDetailList.jsp");
+			request.setAttribute("clist", clist);
+			request.setAttribute("board", board);
+			
+		}else {
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			
+			request.setAttribute("message", bnum + "번 글 상세조회 실패!");
+		}
+		
+		view.forward(request, response);
 	}
 
 	/**

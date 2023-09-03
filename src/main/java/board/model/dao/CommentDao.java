@@ -12,19 +12,25 @@ import board.model.vo.Comment;
 public class CommentDao {
 	
 
-	public ArrayList<Comment> selectCommentList(Connection conn) {
+	public ArrayList<Comment> selectCommentList(Connection conn, int bnum) {
 		ArrayList<Comment> list = new ArrayList<Comment>();
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select *  " + "from cm_comment " + "join cm_comment_like using (comment_no) "
-				+ "where REPORTED_YN = 'N' ";
+		String query = "select *  "
+				+ "from cm_comment  "
+				+ "full join cm_comment_like using (comment_no, board_no) "
+				+ "where REPORTED_YN = 'N' and board_no = ? "
+				+ "order by comment_date desc";
 
 		try {
 			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bnum);
+		
 			rset = pstmt.executeQuery();
-
+			
 			while (rset.next()) {
 
 				Comment comment = new Comment();
@@ -38,14 +44,12 @@ public class CommentDao {
 				comment.setReportedYn(rset.getString("REPORTED_YN"));
 				
 				list.add(comment);
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
-
 		}
 		return list;
 	}
@@ -54,7 +58,7 @@ public class CommentDao {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		System.out.println("comment : "+comment.toString());
+		//System.out.println("comment : "+ comment.toString());
 		
 		String query = "insert into cm_comment values (?, (select max(comment_no) +1 from cm_comment), "
 				+ " ?, ?, default, ?, default, default)";
@@ -74,7 +78,6 @@ public class CommentDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 
