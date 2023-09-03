@@ -60,9 +60,36 @@ public class OrderDao {
 		return null;
 	}
 
-	public String MakeOrderId(Connection conn, String productOrder) {
-		// TODO Auto-generated method stub
-		return null;
+	public int saveOrderSheet(Connection conn, ProductOrder productOrder) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into member values "
+				+ "(?, ?, ?, ?, ?, ?, ?, default, default, default, default, default, ?)";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, productOrder.getUserId());
+			
+			
+			result = pstmt.executeUpdate();			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		return result;
 	}
 	
 }

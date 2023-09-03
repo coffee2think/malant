@@ -70,12 +70,16 @@ ArrayList<ShoppingBasket> osheet = (ArrayList<ShoppingBasket>) session.getAttrib
 
 
 	<script>
+	
 		/////////////////////////////////////////////결제 API ////////////////////////////////////////////////////////////
 
+		String inputString = "test_sk_KNbdOvk5rk4aeDe0ypE8n07xlzmj";
+        byte[] bytesToEncode = inputString.getBytes(StandardCharsets.UTF_8);
+			
 		const clientKey = "test_ck_ex6BJGQOVD9JEkOdBwXrW4w2zNbg"
-		const customerKey = "Gt7oSZ1n2nAv1kvgAvrql" // 내 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID
+		const customerKey = "Gt7oSZ1n2nAv1kvgAvrql" // userNo
 		const headers = {
-			"Authorization" : "test_sk_KNbdOvk5rk4aeDe0ypE8n07xlzmj:",
+			"Authorization" : Basic Base64.getEncoder().encodeToString(bytesToEncode)
 		}
 		const button = document.getElementById("payment-button")
 

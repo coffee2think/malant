@@ -67,11 +67,9 @@ public class InputOrderInfoServlet extends HttpServlet {
 			olist.add(oinput);
 		}
 
-		// ArrayList를 JSP 페이지로 전달
 		request.setAttribute("olist", olist);
 		request.setAttribute("total", total);
 
-		// JSP 페이지로 포워딩
 		request.getRequestDispatcher("/views/store/order/orderSheet.jsp").forward(request, response);
 	}
 }
