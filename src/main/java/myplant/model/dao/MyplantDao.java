@@ -40,7 +40,7 @@ public class MyplantDao {
 		return listCount;
 	}
 
-	public ArrayList<Myplant> selectList(Connection conn, int startRow, int endRow, String userNo) {
+	public ArrayList<Myplant> selectList(Connection conn, int startRow, int endRow) {
 		ArrayList<Myplant> list = new ArrayList<Myplant>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -51,15 +51,14 @@ public class MyplantDao {
 				+ "MYPLANT_START_DATE, POS_WINDOW, POS_VERANDA, POS_DESK, POS_YARD,  "
 				+ "POS_GARDEN, ENV_SUNNY, ENV_SHADY, ENV_WINDY, ENV_DRY, ENV_HUMID,  "
 				+ "WITH_PET, WITH_PLANT, WITH_CHILD, WITH_FRIEND, WITH_ALONE, CREATED_DATE "
-				+ "from (select * from my_plant where user_no = ? "
+				+ "from (select * from my_plant "
 				+ "order by USER_NO asc, MYPLANT_ID asc)) "
 				+ "where rnum >= ? and rnum <= ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, userNo);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -105,7 +104,7 @@ public class MyplantDao {
 	
 	
 
-	public int updateMyplant(Connection conn, Myplant myplant) {
+	public int updateMyplant(Connection conn, Myplant myplant, String userNo, String myplantId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
@@ -168,12 +167,14 @@ public class MyplantDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
+		System.out.println("inert Dao : " + userNo);
+		
 		String query = "insert into my_plant "
 					+ "(MYPLANT_ID, USER_NO, MYPLANT_NAME, MYPLANT_VARIETY, MYPLANT_IMAGE_URL, "
 					+ "MYPLANT_MEMO, MYPLANT_START_DATE, POS_WINDOW, POS_VERANDA, POS_DESK, POS_YARD, "
 					+ "POS_GARDEN, ENV_SUNNY, ENV_SHADY, ENV_WINDY, ENV_DRY, ENV_HUMID, WITH_PET, "
 					+ "WITH_PLANT, WITH_CHILD, WITH_FRIEND, WITH_ALONE, CREATED_DATE)  "
-					+ "values (my_plant_seq.NEXTVAL, ?, ?, ?, ?, ?, "
+					+ "values (MY_PLANT_SEQ.NEXTVAL, ?, ?, ?, ?, ?, "
 					+ "?, ?, ?, ?, ?, ?, ?, ?, ?,  "
 					+ "?, ?, ?, ?, ?, ?, ?, DEFAULT)";	
 		try {

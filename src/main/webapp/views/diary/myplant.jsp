@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, myplant.model.vo.Myplant, java.sql.Date" %>   
+<%@ page import="java.util.ArrayList, myplant.model.vo.Myplant, java.sql.Date, member.model.vo.Member" %>   
 <%
 	ArrayList<Myplant> list = (ArrayList<Myplant>)request.getAttribute("list");	
 
     Myplant myp = new Myplant(); 
+    
 	int nowpage = 1;
 	if(request.getAttribute("currentPage") != null){
 		nowpage = ((Integer)request.getAttribute("currentPage")).intValue();
@@ -28,9 +29,10 @@
 
 function requestDelete() {
 	
-location.href = "/malant/mpdelete?userNo=<%= myp.getUserNo() %>&myplantId=<%= myp.getMyplantId() %>";
+	location.href = "/malant/mpdelete?userNo=<%= myp.getUserNo() %>&myplantId=<%= myp.getMyplantId() %>";
 
 }
+
 </script>
 </head>
 <body>
@@ -52,10 +54,10 @@ location.href = "/malant/mpdelete?userNo=<%= myp.getUserNo() %>&myplantId=<%= my
 	<% if (list.size() > 0 ) { %>
 		
 		<div id="addYourPlant" class="addYourPlant"> 반려식물을 등록해주세요! </div>
-			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
+			<form action="/malant/mpnew?user_no=<%= loginMember.getUserNo() %>" method="post" enctype="multipart/form-data">
 			<div id="myplantAdd" class="myplantAdd"> 반려식물 등록화면 (팝업)
-	<!-- 			<form action="/first/binsert" method="post" enctype="multipart/form-data"> -->
 					
+
 					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME"></div>
 					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"></div>
 					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL"></div>
@@ -197,10 +199,10 @@ location.href = "/malant/mpdelete?userNo=<%= myp.getUserNo() %>&myplantId=<%= my
 		<% }else if(list.size() == 0) { %>
 		
 			<div id="addYourPlant" class="addYourPlant"> 반려식물을 등록해주세요! </div>
-			
-			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
+			<form action="/malant/mpnew?user_no=<%= loginMember.getUserNo() %>" method="post" enctype="multipart/form-data">
 			<div id="myplantAdd" class="myplantAdd"> 반려식물 등록화면 (팝업)
 
+					<%= loginMember.getUserNo() %>
 					
 					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME"></div>
 					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"></div>
@@ -237,7 +239,7 @@ location.href = "/malant/mpdelete?userNo=<%= myp.getUserNo() %>&myplantId=<%= my
 					</div>
 	
 					</div> <!-- myplantAdd -->
-				</form>
+					</form>
 		<% } %>
 		
 	</div> <!-- content body  -->

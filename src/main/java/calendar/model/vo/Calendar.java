@@ -6,8 +6,8 @@ public class Calendar implements java.io.Serializable {
 
 	private static final long serialVersionUID = -6383203623916677862L;
 	
-	private String memberNo;
-	private String petPlantNo;
+	private String userNo;
+	private String myplantNo;
 	private Date calendarDate;
 	private int diaryNo;
 	private String calendarMemo;
@@ -34,15 +34,15 @@ public class Calendar implements java.io.Serializable {
 	}
 
 
-	public Calendar(String memberNo, String petPlantNo, Date calendarDate, int diaryNo, String calendarMemo,
+	public Calendar(String userNo, String myplantNo, Date calendarDate, int diaryNo, String calendarMemo,
 			String managingPruningTrimming, String managingFertilization, String managingPestDisease,
 			String managingWatering, String managingVentilation, String managingPottingTransplant,
 			String managingSoilReplacement, String managingRemovalDeadplants, String managingWaterReplacement,
 			String managingRelocation, String managingFlowering, String managingHarvesting,
 			String managingNutrientSupplement, String managingNewGrowth, String managingDormancy) {
 		super();
-		this.memberNo = memberNo;
-		this.petPlantNo = petPlantNo;
+		this.userNo = userNo;
+		this.myplantNo = myplantNo;
 		this.calendarDate = calendarDate;
 		this.diaryNo = diaryNo;
 		this.calendarMemo = calendarMemo;
@@ -66,7 +66,7 @@ public class Calendar implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "calendar [memberNo=" + memberNo + ", petPlantNo=" + petPlantNo + ", calendarDate=" + calendarDate
+		return "calendar [userNo=" + userNo + ", myplantNo=" + myplantNo + ", calendarDate=" + calendarDate
 				+ ", diaryNo=" + diaryNo + ", calendarMemo=" + calendarMemo + ", managingPruningTrimming="
 				+ managingPruningTrimming + ", managingFertilization=" + managingFertilization
 				+ ", managingPestDisease=" + managingPestDisease + ", managingWatering=" + managingWatering
@@ -80,23 +80,23 @@ public class Calendar implements java.io.Serializable {
 	}
 
 
-	public String getMemberNo() {
-		return memberNo;
+	public String getUserNo() {
+		return userNo;
 	}
 
 
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
 	}
 
 
-	public String getPetPlantNo() {
-		return petPlantNo;
+	public String getMyplantNo() {
+		return myplantNo;
 	}
 
 
-	public void setPetPlantNo(String petPlantNo) {
-		this.petPlantNo = petPlantNo;
+	public void setMyplantNo(String myplantNo) {
+		this.myplantNo = myplantNo;
 	}
 
 
