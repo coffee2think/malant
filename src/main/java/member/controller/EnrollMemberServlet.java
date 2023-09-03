@@ -46,9 +46,6 @@ public class EnrollMemberServlet extends HttpServlet {
 		member.setNickname(request.getParameter("nickname"));
 		member.setEmail(request.getParameter("email"));
 		
-		/* 프로필 이미지 코드 수정해야함 */
-		member.setProfileImg("/malant/resources/member_profiles/2308271740.jpg");
-		
 		member.setSignType(request.getParameter("signtype").toUpperCase());
 		member.setAlarmYn(request.getParameter("alarm") != null ? "Y" : "N");
 		member.setNoticeYn(request.getParameter("notice") != null ? "Y" : "N");

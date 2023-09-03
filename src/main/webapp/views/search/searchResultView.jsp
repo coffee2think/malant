@@ -11,7 +11,10 @@
 <title><%= keyword %> 검색 결과</title>
 <style>
 .container {
+	height: 100vh;
 	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
 }
 
 .content {
@@ -64,6 +67,17 @@
 	width: 800px;
 	height: 50px;
 	border: 1px solid blue;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.filter {
+	width: 100px;
+	height: 40px;
+	position: relative;
+	margin: 5px;
+	text-align: center; 
 }
 
 .plant-card {
@@ -86,6 +100,7 @@
 .result-guide {
 	display: flex;
 	justify-content: space-between;
+	 
 }
 
 .result-cards {
@@ -95,6 +110,27 @@
 	flex-wrap: wrap;
 	align-content: center;
 	justify-content: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.sort-items {
+	width: 300px;
+	border: 1px solid blue;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.sort-item {
+	width: 70px;
+	height: 40px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
 }
 </style>
 </head>
@@ -112,30 +148,31 @@
 					</form>
 				</div>
 				<div class="filters">
-					<select>
+					<select class="filter">
 						<option>난이도</option>
 						<option>초보자</option>
 						<option>경험자</option>
 						<option>전문가</option>
 					</select>
-					<select>
+					<select class="filter">
 						<option>성장속도</option>
 						<option>빠름</option>
 						<option>보통</option>
 						<option>느림</option>
 					</select>
-					<select>
+					<select class="filter">
 						<option>효능</option>
 						<option>빠름</option>
 						<option>보통</option>
 						<option>느림</option>
 					</select>
-					<select>
+					<select class="filter">
 						<option>크기</option>
 						<option>소형</option>
 						<option>중형</option>
 						<option>대형</option>
 					</select>
+					<input type="button" class="filter" value="더보기">
 				</div>
 			</div>
 			
@@ -147,9 +184,10 @@
 						<div class="result-message">
 							<h4>'<%= keyword %>' 에 대한 검색 결과입니다.(<%= list.size() %> 건)</h4>
 						</div>
-						<div clas="sort-items">
-							<div class="sort-item"><a>인기순</a></div>
-							<div class="sort-item"><a>이름순</a></div>
+						<div class="sort-items">
+							<div class="sort-item"><a href="/">관련도순</a></div>
+							<div class="sort-item"><a href="#">인기순</a></div>
+							<div class="sort-item"><a href="#">이름순</a></div>
 						</div>
 					<% } %>
 				</div>
