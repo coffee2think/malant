@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+	String preReferer = (String) request.getAttribute("referer");
+%>
 	<!DOCTYPE html>
 	<html>
 
@@ -348,8 +351,8 @@
 					</div>
 					<div class="signin">
 						<h1>Malant</h1>
-						<form action="/malant/login" method="post" class="more-padding" autocomplete="off">
-							
+						<form action="/malant/logincheck" method="post" class="more-padding" autocomplete="off">
+							<input type="hidden" name="preReferer" value="<%= preReferer %>">
 							<input type="text" name="userid" placeholder="아이디" required>
 							<input type="password" name="userpwd" placeholder="패스워드" required>
 							<button class="button submit">로그인</button>

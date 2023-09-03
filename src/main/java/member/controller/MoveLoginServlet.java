@@ -1,29 +1,25 @@
 package member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import member.model.service.MemberService;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class MoveLoginServlet
  */
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/login")
+public class MoveLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public MoveLoginServlet() {
         super();
     }
 
@@ -31,18 +27,13 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 로그아웃 컨트롤러
-		HttpSession session = request.getSession(false);
+		// 이전 페이지 정보를 담고 있는 객체 생성
+		String referer = request.getHeader("Referer");
+		System.out.println(referer);
 		
-		if (session != null) {
-			// 마지막 접속일 업데이트
-			Member loginMember = (Member)session.getAttribute("loginMember");
-			loginMember.setLastLoginDate(new Date(System.currentTimeMillis()));
-			new MemberService().updateMember(loginMember);
-			
-			session.invalidate();
-			response.sendRedirect("index.jsp");
-		}
+		RequestDispatcher view = request.getRequestDispatcher("views/member/loginPage.jsp");
+		request.setAttribute("referer", referer);
+		view.forward(request, response);
 	}
 
 	/**
