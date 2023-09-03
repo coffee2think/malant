@@ -12,6 +12,8 @@
 <style>
 .container {
 	display: flex;
+	height: 100vh;
+	align-items: center;
 }
 
 .content {
@@ -26,7 +28,7 @@
 <body>
 	<div class="container">
 		<!-- 사이드바 -->
-		<div>
+		<div class="sidebar">
 			<%@ include file="../common/sidebar.jsp"%>
 		</div>
 

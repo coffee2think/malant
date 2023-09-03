@@ -11,8 +11,10 @@
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <style>
 	.container {
-		display: flex;
-	}
+   		display: flex;
+   		height: 100vh;
+   		align-items: center;
+   	}
 	
 	.content {
 		border: 1px solid red;
@@ -130,7 +132,7 @@
 
 		return false;
 	}
-
+	
 	// 기존 비밀번호와 새 비밀번호가 일치하는지 검사하는 함수. 나중에 추가할것
 </script>
 
@@ -138,7 +140,7 @@
 <body>
 	<div class="container">
 		<!-- 사이드바 -->
-		<div class="sidebar-container">
+		<div class="sidebar">
 			<%@ include file="../../views/common/sidebar.jsp" %>
 		</div>
 		
@@ -183,7 +185,19 @@
 					>공지사항 및 이벤트 소식</label></td></tr>
 					<tr>
 						<th colspan="3">
-							<input type="button" value="회원탈퇴" onclick="javascript: location.href='/malant/mleave?userno=<%= loginMember.getUserNo() %>'"> &nbsp; &nbsp; &nbsp; 
+							<!-- 230903 18:47 회원탈퇴 ajax 방식으로 변경 전 백업 -->
+							<input type="button" value="회원탈퇴" onclick="return withdraw();"> &nbsp; &nbsp; &nbsp;
+							<script>
+								function withdraw() {
+									var ans = confirm('정말로 탈퇴하시겠습니까?');
+									
+									if(ans) {
+										location.href = '/malant/mleave?userno=<%= loginMember.getUserNo() %>';
+									}
+									
+									return false;
+								}
+							</script>
 							<input type="submit" value="변경하기">
 						</th>
 					</tr>

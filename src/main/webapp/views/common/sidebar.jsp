@@ -34,7 +34,7 @@
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section" onclick="location.href='/malant/views/member/loginPage.jsp;'">
+			<div class="login-section" onclick="location.href='/malant/login';">
 				로그인/회원가입
 			</div>
 		<% } else { %>

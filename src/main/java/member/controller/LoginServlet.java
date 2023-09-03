@@ -20,7 +20,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/login")
+@WebServlet("/logincheck")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,6 +38,8 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userid");
 		String userPwd = request.getParameter("userpwd");
 		
+		String referer = request.getParameter("preReferer");
+		
 		// 패스워드 암호화 처리 : SHA-512
 		String cryptoUserpwd = null;
 		
@@ -54,7 +56,6 @@ public class LoginServlet extends HttpServlet {
 		// 서비스 메소드로 값 전달 실행하고 결과 받기
 		Member member = new MemberService().selectLogin(userId, cryptoUserpwd);
 		
-		
 		// 받은 결과를 가지고 성공/실패 페이지 내보내기
 		RequestDispatcher view = null;
 		if(member != null && member.getWithdrawalYn().equals("Y")) { // 탈퇴한 회원인 경우
@@ -66,9 +67,14 @@ public class LoginServlet extends HttpServlet {
 			
 			view.forward(request, response);
 		} else if(member != null && member.getBlockedYn().equals("N")) { // 로그인 성공
+			// 마지막 접속일 업데이트
+			member.setLastLoginDate(new Date(System.currentTimeMillis()));
+			new MemberService().updateMember(member);
+			
 			HttpSession session = request.getSession();
+			session.setAttribute("previousPage", referer);
 			session.setAttribute("loginMember", member);
-			response.sendRedirect("index.jsp");
+			response.sendRedirect(referer);
 		} else { // 로그인 실패
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			

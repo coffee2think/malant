@@ -42,17 +42,18 @@ public class RestoreWithdrawalServlet extends HttpServlet {
 			int updateResult = new MemberService().updateWithdrawal(userNo);
 			
 			if(updateResult > 0) { // 탈퇴상태 업데이트 성공 시
-				view = request.getRequestDispatcher("views/member/loginPage.jsp");
+				response.sendRedirect("index.jsp");
+				return;
 			} else { // 탈퇴상태 업데이트 실패 시
 				view = request.getRequestDispatcher("views/common/error.jsp");
 				request.setAttribute("message", "회원 탈퇴상태 업데이트 실패");
+				view.forward(request, response);
 			}
 		} else { // 탈퇴회원 테이블 삭제 실패 시
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "탈퇴회원 테이블 삭제 실패");
+			view.forward(request, response);
 		}
-		
-		view.forward(request, response);
 	}
 
 	/**
