@@ -37,7 +37,7 @@ public class MyplantListServlet extends HttpServlet {
 		// myplant list 조회서블릿
 		String userNo = request.getParameter("user_no");
 		
-		System.out.println("listservlet : " + userNo);
+		//System.out.println("listservlet : " + userNo);
 		
 		
 		//list 가져올 userNo
@@ -71,7 +71,7 @@ public class MyplantListServlet extends HttpServlet {
 		if(list.size() >= 0) {
 			view = request.getRequestDispatcher("views/diary/myplant.jsp");
 			
-			System.out.println("listservlet result : " + userNo);
+			//System.out.println("listservlet result : " + userNo);
 			
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);

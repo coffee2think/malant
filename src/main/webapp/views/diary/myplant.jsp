@@ -64,29 +64,7 @@ function requestDelete() {
 					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
 					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE"></div>
 					<div>함께한 날 &nbsp; </div>
-					<div>성장환경 : 
-						<div class="position"> 어떤 장소에서 키우나요 <br>
-							<input type="radio" name="POS_WINDOW">창가 
-							<input type="radio" name="POS_VERANDA">베란다 
-							<input type="radio" name="POS_DESK">책상
-							<input type="radio" name="POS_YARD">마당 
-							<input type="radio" name="POS_GARDEN">텃밭 
-						</div>
-						<div class="environment"> 어떤 환경에서 키우나요 <br>
-							<input type="radio" name="ENV_SUNNY">볕이 좋은
-							<input type="radio" name="ENV_SHADY">그늘진 
-							<input type="radio" name="ENV_WINDY">바람 부는
-							<input type="radio" name="ENV_DRY">건조한
-							<input type="radio" name="ENV_HUMID">습한
-						</div>
-						<div class="with"> 누구와 함께 키우나요 <br>
-							<input type="radio" name="WITH_PET">애완동물과함께
-							<input type="radio" name="WITH_PLANT">식물들과함께
-							<input type="radio" name="WITH_CHILD">아이들과함께
-							<input type="radio" name="WITH_FRIEND">친구와함께
-							<input type="radio" name="WITH_ALONE">혼자 
-						</div>
-					</div>
+					
 					<div>
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
@@ -119,29 +97,7 @@ function requestDelete() {
 					<div>키우기 시작한 날: <%= mp.getMyplantStartDate() %></div>
 					<div>함께한 날: </div>
 					<div>메모: <%= mp.getMyplantMemo() %></div>
-					<div>성장환경 : 
-						<div class="position">
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">창가 
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">베란다 
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">책상
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">마당 
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">텃밭 
-						</div>
-						<div class="environment">
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">볕이 좋은
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">그늘진 
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">바람 부는
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">건조한
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">습한
-						</div>
-						<div class="with">
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">애완동물과함께
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">식물들과함께
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">아이들과함께
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">친구와함께
-							<input type="radio" readonly checked="<%= mp.getPosWindow() %>">혼자 
-						</div>
-					</div>
+
 					<div>
 						<input type="button" id="modify" class="modify" value="수정">
 						<input type="button" onclick="requestDelete(); return false;" value="삭제">
@@ -161,29 +117,7 @@ function requestDelete() {
 					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO" value="<%= mp.getMyplantMemo() %>"></div>
 					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE" value="<%= mp.getMyplantStartDate() %>"></div>
 					<div>함께한 날 &nbsp; </div>
-					<div>성장환경 : 
-						<div class="position"> 어떤 장소에서 키우나요 <br>
-							<input type="radio" name="POS_WINDOW" value="<%= mp.getPosWindow() %>">창가 
-							<input type="radio" name="POS_VERANDA" value="<%= mp.getPosWindow() %>">베란다 
-							<input type="radio" name="POS_DESK" value="<%= mp.getPosWindow() %>">책상
-							<input type="radio" name="POS_YARD" value="<%= mp.getPosWindow() %>">마당 
-							<input type="radio" name="POS_GARDEN" value="<%= mp.getPosWindow() %>">텃밭 
-						</div>
-						<div class="environment"> 어떤 환경에서 키우나요 <br>
-							<input type="radio" name="ENV_SUNNY" value="<%= mp.getPosWindow() %>">볕이 좋은
-							<input type="radio" name="ENV_SHADY" value="<%= mp.getPosWindow() %>">그늘진 
-							<input type="radio" name="ENV_WINDY" value="<%= mp.getPosWindow() %>">바람 부는
-							<input type="radio" name="ENV_DRY" value="<%= mp.getPosWindow() %>">건조한
-							<input type="radio" name="ENV_HUMID" value="<%= mp.getPosWindow() %>">습한
-						</div>
-						<div class="with"> 누구와 함께 키우나요 <br>
-							<input type="radio" name="WITH_PET" value="<%= mp.getPosWindow() %>">애완동물과함께
-							<input type="radio" name="WITH_PLANT" value="<%= mp.getPosWindow() %>">식물들과함께
-							<input type="radio" name="WITH_CHILD" value="<%= mp.getPosWindow() %>">아이들과함께
-							<input type="radio" name="WITH_FRIEND" value="<%= mp.getPosWindow() %>">친구와함께
-							<input type="radio" name="WITH_ALONE" value="<%= mp.getPosWindow() %>">혼자 
-						</div>
-					</div>
+
 					<div>
 						<input type="reset" class="close-btn" value="취소">
 						<input type="button" onclick="requestDelete(); return false;" value="삭제">
@@ -210,29 +144,8 @@ function requestDelete() {
 					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
 					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE"></div>
 					<div>함께한 날 &nbsp; </div>
-					<div>성장환경 : 
-						<div class="position"> 어떤 장소에서 키우나요 <br>
-							<input type="radio" name="POS_WINDOW">창가 
-							<input type="radio" name="POS_VERANDA">베란다 
-							<input type="radio" name="POS_DESK">책상
-							<input type="radio" name="POS_YARD">마당 
-							<input type="radio" name="POS_GARDEN">텃밭 
-						</div>
-						<div class="environment"> 어떤 환경에서 키우나요 <br>
-							<input type="radio" name="ENV_SUNNY">볕이 좋은
-							<input type="radio" name="ENV_SHADY">그늘진 
-							<input type="radio" name="ENV_WINDY">바람 부는
-							<input type="radio" name="ENV_DRY">건조한
-							<input type="radio" name="ENV_HUMID">습한
-						</div>
-						<div class="with"> 누구와 함께 키우나요 <br>
-							<input type="radio" name="WITH_PET">애완동물과함께
-							<input type="radio" name="WITH_PLANT">식물들과함께
-							<input type="radio" name="WITH_CHILD">아이들과함께
-							<input type="radio" name="WITH_FRIEND">친구와함께
-							<input type="radio" name="WITH_ALONE">혼자 
-						</div>
-					</div>
+	
+
 					<div>
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">

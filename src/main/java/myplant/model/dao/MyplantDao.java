@@ -47,10 +47,7 @@ public class MyplantDao {
 		
 		String query = "select *  "
 				+ "from (select rownum rnum, MYPLANT_ID, USER_NO, MYPLANT_NAME,  "
-				+ "MYPLANT_VARIETY, MYPLANT_IMAGE_URL, MYPLANT_MEMO,  "
-				+ "MYPLANT_START_DATE, POS_WINDOW, POS_VERANDA, POS_DESK, POS_YARD,  "
-				+ "POS_GARDEN, ENV_SUNNY, ENV_SHADY, ENV_WINDY, ENV_DRY, ENV_HUMID,  "
-				+ "WITH_PET, WITH_PLANT, WITH_CHILD, WITH_FRIEND, WITH_ALONE, CREATED_DATE "
+				+ "MYPLANT_VARIETY, MYPLANT_IMAGE_URL, MYPLANT_MEMO, MYPLANT_START_DATE, CREATED_DATE "
 				+ "from (select * from my_plant "
 				+ "order by USER_NO asc, MYPLANT_ID asc)) "
 				+ "where rnum >= ? and rnum <= ?";
@@ -72,22 +69,6 @@ public class MyplantDao {
 				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
 				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
 				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
-				myplant.setPosWindow(rset.getString("POS_WINDOW"));
-				myplant.setPosVeranda(rset.getString("POS_VERANDA"));
-				myplant.setPosDesk(rset.getString("POS_DESK"));
-				myplant.setPosYard(rset.getString("POS_YARD"));
-				myplant.setPosGarden(rset.getString("POS_GARDEN"));
-				myplant.setEnvSunny(rset.getString("ENV_SUNNY"));
-				myplant.setEnvShady(rset.getString("ENV_SHADY"));
-				myplant.setEnvWindy(rset.getString("ENV_WINDY"));
-				myplant.setEnvDry(rset.getString("ENV_DRY"));
-				myplant.setEnvHumid(rset.getString("ENV_HUMID"));
-				myplant.setWithPet(rset.getString("WITH_PET"));
-				myplant.setWithPlant(rset.getString("WITH_PLANT"));
-				myplant.setWithChild(rset.getString("WITH_CHILD"));
-				myplant.setWithFriend(rset.getString("WITH_FRIEND"));
-				myplant.setWithAlone(rset.getString("WITH_ALONE"));
-				myplant.setCreatedDate(rset.getDate("CREATED_DATE"));
 
 			    list.add(myplant);
 			}
@@ -112,21 +93,6 @@ public class MyplantDao {
 						+ "set myplant_name = ?, "
 						+ "myplant_variety = ?, "
 						+ "myplant_image_url = ?, "
-						+ "pos_mindow = ?, "
-						+ "pos_veranda = ?, "
-						+ "pos_desk = ?, "
-						+ "pos_yard = ?, "
-						+ "pos_garden = ?, "
-						+ "env_sunny = ?, "
-						+ "env_shady = ?, "
-						+ "env_windy = ?, "
-						+ "env_dry = ?, "
-						+ "env_humid = ?, "
-						+ "with_pet = ?, "
-						+ "with_plant = ?, "
-						+ "with_child = ?, "
-						+ "with_friend = ?, "
-						+ "with_alone = ? "
 						+ "where user_no = ?, myplant_id = ? ";
 
 		try {
@@ -135,23 +101,8 @@ public class MyplantDao {
 			pstmt.setString(1, myplant.getMyplantName());
 			pstmt.setString(2, myplant.getMyplantVariety());
 			pstmt.setString(3, myplant.getMyplantImageURL());
-			pstmt.setString(4, myplant.getPosWindow());
-			pstmt.setString(5, myplant.getPosVeranda());
-			pstmt.setString(6, myplant.getPosDesk());
-			pstmt.setString(7, myplant.getPosYard());
-			pstmt.setString(8, myplant.getPosGarden());
-			pstmt.setString(9, myplant.getEnvSunny());
-			pstmt.setString(10, myplant.getEnvShady());
-			pstmt.setString(11, myplant.getEnvWindy());
-			pstmt.setString(12, myplant.getEnvDry());
-			pstmt.setString(13, myplant.getEnvHumid());
-			pstmt.setString(14, myplant.getWithPet());
-			pstmt.setString(15, myplant.getWithPlant());
-			pstmt.setString(16, myplant.getWithChild());
-			pstmt.setString(17, myplant.getWithFriend());
-			pstmt.setString(18, myplant.getWithAlone());
-			pstmt.setString(19, myplant.getUserNo());
-			pstmt.setString(20, myplant.getMyplantId());
+			pstmt.setString(4, myplant.getUserNo());
+			pstmt.setString(5, myplant.getMyplantId());
 			
 			result = pstmt.executeUpdate();
 			
@@ -169,14 +120,11 @@ public class MyplantDao {
 		
 		System.out.println("inert Dao : " + userNo);
 		
-		String query = "insert into my_plant "
-					+ "(MYPLANT_ID, USER_NO, MYPLANT_NAME, MYPLANT_VARIETY, MYPLANT_IMAGE_URL, "
-					+ "MYPLANT_MEMO, MYPLANT_START_DATE, POS_WINDOW, POS_VERANDA, POS_DESK, POS_YARD, "
-					+ "POS_GARDEN, ENV_SUNNY, ENV_SHADY, ENV_WINDY, ENV_DRY, ENV_HUMID, WITH_PET, "
-					+ "WITH_PLANT, WITH_CHILD, WITH_FRIEND, WITH_ALONE, CREATED_DATE)  "
-					+ "values (MY_PLANT_SEQ.NEXTVAL, ?, ?, ?, ?, ?, "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?,  "
-					+ "?, ?, ?, ?, ?, ?, ?, DEFAULT)";	
+		String query = "insert into my_plant  "
+				+ "(MYPLANT_ID, USER_NO, MYPLANT_NAME, MYPLANT_VARIETY, MYPLANT_IMAGE_URL,  "
+				+ "MYPLANT_MEMO, MYPLANT_START_DATE, CREATED_DATE) "
+				+ "values (MY_PLANT_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, DEFAULT)";		
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 			
@@ -186,21 +134,7 @@ public class MyplantDao {
 			pstmt.setString(4, myplant.getMyplantImageURL());
 			pstmt.setString(5, myplant.getMyplantMemo());
 			pstmt.setDate(6, myplant.getMyplantStartDate());
-			pstmt.setString(7, myplant.getPosWindow());
-			pstmt.setString(8, myplant.getPosVeranda());
-			pstmt.setString(9, myplant.getPosDesk());
-			pstmt.setString(10, myplant.getPosYard());
-			pstmt.setString(11, myplant.getPosGarden());
-			pstmt.setString(12, myplant.getEnvSunny());
-			pstmt.setString(13, myplant.getEnvShady());
-			pstmt.setString(14, myplant.getEnvWindy());
-			pstmt.setString(15, myplant.getEnvDry());
-			pstmt.setString(16, myplant.getEnvHumid());
-			pstmt.setString(17, myplant.getWithPet());
-			pstmt.setString(18, myplant.getWithPlant());
-			pstmt.setString(19, myplant.getWithChild());
-			pstmt.setString(20, myplant.getWithFriend());
-			pstmt.setString(21, myplant.getWithAlone());
+
 			
 			result = pstmt.executeUpdate();
 			
@@ -235,22 +169,7 @@ public class MyplantDao {
 				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
 				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
 				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
-				myplant.setPosWindow(rset.getString("POS_WINDOW"));
-				myplant.setPosVeranda(rset.getString("POS_VERANDA"));
-				myplant.setPosDesk(rset.getString("POS_DESK"));
-				myplant.setPosYard(rset.getString("POS_YARD"));
-				myplant.setPosGarden(rset.getString("POS_GARDEN"));
-				myplant.setEnvSunny(rset.getString("ENV_SUNNY"));
-				myplant.setEnvShady(rset.getString("ENV_SHADY"));
-				myplant.setEnvWindy(rset.getString("ENV_WINDY"));
-				myplant.setEnvDry(rset.getString("ENV_DRY"));
-				myplant.setEnvHumid(rset.getString("ENV_HUMID"));
-				myplant.setWithPet(rset.getString("WITH_PET"));
-				myplant.setWithPlant(rset.getString("WITH_PLANT"));
-				myplant.setWithChild(rset.getString("WITH_CHILD"));
-				myplant.setWithFriend(rset.getString("WITH_FRIEND"));
-				myplant.setWithAlone(rset.getString("WITH_ALONE"));
-				
+
 			}
 			
 		} catch (Exception e) {
@@ -307,22 +226,7 @@ public class MyplantDao {
 				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
 				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
 				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
-				myplant.setPosWindow(rset.getString("POS_WINDOW"));
-				myplant.setPosVeranda(rset.getString("POS_VERANDA"));
-				myplant.setPosDesk(rset.getString("POS_DESK"));
-				myplant.setPosYard(rset.getString("POS_YARD"));
-				myplant.setPosGarden(rset.getString("POS_GARDEN"));
-				myplant.setEnvSunny(rset.getString("ENV_SUNNY"));
-				myplant.setEnvShady(rset.getString("ENV_SHADY"));
-				myplant.setEnvWindy(rset.getString("ENV_WINDY"));
-				myplant.setEnvDry(rset.getString("ENV_DRY"));
-				myplant.setEnvHumid(rset.getString("ENV_HUMID"));
-				myplant.setWithPet(rset.getString("WITH_PET"));
-				myplant.setWithPlant(rset.getString("WITH_PLANT"));
-				myplant.setWithChild(rset.getString("WITH_CHILD"));
-				myplant.setWithFriend(rset.getString("WITH_FRIEND"));
-				myplant.setWithAlone(rset.getString("WITH_ALONE"));
-				myplant.setCreatedDate(rset.getDate("CREATED_DATE"));
+
 				
 			}
 			
