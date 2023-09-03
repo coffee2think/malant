@@ -6,9 +6,9 @@ public class Diary implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 389267166750680966L;
 	
-	private String memberNo;
-	private int diaryNo;
-	private String petPlantNo;
+	private String userNo;
+	private String diaryId;
+	private String myplantId;
 	private Date diaryWritingDate;
 	private String diaryContent;
 	private String diaryImage1URL;
@@ -27,13 +27,13 @@ public class Diary implements java.io.Serializable {
 	}
 
 	
-	public Diary(String memberNo, int diaryNo, String petPlantNo, Date diaryWritingDate, String diaryContent,
+	public Diary(String userNo, String diaryId, String myplantId, Date diaryWritingDate, String diaryContent,
 			String diaryImage1URL, String diaryImage2URL, String diaryImage3URL, String diaryImage4URL,
 			String diaryManaging1, String diaryManaging2, String diaryManaging3, String diaryManaging4) {
 		super();
-		this.memberNo = memberNo;
-		this.diaryNo = diaryNo;
-		this.petPlantNo = petPlantNo;
+		this.userNo = userNo;
+		this.diaryId = diaryId;
+		this.myplantId = myplantId;
 		this.diaryWritingDate = diaryWritingDate;
 		this.diaryContent = diaryContent;
 		this.diaryImage1URL = diaryImage1URL;
@@ -49,7 +49,7 @@ public class Diary implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Diary [memberNo=" + memberNo + ", diaryNo=" + diaryNo + ", petPlantNo=" + petPlantNo
+		return "Diary [userNo=" + userNo + ", diaryId=" + diaryId + ", myplantId=" + myplantId
 				+ ", diaryWritingDate=" + diaryWritingDate + ", diaryContent=" + diaryContent + ", diaryImage1URL="
 				+ diaryImage1URL + ", diaryImage2URL=" + diaryImage2URL + ", diaryImage3URL=" + diaryImage3URL
 				+ ", diaryImage4URL=" + diaryImage4URL + ", diaryManaging1=" + diaryManaging1 + ", diaryManaging2="
@@ -57,33 +57,33 @@ public class Diary implements java.io.Serializable {
 	}
 
 
-	public String getMemberNo() {
-		return memberNo;
+	public String getUserNo() {
+		return userNo;
 	}
 
 
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
 	}
 
 
-	public int getDiaryNo() {
-		return diaryNo;
+	public String getDiaryId() {
+		return diaryId;
 	}
 
 
-	public void setDiaryNo(int diaryNo) {
-		this.diaryNo = diaryNo;
+	public void setDiaryId(String diaryId) {
+		this.diaryId = diaryId;
 	}
 
 
-	public String getPetPlantNo() {
-		return petPlantNo;
+	public String getMyplantId() {
+		return myplantId;
 	}
 
 
-	public void setPetPlantNo(String petPlantNo) {
-		this.petPlantNo = petPlantNo;
+	public void setMyplantId(String myplantId) {
+		this.myplantId = myplantId;
 	}
 
 

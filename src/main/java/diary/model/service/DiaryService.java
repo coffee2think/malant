@@ -40,12 +40,50 @@ public class DiaryService {
 	}
 
 
-	public ArrayList<Diary> selectList(int startRow, int endRow) {
+	public ArrayList<Diary> selectList(String userNo, int startRow, int endRow) {
 		Connection conn = getConnection();
-		ArrayList<Diary> list = ddao.selectList(conn, startRow, endRow);
+		ArrayList<Diary> list = ddao.selectList(conn, userNo, startRow, endRow);
 		close(conn);
 		return list;
 	}
+
+	public int insertNewDiray(Diary diary, String userNo) {
+		Connection conn = getConnection();
+		int result = ddao.insertNewDiray(conn, diary, userNo);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	
+	}
+
+	public int updateDiary(Diary diary, String userNo, String diaryId) {
+		Connection conn = getConnection();
+		int result = ddao.updateMyplant(conn, diary, userNo, diaryId);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deleteDiary(String userNo, String diaryId) {
+		Connection conn = getConnection();
+		int result = ddao.deleteDiary(conn, userNo, diaryId);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
 
 
 	

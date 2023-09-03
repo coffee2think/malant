@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CalendarUpadteAlarmServlet
  */
-@WebServlet("/CalendarUpadteAlarmServlet")
+@WebServlet("/cdelete")
 public class CalendarUpadteAlarmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
