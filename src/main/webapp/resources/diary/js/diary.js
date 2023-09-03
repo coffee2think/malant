@@ -39,10 +39,10 @@ function showNotes() {
                         <div class="bottom-content">
                             <span>${note.date}</span>
                             <div class="settings">
-                                <img onclick="showMenu(this)" src="uil uil-ellipsis-h">
+                                <i onclick="showMenu(this)" class="uil uil-ellipsis-h"></i>
                                 <ul class="menu">
-                                    <li class="edit" onclick="updateNote(${id}, '${note.title}', '${filterDesc}')"><img /malant/resources/diary/images/editIcon.png>Edit</li>
-                                    <li class="delete" onclick="deleteNote(${id})"><img src="uil uil-trash">Delete</li>
+                                    <li onclick="updateNote(${id}, '${note.title}', '${filterDesc}')"><i class="uil uil-pen"></i>Edit</li>
+                                    <li onclick="deleteNote(${id})"><i class="uil uil-trash"></i>Delete</li>
                                 </ul>
                             </div>
                         </div>
