@@ -39,6 +39,7 @@ body {
 
 .menu a{
 	text-decoration: none;
+	
 }
 
 .menu:hover {
@@ -61,31 +62,27 @@ body {
 	position: absolute;
 	resize: both;
 	border: 1px solid black;
+	float: left;
 }
 
 ::selection{
   color: #fff;
-  background: #dfe8e4;
+  background: #618cf8;
 }
 .wrapper{
-  top: 90px;
-  left: 60px;			
-  margin: 0px;
+  margin: 50px;
   display: grid;
-  position: absolute;
-  gap: 5px;
-
+  gap: 25px;
+  grid-template-columns: repeat(auto-fill, 265px);
 }
-.wrapper div{
-  width: 580px;	
-  height: 100px;
+.wrapper li{
+  height: 250px;
   list-style: none;
   border-radius: 5px;
   padding: 15px 20px 20px;
   background: #fff;
- 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
-
 .add-box, .icon, .bottom-content, 
 .popup, header, .settings .menu li{
   display: flex;
@@ -97,17 +94,19 @@ body {
   flex-direction: column;
   justify-content: center;
 }
-.add-box .icon img{
-  height: 70px;
-  width: 70px;
+.add-box .icon{
+  height: 78px;
+  width: 78px;
+  color: #88ABFF;
+  font-size: 40px;
+  border-radius: 50%;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
+  border: 2px dashed #88ABFF;
 }
 .add-box p{
-  color: #92BEA9;
+  color: #88ABFF;
   font-weight: 500;
-  margin-top: auto;
+  margin-top: 20px;
 }
 .note{
   display: flex;
@@ -157,7 +156,7 @@ body {
 .bottom-content .settings{
   position: relative;
 }
-.bottom-content .settings img{
+.bottom-content .settings i{
   color: #6D6D6D;
   cursor: pointer;
   font-size: 15px;
@@ -194,7 +193,7 @@ body {
 .menu li:hover{
   background: #f5f5f5;
 }
-.menu li img{
+.menu li i{
   padding-right: 8px;
 }
 
@@ -202,7 +201,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 2;
   height: 100%;
   width: 100%;
   background: rgba(0,0,0,0.4);
@@ -243,7 +242,7 @@ body {
   font-size: 20px;
   font-weight: 500;
 }
-.content header img{
+.content header i{
   color: #8b8989;
   cursor: pointer;
   font-size: 23px;
@@ -297,7 +296,7 @@ form button{
   .popup-box .popup{
     max-width: calc(100% - 15px);
   }
-  .bottom-content .settings img{
+  .bottom-content .settings i{
     font-size: 17px;
   }
 }

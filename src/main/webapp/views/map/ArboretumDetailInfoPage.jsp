@@ -79,7 +79,7 @@ margin-top: 7px;
 
 <body>
 	<div class="outer-container">
-		<div><%@ include file="../common/sidebar.jsp"%></div>
+		<div style="position:absolute;top:0;left:0;"><%@ include file="../common/sidebar.jsp"%></div>
 		<hr>
 		<div class="content-all">
 			<div class="tree-title">

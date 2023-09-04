@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, search.model.vo.Plant" %>
+    pageEncoding="UTF-8" import="java.util.ArrayList, search.model.vo.Plant, common.Paging" %>
 <%
-	String keyword = (String) request.getAttribute("keyword");
+	String keywd = (String) request.getAttribute("keyword");
+	
 	ArrayList<Plant> list = (ArrayList<Plant>) request.getAttribute("list");
+	int nowPage = ((Integer) request.getAttribute("currentPage")).intValue();
+	
+	int listCount = ((Paging) request.getAttribute("paging")).getListCount();
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title><%= keyword %> 검색 결과</title>
+<title><%= keywd %> 검색 결과</title>
 <style>
 .container {
 	height: 100vh;
@@ -143,30 +147,30 @@
 			<div class="search-area">
 				<div class="searchbar">
 					<form action="/malant/plsearch" method="get">
-						<input type="search" class="searchbox" name="keyword" value="<%= keyword %>" placeholder="검색어를 입력하세요.">
+						<input type="search" class="searchbox" name="keyword" value="<%= keywd %>" placeholder="검색어를 입력하세요." required>
 						<input type="submit" class="searchbtn" value="검색">
 					</form>
 				</div>
 				<div class="filters">
-					<select class="filter">
+					<select class="filter" name="difficulty">
 						<option>난이도</option>
 						<option>초보자</option>
 						<option>경험자</option>
 						<option>전문가</option>
 					</select>
-					<select class="filter">
+					<select class="filter" name="growth_rate">
 						<option>성장속도</option>
 						<option>빠름</option>
 						<option>보통</option>
 						<option>느림</option>
 					</select>
-					<select class="filter">
-						<option>효능</option>
-						<option>빠름</option>
-						<option>보통</option>
-						<option>느림</option>
+					<select class="filter" name="usecase">
+						<option>용도</option>
+						<option>관상용</option>
+						<option>식용</option>
+						<option>조경용</option>
 					</select>
-					<select class="filter">
+					<select class="filter" name="">
 						<option>크기</option>
 						<option>소형</option>
 						<option>중형</option>
@@ -179,28 +183,28 @@
 			<div class="results">
 				<div class="result-guide">
 					<% if(list.size() == 0) { %>
-						<h4><%= keyword %> 에 대한 검색 결과가 존재하지 않습니다.</h4>
+						<h4><%= keywd %> 에 대한 검색 결과가 존재하지 않습니다.</h4>
 					<% } else { %>
 						<div class="result-message">
-							<h4>'<%= keyword %>' 에 대한 검색 결과입니다.(<%= list.size() %> 건)</h4>
+							<h4>'<%= keywd %>' 에 대한 검색 결과입니다.(<%= listCount %> 건)</h4>
 						</div>
 						<div class="sort-items">
-							<div class="sort-item"><a href="/">관련도순</a></div>
-							<div class="sort-item"><a href="#">인기순</a></div>
-							<div class="sort-item"><a href="#">이름순</a></div>
+							<!-- 관련도순 어떻게 검색해올지 고민
+							<div class="sort-item"><a href="#">관련도순</a></div>
+							 -->
+							<div class="sort-item" id="sort-name"><a href="#">이름순</a></div>
+							<div class="sort-item" id="sort-viewcount"><a href="#">인기순</a></div>
 						</div>
 					<% } %>
 				</div>
 				<div class="result-cards">
-					<% if(list.size() == 0) { %>
-						<%= keyword %> 에 대한 검색 결과가 존재하지 않습니다.
-					<% } else {
+					<% if(list.size() > 0) {
 						for (Plant plant : list) {
 					%>
-						<div class="plant-card" onclick="javascript: location.href = '/malant/pldetail?pno=' + <%= plant.getPlantNo() %>"><p4><%= plant.getPlantName() %></p4></div><br>
-					<%	} %>
-						
-					<% } %>
+						<div class="plant-card" onclick="javascript: location.href='/malant/pldetail?pno='+<%= plant.getPlantNo() %>"><p4><%= plant.getPlantName() %></p4></div><br>
+					<%	} // for %>
+						<%@ include file="../common/pagingView.jsp" %>
+					<% } // else %>
 				</div>
 			</div>
 		</div>

@@ -30,9 +30,9 @@ public class MyplantService {
 		return list;
 	}
 
-	public int updateMyplant(Myplant myplant, String userNo, String myplantId) {
+	public int updateMyplant(Myplant myplant) {
 		Connection conn = getConnection();
-		int result = mpdao.updateMyplant(conn, myplant, userNo, myplantId);
+		int result = mpdao.updateMyplant(conn, myplant);
 		if(result > 0) {
 			commit(conn);
 		}else {
@@ -42,9 +42,9 @@ public class MyplantService {
 		return result;
 	}
 
-	public int insertMyplantInformation(Myplant myplant, String userNo) {
+	public int insertMyplantInformation(Myplant myplant) {
 		Connection conn = getConnection();
-		int result = mpdao.insertMyplantInformation(conn, myplant, userNo);
+		int result = mpdao.insertMyplantInformation(conn, myplant);
 		if(result > 0 ) {
 			commit(conn);
 		}else {
@@ -52,13 +52,6 @@ public class MyplantService {
 		}
 		close(conn);
 		return result;
-	}
-
-	public Myplant selectMyplantInfo(String userNo, String myplantId) {
-		Connection conn = getConnection();
-		Myplant myplant = mpdao.selectMyplantInfo(conn, userNo, myplantId);
-		close(conn);
-		return myplant;
 	}
 
 	public int deleteMyplant(String userNo, String myplantId) {

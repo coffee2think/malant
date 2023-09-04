@@ -1,11 +1,27 @@
 package store.order.controller;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import store.order.model.service.OrderService;
+import store.order.model.vo.ProductOrder;
+import store.shoppingBasket.model.vo.ShoppingBasket;
+
+
+
 
 /**
  * Servlet implementation class OrderSheetServlet
@@ -13,72 +29,110 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Osheet")
 public class OrderSheetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrderSheetServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public OrderSheetServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doPost(request, response);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String buyerName = request.getParameter("buyerName");
-		String buyerContact = request.getParameter("buyerContact");
-		String recipient = request.getParameter("recipient");
-		String recipientContact = request.getParameter("recipient_contact");
-		String postcode = request.getParameter("postcode");
-		String address = request.getParameter("address");
-		String detailAddress = request.getParameter("detailAddress");
-		String extraAddress = request.getParameter("extraAddress");
-		String deliveryNote = request.getParameter("delivery_note");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		// 주문 상품 목록에서 총 가격 계산하기 (예시)
-		int total = 0;
-		for (ShoppingBasket sb : olist) {
-		    total += sb.getTotalPrice();
-		}
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		ArrayList<ShoppingBasket> olist = (ArrayList<ShoppingBasket>) session.getAttribute("olist");
+		 
+		System.out.println("session : "+olist.toString());
 
-		// ProductOrder 객체 생성하고 필드 설정하기
 		ProductOrder productOrder = new ProductOrder();
-		productOrder.setBuyerName(buyerName);
-		productOrder.setBuyerContact(buyerContact);
-		productOrder.setRecipient(recipient);
-		productOrder.setRecipientContact(recipientContact);
-		productOrder.setCodePostal(postcode);
-		productOrder.setDeliveryAddress(address);
-		productOrder.setDeliveryAddress2(detailAddress);
-		productOrder.setShippingAddressName(extraAddress);
-		productOrder.setDeliveryNote(deliveryNote);
-		productOrder.setTotalPrice(total);
 		
+		productOrder.setUserNo(request.getParameter("userno"));
+		productOrder.setBuyerName(request.getParameter("buyerName"));
+		productOrder.setBuyerContact(request.getParameter("buyerContact"));
+		productOrder.setRecipient(request.getParameter("recipient"));
+		productOrder.setRecipientContact(request.getParameter("recipient_contact"));
+		productOrder.setCodePostal(request.getParameter("postcode"));
+		productOrder.setDeliveryAddress(request.getParameter("address"));
+		productOrder.setDeliveryAddress2(request.getParameter("detailAddress"));
+		productOrder.setShippingAddressName(request.getParameter("extraAddress"));
+		productOrder.setProductName(request.getParameter("productName"));
+		productOrder.setThumbnailImg(request.getParameter("productThumnail"));
+		productOrder.setTotalPrice(Integer.valueOf(request.getParameter("totalprice")));
 		
+		if((request.getParameter("delivery_note")) != null)
+			productOrder.setDeliveryNote(request.getParameter("delivery_note"));
 		
+		//날짜생성
+		Date currentDate = new Date();
+		SimpleDateFormat sysdate = new SimpleDateFormat("yyyyMMddHHmmss");
+		System.out.println(sysdate.format(currentDate));
 		
+		String orderid = null;
+		//암호화전 문자열 합치기
+		String combString = productOrder.getUserNo()+sysdate.format(currentDate);
 		
+		try { // byte[] 처리 후 암호화
+		MessageDigest md = MessageDigest.getInstance("SHA-512");
+		byte[] oderidValus = combString.getBytes(Charset.forName("UTF-8"));
+		md.update(oderidValus);
+		orderid = Base64.getEncoder().encodeToString(oderidValus);
 		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+		System.out.println("orderid : "+orderid);
 		
-		
-		
-		
-		
-		
-		
-		doGet(request, response);
-	}
+		productOrder.setOrderId(orderid);
 
+		
+		
+		ArrayList<ProductOrder> porder = new ArrayList<ProductOrder>();
+		
+		for(int i = 0; i<olist.size(); i++) {
+			ProductOrder po = new ProductOrder();
+			ShoppingBasket getOlist = olist.get(i);
+			
+			po.setOrderId(orderid);
+			po.setProductId(getOlist.getProductId());
+			po.setQuantity(getOlist.getQuantity());
+			
+			porder.add(po);
+		}
+		
+		int result = new OrderService().saveOrderSheet(productOrder, porder);
+
+		if (result > 0) {
+			 response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+
+			    // JSON 객체를 생성하여 URL을 설정
+//			    JsonObject jsonResponse = new JsonObject();
+//			    jsonResponse.addProperty("url", request.getContextPath() + "/views/store/order/orderPay.jsp");
+
+		} else {
+			System.out.println("주문서 저장 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", "주문서 저장 실패..");
+			view.forward(request, response);
+		}
+	}
 }

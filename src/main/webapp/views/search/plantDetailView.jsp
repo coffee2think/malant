@@ -13,7 +13,6 @@
 	height: 100vh;
 	display: flex;
 	flex-wrap: wrap;
-	align-content: center;
 }
 
 .content {
@@ -30,7 +29,7 @@
 
 .simple-wrapper {
 	width: 800px;
-	/* height: 350px; */
+	height: 350px;
 	border: 1px solid green;
 	display: flex;
 	justify-content: center;
@@ -115,11 +114,20 @@
 	height: 400px;
 	border: 1px solid blue;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 	align-content: center;
 	flex-wrap: wrap;
 }
 
+.managing-item {
+	width: 180px;
+	height: 400px;
+	border: 1px solid blue;
+	display: flex;
+	justify-content: flex-start;
+	align-content: center;
+	flex-wrap: wrap;
+}
 </style>
 </head>
 <body>
@@ -140,7 +148,12 @@
 				<div class="detail-title">식물 상세 정보</div>
 				<div class="detail-feature">세부 특징 영역(표가 나올 영역)</div>
 				<div class="tips-and-precautions">추가적인 정보 및 주의사항 영역(조언 정보가 나올 영역)</div>
-				<div class="managing-info">관리 정보(관리 정보를 4개의 카드로 보여질 영역 : 토양/비료, 관수주기/병충해관리, 개화시기/결실시기, 번식시기 등)</div>
+				<div class="managing-info">
+					<div class="managing-item">토양/비료</div>
+					<div class="managing-item">관수주기/병충해관리</div>
+					<div class="managing-item">개화시기/결실시기</div>
+					<div class="managing-item">번식시기</div>
+				</div>
 			</div>
 		</div>
 	</div>

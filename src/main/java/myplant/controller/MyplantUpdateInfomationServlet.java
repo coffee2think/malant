@@ -45,9 +45,6 @@ public class MyplantUpdateInfomationServlet extends HttpServlet {
 		//게시글 원글 수정 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
 		
-		String userNo = request.getParameter("USER_NO");
-		String myplantId = request.getParameter("myplant_id");
-		
 		//1. multipart 방식으로 인코딩되어서 전송왔는지 확인
 		//아니면 에러페이지 내보냄
 		RequestDispatcher view = null;
@@ -77,86 +74,32 @@ public class MyplantUpdateInfomationServlet extends HttpServlet {
 		myplant.setUserNo(mrequest.getParameter("USER_NO"));
 		myplant.setMyplantName(mrequest.getParameter("MYPLANT_NAME"));
 		myplant.setMyplantVariety(mrequest.getParameter("MYPLANT_VARIETY"));
-		myplant.setMyplantImageURL(mrequest.getParameter("MYPLANT_IMAGE_URL"));
-		myplant.setMyplantMemo(mrequest.getParameter("MYPLANT_MEMO"));
 		myplant.setMyplantStartDate((Date.valueOf(mrequest.getParameter("MYPLANT_START_DATE"))));
-		myplant.setPosWindow(mrequest.getParameter("POS_WINDOW"));
-		myplant.setPosVeranda(mrequest.getParameter("POS_VERANDA"));
-		myplant.setPosDesk(mrequest.getParameter("POS_DESK"));
-		myplant.setPosYard(mrequest.getParameter("POS_YARD"));
-		myplant.setPosGarden(mrequest.getParameter("POS_GARDEN"));
-		myplant.setEnvSunny(mrequest.getParameter("ENV_SUNNY"));
-		myplant.setEnvShady(mrequest.getParameter("ENV_SHADY"));
-		myplant.setEnvWindy(mrequest.getParameter("ENV_WINDY"));
-		myplant.setEnvDry(mrequest.getParameter("ENV_DRY"));
-		myplant.setEnvHumid(mrequest.getParameter("ENV_HUMID"));
-		myplant.setWithPet(mrequest.getParameter("WITH_PET"));
-		myplant.setWithPlant(mrequest.getParameter("WITH_PLANT"));
-		myplant.setWithChild(mrequest.getParameter("WITH_CHILD"));
-		myplant.setWithFriend(mrequest.getParameter("WITH_FRIEND"));
-		myplant.setWithAlone(mrequest.getParameter("WITH_ALONE"));
-		
-		
+		myplant.setMyplantMemo(mrequest.getParameter("MYPLANT_MEMO"));
 		int currentPage = Integer.parseInt(mrequest.getParameter("page"));
 		
-		//이전 첨부파일에 대한 삭제여부 값 추출
-		String deleteFlag = mrequest.getParameter("deleteFlag");
+		//6. 업로드된 원본 파일 이름 추출
+		String upFileName = mrequest.getFilesystemName("MYPLANT_IMAGE_URL");
+		myplant.setMyplantImageURL(upFileName);
 		
-		//이전 첨부파일의 파일명 추출
-		String inFileName = mrequest.getParameter("inFile");
-		
-		//6.새로운 첨부파일명 추출
-		String upFileName = mrequest.getFilesystemName("upFile");
-		
-		//첨부파일 확인: 
-		//원래 파일과 새로 업로드된 파일의 이름이 갖고, 
-		//파일의 용량도 동일하면 원래 이름 그대로 기록함
-		//업로드된 파일의  file 객체 만들기 
-		File up = new File(savePath + "\\" + upFileName);
-		File originFile = new File(savePath + "\\" + inFileName);
-		
-		if(inFileName.equals(upFileName) == true && inFileName.length() == upFileName.length()) {
-			myplant.setMyplantImageURL(upFileName);
-		}
-		//원래 첨부파일이 있었는데, 변경되지 않은 경우
-		if(inFileName != null && upFileName == null) {
-			myplant.setMyplantImageURL(inFileName);
-		}
-		//원래 첨부파일이 있었는데 파일 삭제가 체크된 경우 
-		if(inFileName != null && deleteFlag != null && deleteFlag.equals("yes")) {
-			myplant.setMyplantImageURL(null);
-			
-			// 저장폴더에서 제거
-			new File(savePath + "\\" + inFileName).delete();
-		}
-		
-		//첨부파일이 없었는데 추가된 경우와 
-		//첨부파일이 있었는데 변경된 경우 둘 다 해당 됨 
+		//7. 폴더에 저장된 파일의 이름 바꾸기 처리
+		//저장 폴더에 같은 이름의 파일이 있을 경우를 대비하기 위함
+		//년월일시분초.확장자 형식으로 변경
 		if(upFileName != null) {
-			//새로 업로드된 파일이 있다면
-			myplant.setMyplantImageURL(upFileName);
+			//업로드된 파일이 있을때만 파일명 바꾸기 실행 
 			
-			String newInFileName = FileNameChange.change(
-					upFileName, savePath, "yyyyMMddHHmmss");
+			String newUpFileName = FileNameChange.change(upFileName, savePath, "yyyyMMddHHmmss");
 			
-			myplant.setMyplantImageURL(newInFileName);
-
-
-			//이전 첨부파일이 있었다면 삭제함
-			if(inFileName != null) {
-				new File(savePath + "\\" + inFileName).delete();
-					
-			}
-			
+			myplant.setMyplantImageURL(newUpFileName);
 		}
 			
-		// 6. 서비스 메소드로 전달하고 결과받기
-		int result = new MyplantService().updateMyplant(myplant, userNo, myplantId);
+		// 서비스 메소드로 전달하고 결과받기
+		int result = new MyplantService().updateMyplant(myplant);
 
-		// 7. 받은 결과로 성공/실패 페이지 내보내기
+		//받은 결과로 성공/실패 페이지 내보내기
 		if (result > 0) {
 			//서블릿에서 서블릿 실행
-			response.sendRedirect("/malant/mpinfo?myplantId=" + myplant.getMyplantId() + "&page=" + currentPage);
+			response.sendRedirect("/malant/mplist?myplantId=" + myplant.getMyplantId() + "&page=" + currentPage);
 		} else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", 

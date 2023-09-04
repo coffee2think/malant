@@ -80,8 +80,8 @@ public class UpdateMemberInfoServlet extends HttpServlet {
 		
 		// 4. 받은 결과로 내보낼 뷰 선택 처리
 		if(result > 0) {
-			// 수정 성공시 마이페이지 뷰가 출력되게 한다면, myinfo 서블릿을 구동시킴
-			// 서블릿에서 다른 서블릿을 실행시킬 수 있음
+			HttpSession session = request.getSession();
+			session.setAttribute("loginMember", member);
 			response.sendRedirect("/malant"); // a 태그처럼 쓰면 됨
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp"); // 값을 담아서 보내야할 때 사용함.

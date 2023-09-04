@@ -12,6 +12,8 @@
 <style>
 	.container {
 		display: flex;
+		height: 100vh;
+		align-items: center;
 	}
 	
 	.content {
@@ -29,7 +31,13 @@
 			<h4>회원탈퇴일자 : <%= wdDate %> </h4>
 			<h4>회원탈퇴일자로부터 15일의 유예기간 동안에만 회원탈퇴 취소가 가능합니다.<br>
 			[회원탈퇴 취소] 후에 다시 서비스를 이용하실 수 있습니다.</h4>
-			<input type="button" value="회원탈퇴 취소" onclick="javascript: location.href='/malant/wdrestore?userno=<%= userNo %>'">
+			
+			<input type="button" value="회원탈퇴 취소" onclick="restoreWithdrawal();">
+			<script>
+				function restoreWithdrawal() {
+					location.href = "/malant/wdrestore?userno=<%= userNo %>";
+				}
+			</script>
 		</div>
 	</div>
 </body>

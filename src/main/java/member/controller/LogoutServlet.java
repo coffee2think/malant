@@ -1,6 +1,8 @@
 package member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -28,15 +33,23 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그아웃 컨트롤러
-		
-		// request에 등록되어있는 세션 객체의 ID를 이용해서 세션 객체를 조회함
 		HttpSession session = request.getSession(false);
-		// false : ID와 일치하는 세션객체가 있으면 가져오고, 없으면 null을 리턴 == 세션을 새로 만들지 마라.
 		
-		// 해당 세션 객체가 존재하면, 세션 객체를 없앰
 		if (session != null) {
-			session.invalidate(); // invalidate() : 세션을 없애라.
-			// index.jsp 페이지로 이동함
+			// 마지막 접속일 업데이트
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			loginMember.setLastLoginDate(new Date(System.currentTimeMillis()));
+			int result = new MemberService().updateMember(loginMember);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+			
+			if(result > 0) {
+				System.out.println(loginMember.getUserNo() + "의 last login date 업데이트 완료 : " + sdf.format(loginMember.getLastLoginDate()));
+			} else {
+				System.out.println(loginMember.getUserNo() + "의 last login date 업데이트 실패");
+			}
+			
+			session.invalidate();
 			response.sendRedirect("index.jsp");
 		}
 	}

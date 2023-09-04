@@ -29,12 +29,12 @@
 				<% } %>>다이어리</a></li>
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
 				<li><a href="/malant/smplist">스토어</a></li>
-				<li><a href="/malant/views/notice/noticeMainList.jsp">공지/이벤트</a></li>
+				<li><a href="/malant/ntitlelist">공지/이벤트</a></li>
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section" onclick="location.href='/malant/views/member/loginPage.jsp;'">
+			<div class="login-section" onclick="location.href='/malant/login?mtype=common&loc=common';">
 				로그인/회원가입
 			</div>
 		<% } else { %>

@@ -14,9 +14,9 @@ public class SearchService {
 	//DI(Dependency Injection : 의존성 주입)
 	private SearchDao sdao = new SearchDao();
 	
-	public ArrayList<Plant> selectPlantList(String keyword) {
+	public ArrayList<Plant> selectPlantList(String keyword, int startRow, int endRow) {
 		Connection conn = getConnection();
-		ArrayList<Plant> list = sdao.selectPlantList(conn, keyword);
+		ArrayList<Plant> list = sdao.selectPlantList(conn, keyword, startRow, endRow);
 		close(conn);
 		return list;
 	}
@@ -26,6 +26,13 @@ public class SearchService {
 		Plant plant = sdao.selectPlant(conn, plantNo);
 		close(conn);
 		return plant;
+	}
+
+	public int getListCount(String keyword) {
+		Connection conn = getConnection();
+		int listCount = sdao.getListCount(conn, keyword);
+		close(conn);
+		return listCount;
 	}
 
 }

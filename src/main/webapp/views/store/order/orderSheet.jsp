@@ -87,18 +87,28 @@ session.setAttribute("olist", olist);
 						: </label><input type="email" name="buyerContact"><br>
 
 					<h3>배송지 정보</h3>
-					<label>이 &nbsp; 름 : </label><input type="text" name="recipient"
+					<label>이 &nbsp; 름 : </label> <input type="text" name="recipient"
 						required><br> <label>연락처 : </label><input type="tel"
 						name="recipient_contact" required><br>
-					<!-- 주소 넣는 API -->
+					<!-- 주소 API -->
 					<label>주 &nbsp; 소 : </label> <input type="text" id="postcode"
-						placeholder="우편번호" required> &nbsp;<input type="button"
-						onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+						name="postcode" placeholder="우편번호" required> &nbsp; <input
+						type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-						type="text" id="address" placeholder="주소" required><br>
+						type="text" id="address" name="address" placeholder="주소" required><br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-						type="text" id="detailAddress" placeholder="상세주소" required>
-					<input type="text" id="extraAddress" placeholder="참고주소">
+						type="text" id="detailAddress" name="detailAddress"
+						placeholder="상세주소" required> <input type="text"
+						id="extraAddress" name="extraAddress" placeholder="참고주소">
+					<input type="hidden"
+						value="<%=olist.get(0).getProductName()%> 등 <%=olist.size()%> 건"
+						name="productName"> <input type="hidden"
+						value="<%=olist.get(0).getProductThumnail()%>"
+						name="productThumnail"> <input type="hidden"
+						value="<%=total%>" name="totalprice"> <input type="hidden"
+						value="<%=loginMember.getUserNo()%>" name="userno">
+
+
 					<!-- iframe -->
 					<div id="layer"
 						style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
@@ -117,7 +127,6 @@ session.setAttribute("olist", olist);
 				<button type="submit" id="go-pay-button" form="ordersheet">결제하기</button>
 				<iframe id="popupFrame"
 					style="display: none; width: 800px; height: 600px;"></iframe>
-
 				<div style="height: 200px;"></div>
 			</div>
 		</div>
@@ -221,15 +230,36 @@ session.setAttribute("olist", olist);
 		}
 //////////////////////////////////   iframe   ///////////////////////////////////////////
 		document.getElementById("go-pay-button").addEventListener("click", function() {
-		    
-			var popupUrl = "/malant/osheet";
+		 	
+	        // required 필드가 비어있는지 확인
+	        var requiredFields = document.querySelectorAll('[required]');
+	        var isFormValid = true;
 
-		    var iframe = document.getElementById("popupFrame");
+	        for (var i = 0; i < requiredFields.length; i++) {
+	            if (requiredFields[i].value.trim() === "") {
+	                isFormValid = false;
+	                break;
+	            }
+	        }
 
-		    iframe.src = popupUrl;
+	        // required 필드 중 하나라도 비어 있으면 iframe를 열지 않음
+	        if (!isFormValid) {
+	            alert("필수입력사항을 입력해주세요.");
+	        } else {
+	        	 var popupUrl = "/malant/osheet";
+	        	 var iframe = document.getElementById("popupFrame");
 
-		    // iframe이 보이도록
-		    iframe.style.display = "block";
+	        	    // 서버에서 받은 URL로 iframe의 src를 변경
+	        	    fetch(popupUrl)
+	        	        .then(response => response.text())
+	        	        .then(url => {
+	        	            iframe.src = url;
+	        	            iframe.style.display = "block";
+	        	        })
+	        	        .catch(error => {
+	        	            console.error("에러 : " + error);
+	        	        });
+	        }
 		});
 	</script>
 </body>

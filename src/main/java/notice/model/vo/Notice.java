@@ -6,9 +6,9 @@ public class Notice implements java.io.Serializable {
 
 	private static final long serialVersionUID = 5875954839993211121L;
 
-	private String noticeNo;
+	private int noticeNo;
 	private String adminNo;
-	private String notice;
+	private String noticeType;
 	private String title;
 	private String content;
 	private String thumbnail;
@@ -30,14 +30,14 @@ public class Notice implements java.io.Serializable {
 		super();
 	}
 
-	public Notice(String noticeNo, String adminNo, String notice, String title, String content, String thumbnail,
+	public Notice(int noticeNo, String adminNo, String noticeType, String title, String content, String thumbnail,
 			String contentImage, Date postDate, Date eventStart, Date eventEnd, int noticeCount, String bannerNo,
 			int priority, String bannerTitle, String bannerImage, String linkUrl, Date bannerStart, Date bannerEnd,
 			int viewcount) {
 		super();
 		this.noticeNo = noticeNo;
 		this.adminNo = adminNo;
-		this.notice = notice;
+		this.noticeType = noticeType;
 		this.title = title;
 		this.content = content;
 		this.thumbnail = thumbnail;
@@ -56,11 +56,11 @@ public class Notice implements java.io.Serializable {
 		this.viewcount = viewcount;
 	}
 
-	public String getNoticeNo() {
+	public int getNoticeNo() {
 		return noticeNo;
 	}
 
-	public void setNoticeNo(String noticeNo) {
+	public void setNoticeNo(int noticeNo) {
 		this.noticeNo = noticeNo;
 	}
 
@@ -72,12 +72,12 @@ public class Notice implements java.io.Serializable {
 		this.adminNo = adminNo;
 	}
 
-	public String getNotice() {
-		return notice;
+	public String getNoticeType() {
+		return noticeType;
 	}
 
-	public void setNotice(String notice) {
-		this.notice = notice;
+	public void setNoticeType(String noticeType) {
+		this.noticeType = noticeType;
 	}
 
 	public String getTitle() {
@@ -214,10 +214,10 @@ public class Notice implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Notice [noticeNo=" + noticeNo + ", adminNo=" + adminNo + ", notice=" + notice + ", title=" + title
-				+ ", content=" + content + ", thumbnail=" + thumbnail + ", contentImage=" + contentImage + ", postDate="
-				+ postDate + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd + ", noticeCount=" + noticeCount
-				+ ", bannerNo=" + bannerNo + ", priority=" + priority + ", bannerTitle=" + bannerTitle
+		return "Notice [noticeNo=" + noticeNo + ", adminNo=" + adminNo + ", noticeType=" + noticeType + ", title="
+				+ title + ", content=" + content + ", thumbnail=" + thumbnail + ", contentImage=" + contentImage
+				+ ", postDate=" + postDate + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd + ", noticeCount="
+				+ noticeCount + ", bannerNo=" + bannerNo + ", priority=" + priority + ", bannerTitle=" + bannerTitle
 				+ ", bannerImage=" + bannerImage + ", linkUrl=" + linkUrl + ", bannerStart=" + bannerStart
 				+ ", bannerEnd=" + bannerEnd + ", viewcount=" + viewcount + "]";
 	}
