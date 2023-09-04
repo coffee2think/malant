@@ -34,8 +34,8 @@ public class MyplantDetailInformationServlet extends HttpServlet {
 		//게시글 상세보기 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8"); 
 		
-		String userNo = request.getParameter("userno");
-		String myplantId = request.getParameter("myplantId");
+		String userNo = request.getParameter("USER_NO");
+		String myplantId = request.getParameter("MYPLANT_ID");
 		
 		//페이징 처리를 위한 페이지 변수
 		int currentPage = 1;

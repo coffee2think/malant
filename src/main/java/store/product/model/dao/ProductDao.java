@@ -67,55 +67,59 @@ public class ProductDao {
 
 		System.out.println("productids : " + productids.toString());
 
-		PreparedStatement pstmtT = null;
-		ResultSet rsetT = null;
+		if (productids != null) {
+			PreparedStatement pstmtT = null;
+			ResultSet rsetT = null;
 
-		StringBuilder queryBuilder2 = new StringBuilder();
+			StringBuilder queryBuilder2 = new StringBuilder();
 
-		queryBuilder2.append("select * " + "from ST_PRODUCT " + "join ST_SELLER using(SELLER_NO) "
-							+ "where PRODUCT_ID in (");
-
-		for (int i = 1; i <= productids.size(); i++) {
-			queryBuilder2.append("?");
-			if (i < productids.size()) {
-				queryBuilder2.append(",");
-			}
-		}
-		queryBuilder2.append(")");
-
-		String query2 = queryBuilder2.toString();
-		System.out.println(queryBuilder2.toString());
-
-		System.out.println("productids size : "+productids.size());
-		try {
-			pstmtT = conn.prepareStatement(query2);
+			queryBuilder2.append(
+					"select * " + "from ST_PRODUCT " + "join ST_SELLER using(SELLER_NO) " + "where PRODUCT_ID in (");
 
 			for (int i = 1; i <= productids.size(); i++) {
-				pstmtT.setInt(i, productids.get(i - 1));
-				System.out.println(productids.get(i - 1).toString());
+				queryBuilder2.append("?");
+				if (i < productids.size()) {
+					queryBuilder2.append(",");
+				}
 			}
+			queryBuilder2.append(")");
 
-			rsetT = pstmtT.executeQuery();
+			String query2 = queryBuilder2.toString();
+			System.out.println(queryBuilder2.toString());
 
-			while (rsetT.next()) {
-				MainContent pdetail = new MainContent();
+			System.out.println("productids size : " + productids.size());
+			try {
+				pstmtT = conn.prepareStatement(query2);
 
-				pdetail.setProductId(rsetT.getInt("PRODUCT_ID"));
-				pdetail.setProductName(rsetT.getString("PRODUCT_NAME"));
-				pdetail.setPrice(rsetT.getInt("PRICE"));
-				pdetail.setProductThumbnail(rsetT.getString("PRODUCT_THUMBNAIL_IMG"));
-				pdetail.setExposureYn(rsetT.getString("EXPOSURE_YN"));
+				for (int i = 1; i <= productids.size(); i++) {
+					pstmtT.setInt(i, productids.get(i - 1));
+					System.out.println(productids.get(i - 1).toString());
+				}
 
-				list.add(pdetail);
+				rsetT = pstmtT.executeQuery();
+
+				while (rsetT.next()) {
+					MainContent pdetail = new MainContent();
+
+					pdetail.setProductId(rsetT.getInt("PRODUCT_ID"));
+					pdetail.setProductName(rsetT.getString("PRODUCT_NAME"));
+					pdetail.setPrice(rsetT.getInt("PRICE"));
+					pdetail.setProductThumbnail(rsetT.getString("PRODUCT_THUMBNAIL_IMG"));
+					pdetail.setExposureYn(rsetT.getString("EXPOSURE_YN"));
+
+					list.add(pdetail);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rsetT);
+				close(pstmtT);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rsetT);
-			close(pstmtT);
+			System.out.println("dao 마지막 값 : " + list.toString());
+			return list;
+		} else {
+			return list;
 		}
-		System.out.println("dao 마지막 값 : " + list.toString());
-		return list;
 	}
 
 //	public int getListCount(Connection conn) {

@@ -1,6 +1,7 @@
 package store.order.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
@@ -103,8 +104,6 @@ public class OrderSheetServlet extends HttpServlet {
 		
 		productOrder.setOrderId(orderid);
 
-		
-		
 		ArrayList<ProductOrder> porder = new ArrayList<ProductOrder>();
 		
 		for(int i = 0; i<olist.size(); i++) {
@@ -119,20 +118,18 @@ public class OrderSheetServlet extends HttpServlet {
 		}
 		
 		int result = new OrderService().saveOrderSheet(productOrder, porder);
-
+		RequestDispatcher view = null;
 		if (result > 0) {
-			 response.setContentType("application/json");
-			    response.setCharacterEncoding("UTF-8");
-
-			    // JSON 객체를 생성하여 URL을 설정
-//			    JsonObject jsonResponse = new JsonObject();
-//			    jsonResponse.addProperty("url", request.getContextPath() + "/views/store/order/orderPay.jsp");
-
+			System.out.println("주문서 저장 성공");
+			request.setAttribute("productOrder", productOrder);
+			 view = request.getRequestDispatcher("views/store/orderPay.jsp");
+			 
 		} else {
 			System.out.println("주문서 저장 실패");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
+			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "주문서 저장 실패..");
 			view.forward(request, response);
 		}
+		view.forward(request, response);
 	}
 }

@@ -17,14 +17,14 @@ import myplant.model.vo.Myplant;
 /**
  * Servlet implementation class MyplantListServlet
  */
-@WebServlet("/mplist")
-public class MyplantListServlet extends HttpServlet {
+@WebServlet("/mplistmodify")
+public class MyplantListModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyplantListServlet() {
+    public MyplantListModifyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,6 @@ public class MyplantListServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		// myplant list 조회서블릿
 		String userNo = request.getParameter("user_no");
-
 
 		//출력할 페이지 지정
 		int currentPage = 1;
@@ -65,8 +64,9 @@ public class MyplantListServlet extends HttpServlet {
 		//받은 결과에 따라 성공 또는 실패 페이지 내보내기 
 		RequestDispatcher view = null;
 		if(list.size() >= 0) {
-			view = request.getRequestDispatcher("views/diary/myplantMain.jsp");
-
+			view = request.getRequestDispatcher("views/diary/myplantModify.jsp");
+			
+		
 			
 			//System.out.println("listservlet result : " + userNo);
 			

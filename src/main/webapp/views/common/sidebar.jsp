@@ -14,8 +14,9 @@
 <body>
 	<div class="sidebar">
 		<div class="sidebar-header">
-			<span class="sidebar-title"><a href="/malant"> <img
-					src="/malant/resources/common/images/main_tilte.gif" alt="식물 검색" /></a></span>
+			<span class="sidebar-title"><a href="/malant">
+				<img src="/malant/resources/common/images/main_tilte.gif" alt="식물 검색" />
+			</a></span>
 		</div>
 		<section>
 			<ul id="new_categories">
@@ -34,8 +35,8 @@
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section" onclick="location.href='/malant/login?mtype=common&loc=common';">
-				로그인/회원가입
+			<div class="login-section" onclick="location.href='/malant/login?loc=common';">
+				로그인 하러 가기
 			</div>
 		<% } else { %>
 			<div class="login-section">

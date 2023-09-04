@@ -74,7 +74,20 @@ public class MyplantService {
 		return myplant;
 	}
 
+	public Myplant selectMyplantInfo(String userNo, String myplantId) {
+		Connection conn = getConnection();
+		Myplant myplant = mpdao.selectMyplantInfo(conn, userNo, myplantId);
+		close(conn);
+		return myplant;
+	}
 
+
+	public Myplant selectRecentlyAdd(String userNo) {
+		Connection conn = getConnection();
+		Myplant myplant = mpdao.selectRecentlyAdd(conn, userNo);
+		close(conn);
+		return myplant;
+	}
 
 
 	

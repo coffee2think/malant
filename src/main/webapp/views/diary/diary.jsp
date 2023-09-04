@@ -31,7 +31,7 @@
 </head>
 
 <body>
-<%-- 
+
 <div id="container">
         <%@include file = "../../views/common/sidebar.jsp" %>
 	<div id="main">
@@ -125,6 +125,6 @@
 
      </div><!-- content body -->
 	</div> <!-- main -->
-   </div> <!-- container --> --%>
+   </div> <!-- container --> 
 <script type="text/javascript" src="/malant/resources/diary/js/diary.js"></script>
 </html>

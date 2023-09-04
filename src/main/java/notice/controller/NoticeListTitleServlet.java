@@ -53,12 +53,12 @@ public class NoticeListTitleServlet extends HttpServlet {
 		Paging paging = new Paging(listCount, currentPage, limit, "nlist");
 		paging.calculator();
 		
-		ArrayList<Notice> list = nservice.selectNoticeTitle(paging);
+		ArrayList<Notice> nlist = nservice.selectNoticeTitle(paging);
 		
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
+		if(nlist.size() > 0) {
 			view = request.getRequestDispatcher("views/notice/noticeMainList.jsp");
-			request.setAttribute("list", list);
+			request.setAttribute("nlist", nlist);
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("limit", limit);
 			request.setAttribute("paging", paging);
