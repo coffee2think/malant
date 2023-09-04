@@ -39,15 +39,10 @@ public class ArboretumSearchServlet extends HttpServlet {
 		ArrayList<Arboretum> list = aservice.searchList(search);
 		
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
-			view = request.getRequestDispatcher("views/map/ArboretumSearch.jsp");
-			
-			request.setAttribute("list", list);
-		}else {
-			view = request.getRequestDispatcher("views/common/error.jsp");
-			
-			request.setAttribute("message", "검색결과를 불러올 수 없음");
-		}
+
+		view = request.getRequestDispatcher("views/map/ArboretumSearch.jsp");
+				
+		request.setAttribute("list", list);
 		
 		view.forward(request, response);
 	}

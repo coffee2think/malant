@@ -17,6 +17,7 @@
 #menu_wrap {position:absolute;top:0;right:0;bottom:0;width:250px;margin:60px 20px -300px 0;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap ul hr {display: block; height: 1px;border: 0; border-top: 1px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
 #menu_wrap .option button {margin-left:5px;}
@@ -44,15 +45,26 @@
 			<div id="menu_wrap" class="bg_white">
 				<div class="option">
 					<div>
-						<form onsubmit="submitForm(event);">
+						<form action="/malant/arsearch" method="get">
 							지역 or 이름 검색 : <input type="text" value="" id="keyword" size="15">
-							<button type="submit">검색하기</button>
+							<button id="set-value-button" type="submit">검색하기</button>
+							<input type="hidden" id="hidden-input" name="search">
 						</form>
 					</div>
 				</div>
 				<hr>
-				<ul id="placesList"></ul>
-				<div id="pagination"></div>
+				<ul id="placesList">
+					<% for(Arboretum a : list){ %>
+						<div style="font-size: 17px;font-weight: bold;"><%= a.getArboretum_name() %></div><br>
+						<div style="font-size: 15px"><%= a.getArboretum_address() %></div><br>
+						<% if(a.getArboretum_tel() != null) { %>
+							<div class="content" style="font-size:14px; color:green;"><%= a.getArboretum_tel() %></div>
+						<% }else{ %>
+							등록된 번호가 없습니다.
+						<% } %>
+						<hr>
+					<% } %>
+				</ul>
 			</div>
 		</div>
 		<div style="position:absolute;bottom:0;left:0;"><button type="submit" onclick="javascript:location.href='/malant/views/map/mapSortation.html';">폴리곤</button></div>
@@ -80,7 +92,7 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
 		markerPosition = new kakao.maps.LatLng(<%= a.getArboretum_latitude() %>, <%= a.getArboretum_longitude() %>)
 	var marker = new kakao.maps.Marker({
 	    position: markerPosition,
-	    image: markerImage
+	    image: markerImage,
 	});
 	
 	marker.setMap(map);
@@ -108,13 +120,15 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
 		})(marker, infowindow);
 		
 	<%}%>
-	 
-	function submitForm() {
-	    var keywordValue = document.getElementById("keyword").value;
-	    
-	    location.href = '/malant/arsearch?search=' + encodeURIComponent(keywordValue);
-	    alert();
-	}
+	
+	$(document).ready(function () {
+        // 버튼 클릭 시 hidden input의 값을 설정
+        $("#set-value-button").click(function () {
+            // 제이쿼리를 사용하여 hidden input의 값을 설정
+            $("#hidden-input").val(document.getElementById("keyword").value);
+        });
+    });
+	
 	
 	</script>
 </body>

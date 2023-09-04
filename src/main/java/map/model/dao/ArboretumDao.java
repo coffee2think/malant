@@ -17,7 +17,7 @@ public class ArboretumDao {
 		ResultSet rset = null;
 		
 		//관리자를 제외한 일반회원만 전체 조회
-		String query = "select arboretum_latitude, arboretum_longitude, arboretum_name, arboretum_address, arboretum_id"
+		String query = "select arboretum_latitude, arboretum_longitude, arboretum_name, arboretum_address, arboretum_id, arboretum_tel"
 					+ " from arboretum";
 		try {
 			pstmt = conn.prepareStatement(query);					
@@ -33,6 +33,7 @@ public class ArboretumDao {
 				arboretum.setArboretum_latitude(rset.getDouble("arboretum_latitude"));
 				arboretum.setArboretum_longitude(rset.getDouble("arboretum_longitude"));
 				arboretum.setArboretum_address(rset.getString("arboretum_address"));
+				arboretum.setArboretum_tel(rset.getString("arboretum_tel"));
 				
 				list.add(arboretum);
 			}
@@ -101,7 +102,7 @@ public class ArboretumDao {
 		ResultSet rset = null;
 		
 		//관리자를 제외한 일반회원만 전체 조회
-		String query = "select arboretum_latitude, arboretum_longitude, arboretum_name, arboretum_address, arboretum_id"
+		String query = "select arboretum_latitude, arboretum_longitude, arboretum_name, arboretum_address, arboretum_id, arboretum_tel"
 					+ " from arboretum where arboretum_address like ? or arboretum_name like ?";
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -120,6 +121,7 @@ public class ArboretumDao {
 				arboretum.setArboretum_latitude(rset.getDouble("arboretum_latitude"));
 				arboretum.setArboretum_longitude(rset.getDouble("arboretum_longitude"));
 				arboretum.setArboretum_address(rset.getString("arboretum_address"));
+				arboretum.setArboretum_tel(rset.getString("arboretum_tel"));
 				
 				list.add(arboretum);
 			}
