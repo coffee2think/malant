@@ -47,7 +47,7 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section" id="gologin">
+			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=store'">
 				로그인 하러 가기
 			</div>
 		<% } else { %>
@@ -57,7 +57,7 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 				</div>
 				<div class="login-section-bottom">
 					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp; 
-					<a href="/malant/logout">로그아웃</a>
+					<a href="/malant/logout?loc=store">로그아웃</a>
 				</div>
 			</div>
 		<% } %>

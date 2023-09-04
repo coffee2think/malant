@@ -76,14 +76,13 @@ public class LoginServlet extends HttpServlet {
 			new MemberService().updateMember(member);
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("previousPage", referer);
 			session.setAttribute("loginMember", member);
-			if(referer != null) {
+			
+			if(referer != null && !referer.isEmpty()) {
 				response.sendRedirect(referer);
 			} else {
 				response.sendRedirect("index.jsp");
 			}
-			
 		} else { // 로그인 실패
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			

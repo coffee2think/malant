@@ -10,14 +10,6 @@
 <meta charset="UTF-8" />
 <link rel="stylesheet" href="/malant/resources/common/css/sidebar.css" />
 <link rel="stylesheet" href="/malant/resources/common/css/font.css" />
-<script>
-	$(function() {
-		$('#gologin').click(function() {
-			e.preventDefault();
-			$.post("/malant/moveminfo", { data: ""})
-		});
-	});
-</script>
 </head>
 <body>
 	<div class="sidebar">
@@ -33,7 +25,7 @@
 				<li><a 
 				<% if(loginMember == null) { %>
 					href="/malant/views/member/loginPage.jsp"
-				<% }else { %>
+				<% } else { %>
 					href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>"
 				<% } %>>다이어리</a></li>
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
@@ -43,7 +35,7 @@
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section" id="gologin">
+			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
 				로그인 하러 가기
 			</div>
 		<% } else { %>
@@ -53,7 +45,7 @@
 				</div>
 				<div class="login-section-bottom">
 					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp; 
-					<a href="/malant/logout">로그아웃</a>
+					<a href="/malant/logout?loc=common">로그아웃</a>
 				</div>
 			</div>
 		<% } %>
