@@ -40,22 +40,21 @@
 		<hr>
 		<div class="map_wrap">
     <div id="map" style="width:100%;height:100vh;position:absolute;top:0;right:0;"></div>
-	
-			<div id="menu_wrap" class="bg_white">
-				<div class="option">
-					<div>
-						<form onsubmit="submitForm(event);">
-							지역 or 이름 검색 : <input type="text" value="" id="keyword" size="15">
-							<button type="submit">검색하기</button>
-						</form>
-					</div>
-				</div>
-				<hr>
-				<ul id="placesList"></ul>
-				<div id="pagination"></div>
-			</div>
-		</div>
-		<div style="position:absolute;bottom:0;left:0;"><button type="submit" onclick="javascript:location.href='/malant/views/map/mapSortation.html';">폴리곤</button></div>
+
+    <div id="menu_wrap" class="bg_white">
+        <div class="option">
+            <div>
+                <form>
+                    지역검색 : <input type="text" value="" id="keyword" size="15"> 
+                    <button type="submit">검색하기</button> 
+                </form>
+            </div>
+        </div>
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
+</div>
 	</div>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ebd5781688fcaeab7febed1207bcf8f3&libraries&libraries=clusterer"></script>
@@ -113,7 +112,6 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
 	    var keywordValue = document.getElementById("keyword").value;
 	    
 	    location.href = '/malant/arsearch?search=' + encodeURIComponent(keywordValue);
-	    alert();
 	}
 	
 	</script>

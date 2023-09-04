@@ -28,4 +28,11 @@ public class ArboretumService {
 		close(conn);
 		return arboretum;
 	}
+
+	public ArrayList<Arboretum> searchList(String search) {
+		Connection conn = getConnection();
+		ArrayList<Arboretum> list = adao.searchList(conn, search);
+		close(conn);
+		return list;
+	}
 }
