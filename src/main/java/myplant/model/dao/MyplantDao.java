@@ -153,23 +153,20 @@ public class MyplantDao {
 	public int deleteMyplant(Connection conn, String userNo, String myplantId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
 		String query = "delete from my_plant where USER_NO = ? and MYPLANT_ID = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			
 			pstmt.setString(1, userNo);
 			pstmt.setString(2, myplantId);
 			
 			result = pstmt.executeUpdate();
-			System.out.println("check");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-		System.out.println(result);
 		return result;
 	}
 
@@ -196,11 +193,8 @@ public class MyplantDao {
 				myplant.setMyplantVariety(rset.getString("MYPLANT_VARIETY"));
 				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
 				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
-				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
-
-				
-			}
-			
+				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));				
+			}	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -209,6 +203,75 @@ public class MyplantDao {
 			close(pstmt);
 		}
 		
+		return myplant;
+	}
+	
+	public Myplant selectMyplantInfo(Connection conn, String userNo, String myplantId) {
+		Myplant myplant = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from my_plant where user_no = ? and myplant_id = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userNo);
+			pstmt.setString(2, myplantId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				myplant = new Myplant();
+				
+				myplant.setMyplantName(rset.getString("MYPLANT_NAME"));
+				myplant.setMyplantVariety(rset.getString("MYPLANT_VARIETY"));
+				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
+				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
+				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return myplant;
+	}
+
+
+	public Myplant selectRecentlyAdd(Connection conn, String userNo) {
+		Myplant myplant = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select max(myplant_id) from my_plant where user_no = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				myplant = new Myplant();
+				
+				myplant.setMyplantId(rset.getString("MYPLANT_ID"));
+				myplant.setMyplantName(rset.getString("MYPLANT_NAME"));
+				myplant.setMyplantVariety(rset.getString("MYPLANT_VARIETY"));
+				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
+				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
+				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		return myplant;
 	}
 	
