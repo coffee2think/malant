@@ -3,16 +3,25 @@ package store.order.controller;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import store.order.model.service.OrderService;
 import store.order.model.vo.ProductOrder;
+import store.shoppingBasket.model.vo.ShoppingBasket;
+
+
+
 
 /**
  * Servlet implementation class OrderSheetServlet
@@ -41,38 +50,89 @@ public class OrderSheetServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		ArrayList<ShoppingBasket> olist = (ArrayList<ShoppingBasket>) session.getAttribute("olist");
+		 
+		System.out.println("session : "+olist.toString());
+
 		ProductOrder productOrder = new ProductOrder();
 		
+		productOrder.setUserNo(request.getParameter("userno"));
 		productOrder.setBuyerName(request.getParameter("buyerName"));
 		productOrder.setBuyerContact(request.getParameter("buyerContact"));
 		productOrder.setRecipient(request.getParameter("recipient"));
 		productOrder.setRecipientContact(request.getParameter("recipient_contact"));
-		productOrder.setCodePostal(request.getParameter("zonecode"));
+		productOrder.setCodePostal(request.getParameter("postcode"));
 		productOrder.setDeliveryAddress(request.getParameter("address"));
 		productOrder.setDeliveryAddress2(request.getParameter("detailAddress"));
 		productOrder.setShippingAddressName(request.getParameter("extraAddress"));
-		productOrder.setDeliveryNote(request.getParameter("delivery_note"));
 		productOrder.setProductName(request.getParameter("productName"));
 		productOrder.setThumbnailImg(request.getParameter("productThumnail"));
 		productOrder.setTotalPrice(Integer.valueOf(request.getParameter("totalprice")));
 		
+		if((request.getParameter("delivery_note")) != null)
+			productOrder.setDeliveryNote(request.getParameter("delivery_note"));
+		
+		//날짜생성
+		Date currentDate = new Date();
+		SimpleDateFormat sysdate = new SimpleDateFormat("yyyyMMddHHmmss");
+		System.out.println(sysdate.format(currentDate));
+		
 		String orderid = null;
+		//암호화전 문자열 합치기
+		String combString = productOrder.getUserNo()+sysdate.format(currentDate);
+		
+		try { // byte[] 처리 후 암호화
 		MessageDigest md = MessageDigest.getInstance("SHA-512");
-		byte[] oderidValus = request.getParameter("userNo").getBytes(Charset.forName("UTF-8"));
+		byte[] oderidValus = combString.getBytes(Charset.forName("UTF-8"));
 		md.update(oderidValus);
 		orderid = Base64.getEncoder().encodeToString(oderidValus);
 		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("orderid : "+orderid);
+		
 		productOrder.setOrderId(orderid);
-		
-		
-		int result = new OrderService().
 
 		
 		
+		ArrayList<ProductOrder> porder = new ArrayList<ProductOrder>();
+		
+		for(int i = 0; i<olist.size(); i++) {
+			ProductOrder po = new ProductOrder();
+			ShoppingBasket getOlist = olist.get(i);
+			
+			po.setOrderId(orderid);
+			po.setProductId(getOlist.getProductId());
+			po.setQuantity(getOlist.getQuantity());
+			
+			porder.add(po);
+		}
+		
+		int result = new OrderService().saveOrderSheet(productOrder, porder);
 
-}
+		if (result > 0) {
+			 response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+
+			    // JSON 객체를 생성하여 URL을 설정
+//			    JsonObject jsonResponse = new JsonObject();
+//			    jsonResponse.addProperty("url", request.getContextPath() + "/views/store/order/orderPay.jsp");
+
+		} else {
+			System.out.println("주문서 저장 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", "주문서 저장 실패..");
+			view.forward(request, response);
+		}
+	}
 }
