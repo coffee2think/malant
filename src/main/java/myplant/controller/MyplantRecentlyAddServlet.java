@@ -13,16 +13,16 @@ import myplant.model.service.MyplantService;
 import myplant.model.vo.Myplant;
 
 /**
- * Servlet implementation class MyplantInformationServlet
+ * Servlet implementation class MyplantRecentlyAddServlet
  */
-@WebServlet("/mpinfo")
-public class MyplantDetailInformationServlet extends HttpServlet {
+@WebServlet("/mprecent")
+public class MyplantRecentlyAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyplantDetailInformationServlet() {
+    public MyplantRecentlyAddServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,36 +31,28 @@ public class MyplantDetailInformationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//게시글 상세보기 처리용 컨트롤러
-		request.setCharacterEncoding("utf-8"); 
+request.setCharacterEncoding("utf-8"); 
 		
 		String userNo = request.getParameter("USER_NO");
-		String myplantId = request.getParameter("MYPLANT_ID");
-		
-		//페이징 처리를 위한 페이지 변수
-		int currentPage = 1;
-		if(request.getParameter("page") != null) {
-			currentPage = Integer.parseInt(request.getParameter("page"));
-		}
-		
-		//모델 서비스 객체 생성
+
 		MyplantService mpservice = new MyplantService();
 		
-		//해당 게시글 리턴받음 : select
-		Myplant myplant = mpservice.selectMyplantInfo(userNo, myplantId);
+
+		Myplant myplant = mpservice.selectRecentlyAdd(userNo);
 		
 		RequestDispatcher view = null;
 		if(myplant != null) {
 			view = request.getRequestDispatcher("views/diary/myplant.jsp");
 			
 			request.setAttribute("myplant",	 myplant);
-			request.setAttribute("currentPage", currentPage);
+
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			
-			request.setAttribute("message", "반려식물 정보 보기 실패");
+			request.setAttribute("message", "최근 등록한 반려식물 조회 실패");
 		}
 		view.forward(request, response);
+	
 	}
 
 	/**

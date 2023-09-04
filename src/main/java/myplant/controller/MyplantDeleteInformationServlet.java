@@ -45,8 +45,7 @@ public class MyplantDeleteInformationServlet extends HttpServlet {
 				String savePath = request.getSession().getServletContext().getRealPath("/resources/diary/myplant_upimages");
 				new File(savePath + "\\" + inFileName).delete();
 			}
-			System.out.println("check");
-			
+
 			response.sendRedirect("/malant/mplist?page=1");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
