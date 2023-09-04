@@ -79,4 +79,18 @@ public class BoardService {
 
 		return comment;
 	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		int listCount = bdao.getListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Board> selectList(int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Board> list = bdao.selectList(conn, startRow, endRow);
+		close(conn);
+		return list;
+	}
 }

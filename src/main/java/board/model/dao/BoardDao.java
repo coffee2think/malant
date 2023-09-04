@@ -5,6 +5,7 @@ import static common.JDBCTemplate.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import board.model.vo.Board;
@@ -234,6 +235,72 @@ public class BoardDao {
 		}
 
 		return comment;
+	}
+
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		String query = "select count(*) from cm_board";
+
+		try {
+			stmt = conn.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return listCount;
+	}
+
+	public ArrayList<Board> selectList(Connection conn, int startRow, int endRow) {
+		ArrayList<Board> list = new ArrayList<Board>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String query = "select CM_BOARD.*, rownum " + "from CM_BOARD " + "where rownum >= ? and rownum <= ? "
+				+ "order by board_date desc";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Board board = new Board();
+				
+				board.setBoardNo(rset.getInt("BOARD_NO"));
+				board.setUserNo(rset.getString("USER_NO"));
+				board.setNickname(rset.getString("NICKNAME"));
+				board.setBoardTitle(rset.getString("BOARD_TITLE"));
+				board.setBoardContent(rset.getString("BOARD_CONTENT"));
+				board.setBoardLike(rset.getInt("BOARD_LIKE"));
+				board.setBoardDate(rset.getDate("BOARD_DATE"));
+				board.setBoardPhoto(rset.getString("BOARD_PHOTO"));
+				board.setViewcount(rset.getInt("VIEW_COUNT"));
+				board.setReportedYN(rset.getString("REPORTED_YN"));
+				
+				list.add(board);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
 	}
 
 }

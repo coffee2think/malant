@@ -26,4 +26,22 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}
+
+	public void addReadCount(int noticeNo) {
+		Connection conn = getConnection();
+		int result = ndao.addReadCount(conn, noticeNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}		
+		close(conn);		
+	}
+
+	public Notice selectOne(int noticeNo) {
+		Connection conn = getConnection();
+		Notice notice = ndao.selectOne(conn, noticeNo);
+		close(conn);
+		return notice;
+	}
 }

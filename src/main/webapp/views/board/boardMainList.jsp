@@ -13,7 +13,7 @@ ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	href="/malant/resources/board/css/boardcontents.css">
 <style>
 .board-all {
-    margin: 0 auto; /* 가로 가운데 정렬 */
+	margin: 0 auto; /* 가로 가운데 정렬 */
 }
 
 #toplist {
@@ -55,8 +55,13 @@ ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 }
 
 .comment-area {
-    margin-left: auto;
-    margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.board-wirte {
+	margin-left: auto;
+	margin-right: auto;
 }
 </style>
 <script type="text/javascript"
@@ -172,23 +177,6 @@ function likeCountDate (boardNo){
     });
 }
 
-// 스크롤 스티키 버튼을 클릭하면 페이지 상단으로 스크롤
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-//스크롤 위치에 따라 스티키 버튼 표시/숨기기
-window.addEventListener('scroll', function() {
-    var scrollY = window.scrollY;
-    var stickyButton = document.getElementById('scroll-sticky-button');
-    var stickyButtonContainer = document.querySelector('.sticky-button-container');
-    
-    if (scrollY > 200) {
-        stickyButtonContainer.style.display = 'block'; // 스티키 버튼 표시
-    } else {
-        stickyButtonContainer.style.display = 'none'; // 스티키 버튼 숨김
-    }
-});
 
 </script>
 </head>
@@ -207,13 +195,19 @@ window.addEventListener('scroll', function() {
         function checkLogin(boardNo){
             if (member == 'null'){
                 if (confirm("로그인 하시겠습니까?")) {
-                    window.location.href = "/malant/views/member/loginPage.jsp";
+                   location.href = "/malant/login?loc=common&mtype=common";
                 } 
             } else {
                 location.href="/malant/bdetail?bno=" + boardNo;
             }
         }
         </script>
+			<div class="board-wirte">
+			<form action="/malant/myblist" method="post" enctype="multipart/form-data">
+				<button id="myButton">내 게시글 목록</button>
+				<input type="hidden" name="userno" value="<%= loginMember.getUserNo() %>">
+			</form>
+			</div>
 			<div id="toplist"></div>
 		</div>
 		<div id="hashlist"></div>
