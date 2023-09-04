@@ -70,7 +70,7 @@ public class ShoppingBasketDao {
 
 		PreparedStatement pstmt = null;
 
-		String query = "INSERT INTO ST_BASKET (USER_NO, PRODUCT_ID, QUANTITY) VALUES (?, ?, ?)";
+		String query = "INSERT INTO ST_BASKET VALUES (BASKET_SEQUENCE.NEXTVAL, ?, ?, ?)";
 
 		try {
 			pstmt = conn.prepareStatement(query);

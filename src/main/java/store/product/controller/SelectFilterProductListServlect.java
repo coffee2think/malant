@@ -88,7 +88,7 @@ public class SelectFilterProductListServlect extends HttpServlet {
 		} else {
 			System.out.println("servlet실패 : ");
 			view = request.getRequestDispatcher("views/store/product/selectProductView.jsp");
-			request.setAttribute("message", plistf + "조회된 상품이 없습니다.");
+			request.setAttribute("message", "조회된 상품이 없습니다.");
 		}
 		view.forward(request, response);
 	}
