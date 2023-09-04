@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
 	String preReferer = (String) request.getAttribute("referer");
+	String mtype = (String) request.getAttribute("mtype");
+	String loc = (String) request.getAttribute("loc");
 %>
 <!DOCTYPE html>
 <html>
@@ -344,7 +346,11 @@
 <body>
 <div class="all-container">
 	<div class="sidebar">
-		<%@ include file="../common/sidebar.jsp" %>
+		<% if(loc.equals("common")) { %>
+			<%@ include file="../common/sidebar.jsp" %>
+		<% } else { %>
+			<%@ include file="../store/common/storeSidebar.jsp" %>
+		<% } %>
 	</div>
 	<div class="container">
 		<div class="welcome">
@@ -384,7 +390,11 @@
 				<p class="desc"> pick your perfect <span>bouquet</span></p>
 				<img class="flower" src="https://preview.ibb.co/jvu2Un/0057c1c1bab51a0.jpg" />
 				<p class="account">don't have an account?</p>
+				<% if(mtype.equals("common")) { %>
 				<button class="button" id="signup">회원가입</button>
+				<% } else { %>
+				<button class="button" id="signup" onclick="javascript: location.href='/malant/views/member/enrollSeller.jsp'">회원가입</button>
+				<% } %>
 			</div>
 		</div>
 	</div>

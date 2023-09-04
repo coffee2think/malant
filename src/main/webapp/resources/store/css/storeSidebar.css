@@ -103,11 +103,31 @@ ul#new_categories li a {
 
 /*로그인 영역*/
 .login-section {
-  width : 200px;
-  text-align: center;
-  position: absolute;
-  bottom: 40px; 
-  border: 1px solid green;
+	width: 200px;
+	height: 70px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: absolute;
+	bottom: 40px;
+	border: 1px solid green;
+}
+
+.login-section-bottom {
+	display: flex;
+	justify-content: center;
+}
+
+.login-section-left {
+	width: 90px;
+	height: 70px;
+	border: 1px solid blue;
+}
+
+.login-section-right {
+	width: 90px;
+	height: 70px;
+	border: 1px solid blue;
 }
 
 .login-section h4 {

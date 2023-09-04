@@ -46,27 +46,29 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
-		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section">
-				<hr solid color="#ddd" />
-				<div class="login-box" onclick="location.href='/malant/views/member/loginPage.jsp;'">
-					로그인하러 가기
+		<% if (loginMember == null ) { // 로그인하지 않았을 때 %>
+			<div>
+				<div class="login-section">
+					<div class="login-section-top">로그인하러 가기</div>
+					<div class="login-section-bottom">
+						<div class="login-section-left" id="member-common" onclick="location.href='/malant/login?mtype=common&loc=store';">
+							일반회원
+						</div>
+						<div class="login-section-right" onclick="location.href='/malant/login?mtype=seller&loc=store';">
+							판매회원
+						</div>
+					</div>
 				</div>
-			</div>
-			
-			<!-- 회원가입/아이디/비밀번호 찾기 영역 -->
-			<div class="account-section">
-				<a href="/malant/views/member/enrollMember.jsp" class="account-link">회원가입</a><span class="login-divide">|</span>
-				<!-- 아이디/비밀번호 찾기는 새창을 띄워 진행 -->
-				<a href="#" class="account-link" onclick="window.open('/malant/findAccount.jsp?find=id', '_blank', 'width=900, height=1000');">아이디찾기</a><span class="login-divide">|</span>
-				<a href="#"	class="account-link" onclick="window.open('/malant/findAccount.jsp?find=pwd', '_blank', 'width=900, height=1000');">비밀번호재설정</a>
 			</div>
 		<% } else { %>
 			<div class="login-section">
 				<%= loginMember.getNickname() %>님 환영합니다.<br>
-				<a href="/malant/sblist?userNo=<%= loginMember.getUserNo() %>">장바구니</a>
-				<a href="/malant/views/member/confirmMemberBeforeInfo.jsp?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp; 
-				<a href="/malant/logout">로그아웃</a>
+				<div class=>
+					<a href="/malant/views/member/confirmMemberBeforeInfo.jsp?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;
+				</div>
+				<div> 
+					<a href="/malant/logout">로그아웃</a>
+				</div>
 			</div>
 		<% } %>
 	</div>

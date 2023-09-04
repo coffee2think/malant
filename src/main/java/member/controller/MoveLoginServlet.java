@@ -33,6 +33,8 @@ public class MoveLoginServlet extends HttpServlet {
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/member/loginPage.jsp");
 		request.setAttribute("referer", referer);
+		request.setAttribute("mtype", request.getParameter("mtype"));
+		request.setAttribute("loc", request.getParameter("loc"));
 		view.forward(request, response);
 	}
 

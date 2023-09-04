@@ -73,15 +73,17 @@ public class LoginServlet extends HttpServlet {
 		} else if(member != null && member.getBlockedYn().equals("N")) { // 로그인 성공
 			// 마지막 접속일 업데이트
 			member.setLastLoginDate(new Date(System.currentTimeMillis()));
-			Date date = new Date(System.currentTimeMillis());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
-			System.out.println(sdf.format(date));
 			new MemberService().updateMember(member);
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("previousPage", referer);
 			session.setAttribute("loginMember", member);
-			response.sendRedirect(referer);
+			if(referer != null) {
+				response.sendRedirect(referer);
+			} else {
+				response.sendRedirect("index.jsp");
+			}
+			
 		} else { // 로그인 실패
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			
