@@ -33,19 +33,19 @@ public class MyplantDeleteInformationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//반려식물 삭제 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
-		
-		
-		String userNo = request.getParameter("user_no");
-		String myplantId = request.getParameter("MYPLANT_ID");
+	
+		String userNo = request.getParameter("userNo");
+		String myplantId = request.getParameter("myplantId");
 		
 		//서비스 메소드로 삭제 실행하고 결과받아서 성공/실패 뷰 내보내기
 		if(new MyplantService().deleteMyplant(userNo, myplantId) > 0) {
 			//받은 결과가 성공 일때 저장 폴더의 파일도 삭제처리
-			String inFileName = request.getParameter("infile");
+			String inFileName = request.getParameter("MyplantImageURL");
 			if(inFileName != null) {
 				String savePath = request.getSession().getServletContext().getRealPath("/resources/diary/myplant_upimages");
 				new File(savePath + "\\" + inFileName).delete();
 			}
+			System.out.println("check");
 			
 			response.sendRedirect("/malant/mplist?page=1");
 		}else {
