@@ -11,6 +11,24 @@
 .container {
 	display: flex;
 }
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {position:relative;width:85%;height:500px;}
+#menu_wrap {position:absolute;top:0;right:0;bottom:0;width:250px;margin:60px 20px -300px 0;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.bg_white {background:#fff;}
+#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+#menu_wrap .option{text-align: center;}
+#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option button {margin-left:5px;}
+#placesList li {list-style: none;}
+#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList .item span {display: block;margin-top:4px;}
+#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList .item .info{padding:10px 0 10px 55px;}
+#placesList .info .gray {color:#8a8a8a;}
+#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList .info .tel {color:#009900;}
+
 </style>
 <meta charset="utf-8">
 <title>수목원 맵</title>
@@ -20,7 +38,23 @@
 	<div class="container">
 		<div><%@ include file="../common/sidebar.jsp"%></div>
 		<hr>
-		<div id="map" style="width: 100%; height: 100vh;"></div>
+		<div class="map_wrap">
+    <div id="map" style="width:100%;height:100vh;position:absolute;top:0;right:0;"></div>
+
+    <div id="menu_wrap" class="bg_white">
+        <div class="option">
+            <div>
+                <form>
+                    지역검색 : <input type="text" value="" id="keyword" size="15"> 
+                    <button type="submit">검색하기</button> 
+                </form>
+            </div>
+        </div>
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
+</div>
 	</div>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ebd5781688fcaeab7febed1207bcf8f3&libraries&libraries=clusterer"></script>
@@ -29,8 +63,8 @@
 	<script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표
-        level: 13 // 지도의 확대 레벨
+        center: new kakao.maps.LatLng(36.2683, 128.3), // 지도의 중심좌표
+        level: 12 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -56,7 +90,8 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
 					'<div class="title"><%= a.getArboretum_name() %>&nbsp;&nbsp;&nbsp;&nbsp;</div>' + 
 					'<div class="page" style="text-align:center;"><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>">상세정보</a></div>'
 							+ '</div>',
-					removable : true
+					removable : true,
+					zIndex : 1
 				});
 
 		(function(marker, infowindow) {
@@ -70,8 +105,15 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
 			});
 
 		})(marker, infowindow);
-	<%}%>
 		
+	<%}%>
+	 
+	function submitForm() {
+	    var keywordValue = document.getElementById("keyword").value;
+	    
+	    location.href = '/malant/arsearch?search=' + encodeURIComponent(keywordValue);
+	}
+	
 	</script>
 </body>
 </html>
