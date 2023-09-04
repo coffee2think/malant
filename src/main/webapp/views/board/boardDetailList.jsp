@@ -60,6 +60,7 @@ ArrayList<String> cdate = (ArrayList<String>) request.getAttribute("cdate");
 		});
 	}
 	
+
 </script>
 
 
@@ -102,7 +103,7 @@ ArrayList<String> cdate = (ArrayList<String>) request.getAttribute("cdate");
 		<div class="container">
 			<%@ include file="../../views/common/sidebar.jsp"%>
 		</div>
-		
+
 		<div>
 
 			<img class='board-photo' src="<%=board.getBoardPhoto()%>">
@@ -129,26 +130,56 @@ ArrayList<String> cdate = (ArrayList<String>) request.getAttribute("cdate");
 			<br>
 			<div>
 				<form action="/malant/cminsert">
-					<input type="hidden" name="userno" value="<%= loginMember.getUserNo() %>">
-					<input type="hidden" name="bno" value="<%=board.getBoardNo() %>">
-					<input type="hidden" name="profile" value="<%= loginMember.getProfileImg() %>">
-					<input type="hidden" name="nickname" value="<%= loginMember.getNickname() %>">
-					<input type="text" name="comment" placeholder="댓글을 입력하세요"> 
-					<input type="submit">
+					<input type="hidden" name="userno"
+						value="<%=loginMember.getUserNo()%>"> <input
+						type="hidden" name="bno" value="<%=board.getBoardNo()%>">
+					<input type="hidden" name="profile"
+						value="<%=loginMember.getProfileImg()%>"> <input
+						type="hidden" name="nickname"
+						value="<%=loginMember.getNickname()%>"> <input
+						type="text" name="comment" placeholder="댓글을 입력하세요"> <input
+						type="submit">
 				</form>
 			</div>
-		
-			<div style="border: 1px solid green; width: 1000px; height: 400px; overflow-y: scroll">
-				<% for (int i = 0; i < clist.size(); i++){%>
-  					<%= clist.get(i).getCommentContent() %>
-  					<%= clist.get(i).getNickname() %>
-  					<%= cdate.get(i) %>
-  					<br>
-  					<hr>
-  				<% } %>
-				
+
+			<div
+				style="border: 1px solid green; width: 1000px; height: 400px; overflow-y: scroll">
+				<%
+				for (int i = 0; i < clist.size(); i++) {
+				%>
+				<%=clist.get(i).getCommentContent()%>
+				<%=clist.get(i).getNickname()%>
+				<%=cdate.get(i)%>
+				<%
+				if (loginMember.getUserNo().equals(clist.get(i).getUserNo())) {
+				%>
+				<!-- loginMember 랑 그냥 비교하면 객체와 String 을 비교하는것
+ 					logimMember 의 어떤 값이랑 비교할지 확인했어야 했음!! -->
+				<!-- 수정 -->
+				<form action='/malant/cmupdate'>
+					<input type="hidden" name="cno" value="<%= clist.get(i).getCommentNo() %>">
+					<input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
+					<input type="text" name="content" value="<%= clist.get(i).getCommentContent() %>">
+					<!-- <textarea name="updateComment" placeholder="댓글 수정 내용 입력"></textarea> -->
+					<input type="submit" value="수정">
+				</form>
+				<!-- 삭제 -->
+				<form action='/malant/cmdelete'>
+					<input type="hidden" name="cno" value="<%= clist.get(i).getCommentNo() %>">
+					<input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
+					<input type="submit" value="삭제">
+				</form>
+				<%
+				}
+				%>
+				<br>
+				<hr>
+				<%
+				}
+				%>
+
 			</div>
-		
+
 		</div>
 	</div>
 </body>
