@@ -41,35 +41,36 @@ public class InputOrderInfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		ArrayList<ShoppingBasket> olist = new ArrayList<>();
-
-		String[] productIds = request.getParameterValues("productid");
-		String[] productThumbnails = request.getParameterValues("productThumnail");
-		String[] productNames = request.getParameterValues("productName");
-		String[] prices = request.getParameterValues("price");
-		String[] deliveryCharges = request.getParameterValues("deliveryCharge");
-		String[] quantities = request.getParameterValues("quantity");
-		String[] totalPrices = request.getParameterValues("totalPrice");
-		String total = request.getParameter("total");
-
-		for (int i = 0; i < productIds.length; i++) {
-			ShoppingBasket oinput = new ShoppingBasket();
-			oinput.setProductId(productIds[i]);
-			oinput.setProductThumnail(productThumbnails[i]);
-			oinput.setProductName(productNames[i]);
-			oinput.setPrice(Integer.valueOf(prices[i]));
-			oinput.setDeliveryChage(Integer.valueOf(deliveryCharges[i]));
-			oinput.setQuantity(Integer.valueOf(quantities[i]));
-			oinput.setTotalPrice(Integer.valueOf(totalPrices[i]));
-
-			olist.add(oinput);
-		}
-
-		request.setAttribute("olist", olist);
-		request.setAttribute("total", total);
-
-		request.getRequestDispatcher("/views/store/order/orderSheet.jsp").forward(request, response);
 	}
+//		request.setCharacterEncoding("utf-8");
+//		
+//		ArrayList<ShoppingBasket> olist = new ArrayList<>();
+//
+//		String[] productIds = request.getParameterValues("productid");
+//		String[] productThumbnails = request.getParameterValues("productThumnail");
+//		String[] productNames = request.getParameterValues("productName");
+//		String[] prices = request.getParameterValues("price");
+//		String[] deliveryCharges = request.getParameterValues("deliveryCharge");
+//		String[] quantities = request.getParameterValues("quantity");
+//		String[] totalPrices = request.getParameterValues("totalPrice");
+//		String total = request.getParameter("total");
+//
+//		for (int i = 0; i < productIds.length; i++) {
+//			ShoppingBasket oinput = new ShoppingBasket();
+//			oinput.setProductId(productIds[i]);
+//			oinput.setProductThumnail(productThumbnails[i]);
+//			oinput.setProductName(productNames[i]);
+//			oinput.setPrice(Integer.valueOf(prices[i]));
+//			oinput.setDeliveryChage(Integer.valueOf(deliveryCharges[i]));
+//			oinput.setQuantity(Integer.valueOf(quantities[i]));
+//			oinput.setTotalPrice(Integer.valueOf(totalPrices[i]));
+//
+//			olist.add(oinput);
+//		}
+//
+//		request.setAttribute("olist", olist);
+//		request.setAttribute("total", total);
+//
+//		request.getRequestDispatcher("/views/store/order/orderSheet.jsp").forward(request, response);
+//	}
 }
