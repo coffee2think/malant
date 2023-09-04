@@ -113,23 +113,6 @@ ul#new_categories li a {
 	border: 1px solid green;
 }
 
-.login-section-bottom {
-	display: flex;
-	justify-content: center;
-}
-
-.login-section-left {
-	width: 90px;
-	height: 70px;
-	border: 1px solid blue;
-}
-
-.login-section-right {
-	width: 90px;
-	height: 70px;
-	border: 1px solid blue;
-}
-
 .login-section h4 {
   font-size: 16px;
   margin-bottom: 5px;

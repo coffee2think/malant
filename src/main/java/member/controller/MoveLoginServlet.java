@@ -29,7 +29,7 @@ public class MoveLoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 이전 페이지 정보를 담고 있는 객체 생성
 		String referer = request.getHeader("Referer");
-		System.out.println(referer);
+		System.out.println("로그인 페이지 이전 페이지 : " + referer);
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/member/loginPage.jsp");
 		request.setAttribute("referer", referer);

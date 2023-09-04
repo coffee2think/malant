@@ -46,29 +46,16 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
-		<% if (loginMember == null ) { // 로그인하지 않았을 때 %>
-			<div>
-				<div class="login-section">
-					<div class="login-section-top">로그인하러 가기</div>
-					<div class="login-section-bottom">
-						<div class="login-section-left" id="member-common" onclick="location.href='/malant/login?mtype=common&loc=store';">
-							일반회원
-						</div>
-						<div class="login-section-right" onclick="location.href='/malant/login?mtype=seller&loc=store';">
-							판매회원
-						</div>
-					</div>
-				</div>
+		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
+			<div class="login-section" onclick="location.href='/malant/login?loc=store';">
+				로그인 하러 가기
 			</div>
 		<% } else { %>
 			<div class="login-section">
 				<%= loginMember.getNickname() %>님 환영합니다.<br>
-				<div class=>
-					<a href="/malant/views/member/confirmMemberBeforeInfo.jsp?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;
-				</div>
-				<div> 
-					<a href="/malant/logout">로그아웃</a>
-				</div>
+				
+				<a href="/malant/views/member/confirmMemberBeforeInfo.jsp?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp; 
+				<a href="/malant/logout">로그아웃</a>
 			</div>
 		<% } %>
 	</div>

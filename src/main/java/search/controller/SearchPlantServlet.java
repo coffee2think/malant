@@ -40,7 +40,7 @@ public class SearchPlantServlet extends HttpServlet {
 		// 페이징 처리 준비
 		String page = request.getParameter("page");
 		int currentPage = page != null ? Integer.parseInt(page) : 1;
-		int limit = 12;
+		int limit = 8;
 		int listCount  = service.getListCount(keyword);
 		Paging paging = new Paging(listCount, currentPage, limit, "plsearch");
 		paging.calculator();

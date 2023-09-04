@@ -111,7 +111,7 @@
 				<input type="text" class="inputform" name="userid" size="20" placeholder="아이디" required><br>
 				<div class="input-guide-id"></div>
 			</div>
-			<div><input type="button" value="아이디 중복 검사"></div>
+			<div><input type="button" id="dupid-btn" value="아이디 중복 검사"></div>
 			<div class="input-pwd">
 				<input type="password" class="inputform" name="userpwd" placeholder="비밀번호(영문+숫자+특수문자)" required><br>
 				<div class="input-guide-pwd"></div>
