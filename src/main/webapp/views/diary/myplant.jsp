@@ -54,7 +54,7 @@
 					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL"></div>
 					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
 					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE"></div>
-					
+
 					<div>
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">

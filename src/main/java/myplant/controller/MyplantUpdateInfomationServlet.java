@@ -76,7 +76,6 @@ public class MyplantUpdateInfomationServlet extends HttpServlet {
 		myplant.setMyplantVariety(mrequest.getParameter("MYPLANT_VARIETY"));
 		myplant.setMyplantStartDate((Date.valueOf(mrequest.getParameter("MYPLANT_START_DATE"))));
 		myplant.setMyplantMemo(mrequest.getParameter("MYPLANT_MEMO"));
-
 		int currentPage = Integer.parseInt(mrequest.getParameter("page"));
 		
 		//6. 업로드된 원본 파일 이름 추출

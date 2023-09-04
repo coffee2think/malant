@@ -42,7 +42,6 @@ public class MyplantInsertInformationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		//반려식물 등록 처리용 컨트롤러 : 사진 업로드 있음 
-			
 		
 		//1. multipart 방식으로 인코딩 되어서 전송 왔는지 확인 
 		//아니면 에러 페이지를 내보냄 

@@ -36,7 +36,7 @@ public class MyplantListServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		// myplant list 조회서블릿
 		String userNo = request.getParameter("USER_NO");
-		
+
 
 		//출력할 페이지 지정
 		int currentPage = 1;

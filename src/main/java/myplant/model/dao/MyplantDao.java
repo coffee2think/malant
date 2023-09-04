@@ -89,6 +89,7 @@ public class MyplantDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
+
 		String query = "update my_plant  "
 					+ "set myplant_name = ?, "
 					+ "    myplant_variety = ?,  "
@@ -135,6 +136,7 @@ public class MyplantDao {
 			pstmt.setString(4, myplant.getMyplantImageURL());
 			pstmt.setString(5, myplant.getMyplantMemo());
 			pstmt.setDate(6, myplant.getMyplantStartDate());
+
 			
 			result = pstmt.executeUpdate();
 			
@@ -146,6 +148,7 @@ public class MyplantDao {
 		
 		return result;
 	}
+
 
 	public int deleteMyplant(Connection conn, String userNo, String myplantId) {
 		int result = 0;
