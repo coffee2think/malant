@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import board.model.dao.CommentDao;
 import board.model.vo.Comment;
 
-
 public class CommentService {
 
 	private CommentDao cdao = new CommentDao();
@@ -28,7 +27,7 @@ public class CommentService {
 	public int insertComment(Comment comment) {
 		Connection conn = getConnection();
 		int result = cdao.insertComment(conn, comment);
-		if(result > 0)
+		if (result > 0)
 			commit(conn);
 		else
 			rollback(conn);
@@ -36,9 +35,26 @@ public class CommentService {
 		return result;
 	}
 
-	
+	public int deleteComment(int commentNo) {
+		Connection conn = getConnection();
+		int result = cdao.deleteComment(conn, commentNo);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
 
-
-
+	public int updateComment(Comment comment) {
+		Connection conn = getConnection();
+		int result = cdao.updateComment(conn, comment);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
 
 }

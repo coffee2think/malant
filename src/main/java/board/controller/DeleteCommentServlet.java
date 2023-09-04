@@ -1,11 +1,15 @@
 package board.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import board.model.service.CommentService;
 
 /**
  * Servlet implementation class DeleteCommentServlet
@@ -25,8 +29,27 @@ public class DeleteCommentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// 댓글 삭제
+		String cnoParam = request.getParameter("cno");
+	    String bnoParam = request.getParameter("bno");
+
+	    if (cnoParam != null && bnoParam != null) {
+	        try {
+	            int commentNo = Integer.parseInt(cnoParam);
+	            int boardNo = Integer.parseInt(bnoParam);
+
+	            if (new CommentService().deleteComment(commentNo) > 0) {
+
+	            	 response.sendRedirect(request.getContextPath() + "/bdetail?bno=" + boardNo);
+	            } else {
+	                RequestDispatcher view = request.getRequestDispatcher("view/common/error.jsp");
+	                request.setAttribute("message", commentNo + "번 댓글 삭제 실패");
+	                view.forward(request, response);
+	            }
+	        } catch (NumberFormatException e) {
+	            e.printStackTrace();
+	        }
+	    } 
 	}
 
 	/**
