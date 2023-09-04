@@ -112,8 +112,7 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
 	function submitForm() {
 	    var keywordValue = document.getElementById("keyword").value;
 	    
-	    location.href = '/malant/arsearch?search=' + encodeURIComponent(keywordValue);
-	    alert();
+	    location.href = '/malant/arsearch?search=' + encodeURIComponent(keywordValue)
 	}
 	
 	</script>
