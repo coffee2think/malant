@@ -47,9 +47,9 @@ public class MyplantDao {
 		
 		String query = "select *  "
 				+ "from (select rownum rnum, MYPLANT_ID, USER_NO, MYPLANT_NAME,  "
-				+ "MYPLANT_VARIETY, MYPLANT_IMAGE_URL, MYPLANT_MEMO, MYPLANT_START_DATE, CREATED_DATE "
+				+ "MYPLANT_VARIETY, MYPLANT_IMAGE_URL, MYPLANT_START_DATE, MYPLANT_MEMO, CREATED_DATE "
 				+ "from (select * from my_plant "
-				+ "order by USER_NO asc, MYPLANT_ID asc)) "
+				+ "order by USER_NO asc, MYPLANT_ID desc)) "
 				+ "where rnum >= ? and rnum <= ?";
 		
 		try {
@@ -67,8 +67,8 @@ public class MyplantDao {
 				myplant.setMyplantName(rset.getString("MYPLANT_NAME"));
 				myplant.setMyplantVariety(rset.getString("MYPLANT_VARIETY"));
 				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
-				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
 				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
+				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
 
 			    list.add(myplant);
 			}
@@ -85,15 +85,18 @@ public class MyplantDao {
 	
 	
 
-	public int updateMyplant(Connection conn, Myplant myplant, String userNo, String myplantId) {
+	public int updateMyplant(Connection conn, Myplant myplant) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update my_plant "
-						+ "set myplant_name = ?, "
-						+ "myplant_variety = ?, "
-						+ "myplant_image_url = ?, "
-						+ "where user_no = ?, myplant_id = ? ";
+
+		String query = "update my_plant  "
+					+ "set myplant_name = ?, "
+					+ "    myplant_variety = ?,  "
+					+ "    myplant_image_url = ?, "
+					+ "	   myplant_memo = ?, "
+					+ "	   myplant_start_date = ? "
+					+ "where user_no = ? and myplant_id = ?";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -101,8 +104,10 @@ public class MyplantDao {
 			pstmt.setString(1, myplant.getMyplantName());
 			pstmt.setString(2, myplant.getMyplantVariety());
 			pstmt.setString(3, myplant.getMyplantImageURL());
-			pstmt.setString(4, myplant.getUserNo());
-			pstmt.setString(5, myplant.getMyplantId());
+			pstmt.setString(4, myplant.getMyplantMemo());
+			pstmt.setDate(5, myplant.getMyplantStartDate());
+			pstmt.setString(6, myplant.getUserNo());
+			pstmt.setString(7, myplant.getMyplantId());
 			
 			result = pstmt.executeUpdate();
 			
@@ -114,16 +119,13 @@ public class MyplantDao {
 		return result;
 	}
 
-	public int insertMyplantInformation(Connection conn, Myplant myplant, String userNo) {
+	public int insertMyplantInformation(Connection conn, Myplant myplant) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		System.out.println("inert Dao : " + userNo);
-		
 		String query = "insert into my_plant  "
-				+ "(MYPLANT_ID, USER_NO, MYPLANT_NAME, MYPLANT_VARIETY, MYPLANT_IMAGE_URL,  "
-				+ "MYPLANT_MEMO, MYPLANT_START_DATE, CREATED_DATE) "
-				+ "values (MY_PLANT_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, DEFAULT)";		
+				+ "(MYPLANT_ID, USER_NO, MYPLANT_NAME, MYPLANT_VARIETY, MYPLANT_IMAGE_URL, MYPLANT_MEMO, MYPLANT_START_DATE, CREATED_DATE) "
+				+ "values (MY_PLANT_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, DEFAULT)";	
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -141,64 +143,33 @@ public class MyplantDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
+			close(pstmt);                       
 		}
 		
 		return result;
 	}
 
-	public Myplant selectMyplantInfo(Connection conn, String userNo, String myplantId) {
-		Myplant myplant = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String query = "select * from my_plant where user_no = ?, myplant_id = ? ";
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, userNo);
-			pstmt.setString(2, myplantId);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				myplant = new Myplant();
-				
-				myplant.setMyplantName(rset.getString("MYPLANT_NAME"));
-				myplant.setMyplantVariety(rset.getString("MYPLANT_VARIETY"));
-				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
-				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
-				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
-
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return myplant;
-	}
 
 	public int deleteMyplant(Connection conn, String userNo, String myplantId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "delete from my_plant where USER_NO = ? and MYPLANT_ID = ? ";
+		String query = "delete from my_plant where USER_NO = ? and MYPLANT_ID = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			
 			pstmt.setString(1, userNo);
 			pstmt.setString(2, myplantId);
 			
 			result = pstmt.executeUpdate();
-			
+			System.out.println("check");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
+		System.out.println(result);
 		return result;
 	}
 

@@ -43,11 +43,6 @@ public class MyplantInsertInformationServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		//반려식물 등록 처리용 컨트롤러 : 사진 업로드 있음 
 		
-		String userNo = request.getParameter("user_no");
-		//System.out.println("insertmyplant servlet : " + userNo);
-		
-		
-		
 		//1. multipart 방식으로 인코딩 되어서 전송 왔는지 확인 
 		//아니면 에러 페이지를 내보냄 
 		RequestDispatcher view = null;
@@ -72,17 +67,14 @@ public class MyplantInsertInformationServlet extends HttpServlet {
 		//mrequest 사용해야함 
 		Myplant myplant = new Myplant();
 
-		/* myplant.setMyplantId(mrequest.getParameter("myplant_id")); */
 		myplant.setUserNo(mrequest.getParameter("USER_NO"));
 		myplant.setMyplantName(mrequest.getParameter("MYPLANT_NAME"));
 		myplant.setMyplantVariety(mrequest.getParameter("MYPLANT_VARIETY"));
-		myplant.setMyplantImageURL(mrequest.getParameter("MYPLANT_IMAGE_URL"));
 		myplant.setMyplantMemo(mrequest.getParameter("MYPLANT_MEMO"));
 		myplant.setMyplantStartDate((Date.valueOf(mrequest.getParameter("MYPLANT_START_DATE"))));
 
-
 		//6. 업로드된 원본 파일 이름 추출
-		String upFileName = mrequest.getFilesystemName("upfile");
+		String upFileName = mrequest.getFilesystemName("MYPLANT_IMAGE_URL");
 		myplant.setMyplantImageURL(upFileName);
 		
 		//7. 폴더에 저장된 파일의 이름 바꾸기 처리
@@ -98,7 +90,7 @@ public class MyplantInsertInformationServlet extends HttpServlet {
 		
 		
 		//모델 서비스 메소드로 전달하고 결과 받기 
-		int result = new MyplantService().insertMyplantInformation(myplant, userNo);
+		int result = new MyplantService().insertMyplantInformation(myplant);
 		
 		//받은 결과로 성공/실패 페이지 내보내기
 		if(result > 0) {

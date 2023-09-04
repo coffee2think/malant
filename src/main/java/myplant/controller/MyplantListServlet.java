@@ -35,12 +35,8 @@ public class MyplantListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		// myplant list 조회서블릿
-		String userNo = request.getParameter("user_no");
-		
-		//System.out.println("listservlet : " + userNo);
-		
-		
-		//list 가져올 userNo
+		String userNo = request.getParameter("USER_NO");
+
 
 		//출력할 페이지 지정
 		int currentPage = 1;
@@ -76,7 +72,7 @@ public class MyplantListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
 			request.setAttribute("currentPage", currentPage);
-			request.setAttribute("user_no", userNo);
+			request.setAttribute("USER_NO", userNo);
 			
 			
 		}else {

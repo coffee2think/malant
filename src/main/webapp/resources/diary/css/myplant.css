@@ -90,12 +90,12 @@ body {
 	
 }
 
-.myplant-box .nickname {
+.myplantbox .nickname {
 	margin-top: 3px;
 	margin-left: 5px;
 }
 
-.image {
+.myplantbox .image {
 	margin-top: 7px;
 	width: 260px;
 	height: 210px;
@@ -104,7 +104,7 @@ body {
 	justify-content: center;
 }
 
-.information {
+.myplantbox .information {
 	margin-top: 220px;
 	margin-left: 10px;
 	font-size: 10pt;
