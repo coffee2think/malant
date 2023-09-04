@@ -3,7 +3,16 @@
 	String preReferer = (String) request.getAttribute("referer");
 	String mtype = (String) request.getAttribute("mtype");
 	String loc = (String) request.getAttribute("loc");
+	
+	if(loc == null) {
+		loc = "common";
+	}
+	
+	if(mtype == null) {
+		mtype = "common";
+	}
 %>
+
 <!DOCTYPE html>
 <html>
 
