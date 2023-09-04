@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.compiler.NewlineReductionServletWriter;
+
+import calendar.model.vo.Calendar;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
@@ -74,7 +78,12 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("previousPage", referer);
 			session.setAttribute("loginMember", member);
-			response.sendRedirect(referer);
+			if(referer != null) {
+				response.sendRedirect(referer);
+			} else {
+				response.sendRedirect("index.jsp");
+			}
+			
 		} else { // 로그인 실패
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			
