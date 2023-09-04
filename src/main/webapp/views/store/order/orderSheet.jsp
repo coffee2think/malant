@@ -3,6 +3,7 @@
 	import="store.order.model.vo.ProductOrder, java.util.ArrayList, store.shoppingBasket.model.vo.ShoppingBasket"%>
 <%
 ArrayList<ShoppingBasket> olist = (ArrayList<ShoppingBasket>) session.getAttribute("sblist");
+session.setAttribute("olist", olist);
 %>
 
 
@@ -80,26 +81,33 @@ ArrayList<ShoppingBasket> olist = (ArrayList<ShoppingBasket>) session.getAttribu
 			<div class="order-inputform">
 				<h3>주문자 정보</h3>
 				<form action="/malant/Osheet" method="post" id="ordersheet">
-					<label>이 &nbsp; 름 : </label><input type="text" name="buyerName" required><br>
-					<label>연락처 : </label><input type="tel" name="buyerContact" required><br>
-					<label>이메일 : </label><input type="email" name="buyerContact"><br>
+					<label>이 &nbsp; 름 : </label><input type="text" name="buyerName"
+						required><br> <label>연락처 : </label><input type="tel"
+						name="buyerContact" required><br> <label>이메일
+						: </label><input type="email" name="buyerContact"><br>
 
 					<h3>배송지 정보</h3>
-					<label>이 &nbsp; 름 : </label> <input type="text" name="recipient" required><br>
-					<label>연락처 : </label><input type="tel" name="recipient_contact" required><br>
+					<label>이 &nbsp; 름 : </label> <input type="text" name="recipient"
+						required><br> <label>연락처 : </label><input type="tel"
+						name="recipient_contact" required><br>
 					<!-- 주소 API -->
-					<label>주 &nbsp; 소 : </label>
-					<input type="text" id="postcode" placeholder="우편번호" required> &nbsp;
-					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					<input type="text" id="address" name="address" placeholder="주소" required><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" required>
-					<input type="text" id="extraAddress" name="extraAddress" placeholder="참고주소">
-					<input type="hidden" value="<%=olist.get(0).getProductName()%> 등 <%=olist.size() %> 건" name="productName">
-					<input type="hidden" value="<%=olist.get(0).getProductThumnail()%>" name="productThumnail">
-					<input type="hidden" value="<%=total%>" name="totalprice">
-					<input type="hidden" value="<%=olist.get(0).getUserNo()%>" name="userno">
+					<label>주 &nbsp; 소 : </label> <input type="text" id="postcode"
+						name="postcode" placeholder="우편번호" required> &nbsp; <input
+						type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="text" id="address" name="address" placeholder="주소" required><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="text" id="detailAddress" name="detailAddress"
+						placeholder="상세주소" required> <input type="text"
+						id="extraAddress" name="extraAddress" placeholder="참고주소">
+					<input type="hidden"
+						value="<%=olist.get(0).getProductName()%> 등 <%=olist.size()%> 건"
+						name="productName"> <input type="hidden"
+						value="<%=olist.get(0).getProductThumnail()%>"
+						name="productThumnail"> <input type="hidden"
+						value="<%=total%>" name="totalprice"> <input type="hidden"
+						value="<%=loginMember.getUserNo()%>" name="userno">
+
 
 					<!-- iframe -->
 					<div id="layer"
@@ -238,10 +246,19 @@ ArrayList<ShoppingBasket> olist = (ArrayList<ShoppingBasket>) session.getAttribu
 	        if (!isFormValid) {
 	            alert("필수입력사항을 입력해주세요.");
 	        } else {
-	            var popupUrl = "/malant/osheet";
-	            var iframe = document.getElementById("popupFrame");
-	            iframe.src = popupUrl;
-	            iframe.style.display = "block";
+	        	 var popupUrl = "/malant/osheet";
+	        	 var iframe = document.getElementById("popupFrame");
+
+	        	    // 서버에서 받은 URL로 iframe의 src를 변경
+	        	    fetch(popupUrl)
+	        	        .then(response => response.text())
+	        	        .then(url => {
+	        	            iframe.src = url;
+	        	            iframe.style.display = "block";
+	        	        })
+	        	        .catch(error => {
+	        	            console.error("에러 : " + error);
+	        	        });
 	        }
 		});
 	</script>
