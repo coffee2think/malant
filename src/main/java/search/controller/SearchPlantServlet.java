@@ -83,7 +83,7 @@ public class SearchPlantServlet extends HttpServlet {
 			paging.calculator();
 			
 			list = service.selectPlantListByFilter(filters, paging.getStartRow(), paging.getEndRow());
-			System.out.println("filters : ");
+			System.out.println("\n***filter search***");
 			filters.forEach((key, value) -> {
 	            System.out.println(key + " : " + value);
 	        });

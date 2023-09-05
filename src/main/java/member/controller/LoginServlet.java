@@ -78,7 +78,9 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", member);
 			
-			if(referer != null && !referer.isEmpty()) {
+			if(member.getSellerYn().equals("Y")) {
+				response.sendRedirect("/malant/views/seller/sellerProductList.jsp");
+			} else if(referer != null && !referer.isEmpty()) {
 				response.sendRedirect(referer);
 			} else {
 				response.sendRedirect("index.jsp");
