@@ -46,6 +46,7 @@ public class MemberDao {
 				member.setLastLoginDate(rset.getDate("last_login_date"));
 				member.setDormantYn(rset.getString("dormant_yn"));
 				member.setWithdrawalYn(rset.getString("withdrawal_yn"));
+				member.setSellerYn(rset.getString("seller_yn"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
