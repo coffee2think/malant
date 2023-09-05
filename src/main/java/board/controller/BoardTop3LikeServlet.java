@@ -44,22 +44,29 @@ public class BoardTop3LikeServlet extends HttpServlet {
 		ArrayList<Board> list = new BoardService().selectTop3Like();
 		//System.out.println(list.toString());
 		JSONArray jarr = new JSONArray();
-
+		
 		for (Board board : list) {
 			JSONObject job = new JSONObject();
 			Member member = new MemberService().selectMemberByUserNo(board.getUserNo());
 			// 한글이 있는 값 인코딩 처리
-			System.out.println(board.getBoardNo());
 			job.put("bno", board.getBoardNo());
+			//System.out.println("bno :" + board.getBoardNo());
 			job.put("bnick", URLEncoder.encode(board.getNickname(), "utf-8"));
+			//System.out.println("bnick :" + board.getNickname());
 			job.put("btitle", URLEncoder.encode(board.getBoardTitle(), "utf-8"));
+			//System.out.println("btitle :" + board.getBoardTitle());
 			job.put("blike", board.getBoardLike());
+			//System.out.println("blike :" +board.getBoardLike());
 			job.put("bphoto", URLEncoder.encode(board.getBoardPhoto(), "utf-8"));
+			//System.out.println("bphoto :" + board.getBoardPhoto());
 			job.put("bprofile", URLEncoder.encode(member.getProfileImg(), "utf-8"));
+			//System.out.println("bprofile :" +member.getProfileImg());
 			// System.out.println(member);
 			jarr.add(job);
 		}
 
+		//System.out.println("안찍힘");
+		
 		JSONObject sendJson = new JSONObject();
 		sendJson.put("blist", jarr);
 

@@ -32,11 +32,16 @@ public class OrderService {
 		return 0;
 	}
 	
-	public ProductOrder addOrderList(ProductOrder productOrder) {
+	public int addOrderList(ProductOrder productOrder) {
 		Connection conn = getConnection();
-		ProductOrder list = odao.addOrderList(conn, productOrder);
+		int result = odao.addOrderList(conn, productOrder);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
-		return list;
+		return result;
 	}
 	
 	public int saveOrderSheet(ProductOrder productOrder, ArrayList<ProductOrder> porder) {

@@ -47,7 +47,7 @@ public class MyplantListServlet extends HttpServlet {
 		}
 		
 		//한페이지 당 출력할 목록 개수 지정
-			int limit = 4;
+			int limit = 8;
 		
 		//조회용 모델측 서비스 객체 생성
 		MyplantService mpservice = new MyplantService();
@@ -60,7 +60,7 @@ public class MyplantListServlet extends HttpServlet {
 		paging.calculator();
 		
 		//모델 서비스로 해당 페이지에 출력할 게시글만 조회해 옴 
-		ArrayList<Myplant> list = mpservice.selectMyplantList(paging.getStartRow(), paging.getEndRow());
+		ArrayList<Myplant> list = mpservice.selectMyplantList(paging, userNo);
 		
 		//받은 결과에 따라 성공 또는 실패 페이지 내보내기 
 		RequestDispatcher view = null;

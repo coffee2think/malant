@@ -25,7 +25,7 @@
 				<li><a 
 				<% if(loginMember == null) { %>
 					href="/malant/views/member/loginPage.jsp"
-				<% }else { %>
+				<% } else { %>
 					href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>"
 				<% } %>>다이어리</a></li>
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
@@ -35,15 +35,18 @@
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section" onclick="location.href='/malant/login?loc=common';">
+			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
 				로그인 하러 가기
 			</div>
 		<% } else { %>
 			<div class="login-section">
-				<%= loginMember.getNickname() %>님 환영합니다.<br>
-				
-				<a href="/malant/views/member/confirmMemberBeforeInfo.jsp?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp; 
-				<a href="/malant/logout">로그아웃</a>
+				<div class="login-section-top">
+					<%= loginMember.getNickname() %>님
+				</div>
+				<div class="login-section-bottom">
+					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp; 
+					<a href="/malant/logout?loc=common">로그아웃</a>
+				</div>
 			</div>
 		<% } %>
 	</div>

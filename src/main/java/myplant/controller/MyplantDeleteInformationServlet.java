@@ -46,7 +46,7 @@ public class MyplantDeleteInformationServlet extends HttpServlet {
 				new File(savePath + "\\" + inFileName).delete();
 			}
 
-			response.sendRedirect("/malant/mplist?page=1");
+			response.sendRedirect("/malant/mplist?user_no=" + userNo + "&page=1");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "반려식물 삭제 실패");

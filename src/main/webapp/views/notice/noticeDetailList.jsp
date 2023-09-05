@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="notice.model.vo.Notice"%>
+	pageEncoding="UTF-8"
+	import="notice.model.vo.Notice, java.util.ArrayList"%>
 <%
+ArrayList<Notice> myblist = (ArrayList<Notice>) request.getAttribute("nlist");
 Notice notice = (Notice) request.getAttribute("notice");
 %>
 <!DOCTYPE html>
@@ -12,18 +14,19 @@ Notice notice = (Notice) request.getAttribute("notice");
 	href="/malant/resources/notice/css/noticecontents.css">
 <style>
 .notice-detail-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 100px; /* 내용 주위에 여백을 추가할 수 있습니다. */
-  }
- .notice-image {
-    width: 900px;
-    height: auto;
-  }
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 100px; /* 내용 주위에 여백을 추가할 수 있습니다. */
+}
 
+.notice-image {
+	width: 900px;
+	height: auto;
+}
 </style>
+
 </head>
 <body>
 	<div class="center-content">
@@ -33,9 +36,11 @@ Notice notice = (Notice) request.getAttribute("notice");
 			</div>
 			<div class="notice-detail-container">
 				<img class="notice-image" src="<%=notice.getContentImage()%>">
-				제목 : <%=notice.getTitle()%>
-				<br>
-				내용 : <%=notice.getContent()%>
+				
+				제목 :
+				<%=notice.getTitle()%>
+				<br> 내용 :
+				<%=notice.getContent()%>
 				<br>
 				<%
 				if (notice.getNoticeType().equals("NOTICE")) {
@@ -53,6 +58,7 @@ Notice notice = (Notice) request.getAttribute("notice");
 			<%
 			}
 			%>
+
 		</div>
 	</div>
 </body>

@@ -1,11 +1,14 @@
 package myplant.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import diary.model.vo.Diary;
+import common.Paging;
 import myplant.model.dao.MyplantDao;
 import myplant.model.vo.Myplant;
 
@@ -23,9 +26,9 @@ public class MyplantService {
 		return listCount;
 	}
 
-	public ArrayList<Myplant> selectMyplantList(int startRow, int endRow) {
+	public ArrayList<Myplant> selectMyplantList(Paging paging, String userNo) {
 		Connection conn = getConnection();
-		ArrayList<Myplant> list = mpdao.selectList(conn, startRow, endRow);
+		ArrayList<Myplant> list = mpdao.selectList(conn, paging, userNo);
 		close(conn);
 		return list;
 	}

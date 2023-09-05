@@ -3,7 +3,6 @@
 	String preReferer = (String) request.getAttribute("referer");
 	String loc = (String) request.getAttribute("loc");
 %>
-
 <!DOCTYPE html>
 <html>
 
@@ -99,6 +98,10 @@
 <body>
 <div class="all-container">
 	<div class="sidebar">
+		<script>
+			locVar = '<%= loc %>';
+			console.log(locVar);
+		</script>
 		<% if(loc.equals("common")) { %>
 			<%@ include file="../common/sidebar.jsp" %>
 		<% } else { %>

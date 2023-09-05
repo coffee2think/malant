@@ -38,19 +38,25 @@ public class LogoutServlet extends HttpServlet {
 		if (session != null) {
 			// 마지막 접속일 업데이트
 			Member loginMember = (Member)session.getAttribute("loginMember");
+			String loc = request.getParameter("loc");
 			loginMember.setLastLoginDate(new Date(System.currentTimeMillis()));
 			int result = new MemberService().updateMember(loginMember);
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
-			
 			if(result > 0) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
 				System.out.println(loginMember.getUserNo() + "의 last login date 업데이트 완료 : " + sdf.format(loginMember.getLastLoginDate()));
 			} else {
 				System.out.println(loginMember.getUserNo() + "의 last login date 업데이트 실패");
 			}
 			
 			session.invalidate();
-			response.sendRedirect("index.jsp");
+			System.out.println("LogoutServlet loc : " + loc);
+			if(loc.equals("common")) {
+				response.sendRedirect("index.jsp");
+			} else {
+				response.sendRedirect("smplist");
+			}
+			
 		}
 	}
 

@@ -25,7 +25,27 @@
 
 </style>
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	var photofile = document.getElementById("MYPLANT_IMAGE_URL");
+	photofile.addEventListener('change', function(event){
+		const files = event.currentTarget.files;
+		const file = files[0];
+		const previewImg = document.getElementById("photo");
+		console.log(file.name);
+		
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			previewImg.setAttribute('src', e.target.result);
+			previewImg.setAttribute('data-file', file.name);
+		};
+		
+		reader.readAsDataURL(file);
+	});
+	
+}
 
+</script>
 
 </head>
 <body>
@@ -44,15 +64,20 @@
 	
 	<% if (list.size() > 0 ) { %>
 		
-		<div id="addYourPlant" class="addYourPlant" onclick="openMyplantAdd();"> 반려식물을 등록해주세요!</div> 
+		<div id="addYourPlant" class="addYourPlant" > 반려식물을 등록해주세요!</div> 
 		
 			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
-			<div id="myplantAdd" class="myplantAdd"> 반려식물 등록화면 (팝업)
+			<div id="myplantAdd" class="myplantAdd" style="padding:10px;"> 반려식물 등록화면 
+					
 					
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
 					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME"></div>
 					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"></div>
-					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL"></div>
+					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
+					<div id="reviewbox" style="width:220px;height:220px;border:1px solid black;padding:10px;margin:10px;">
+						<img id="photo" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png"
+						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;">
+					</div></div>
 					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
 					<div>키우기 시작한 날 &nbsp; <input type="date" id="theDate" name="MYPLANT_START_DATE">
 					<script type="text/javascript">
@@ -74,21 +99,20 @@
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
-	
+					
 					</div> <!-- myplantAdd -->
 					</form>
 
 	<div id="myplantListbody">		
 	<% for (Myplant mp : list) { %>
 		
-				<div id="myplantbox" class="myplantbox" onclick="myplantDetailBox();"> 
-						<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">	
+				<div id="myplantbox" class="myplantbox" onclick="moveDetail(<%= mp.getMyplantId() %>); return false;"> 
 						<div class="nickname">애칭 <%= mp.getMyplantName() %></div>
 						<div>
 							<% if(mp.getMyplantImageURL() != null) { %>
-								<img class="image"  src="/malant/mpdown?MYPLANT_IMAGE_URL=<%= mp.getMyplantImageURL() %>">
+								<img class="image" src="/malant/resources/diary/myplant_upimages/<%= mp.getMyplantImageURL() %>">
 							<% }else { %>
-							    <img class="image" src="/malant/resources/diary/images/myplant_null_photo.png">
+							    <img class="image" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png">
 							<% } %>
 						</div>
 						<div class="information">
@@ -97,59 +121,23 @@
 							<div class="">키우기 시작한 날: <%= mp.getMyplantStartDate() %></div>
 							<div class="memo">메모 : <%= mp.getMyplantMemo() %></div>
 						</div>
-					<script type="text/javascript">
-						
-						function myplantDetailBox(){}
-						document.querySelector("#myplantbox").addEventListener("click", function() {
-						document.querySelector(".myplantDetail").classList.add("active");
-						});
+					<script type="text/javascript">	
+
+						function moveDetail(myplantId){
+						 location.href="/malant/mpinfo?userNo=<%= loginMember.getUserNo() %>&myplantId=" + myplantId + "&page=<%= nowpage %>";
 						}
 
 					</script>	
 					</div><!-- myplantbox -->
 					
 			<% } %> <!-- for문 -->	
+			
+			
 			<div class="pagingview">
 				<%@ include file="../diary/myplantPagingView.jsp" %>
 			</div>
 		</div> <!-- myplantListbody -->
-									
-		<% for (Myplant mp : list) { %>			
-				<form action="/malant/mprecent" method="post">	
-				<div id="myplantDetail" class="myplantDetail"> 최근 추가 식물 디테일화면
-
-					<input type="hidden" name="MYPLANT_ID" value="<%= mp.getMyplantId() %>">
-					<input type="hidden" name="MYPLANT_IMAGE_URL" value="<%= mp.getMyplantImageURL() %>">
-					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
-					<div class="ID">ID : <%= mp.getMyplantId() %></div>
-					<div class="">애칭: <%= mp.getMyplantName() %></div>
-					<div class="">품종: <%= mp.getMyplantVariety() %></div>
-					<div class="image">사진 <% if(mp.getMyplantImageURL() != null){ %>
-					<a href="/first/bfdown?ofile=<%= mp.getMyplantImageURL() %>">
-						<%= mp.getMyplantImageURL() %></a>
-							<% }else{ %>
-								<img class="image" src="/malant/resources/diary/images/myplant_null_photo.png">
-							<% } %></div>
-					<div class="">키우기 시작한 날: <%= mp.getMyplantStartDate() %></div>
-					<div class="">메모: <%= mp.getMyplantMemo() %></div>
-
-					<div>
-						<input type="button" onclick="moveUpdate(); return false;" value="수정">
-						<input type="button" onclick="requestDelete(); return false;" value="삭제">
-						<script type="text/javascript">
-						function moveUpdate(){
-							location.href="/malant/mplistmodify?user_no=<%= loginMember.getUserNo() %>";
-						}
-						function requestDelete() {
-							location.href = "/malant/mpdelete?userNo=<%= loginMember.getUserNo() %>&myplantId=<%= mp.getMyplantId() %>&MyplantImageURL=<%= mp.getMyplantImageURL() %>";
-						}
-						</script>
-					</div>
-					
-					</div> <!-- myplantDetail -->
-					</form>
-					
-			<% } %>		
+		
 		
 		<% }else if(list.size() == 0) { %>
 		
@@ -182,6 +170,7 @@
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
+					<div class="backOverlay"></div>
 	
 					</div> <!-- myplantAdd -->
 					</form>
@@ -190,8 +179,7 @@
 	</div> <!-- content body  -->
 	</div> <!-- main -->	
 </div> <!-- container -->
-
-<script type="text/javascript" src="/malant/resources/diary/js/myplant.js"></script> 
+<script type="text/javascript" src="/malant/resources/diary/js/myplant.js"></script>
 
 </body>
 </html>

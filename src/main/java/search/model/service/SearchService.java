@@ -5,6 +5,7 @@ import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Map;
 
 import member.model.vo.Member;
 import search.model.dao.SearchDao;
@@ -33,6 +34,35 @@ public class SearchService {
 		int listCount = sdao.getListCount(conn, keyword);
 		close(conn);
 		return listCount;
+	}
+	
+	public int insertPlant(Plant plant) {
+		Connection conn = getConnection();
+		int result = sdao.insertPlant(conn, plant);
+		close(conn);
+		return result;
+	}
+
+	public int getListCountByFilter(Map<String, String> filters) {
+		Connection conn = getConnection();
+		int listCount = sdao.getListCountByFilter(conn, filters);
+		close(conn);
+		return listCount;
+	}
+
+	public int getListTest(String diffVal, String growVal, String smellVal, String placeVal, String puriVal) {
+		Connection conn = getConnection();
+		int listCount = sdao.getListCountByFilter(conn, diffVal, growVal, smellVal, placeVal, puriVal);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Plant> selectPlantListByFilter(Map<String, String> filters, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Plant> list = new ArrayList<>(); // 230905 20:15
+//		ArrayList<Plant> list = sdao.selectPlantListByFilter(conn, filters, startRow, endRow);
+		close(conn);
+		return list;
 	}
 
 }

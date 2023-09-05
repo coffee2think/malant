@@ -21,9 +21,9 @@ public class ShoppingBasketService {
 		return list;
 	}
 
-	public int deleteShoppingBasket(String userNo, String productId) {
+	public int deleteShoppingBasket(String userNo, String[] productIdArray) {
 		Connection conn = getConnection();
-		int result = sdao.deleteShoppingBasket(conn, userNo, productId);
+		int result = sdao.deleteShoppingBasket(conn, userNo, productIdArray);
 		if (result > 0)
 			commit(conn);
 		else
