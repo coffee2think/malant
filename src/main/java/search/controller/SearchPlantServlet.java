@@ -59,6 +59,12 @@ public class SearchPlantServlet extends HttpServlet {
 		filters.put("placement", placement);
 		filters.put("effect_purification", effectPurification);
 		
+		System.out.println("\n***filters 잘 받아왔는지 체크***");
+		filters.forEach((key, value) -> {
+            System.out.println(key + " : " + value);
+        });
+		
+		
 		// 페이징 처리 준비
 		String page = request.getParameter("page");
 		int currentPage = page != null ? Integer.parseInt(page) : 1;
