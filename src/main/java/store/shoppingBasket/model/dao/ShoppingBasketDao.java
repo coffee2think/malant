@@ -67,11 +67,11 @@ public class ShoppingBasketDao {
 		String query = "delete from st_basket where user_no = ? and product_id = ?";
 		
 		try {
-			pstmt = conn.prepareStatement(query);
+			
 			for(int i =0; i<productIdArray.length; i++) {
-			
-			pstmt.setString(1, userid);
-			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userNo);
+			pstmt.setString(2, productIdArray[i]);
 			result = pstmt.executeUpdate();
 			}
 			
@@ -80,7 +80,6 @@ public class ShoppingBasketDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 

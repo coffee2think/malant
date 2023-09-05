@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Random;
 
+import store.main.model.vo.MainContent;
 import store.order.model.vo.ProductOrder;
 
 public class OrderDao {
@@ -46,42 +47,31 @@ public class OrderDao {
 		return porder;
 	}
 
-	public int updatePayCancel() {
-		return 0;
-	}
-
-	public int updatePayOk() {
-		return 0;
-	}
-
 	public int addOrderList(Connection conn, ProductOrder productOrder) {
-		
-		String TrackingNo = null;
 		int result = 0;
 		
-		Random random = new Random();
-        long lTrackingNo = Math.abs(random.nextLong() % 10000000000000000L);
-        TrackingNo = String.valueOf(lTrackingNo);
-        
-        System.out.println(TrackingNo);
+//		송장번호 입력 랜덤숫자 발생기
+//		String TrackingNo = null;
+//		Random random = new Random();
+//      long lTrackingNo = Math.abs(random.nextLong() % 10000000000000000L);
+//      TrackingNo = String.valueOf(lTrackingNo);
+//      System.out.println(TrackingNo);
         
         PreparedStatement pstmt = null;
         
         
         String query = "update ST_ORDER "
-        		+ "set PAYMENT_STATUS = ?, TRACKING_NO = ? "
+        		+ "set PAYMENT_STATUS = ?, ORDER_STATE = ? "
         		+ "where order_id = ?";
         
         try {
         	pstmt = conn.prepareStatement(query);
         	
-        	
         	pstmt.setString(1, productOrder.getPaymentStatus());
-        	pstmt.setString(2, TrackingNo);
+        	pstmt.setString(2, "결제완료");
         	pstmt.setString(3, productOrder.getOrderId());
         	
         	System.out.println("PaymentStatus "+productOrder.getPaymentStatus());
-        	System.out.println("TrackingNo "+TrackingNo);
         	System.out.println("getOrderId "+productOrder.getOrderId());
         	
         	result = pstmt.executeUpdate();
@@ -107,7 +97,7 @@ public class OrderDao {
 		System.out.println("dao 쿼리1 : " + productOrder.toString());
 		System.out.println("dao 쿼리2 : " + porder.toString());
 
-		String query = "insert into ST_ORDER values " + "(?, ?, default, ?, ?, ?, ?, ?, ?, ?, default, ?, ?)";
+		String query = "insert into ST_ORDER values " + "(?, ?, default, ?, ?, ?, ?, ?, ?, ?, default, ?, ?, default)";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -169,6 +159,60 @@ public class OrderDao {
 			result2 = 0;
 		}
 		return result2;
+	}
+
+	public ArrayList<ProductOrder> selectOrderlist(Connection conn, String userno) {
+		
+		ArrayList<ProductOrder> olist = new ArrayList<ProductOrder>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String query = "select * from ST_PRODUCT " + "join ST_SELLER using(SELLER_NO) where product_id = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				ProductOrder po = new ProductOrder();
+				
+				po.setOrderId(rset.getString("ORDER_ID"));
+                po.setProductId(rset.getString("PRODUCT_ID"));
+                po.setUserNo(rset.getString("USER_NO"));
+                po.setQuantity(rset.getInt("QUANTITY"));
+                po.setOrderDate(rset.getDate("ORDER_DATE"));
+                po.setBuyerName(rset.getString("BUYER_NAME"));
+                po.setBuyerContact(rset.getString("BUYER_CONTACT"));
+                po.setRecipient(rset.getString("RECIPIENT"));
+                po.setRecipientContact(rset.getString("RECIPIENT_CONTACT"));
+                po.setPrice(rset.getInt("PRICE"));
+                po.setDeliveryCharge(rset.getInt("DELIVERY_CHARGE"));
+                po.setTotalPrice(rset.getInt("TOTAL_PRICE"));
+                po.setEmail(rset.getString("ORDER_EMAIL"));
+                po.setOrderState(rset.getString("ORDER_STATE"));
+                po.setProductName(rset.getString("PRODUCT_NAME"));
+                po.setThumbnailImg(rset.getString("PRODUCT_THUMBNAIL_IMG"));
+                po.setSellerNo(rset.getString("SELLER_NO"));
+                po.setStoreName(rset.getString("SELLER_NAME"));
+                po.setShippingAddressName(rset.getString("SHIPPING_ADDRESS_NAME"));
+                po.setCodePostal(rset.getString("CODE_POSTAL"));
+                po.setDeliveryAddress(rset.getString("DELIVERY_ADDRESS"));
+                po.setDeliveryAddress2(rset.getString("DELIVERY_ADDRESS2"));
+                po.setDeliveryNote(rset.getString("DELIVERY_NOTE"));
+                po.setPaymentType(rset.getString("PAYMENT_TYPE"));
+                po.setOrderProgress(rset.getString("ORDER_PROGRESS"));
+                po.setPaymentStatus(rset.getString("PAYMENT_STATUS"));
+				
+				olist.add(po);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return olist;	
 	}
 
 }
