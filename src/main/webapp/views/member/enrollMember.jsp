@@ -112,7 +112,7 @@
 	}
 
 
-	function validate() {Id
+	function validate() {
 		var id = $('#userid');
 		var pwd = $('#userpwd');
 		var pwd2 = $('#userpwd2');

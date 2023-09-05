@@ -135,15 +135,7 @@
 	
 	// 기존 비밀번호와 새 비밀번호가 일치하는지 검사하는 함수. 나중에 추가할것
 	
-	function withdraw() {
-		var ans = confirm('정말로 탈퇴하시겠습니까?');
-		
-		if(ans) {
-			location.href = '/malant/mleave?userno=<%= loginMember.getUserNo() %>';
-		}
-		
-		return false;
-	}
+	
 </script>
 
 </head>
@@ -196,11 +188,23 @@
 					<tr>
 						<th colspan="3">
 							<input type="button" value="회원탈퇴" onclick="return withdraw();"> &nbsp; &nbsp; &nbsp;
+							<script>
+								function withdraw() {
+									var ans = confirm('정말로 탈퇴하시겠습니까?');
+									
+									if(ans) {
+										location.href = '/malant/mleave?userno=<%= loginMember.getUserNo()%>';
+									}
+									
+									return false;
+								}
+							</script>
 							<input type="submit" value="변경하기">
 						</th>
 					</tr>
 				</table>
 			</form>
+			
 		</div>
 	</div>
 </body>
