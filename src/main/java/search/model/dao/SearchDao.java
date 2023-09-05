@@ -308,7 +308,7 @@ public class SearchDao {
 		
 		int total = 0;
 		for(String key : filters.keySet()) {
-			if(!filters.get(key).equals("all")) {
+			if(!"all".equals(filters.get(key))) {
 				queryBuilder.append("and " + key + " = ? ");
 				total++;
 			}
@@ -352,7 +352,7 @@ public class SearchDao {
 		queryBuilder.append("select * ");
 		queryBuilder.append("from (select rownum rnum, plant.* from plant where 1=1 ");
 		for(String key : filters.keySet()) {
-			if(!filters.get(key).equals("all")) {
+			if(!"all".equals(filters.get(key))) {
 				queryBuilder.append("and " + key + " = ? ");
 			}
 		}

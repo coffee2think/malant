@@ -59,7 +59,9 @@ public class SearchPlantServlet extends HttpServlet {
 		filters.put("placement", placement);
 		filters.put("effect_purification", effectPurification);
 		
-		System.out.println("\n***filters 잘 받아왔는지 체크***");
+		System.out.println("\n***잘 받아왔는지 체크***");
+		System.out.println("keyword : " + keyword);
+
 		filters.forEach((key, value) -> {
             System.out.println(key + " : " + value);
         });
@@ -80,6 +82,7 @@ public class SearchPlantServlet extends HttpServlet {
 			
 			list = service.selectPlantList(keyword, paging.getStartRow(), paging.getEndRow());
 			
+			request.setAttribute("action", "name"); // 페이징에서 키워드 검색 페이징임을 확인하기 위해 action에 name을 넣음
 			System.out.println("keyword : " + keyword);
 			System.out.println("list : " + list);
 		} else { // 키워드가 없을 경우 필터 검색
@@ -94,6 +97,8 @@ public class SearchPlantServlet extends HttpServlet {
 	            System.out.println(key + " : " + value);
 	        });
 			System.out.println("list : " + list);
+			
+			request.setAttribute("action", "filter"); // 페이징에서 필터 검색 페이징임을 확인하기 위해 action에 filter을 넣음
 		}
 		
 		// 결과 전송
