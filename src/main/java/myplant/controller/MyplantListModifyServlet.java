@@ -59,7 +59,7 @@ public class MyplantListModifyServlet extends HttpServlet {
 		paging.calculator();
 		
 		//모델 서비스로 해당 페이지에 출력할 게시글만 조회해 옴 
-		ArrayList<Myplant> list = mpservice.selectMyplantList(paging.getStartRow(), paging.getEndRow());
+		ArrayList<Myplant> list = mpservice.selectMyplantList(paging, userNo);
 		
 		//받은 결과에 따라 성공 또는 실패 페이지 내보내기 
 		RequestDispatcher view = null;

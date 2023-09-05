@@ -1,7 +1,9 @@
 package diary.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +17,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import common.FileNameChange;
 import diary.model.service.DiaryService;
 import diary.model.vo.Diary;
 
@@ -38,12 +39,7 @@ public class DiaryInsertNewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("utf-8");
-		
-		String userNo = request.getParameter("user_no");
-		
- 
+
 		RequestDispatcher view = null;
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			view = request.getRequestDispatcher("view/common/error.jsp");
@@ -53,54 +49,57 @@ public class DiaryInsertNewServlet extends HttpServlet {
 		
 		int maxSize = 1024 * 1024 * 10;
 		
-
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/diary/diary_upimages");
 		
-
 		MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		
 
 		Diary diary = new Diary();
 
 		diary.setUserNo(mrequest.getParameter("user_no"));
-		diary.setDiaryId(mrequest.getParameter("diary_id"));
-		diary.setMyplantId(mrequest.getParameter("myplant_id"));
-		diary.setDiaryWritingDate(Date.valueOf(mrequest.getParameter("diary_writing_date")));
 		diary.setDiaryContent(mrequest.getParameter("diary_content"));
-		diary.setDiaryImage1URL(mrequest.getParameter("diary_image1_url"));
-		diary.setDiaryImage2URL(mrequest.getParameter("diary_image2_url"));
-		diary.setDiaryImage3URL(mrequest.getParameter("diary_image3_url"));
-		diary.setDiaryImage4URL(mrequest.getParameter("diary_image4_url"));
-		diary.setDiaryManaging1(mrequest.getParameter("diary_managing1"));
-		diary.setDiaryManaging2(mrequest.getParameter("diary_managing2"));
-		diary.setDiaryManaging3(mrequest.getParameter("diary_managing3"));
-		diary.setDiaryManaging4(mrequest.getParameter("diary_managing4"));
 
+		DiaryService dservice = new DiaryService();
 		
-		
-		String upFileName = mrequest.getFilesystemName("upfile");
-		diary.setDiaryImage1URL(upFileName);
-		diary.setDiaryImage2URL(upFileName);
-		diary.setDiaryImage3URL(upFileName);
-		diary.setDiaryImage4URL(upFileName);
-		
+		int result = dservice.insertNewDiray(diary);
+		int diaryId = dservice.selectDiaryId(diary.getUserNo());
 
-		if(upFileName != null) {
+		String[] fileNames = mrequest.getParameterValues("filenames");
+		System.out.println(fileNames.length);
+		for(String fname : fileNames) {
+			System.out.println(fname);
+			int seqId = dservice.selectPhotoLastSeq() + 1;
+			String renameFileName = "diary_" + diary.getUserNo() + "_" + seqId + "." + fname.substring(fname.lastIndexOf(".") + 1);
 			
-			String newUpFileName = FileNameChange.change(upFileName, savePath, "yyyyMMddHHmmss");
+			File originFile = new File(savePath + "\\" + fname);
+			File renameFile = new File(savePath + "\\" + renameFileName);
 			
-			diary.setDiaryImage1URL(newUpFileName);
-			diary.setDiaryImage2URL(newUpFileName);
-			diary.setDiaryImage3URL(newUpFileName);
-			diary.setDiaryImage4URL(newUpFileName);
+			if(!originFile.renameTo(renameFile)) {
+				//renameTo() 메소드가 실패한 경우 (false), 직접 수동으로 바꾸기함
+				//원본 파일의 내용을 읽어서 리네임파일에 복사해 넣고, 끝나면 원본 파일을 삭제함
+				
+				FileInputStream fin = new FileInputStream(originFile);
+				FileOutputStream fout = new FileOutputStream(renameFile);
+				
+				int data = -1;
+				while((data = fin.read()) != -1) {
+					fout.write(data);
+				}
+				
+				fin.close();
+				fout.close();
+				originFile.delete();  //원본 파일 삭제함
+			}
+			
+			dservice.insertMyDiaryPhoto(diaryId, renameFileName);
+		
 		}
-		
-		int result = new DiaryService().insertNewDiray(diary, userNo);
-		
+
+	
 		//받은 결과로 성공/실패 페이지 내보내기
 		if(result > 0) {
 			//서블릿에서 서블릿 실행함
-			response.sendRedirect("/malant/dlist?page=1");
+			response.sendRedirect("/malant/dlist?user_no=" + diary.getUserNo());
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "일기 등록 실패");
