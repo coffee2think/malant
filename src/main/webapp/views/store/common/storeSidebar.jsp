@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayList,member.model.vo.Member"%>
 <%
-ArrayList<MainContent> plistf = (ArrayList<MainContent>) request.getAttribute("plistf");
+	ArrayList<MainContent> plistf = (ArrayList<MainContent>) request.getAttribute("plistf");
 	Member loginMember = (Member) session.getAttribute("loginMember");
+	Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
 %>
 
 <!DOCTYPE html>
@@ -50,17 +51,27 @@ ArrayList<MainContent> plistf = (ArrayList<MainContent>) request.getAttribute("p
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=store'">
 				로그인 하러 가기
 			</div>
-		<% } else { %>
+		<% } else if(isAdmin) { // 관리자인 경우 %>
 			<div class="login-section">
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님
 				</div>
-        <div style= height:50px; >
-          <a href="/malant/sblist?userNo=<%=loginMember.getUserNo()%>">장바구닝닝</a>
-          <a href="/malant/olist?userNo=<%=loginMember.getUserNo()%>">주문리스틍</a>
-        </div>
 				<div class="login-section-bottom">
-					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp; 
+					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">관리 페이지</a> &nbsp;&nbsp; 
+					<a href="/malant/logout?loc=store">로그아웃</a>
+				</div>
+			</div>
+		<% } else { // 회원인 경우 %>
+			<div class="login-section">
+				<div class="login-section-top">
+					<%= loginMember.getNickname() %>님
+				</div>
+		        <div style="height:50px;">
+		          <a href="/malant/sblist?userNo=<%= loginMember.getUserNo() %>">장바구닝닝</a>
+		          <a href="/malant/olist?userNo=<%= loginMember.getUserNo() %>">주문리스틍</a>
+		        </div>
+				<div class="login-section-bottom">
+					<a href="/malant/qlist">관리페이지</a> &nbsp;&nbsp; 
 					<a href="/malant/logout?loc=store">로그아웃</a>
 				</div>
 			</div>

@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 
 import javax.print.attribute.PrintJobAttribute;
 
+import member.model.vo.Admin;
 import member.model.vo.Member;
 import member.model.vo.Seller;
 
@@ -373,6 +374,41 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public Admin selectAdminLogin(Connection conn, String userId, String userPwd) {
+		Admin admin = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from admin "
+				+ "where admin_id = ? and admin_pwd = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				admin = new Admin();
+				
+				admin.setAdminNo(rset.getString("admin_no"));
+				admin.setAdminId(rset.getString("admin_id"));
+				admin.setAdminPwd(rset.getString("admin_pwd"));
+				admin.setName(rset.getString("name"));
+				admin.setAdminType(rset.getString("admin_type"));
+				admin.setCreatedDate(rset.getDate("created_date"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return admin;
 	}
 
 	

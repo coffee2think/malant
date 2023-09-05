@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
@@ -15,10 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.jasper.compiler.NewlineReductionServletWriter;
-
-import calendar.model.vo.Calendar;
 import member.model.service.MemberService;
+import member.model.vo.Admin;
 import member.model.vo.Member;
 
 /**
@@ -42,6 +39,12 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userid");
 		String userPwd = request.getParameter("userpwd");
 		
+		String loc = request.getParameter("loc");
+		System.out.println("loc : " + loc);
+		
+		Member member = null;
+		Admin admin = null;
+		
 		String referer = request.getParameter("preReferer");
 		
 		// 패스워드 암호화 처리 : SHA-512
@@ -58,11 +61,33 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		// 서비스 메소드로 값 전달 실행하고 결과 받기
-		Member member = new MemberService().selectLogin(userId, cryptoUserpwd);
+		if("admin".equals(loc)) { // 로그인 페이지에서 로그인을 시도했을 시
+			admin = new MemberService().selectAdminLogin(userId, cryptoUserpwd);
+		} else {
+			member = new MemberService().selectLogin(userId, cryptoUserpwd);
+		}
 		
 		// 받은 결과를 가지고 성공/실패 페이지 내보내기
 		RequestDispatcher view = null;
-		if(member != null && member.getWithdrawalYn().equals("Y")) { // 탈퇴한 회원인 경우
+		if(admin != null) { // 관리자로 로그인 성공 했을 시
+			member = new Member();
+			
+			member.setUserNo(admin.getAdminNo());
+			member.setUserId(admin.getAdminId());
+			member.setUserPwd(admin.getAdminPwd());
+			member.setNickname(admin.getName());
+			member.setSignType(admin.getAdminType());
+			member.setCreatedDate(admin.getCreatedDate());
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginMember", member);
+			session.setAttribute("isAdmin", true);
+			if(referer != null && !referer.isEmpty()) {
+				response.sendRedirect(referer);
+			} else {
+				response.sendRedirect("index.jsp");
+			}
+		} else if(member != null && member.getWithdrawalYn().equals("Y")) { // 탈퇴한 회원인 경우
 			Date withdrawalDate = new MemberService().selectWithdrawalDate(member.getUserNo());
 			
 			view = request.getRequestDispatcher("views/member/withdrawalRestore.jsp");
