@@ -37,7 +37,7 @@ public class SearchPlantServlet extends HttpServlet {
 		// 식물 검색용 컨트롤러
 		SearchService service = new SearchService();
 		int listCount = 0;
-		ArrayList<Plant> list = new ArrayList<>();
+		ArrayList<Plant> list = null;
 		
 		// request에서 값 꺼내기
 		request.setCharacterEncoding("UTF-8");
@@ -47,49 +47,17 @@ public class SearchPlantServlet extends HttpServlet {
 		String growthRate = request.getParameter("growth_rate");
 		String smell = request.getParameter("smell");
 		String placement = request.getParameter("placement");
-		String purification = request.getParameter("purification");
-		
-		String diffVal = null;
-		String growVal = null;
-		String smellVal = null;
-		String placeVal = null;
-		String puriVal = null;
-		
-		if(!difficulty.equals("all")) {
-			diffVal = difficulty;
+		String effectPurification = request.getParameter("effect_purification");
+		if(effectPurification == null) {
+			effectPurification = "N";
 		}
-		
-		if(!growthRate.equals("all")) {
-			growVal = growthRate;
-		}
-		
-		if(!smell.equals("all")) {
-			smellVal = smell;
-		}
-		
-		if(!placement.equals("all")) {
-			placeVal = placement;
-		}
-		
-		if(!purification.equals("all")) {
-			puriVal = purification;
-		}
-		
-		System.out.println("keyword : " + keyword);
-		System.out.println("difficulty : " + difficulty);
-		System.out.println("growthRate : " + growthRate);
-		System.out.println("smell : " + smell);
-		System.out.println("placement : " + placement);
-		System.out.println("purification : " + purification);
-		
-		
 		
 		Map<String, String> filters = new HashMap<>();
 		filters.put("difficulty", difficulty);
-		filters.put("growthRate", growthRate);
+		filters.put("growth_rate", growthRate);
 		filters.put("smell", smell);
 		filters.put("placement", placement);
-		filters.put("purification", purification);
+		filters.put("effect_purification", effectPurification);
 		
 		// 페이징 처리 준비
 		String page = request.getParameter("page");
@@ -110,9 +78,6 @@ public class SearchPlantServlet extends HttpServlet {
 			System.out.println("list : " + list);
 		} else { // 키워드가 없을 경우 필터 검색
 			listCount  = service.getListCountByFilter(filters);
-//			listCount = service.getListTest(diffVal, growVal, smellVal, placeVal, puriVal);
-			
-			System.out.println("listCount : " + listCount);
 			
 			paging = new Paging(listCount, currentPage, limit, "plsearch");
 			paging.calculator();
@@ -129,6 +94,11 @@ public class SearchPlantServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		view = request.getRequestDispatcher("views/search/searchResultView.jsp");
 		request.setAttribute("keyword", keyword);
+		
+		for(String key : filters.keySet()) {
+			request.setAttribute(key, filters.get(key));
+		}
+		
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);	
 		request.setAttribute("currentPage", currentPage);

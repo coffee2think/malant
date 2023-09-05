@@ -24,12 +24,11 @@ public class OrderService {
 		return list;
 	}
 	
-	public int updatePayCancel() {
-		return 0;
-	}
-	
-	public int updatePayOk() {
-		return 0;
+	public ArrayList<ProductOrder> selectOrderlist(String userno) {
+		Connection conn = getConnection();
+		ArrayList<ProductOrder> olist = odao.selectOrderlist(conn, userno);
+		close(conn);
+		return olist;
 	}
 	
 	public int addOrderList(ProductOrder productOrder) {

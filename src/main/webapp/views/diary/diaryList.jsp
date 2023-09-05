@@ -10,8 +10,7 @@
    }
    
    HashMap<Integer, ArrayList<MyDiaryPhotoes>> photoes = (HashMap<Integer, ArrayList<MyDiaryPhotoes>>)request.getAttribute("photoes");
-   Set<Integer> keyset = photoes.keySet();
-   Iterator<Integer> keyiter = keyset.iterator();
+  
    
 %>      
    
@@ -119,38 +118,46 @@ window.onload = function(){
 			</div> 
 
 	<div class="diaryBox">
-    <table border="1">
+ <!--    <table border="1"> -->
 
      <% for(Diary d : list) {%>
-	     <tr>
+	   <!--   <tr>
 	     
-	        <td><div class="diaryContent"><%= d.getDiaryContent() %></div><br>
-	        
-	        <% while(keyiter.hasNext()) {
+	        <td> -->
+	        <div class="diaryContent"><%= d.getDiaryContent() %></div><br>
+	        <div class="diaryImg">
+
+	        <%   Set<Integer> keyset = photoes.keySet();
+	        	Iterator<Integer> keyiter = keyset.iterator();
+	       	 while(keyiter.hasNext()) {
 	        	int diary_id = (Integer)keyiter.next();
+	        	
+	        	if(diary_id == d.getDiaryId()){
 	        	ArrayList<MyDiaryPhotoes> photoList = photoes.get(diary_id);
 	        	
 	        	for(MyDiaryPhotoes p : photoList){
 	        	%>
-	        <img src="/malant/resources/diary/diary_upimages/<%= p.getFileName() %>" style="width:150px;height:150px;"> &nbsp;
+
+	        <img src="/malant/resources/diary/diary_upimages/<%= p.getFileName() %>" style="clear:both;" width="150" height="150"> &nbsp;
 	        
-	        <%} }%>
-	       
+	        <%} } }%> 
+	       </div>
 	        <br>
-	        <%= d.getDiaryWritingDate() %><br>
-	        <input type="submit" value="수정" onclick="requestUpdate(<%= d.getDiaryId() %>); return false;">
+	        <div class="diaryDate"><%= d.getDiaryWritingDate() %></div><br>
+	        <div>
+	        <input type="submit" value="수정페이지로 이동" onclick="requestMoveUpdate(<%= d.getDiaryId() %>); return false;">
 	        <input type="button" value="삭제" onclick="requestDelete(<%= d.getDiaryId() %>,'<%= d.getUserNo() %>'); return false;">
-	        
-	        </td>
-	     </tr>
+	        </div>
+<!-- 	        </td>
+	     </tr> -->
      <% } %>
-    </table>
+<!--     </table> -->
     
     </div> <!-- diaryBox -->
     <script type="text/javascript">
     
-	function requestUpdate(diaryId){
-		location.href="/malant/dupdate?diaryId" + diaryId;
+	function requestMoveUpdate(diaryId){
+		location.href="/malant/dmoveup?diaryId=" + diaryId + "&page=<%= nowpage %>";
 	}
 	function requestDelete(diaryId, userNo) {
 		location.href = "/malant/ddelete?diaryId=" + diaryId + "&userNo=" + userNo; 

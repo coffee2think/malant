@@ -72,8 +72,8 @@ $(document).ready(function() {
   				  orderName: "<%=porder.getProductName()%>", // 주문명
    			      customerEmail: "<%=porder.getEmail()%>",
   				  customerName: "<%=porder.getBuyerName()%>",
-  				 successUrl: "http://localhost:8888/malant/opok",
-  				  failUrl: "http://localhost:8888/malant/opok"
+  				 successUrl: "http://localhost:8080/malant/opok",
+  				  failUrl: "http://localhost:8080/malant/opok"
 			  	})
 <%-- 				.then(function(orderRes){ 
 					

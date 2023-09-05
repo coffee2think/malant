@@ -5,12 +5,67 @@
 	if(searchKeyword == null) {
 		searchKeyword = "";
 	}
+	
+	String difficulty = (String) request.getAttribute("difficulty");
+	String growthRate = (String) request.getAttribute("growth_rate");
+	String smell = (String) request.getAttribute("smell");
+	String placement = (String) request.getAttribute("placement");
+	String effectPurification = (String) request.getAttribute("effect_purification");
 %>
 <!DOCTYPE html>
 <html>
 <head>
+<script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script>
-	
+	$(function() {
+		var difficulty = <%= "\"" + difficulty + "\"" %>;
+		var growthRate = <%= "\"" + growthRate + "\"" %>;
+		var smell = <%= "\"" + smell + "\"" %>;
+		var placement = <%= "\"" + placement + "\"" %>;
+		var effectPurification = <%= "\"" + effectPurification + "\"" %>;
+		
+		console.log('difficulty : ' + difficulty);
+		console.log('growthRate : ' + growthRate);
+		console.log('smell : ' + smell);
+		console.log('placement : ' + placement);
+		console.log('effectPurification : ' + effectPurification);
+
+		$('.filter').each(function() {
+			$(this).find('option').each(function(){
+				var value = $(this).attr('value')
+				
+				console.log('parent : ' + parent.val());
+				
+				if(value == difficulty) {
+					$(this).attr('selected', true);
+					console.log($(this).attr('selected', true));
+				}
+				/*
+				switch (name) {
+				case 'difficulty':
+					parent.find('option').each(function(){
+						$(this).attr('selected', '');
+					})
+					console.log('attr : ' + $(this).attr('value'));
+					if(value == difficulty) {
+						$(this).attr('selected', 'selected');
+						//console.log('attr : ' + $(this).attr('selected', 'selected'));
+					}
+					break;
+
+				default:
+					break;
+				}
+				*/
+			})
+			
+		});
+		
+		if('<%= effectPurification %>' == 'Y') {
+			$('checkbox-purification').prop('selected', true);
+		}
+		
+	});
 </script>
 </head>
 <body>
@@ -46,9 +101,7 @@
 				<option value="발코니">발코니</option>
 				<option value="어두운 곳">어두운 곳</option>
 			</select>
-			<div class="filter">
-				<label><input type="checkbox" name="purification" value="purification">공기정화</label>
-			</div>
+			<label><input type="checkbox" class="checkbox-purification" name="effect_purification" value="Y">공기정화</label>
 		</div>
 	</form>
 </div>

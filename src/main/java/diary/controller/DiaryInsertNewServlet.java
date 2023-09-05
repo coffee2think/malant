@@ -65,6 +65,7 @@ public class DiaryInsertNewServlet extends HttpServlet {
 		int diaryId = dservice.selectDiaryId(diary.getUserNo());
 
 		String[] fileNames = mrequest.getParameterValues("filenames");
+		if(fileNames != null) {
 		System.out.println(fileNames.length);
 		for(String fname : fileNames) {
 			System.out.println(fname);
@@ -93,6 +94,7 @@ public class DiaryInsertNewServlet extends HttpServlet {
 			
 			dservice.insertMyDiaryPhoto(diaryId, renameFileName);
 		
+		}
 		}
 
 	

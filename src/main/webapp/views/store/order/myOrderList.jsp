@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"
 	import="store.shoppingBasket.model.vo.ShoppingBasket, java.util.ArrayList"%>
 <%
-ArrayList<ShoppingBasket> sblist = (ArrayList<ShoppingBasket>) request.getAttribute("sblist");
-session.setAttribute("sblist", sblist);
+
 %>
 
 <!DOCTYPE html>
@@ -57,8 +56,8 @@ session.setAttribute("sblist", sblist);
 						<td>수 량</td>
 						<td>총 금액</td>
 					</tr>
-					<%
-					for (ShoppingBasket sb : sblist) {
+<%-- 					<%
+					 for (ShoppingBasket sb : sblist) { 
 					%>
 					<tr>
 						<td><input type="checkbox" name="selectedItems" value="<%=sb.getProductId()%>"></td>
@@ -72,13 +71,13 @@ session.setAttribute("sblist", sblist);
 					</tr>
 					<%
 					}
-					%>
+					%> --%>
 					<tr>
 						<td colspan="7" style="text-align: right;">총금액 : <%
 						int total = 0;
-						for (ShoppingBasket sb : sblist) {
+					/* 	for (ShoppingBasket sb : sblist) {
 							total += sb.getTotalPrice();
-						}
+						} */
 						out.print(total);
 						%></td>
 					</tr>
@@ -88,42 +87,6 @@ session.setAttribute("sblist", sblist);
 			</div>
 		</div>
 	</div>
-	
-	<script>
-	$(document).ready(function() {
-	    $("#delete-selected-items").click(function() {
-	        const selectedCheckboxes = $('input[name="selectedItems"]:checked');
-	        const selectedProductIds = [];
-	
-	        selectedCheckboxes.each(function() {
-	            selectedProductIds.push($(this).val());
-	        });
 
-	        if (selectedProductIds.length === 0) {
-	            alert('선택된 항목이 없습니다.');
-	        } else {
-	        	
-	        	const userNo = "<%= loginMember.getUserNo() %>";
-	        	
-	            $.ajax({
-	                type: "POST",
-	                url: "/malant/sbdelete",
-	                data: { selectedProductIds: selectedProductIds.join(','), userNo: userNo },
-	                success: function(response) {
-	                    alert('선택한 제품이 삭제되었습니다.');
-	                    location.reload();
-	                },
-	                error: function() {
-	                    alert('삭제 중 오류가 발생했습니다.');
-	                }
-	            });
-	        }
-	    });
-	});
-</script>
-	
-	
-	
-	
 </body>
 </html>

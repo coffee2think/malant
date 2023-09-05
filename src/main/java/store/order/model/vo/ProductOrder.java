@@ -20,6 +20,7 @@ public class ProductOrder implements Serializable {
 	private int deliveryCharge;
 	private int totalPrice;
 	private String email;
+	private String orderState;
 	
 	//상품 필드 추가
 	private String productName;
@@ -47,7 +48,7 @@ public class ProductOrder implements Serializable {
 			String buyerContact, String recipient, String recipientContact, int price, int deliveryCharge,
 			int totalPrice, String productName, String thumbnailImg, String sellerNo, String storeName,
 			String shippingAddressName, String codePostal, String deliveryAddress, String deliveryAddress2,
-			String deliveryNote, String paymentType, String orderProgress, String paymentStatus, String email) {
+			String deliveryNote, String paymentType, String orderProgress, String paymentStatus, String email, String orderState) {
 		super();
 		this.orderId = orderId;
 		this.productId = productId;
@@ -74,6 +75,7 @@ public class ProductOrder implements Serializable {
 		this.orderProgress = orderProgress;
 		this.paymentStatus = paymentStatus;
 		this.email = email;
+		this.orderState = orderState;
 	}
 
 	public String getOrderId() {
@@ -280,6 +282,14 @@ public class ProductOrder implements Serializable {
 		this.email = email;
 	}
 
+	public String getOrderState() {
+		return orderState;
+	}
+
+	public void setOrderState(String orderState) {
+		this.orderState = orderState;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductOrder [orderId=" + orderId + ", productId=" + productId + ", userNo=" + userNo + ", quantity="
@@ -290,7 +300,7 @@ public class ProductOrder implements Serializable {
 				+ ", shippingAddressName=" + shippingAddressName + ", codePostal=" + codePostal + ", deliveryAddress="
 				+ deliveryAddress + ", deliveryAddress2=" + deliveryAddress2 + ", deliveryNote=" + deliveryNote
 				+ ", paymentType=" + paymentType + ", orderProgress=" + orderProgress + ", paymentStatus="
-				+ paymentStatus + ", email=" + email + "]";
+				+ paymentStatus + ", email=" + email + ", orderState="+orderState+"]";
 	}
 
 }

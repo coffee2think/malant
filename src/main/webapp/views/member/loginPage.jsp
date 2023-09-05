@@ -2,6 +2,9 @@
 <%
 	String preReferer = (String) request.getAttribute("referer");
 	String loc = (String) request.getAttribute("loc");
+	if(loc == null) {
+		loc = "common";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -59,14 +62,21 @@
 				return false;
 			}
 
-			if(!dupCheck()) {
+			if(dupCheck(function(hasDuplicate) {
+				if(hasDuplicate) {
+					return false; // 중복이 있으면 validate 함수에서도 false를 반환
+				} else {
+					// 중복이 없으면 처리 계속 진행
+		            return true;
+				}
+			})) {
 				return false;
 			}
 
 			return true;
 		}
 
-		function dupCheck() {
+		function dupCheck(callback) {
 			$.ajax({
 				url: '/malant/checkdup',
 				type: 'post',
@@ -76,21 +86,21 @@
 				},
 				dataType: "json",
 				success: function(data) {
-					console.log("date : " + data + ", datatype : " + typeof(data));
 					if(data.dupid != "ok") {
 						alert("이미 사용중인 아이디입니다.");
-						return false;
+						callback(true); // 중복된 아이디가 있다고 콜백에 알림
 					} else if(data.dupemail != "ok") {
 						alert("이미 사용중인 이메일입니다.");
-						return false;
+						callback(true); // 중복된 이메일이 있다고 콜백에 알림
+					} else {
+						callback(false); // 중복이 없음을 콜백에 알림
 					}
 				},
 				error: function(jqXHR, textStatus, errorThrown){
 					console.log("error : " + jqXHR + ", " + textStatus + ", " + errorThrown);
+					callback(true); // 에러가 발생했을 경우 콜백에 알림
 				}
 			});
-
-			return true;
 		}
 	</script>
 </head>
@@ -98,13 +108,13 @@
 <body>
 <div class="all-container">
 	<div class="sidebar">
-		<script>
-			locVar = '<%= loc %>';
-			console.log(locVar);
-		</script>
-		<% if(loc.equals("common")) { %>
+		<%
+			if(loc.equals("common")) {
+		%>
 			<%@ include file="../common/sidebar.jsp" %>
-		<% } else { %>
+		<%
+			} else {
+		%>
 			<%@ include file="../store/common/storeSidebar.jsp" %>
 		<% } %>
 	</div>
