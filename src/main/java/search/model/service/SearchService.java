@@ -1,13 +1,11 @@
 package search.model.service;
 
-import static common.JDBCTemplate.close;
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
 
-import member.model.vo.Member;
 import search.model.dao.SearchDao;
 import search.model.vo.Plant;
 
@@ -50,17 +48,9 @@ public class SearchService {
 		return listCount;
 	}
 
-	public int getListTest(String diffVal, String growVal, String smellVal, String placeVal, String puriVal) {
-		Connection conn = getConnection();
-		int listCount = sdao.getListCountByFilter(conn, diffVal, growVal, smellVal, placeVal, puriVal);
-		close(conn);
-		return listCount;
-	}
-
 	public ArrayList<Plant> selectPlantListByFilter(Map<String, String> filters, int startRow, int endRow) {
 		Connection conn = getConnection();
-		ArrayList<Plant> list = new ArrayList<>(); // 230905 20:15
-//		ArrayList<Plant> list = sdao.selectPlantListByFilter(conn, filters, startRow, endRow);
+		ArrayList<Plant> list = sdao.selectPlantListByFilter(conn, filters, startRow, endRow);
 		close(conn);
 		return list;
 	}
