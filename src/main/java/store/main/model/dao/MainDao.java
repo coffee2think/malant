@@ -19,7 +19,7 @@ public class MainDao {
 		
 		String query = "SELECT * "
 				+ "FROM NOTICE "
-				+ "WHERE notice_type = 'banner' and START_DATE <= SYSDATE AND END_DATE >= SYSDATE ";
+				+ "WHERE notice_type = 'BANNER' and START_DATE <= SYSDATE AND END_DATE >= SYSDATE ";
 		
 		try {
 			stmt = conn.createStatement();

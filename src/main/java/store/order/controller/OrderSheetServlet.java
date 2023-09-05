@@ -1,7 +1,6 @@
 package store.order.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
@@ -77,19 +76,19 @@ public class OrderSheetServlet extends HttpServlet {
 		productOrder.setProductName(request.getParameter("productName"));
 		productOrder.setThumbnailImg(request.getParameter("productThumnail"));
 		productOrder.setTotalPrice(Integer.valueOf(request.getParameter("totalprice")));
+		productOrder.setEmail(request.getParameter("email"));
 		
 		if((request.getParameter("delivery_note")) != null)
 			productOrder.setDeliveryNote(request.getParameter("delivery_note"));
 		
-		//날짜생성
+		//날짜시분초 생성
 		Date currentDate = new Date();
-		SimpleDateFormat sysdate = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sysdate = new SimpleDateFormat("yyyyMMddmm");
 		System.out.println(sysdate.format(currentDate));
 		
 		String orderid = null;
 		//암호화전 문자열 합치기
-		String combString = productOrder.getUserNo()+sysdate.format(currentDate);
-		
+		String combString = productOrder.getUserNo()+productOrder.getTotalPrice()+sysdate.format(currentDate);	
 		try { // byte[] 처리 후 암호화
 		MessageDigest md = MessageDigest.getInstance("SHA-512");
 		byte[] oderidValus = combString.getBytes(Charset.forName("UTF-8"));
@@ -104,6 +103,8 @@ public class OrderSheetServlet extends HttpServlet {
 		
 		productOrder.setOrderId(orderid);
 
+		
+		
 		ArrayList<ProductOrder> porder = new ArrayList<ProductOrder>();
 		
 		for(int i = 0; i<olist.size(); i++) {
@@ -118,16 +119,18 @@ public class OrderSheetServlet extends HttpServlet {
 		}
 		
 		int result = new OrderService().saveOrderSheet(productOrder, porder);
+
 		RequestDispatcher view = null;
 		if (result > 0) {
 			System.out.println("주문서 저장 성공");
+			System.out.println(productOrder.toString());
 			request.setAttribute("productOrder", productOrder);
-			 view = request.getRequestDispatcher("views/store/orderPay.jsp");
+			view = request.getRequestDispatcher("views/store/order/orderPay.jsp");
 			 
 		} else {
 			System.out.println("주문서 저장 실패");
 			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", "주문서 저장 실패..");
+			request.setAttribute("message", "주문서 저장 실패ㅜ.ㅜ..ㅅㅂ");
 			view.forward(request, response);
 		}
 		view.forward(request, response);
