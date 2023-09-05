@@ -13,7 +13,13 @@
 
 <script type="text/javascript"
 	src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
-
+<script type="text/javascript">
+$(function(){
+	$('div.day').each(function(index, item){
+		console.log($(this).text());
+	});
+});
+</script>
 </head>
 
 <body>
