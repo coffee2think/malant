@@ -54,6 +54,7 @@ public class Plant implements Serializable {
 	private Date createdDate;
 	private Date updateDate;
 	private int viewCount;
+	private String adviceInfo;
 	
 	public Plant() {
 	}
@@ -72,7 +73,7 @@ public class Plant implements Serializable {
 			String wateringSpring, String wateringSummer, String wateringAutumn, String wateringWinter,
 			String effectPurification, String placement, String seasonBlooming, String seasonFruiting,
 			String seasonPropagation, String propagationMethod, String managingDiseasesPests, String usefulInfo,
-			String managingTips, Date createdDate, Date updateDate, int viewCount) {
+			String managingTips, Date createdDate, Date updateDate, int viewCount, String adviceInfo) {
 		this.plantNo = plantNo;
 		this.plantName = plantName;
 		this.scientificName = scientificName;
@@ -120,386 +121,395 @@ public class Plant implements Serializable {
 		this.createdDate = createdDate;
 		this.updateDate = updateDate;
 		this.viewCount = viewCount;
+		this.adviceInfo = adviceInfo;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public int getPlantNo() {
 		return plantNo;
 	}
 
-	public void setPlantNo(int plantNo) {
-		this.plantNo = plantNo;
-	}
-
 	public String getPlantName() {
 		return plantName;
-	}
-
-	public void setPlantName(String plantName) {
-		this.plantName = plantName;
 	}
 
 	public String getScientificName() {
 		return scientificName;
 	}
 
-	public void setScientificName(String scientificName) {
-		this.scientificName = scientificName;
-	}
-
 	public String getEnglishName() {
 		return englishName;
-	}
-
-	public void setEnglishName(String englishName) {
-		this.englishName = englishName;
 	}
 
 	public String getFamilyName() {
 		return familyName;
 	}
 
-	public void setFamilyName(String familyName) {
-		this.familyName = familyName;
-	}
-
 	public String getOriginalHabitat() {
 		return originalHabitat;
-	}
-
-	public void setOriginalHabitat(String originalHabitat) {
-		this.originalHabitat = originalHabitat;
 	}
 
 	public String getPlantImg() {
 		return plantImg;
 	}
 
-	public void setPlantImg(String plantImg) {
-		this.plantImg = plantImg;
-	}
-
 	public String getPlantThumbnail() {
 		return plantThumbnail;
-	}
-
-	public void setPlantThumbnail(String plantThumbnail) {
-		this.plantThumbnail = plantThumbnail;
 	}
 
 	public String getUsecase() {
 		return usecase;
 	}
 
-	public void setUsecase(String usecase) {
-		this.usecase = usecase;
-	}
-
 	public int getGrowthWidth() {
 		return growthWidth;
-	}
-
-	public void setGrowthWidth(int growthWidth) {
-		this.growthWidth = growthWidth;
 	}
 
 	public int getGrowthHeight() {
 		return growthHeight;
 	}
 
-	public void setGrowthHeight(int growthHeight) {
-		this.growthHeight = growthHeight;
-	}
-
 	public String getLeafShape() {
 		return leafShape;
-	}
-
-	public void setLeafShape(String leafShape) {
-		this.leafShape = leafShape;
 	}
 
 	public String getLeafPattern() {
 		return leafPattern;
 	}
 
-	public void setLeafPattern(String leafPattern) {
-		this.leafPattern = leafPattern;
-	}
-
 	public String getLeafColor() {
 		return leafColor;
-	}
-
-	public void setLeafColor(String leafColor) {
-		this.leafColor = leafColor;
 	}
 
 	public String getRootShape() {
 		return rootShape;
 	}
 
-	public void setRootShape(String rootShape) {
-		this.rootShape = rootShape;
-	}
-
 	public String getGrowthForm() {
 		return growthForm;
-	}
-
-	public void setGrowthForm(String growthForm) {
-		this.growthForm = growthForm;
 	}
 
 	public String getFlowerColor() {
 		return flowerColor;
 	}
 
-	public void setFlowerColor(String flowerColor) {
-		this.flowerColor = flowerColor;
-	}
-
 	public String getFruitColor() {
 		return fruitColor;
-	}
-
-	public void setFruitColor(String fruitColor) {
-		this.fruitColor = fruitColor;
 	}
 
 	public String getEcology() {
 		return ecology;
 	}
 
-	public void setEcology(String ecology) {
-		this.ecology = ecology;
-	}
-
 	public String getViewType() {
 		return viewType;
-	}
-
-	public void setViewType(String viewType) {
-		this.viewType = viewType;
 	}
 
 	public String getSmell() {
 		return smell;
 	}
 
-	public void setSmell(String smell) {
-		this.smell = smell;
-	}
-
 	public String getToxicity() {
 		return toxicity;
-	}
-
-	public void setToxicity(String toxicity) {
-		this.toxicity = toxicity;
 	}
 
 	public String getDifficulty() {
 		return difficulty;
 	}
 
-	public void setDifficulty(String difficulty) {
-		this.difficulty = difficulty;
-	}
-
 	public String getRequiredManagement() {
 		return requiredManagement;
-	}
-
-	public void setRequiredManagement(String requiredManagement) {
-		this.requiredManagement = requiredManagement;
 	}
 
 	public String getGrowthRate() {
 		return growthRate;
 	}
 
-	public void setGrowthRate(String growthRate) {
-		this.growthRate = growthRate;
-	}
-
 	public String getTemperature() {
 		return temperature;
-	}
-
-	public void setTemperature(String temperature) {
-		this.temperature = temperature;
 	}
 
 	public String getWinterTemperature() {
 		return winterTemperature;
 	}
 
-	public void setWinterTemperature(String winterTemperature) {
-		this.winterTemperature = winterTemperature;
-	}
-
 	public String getLight() {
 		return light;
-	}
-
-	public void setLight(String light) {
-		this.light = light;
 	}
 
 	public String getHumidity() {
 		return humidity;
 	}
 
-	public void setHumidity(String humidity) {
-		this.humidity = humidity;
-	}
-
 	public String getFertilizer() {
 		return fertilizer;
-	}
-
-	public void setFertilizer(String fertilizer) {
-		this.fertilizer = fertilizer;
 	}
 
 	public String getSoil() {
 		return soil;
 	}
 
-	public void setSoil(String soil) {
-		this.soil = soil;
-	}
-
 	public String getWateringSpring() {
 		return wateringSpring;
-	}
-
-	public void setWateringSpring(String wateringSpring) {
-		this.wateringSpring = wateringSpring;
 	}
 
 	public String getWateringSummer() {
 		return wateringSummer;
 	}
 
-	public void setWateringSummer(String wateringSummer) {
-		this.wateringSummer = wateringSummer;
-	}
-
 	public String getWateringAutumn() {
 		return wateringAutumn;
-	}
-
-	public void setWateringAutumn(String wateringAutumn) {
-		this.wateringAutumn = wateringAutumn;
 	}
 
 	public String getWateringWinter() {
 		return wateringWinter;
 	}
 
-	public void setWateringWinter(String wateringWinter) {
-		this.wateringWinter = wateringWinter;
-	}
-
 	public String getEffectPurification() {
 		return effectPurification;
-	}
-
-	public void setEffectPurification(String effectPurification) {
-		this.effectPurification = effectPurification;
 	}
 
 	public String getPlacement() {
 		return placement;
 	}
 
-	public void setPlacement(String placement) {
-		this.placement = placement;
-	}
-
 	public String getSeasonBlooming() {
 		return seasonBlooming;
-	}
-
-	public void setSeasonBlooming(String seasonBlooming) {
-		this.seasonBlooming = seasonBlooming;
 	}
 
 	public String getSeasonFruiting() {
 		return seasonFruiting;
 	}
 
-	public void setSeasonFruiting(String seasonFruiting) {
-		this.seasonFruiting = seasonFruiting;
-	}
-
 	public String getSeasonPropagation() {
 		return seasonPropagation;
-	}
-
-	public void setSeasonPropagation(String seasonPropagation) {
-		this.seasonPropagation = seasonPropagation;
 	}
 
 	public String getPropagationMethod() {
 		return propagationMethod;
 	}
 
-	public void setPropagationMethod(String propagationMethod) {
-		this.propagationMethod = propagationMethod;
-	}
-
 	public String getManagingDiseasesPests() {
 		return managingDiseasesPests;
-	}
-
-	public void setManagingDiseasesPests(String managingDiseasesPests) {
-		this.managingDiseasesPests = managingDiseasesPests;
 	}
 
 	public String getUsefulInfo() {
 		return usefulInfo;
 	}
 
-	public void setUsefulInfo(String usefulInfo) {
-		this.usefulInfo = usefulInfo;
-	}
-
 	public String getManagingTips() {
 		return managingTips;
-	}
-
-	public void setManagingTips(String managingTips) {
-		this.managingTips = managingTips;
 	}
 
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	public Date getUpdateDate() {
 		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
 	}
 
 	public int getViewCount() {
 		return viewCount;
 	}
 
+	public String getAdviceInfo() {
+		return adviceInfo;
+	}
+
+	public void setPlantNo(int plantNo) {
+		this.plantNo = plantNo;
+	}
+
+	public void setPlantName(String plantName) {
+		this.plantName = plantName;
+	}
+
+	public void setScientificName(String scientificName) {
+		this.scientificName = scientificName;
+	}
+
+	public void setEnglishName(String englishName) {
+		this.englishName = englishName;
+	}
+
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
+	}
+
+	public void setOriginalHabitat(String originalHabitat) {
+		this.originalHabitat = originalHabitat;
+	}
+
+	public void setPlantImg(String plantImg) {
+		this.plantImg = plantImg;
+	}
+
+	public void setPlantThumbnail(String plantThumbnail) {
+		this.plantThumbnail = plantThumbnail;
+	}
+
+	public void setUsecase(String usecase) {
+		this.usecase = usecase;
+	}
+
+	public void setGrowthWidth(int growthWidth) {
+		this.growthWidth = growthWidth;
+	}
+
+	public void setGrowthHeight(int growthHeight) {
+		this.growthHeight = growthHeight;
+	}
+
+	public void setLeafShape(String leafShape) {
+		this.leafShape = leafShape;
+	}
+
+	public void setLeafPattern(String leafPattern) {
+		this.leafPattern = leafPattern;
+	}
+
+	public void setLeafColor(String leafColor) {
+		this.leafColor = leafColor;
+	}
+
+	public void setRootShape(String rootShape) {
+		this.rootShape = rootShape;
+	}
+
+	public void setGrowthForm(String growthForm) {
+		this.growthForm = growthForm;
+	}
+
+	public void setFlowerColor(String flowerColor) {
+		this.flowerColor = flowerColor;
+	}
+
+	public void setFruitColor(String fruitColor) {
+		this.fruitColor = fruitColor;
+	}
+
+	public void setEcology(String ecology) {
+		this.ecology = ecology;
+	}
+
+	public void setViewType(String viewType) {
+		this.viewType = viewType;
+	}
+
+	public void setSmell(String smell) {
+		this.smell = smell;
+	}
+
+	public void setToxicity(String toxicity) {
+		this.toxicity = toxicity;
+	}
+
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public void setRequiredManagement(String requiredManagement) {
+		this.requiredManagement = requiredManagement;
+	}
+
+	public void setGrowthRate(String growthRate) {
+		this.growthRate = growthRate;
+	}
+
+	public void setTemperature(String temperature) {
+		this.temperature = temperature;
+	}
+
+	public void setWinterTemperature(String winterTemperature) {
+		this.winterTemperature = winterTemperature;
+	}
+
+	public void setLight(String light) {
+		this.light = light;
+	}
+
+	public void setHumidity(String humidity) {
+		this.humidity = humidity;
+	}
+
+	public void setFertilizer(String fertilizer) {
+		this.fertilizer = fertilizer;
+	}
+
+	public void setSoil(String soil) {
+		this.soil = soil;
+	}
+
+	public void setWateringSpring(String wateringSpring) {
+		this.wateringSpring = wateringSpring;
+	}
+
+	public void setWateringSummer(String wateringSummer) {
+		this.wateringSummer = wateringSummer;
+	}
+
+	public void setWateringAutumn(String wateringAutumn) {
+		this.wateringAutumn = wateringAutumn;
+	}
+
+	public void setWateringWinter(String wateringWinter) {
+		this.wateringWinter = wateringWinter;
+	}
+
+	public void setEffectPurification(String effectPurification) {
+		this.effectPurification = effectPurification;
+	}
+
+	public void setPlacement(String placement) {
+		this.placement = placement;
+	}
+
+	public void setSeasonBlooming(String seasonBlooming) {
+		this.seasonBlooming = seasonBlooming;
+	}
+
+	public void setSeasonFruiting(String seasonFruiting) {
+		this.seasonFruiting = seasonFruiting;
+	}
+
+	public void setSeasonPropagation(String seasonPropagation) {
+		this.seasonPropagation = seasonPropagation;
+	}
+
+	public void setPropagationMethod(String propagationMethod) {
+		this.propagationMethod = propagationMethod;
+	}
+
+	public void setManagingDiseasesPests(String managingDiseasesPests) {
+		this.managingDiseasesPests = managingDiseasesPests;
+	}
+
+	public void setUsefulInfo(String usefulInfo) {
+		this.usefulInfo = usefulInfo;
+	}
+
+	public void setManagingTips(String managingTips) {
+		this.managingTips = managingTips;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setAdviceInfo(String adviceInfo) {
+		this.adviceInfo = adviceInfo;
 	}
 
 	@Override
@@ -520,7 +530,7 @@ public class Plant implements Serializable {
 				+ seasonFruiting + ", seasonPropagation=" + seasonPropagation + ", propagationMethod="
 				+ propagationMethod + ", managingDiseasesPests=" + managingDiseasesPests + ", usefulInfo=" + usefulInfo
 				+ ", managingTips=" + managingTips + ", createdDate=" + createdDate + ", updateDate=" + updateDate
-				+ ", viewCount=" + viewCount + "]";
+				+ ", viewCount=" + viewCount + ", adviceInfo=" + adviceInfo + "]";
 	}
 	
 }
