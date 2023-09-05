@@ -35,8 +35,6 @@ public class BoardService {
 		return result;
 	}
 
-
-
 	public int updateBoardLike(int boardNo) {
 		Connection conn = getConnection();
 		int result = bdao.updateBoardLike(conn, boardNo);
@@ -92,5 +90,56 @@ public class BoardService {
 		ArrayList<Board> list = bdao.selectList(conn, startRow, endRow);
 		close(conn);
 		return list;
+	}
+
+	public ArrayList<Board> selectMyList(String userno, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Board> list = bdao.selectMyList(conn, startRow, endRow, userno);
+		close(conn);
+		return list;
+	}
+
+	public int deleteBoard(int boardNo) {
+		Connection conn = getConnection();
+		int result = bdao.deleteBoard(conn, boardNo);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int updateOriginBoard(Board board) {
+		Connection conn = getConnection();
+		int result = bdao.updateOriginBoard(conn, board);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int updateHashtag(Board board) {
+		Connection conn = getConnection();
+		int result = bdao.updateHashtag(conn, board);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int insertBoard(Board board) {
+		Connection conn = getConnection();
+		int result = bdao.insertBoard(conn, board);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
 	}
 }

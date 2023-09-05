@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <%
 ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+Board board = (Board) request.getAttribute("board");
 %>
 <html>
 <head>
@@ -176,7 +177,38 @@ function likeCountDate (boardNo){
          }
     });
 }
+function readImage(input) {
+    if (input.files && input.files[0]) {
+       const reader = new FileReader();
+       reader.onload = function(e) {
+          const previewImage = document.getElementById("preview-image");
+          previewImage.src = e.target.result;
+       }
+       reader.readAsDataURL(input.files[0]);
+    }
+ }
 
+ const inputImage = document.getElementById("input-image");
+ inputImage.addEventListener("change", function() {
+    readImage(this);
+ });
+
+ function checkImageSelection(inputElement) {
+     var previewImage = document.getElementById("preview-image");
+     
+     // 파일이 선택되었는지 확인
+     if (inputElement.files.length === 0) {
+         alert("파일을 선택하세요."); 
+         previewImage.src = "/malant/resources/board/images/8.png"; 
+     } else {
+
+         var reader = new FileReader();
+         reader.onload = function(e) {
+             previewImage.src = e.target.result;
+         };
+         reader.readAsDataURL(inputElement.files[0]);
+     }
+ }
 
 </script>
 </head>
@@ -186,16 +218,12 @@ function likeCountDate (boardNo){
 			<div class="container">
 				<%@ include file="../../views/common/sidebar.jsp"%>
 			</div>
-			<div class="sticky-button-container">
-				<button id="scroll-sticky-button" class="sticky-button"
-					onclick="scrollToTop()">Scroll to Top</button>
-			</div>
 			<script type="text/javascript">
         var member = '<%=loginMember%>';
         function checkLogin(boardNo){
             if (member == 'null'){
                 if (confirm("로그인 하시겠습니까?")) {
-                   location.href = "/malant/login?loc=common&mtype=common";
+                   location.href = "/malant/login?loc=common";
                 } 
             } else {
                 location.href="/malant/bdetail?bno=" + boardNo;
@@ -203,15 +231,48 @@ function likeCountDate (boardNo){
         }
         </script>
 			<div class="board-wirte">
-			<form action="/malant/myblist" method="post" enctype="multipart/form-data">
-				<button id="myButton">내 게시글 목록</button>
-				<input type="hidden" name="userno" value="<%= loginMember.getUserNo() %>">
-			</form>
+				<form action="/malant/myblist" method="post">
+					<%
+					if (loginMember != null) {
+					%>
+					<button id="myButton">내 게시글 목록</button>
+					<input type="hidden" name="userno"
+						value="<%=loginMember.getUserNo()%>">
+					<%
+					}
+					%>
+				</form>  
+				<button id="write">게시글 쓰기</button>
+				<form action="/malant/binsert" method="post"
+					enctype="multipart/form-data">
+					<%
+					if (loginMember != null) {
+					%>
+					
+					<input type="hidden" name="userno"
+						value="<%=loginMember.getUserNo()%>">
+						
+						 <input type="file" id="input-image" name="input-image"  onchange="readImage(this);"> 
+                       <img name="preview-image" id="preview-image"
+                           src="/malant/resources/board/images/8.png"
+                           style="width: 350px;">
+						 <input type="text" name="title"> 
+						 <input type="text" name="nickname" readonly value="<%= loginMember.getNickname() %>">
+						 <input type="text" name="content">
+						
+					<input type="submit" value="쓰기">
+					<%
+					}
+					%>
+				</form>
 			</div>
 			<div id="toplist"></div>
 		</div>
 		<div id="hashlist"></div>
 		<div id="dlist"></div>
+		<div>
+			<input type="submit" name="insertboard" value="게시글 쓰기">
+		</div>
 	</div>
 </body>
 </html>

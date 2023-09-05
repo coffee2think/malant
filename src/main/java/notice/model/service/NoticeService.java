@@ -1,7 +1,6 @@
 package notice.model.service;
 
 import static common.JDBCTemplate.*;
-import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -44,4 +43,28 @@ public class NoticeService {
 		close(conn);
 		return notice;
 	}
+
+	public int deleteNotice(int noticeNo) {
+		Connection conn = getConnection();
+		int result = ndao.deleteBoard(conn, noticeNo);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int insertNotice(Notice notice) {
+		Connection conn = getConnection();
+		int result = ndao.insertNotice(conn, notice);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+
 }
