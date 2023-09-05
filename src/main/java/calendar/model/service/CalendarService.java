@@ -20,9 +20,9 @@ public class CalendarService {
 	
 	private CalendarDao cdao = new CalendarDao();	
 		
-	public int insertNewCalendarTodo(Calendar calendar, String userNo, Date calendarDate) {
+	public int insertNewCalendarTodo(Calendar calendar, String userNo, String diaryId) {
 		Connection conn = getConnection();
-		int result = cdao.insertNewCalendarTodo(conn, calendar, userNo, calendarDate);
+		int result = cdao.insertNewCalendarTodo(conn, calendar, userNo, diaryId);
 		if(result > 0)
 			commit(conn);
 		else
@@ -57,9 +57,6 @@ public class CalendarService {
 
 
 
-//	public ArrayList<Calendar> updateCalendarAlarm(Calendar, String, Date) {}
-//
-//	public int getManagingCount() {}
 
 
 }	

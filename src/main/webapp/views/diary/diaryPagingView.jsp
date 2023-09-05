@@ -45,8 +45,8 @@ a{
 		<a href="/malant/<%= urlMapping %>?page=1">[FIRST]</a> &nbsp;
 	<% } %>
 	<%-- 이전 페이지 그룹으로 이동 --%>
-	<% if((currentPage - 8) < startPage && (currentPage - 8) > 1){ %>
-		<a href="/malant/<%= urlMapping %>?page=<%= startPage - 8 %>">[PRE]</a> &nbsp;
+	<% if((currentPage - 10) < startPage && (currentPage - 10) > 1){ %>
+		<a href="/malant/<%= urlMapping %>?page=<%= startPage - 10 %>">[PRE]</a> &nbsp;
 	<% }else{ %>
 		[PRE] &nbsp;
 	<% } %>
@@ -61,8 +61,8 @@ a{
 	<% }} %>
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
-	<% if((currentPage + 8) > endPage && (currentPage + 8) < maxPage){ %>
-		<a href="/malant/<%= urlMapping %>?page=<%= startPage + 8 %>">[NEXT]</a> &nbsp;
+	<% if((currentPage + 10) > endPage && (currentPage + 10) < maxPage){ %>
+		<a href="/malant/<%= urlMapping %>?page=<%= startPage + 10 %>">[NEXT]</a> &nbsp;
 	<% }else{ %>
 		[NEXT] &nbsp;
 	<% } %>

@@ -7,25 +7,10 @@ public class Calendar implements java.io.Serializable {
 	private static final long serialVersionUID = -6383203623916677862L;
 	
 	private String userNo;
-	private String myplantNo;
 	private Date calendarDate;
-	private int diaryNo;
+	private String diaryId;
 	private String calendarMemo;
-	private String managingPruningTrimming;
-	private String managingFertilization;
-	private String managingPestDisease;
-	private String managingWatering;
-	private String managingVentilation;
-	private String managingPottingTransplant;
-	private String managingSoilReplacement;
-	private String managingRemovalDeadplants;
-	private String managingWaterReplacement;
-	private String managingRelocation;
-	private String managingFlowering;
-	private String managingHarvesting;
-	private String managingNutrientSupplement;
-	private String managingNewGrowth;
-	private String managingDormancy;
+
 	
 	
 	public Calendar() {
@@ -34,50 +19,22 @@ public class Calendar implements java.io.Serializable {
 	}
 
 
-	public Calendar(String userNo, String myplantNo, Date calendarDate, int diaryNo, String calendarMemo,
-			String managingPruningTrimming, String managingFertilization, String managingPestDisease,
-			String managingWatering, String managingVentilation, String managingPottingTransplant,
-			String managingSoilReplacement, String managingRemovalDeadplants, String managingWaterReplacement,
-			String managingRelocation, String managingFlowering, String managingHarvesting,
-			String managingNutrientSupplement, String managingNewGrowth, String managingDormancy) {
+	public Calendar(String userNo, Date calendarDate, String diaryId, String calendarMemo) {
 		super();
 		this.userNo = userNo;
-		this.myplantNo = myplantNo;
 		this.calendarDate = calendarDate;
-		this.diaryNo = diaryNo;
+		this.diaryId = diaryId;
 		this.calendarMemo = calendarMemo;
-		this.managingPruningTrimming = managingPruningTrimming;
-		this.managingFertilization = managingFertilization;
-		this.managingPestDisease = managingPestDisease;
-		this.managingWatering = managingWatering;
-		this.managingVentilation = managingVentilation;
-		this.managingPottingTransplant = managingPottingTransplant;
-		this.managingSoilReplacement = managingSoilReplacement;
-		this.managingRemovalDeadplants = managingRemovalDeadplants;
-		this.managingWaterReplacement = managingWaterReplacement;
-		this.managingRelocation = managingRelocation;
-		this.managingFlowering = managingFlowering;
-		this.managingHarvesting = managingHarvesting;
-		this.managingNutrientSupplement = managingNutrientSupplement;
-		this.managingNewGrowth = managingNewGrowth;
-		this.managingDormancy = managingDormancy;
 	}
+
 
 
 	@Override
 	public String toString() {
-		return "calendar [userNo=" + userNo + ", myplantNo=" + myplantNo + ", calendarDate=" + calendarDate
-				+ ", diaryNo=" + diaryNo + ", calendarMemo=" + calendarMemo + ", managingPruningTrimming="
-				+ managingPruningTrimming + ", managingFertilization=" + managingFertilization
-				+ ", managingPestDisease=" + managingPestDisease + ", managingWatering=" + managingWatering
-				+ ", managingVentilation=" + managingVentilation + ", managingPottingTransplant="
-				+ managingPottingTransplant + ", managingSoilReplacement=" + managingSoilReplacement
-				+ ", managingRemovalDeadplants=" + managingRemovalDeadplants + ", managingWaterReplacement="
-				+ managingWaterReplacement + ", managingRelocation=" + managingRelocation + ", managingFlowering="
-				+ managingFlowering + ", managingHarvesting=" + managingHarvesting + ", managingNutrientSupplement="
-				+ managingNutrientSupplement + ", managingNewGrowth=" + managingNewGrowth + ", managingDormancy="
-				+ managingDormancy + "]";
+		return "Calendar [userNo=" + userNo + ", calendarDate=" + calendarDate + ", diaryId=" + diaryId
+				+ ", calendarMemo=" + calendarMemo + "]";
 	}
+
 
 
 	public String getUserNo() {
@@ -85,19 +42,11 @@ public class Calendar implements java.io.Serializable {
 	}
 
 
+
 	public void setUserNo(String userNo) {
 		this.userNo = userNo;
 	}
 
-
-	public String getMyplantNo() {
-		return myplantNo;
-	}
-
-
-	public void setMyplantNo(String myplantNo) {
-		this.myplantNo = myplantNo;
-	}
 
 
 	public Date getCalendarDate() {
@@ -105,19 +54,23 @@ public class Calendar implements java.io.Serializable {
 	}
 
 
+
 	public void setCalendarDate(Date calendarDate) {
 		this.calendarDate = calendarDate;
 	}
 
 
-	public int getDiaryNo() {
-		return diaryNo;
+
+	public String getDiaryId() {
+		return diaryId;
 	}
 
 
-	public void setDiaryNo(int diaryNo) {
-		this.diaryNo = diaryNo;
+
+	public void setDiaryId(String diaryId) {
+		this.diaryId = diaryId;
 	}
+
 
 
 	public String getCalendarMemo() {
@@ -125,162 +78,17 @@ public class Calendar implements java.io.Serializable {
 	}
 
 
+
 	public void setCalendarMemo(String calendarMemo) {
 		this.calendarMemo = calendarMemo;
 	}
 
 
-	public String getManagingPruningTrimming() {
-		return managingPruningTrimming;
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-
-	public void setManagingPruningTrimming(String managingPruningTrimming) {
-		this.managingPruningTrimming = managingPruningTrimming;
-	}
-
-
-	public String getManagingFertilization() {
-		return managingFertilization;
-	}
-
-
-	public void setManagingFertilization(String managingFertilization) {
-		this.managingFertilization = managingFertilization;
-	}
-
-
-	public String getManagingPestDisease() {
-		return managingPestDisease;
-	}
-
-
-	public void setManagingPestDisease(String managingPestDisease) {
-		this.managingPestDisease = managingPestDisease;
-	}
-
-
-	public String getManagingWatering() {
-		return managingWatering;
-	}
-
-
-	public void setManagingWatering(String managingWatering) {
-		this.managingWatering = managingWatering;
-	}
-
-
-	public String getManagingVentilation() {
-		return managingVentilation;
-	}
-
-
-	public void setManagingVentilation(String managingVentilation) {
-		this.managingVentilation = managingVentilation;
-	}
-
-
-	public String getManagingPottingTransplant() {
-		return managingPottingTransplant;
-	}
-
-
-	public void setManagingPottingTransplant(String managingPottingTransplant) {
-		this.managingPottingTransplant = managingPottingTransplant;
-	}
-
-
-	public String getManagingSoilReplacement() {
-		return managingSoilReplacement;
-	}
-
-
-	public void setManagingSoilReplacement(String managingSoilReplacement) {
-		this.managingSoilReplacement = managingSoilReplacement;
-	}
-
-
-	public String getManagingRemovalDeadplants() {
-		return managingRemovalDeadplants;
-	}
-
-
-	public void setManagingRemovalDeadplants(String managingRemovalDeadplants) {
-		this.managingRemovalDeadplants = managingRemovalDeadplants;
-	}
-
-
-	public String getManagingWaterReplacement() {
-		return managingWaterReplacement;
-	}
-
-
-	public void setManagingWaterReplacement(String managingWaterReplacement) {
-		this.managingWaterReplacement = managingWaterReplacement;
-	}
-
-
-	public String getManagingRelocation() {
-		return managingRelocation;
-	}
-
-
-	public void setManagingRelocation(String managingRelocation) {
-		this.managingRelocation = managingRelocation;
-	}
-
-
-	public String getManagingFlowering() {
-		return managingFlowering;
-	}
-
-
-	public void setManagingFlowering(String managingFlowering) {
-		this.managingFlowering = managingFlowering;
-	}
-
-
-	public String getManagingHarvesting() {
-		return managingHarvesting;
-	}
-
-
-	public void setManagingHarvesting(String managingHarvesting) {
-		this.managingHarvesting = managingHarvesting;
-	}
-
-
-	public String getManagingNutrientSupplement() {
-		return managingNutrientSupplement;
-	}
-
-
-	public void setManagingNutrientSupplement(String managingNutrientSupplement) {
-		this.managingNutrientSupplement = managingNutrientSupplement;
-	}
-
-
-	public String getManagingNewGrowth() {
-		return managingNewGrowth;
-	}
-
-
-	public void setManagingNewGrowth(String managingNewGrowth) {
-		this.managingNewGrowth = managingNewGrowth;
-	}
-
-
-	public String getManagingDormancy() {
-		return managingDormancy;
-	}
-
-
-	public void setManagingDormancy(String managingDormancy) {
-		this.managingDormancy = managingDormancy;
-	}
 	
-	
-	
-	
-	
+
 }

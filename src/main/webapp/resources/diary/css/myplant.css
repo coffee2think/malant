@@ -65,14 +65,6 @@ body {
 	float: left;
 }
 
-#myplantListbody {	
-	width : 550px;
-	height : 750px;
-	position : absolute;
-	left : 550px;
-	border :  1px solid black;
-	
-}
 
 .newmplantbox {
 	width: 260px;
@@ -96,6 +88,7 @@ body {
 	float: left;
 	border-radius: 5px;
 	cursor: pointer;
+	display: block;
 	
 }
 
@@ -132,28 +125,6 @@ body {
 	
 }
  
- .myplantModify {
-    top: -200%;
-    left: 50%;
-    opacity: 0;
-	width: 700px;
-	height: 600px;
-	background-color: #fcfcfc;
-	border-radius: 5px;
-	position: absolute;
-	float: left;
-	z-index: 100;
-    transform: translate(-50%, -50%) scale(1);
-    transition: transform 200ms ease-in-out 0mx;
- }
- 
- .myplantModify.active {
-   top: 50%;
-   opacity: 1;
-   transform: translate(-50%, -50%) scale(1);
-   transition: transform 200ms ease-in-out 0ms;
- }
- 
  .addYourPlant{
   width: 200px;
   height: 30px;
@@ -162,6 +133,7 @@ body {
   background-color: #fcfcfc;
   cursor: pointer;
   position: absolute;
+  display: block;
  }
  
   .addYourFirstPlant{
@@ -173,6 +145,7 @@ body {
   background-color: #fcfcfc;
   cursor: pointer;
   position: absolute;
+  display: block;
  }
  
  .myplantAdd {
@@ -181,7 +154,7 @@ body {
     opacity: 0;
 	width: 700px;
 	height: 600px;
-	background-color: #fcfcfc;
+	background-color: #92BEA9;
 	border-radius: 5px;
 	position: absolute;
 	float: left;
@@ -201,25 +174,7 @@ body {
                transform 200ms ease-in-out 0ms;
  }
  
- 
-/*  
-#overlay {
-  position: fixed;
-  opacity: 0;
-  transition: 200ms ease-in-out;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, .5);
-  pointer-events: none;
-} 
 
-#overlay .active {
-  opacity: 1;
-  pointer-events: all;
-} */
- 
  .pagingview{
  	margin-top: 730px;
 	display: center;

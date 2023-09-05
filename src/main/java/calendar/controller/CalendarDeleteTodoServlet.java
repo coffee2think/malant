@@ -51,7 +51,7 @@ public class CalendarDeleteTodoServlet extends HttpServlet {
 		
 		if (new CalendarService().deleteCalendarTodo(userNo, calendarDate) > 0) {
 			
-			response.sendRedirect("/first/blist?page=1");
+			response.sendRedirect("/malant/views/diary/calendar.jsp");
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "캘린더 일정 삭제 실패");

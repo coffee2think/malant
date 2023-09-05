@@ -60,7 +60,7 @@
 					<!-- this div appear when active eventListner 'click'-->
 					<h2>Memo</h2>
 	
-					<input id="eventTitleInput" placeholder="Event Title" />
+					<input id="eventTitleInput" placeholder="Memo" />
 	
 					<button id="saveButton">Save</button>
 					<button id="cancelButton">Cancel</button>

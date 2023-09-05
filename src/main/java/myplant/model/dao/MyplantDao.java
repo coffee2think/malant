@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
+import common.Paging;
+
 import java.sql.Date;
 
 import myplant.model.vo.Myplant;
@@ -40,7 +43,7 @@ public class MyplantDao {
 		return listCount;
 	}
 
-	public ArrayList<Myplant> selectList(Connection conn, int startRow, int endRow) {
+	public ArrayList<Myplant> selectList(Connection conn, Paging paging, String userNo)  {
 		ArrayList<Myplant> list = new ArrayList<Myplant>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -48,27 +51,29 @@ public class MyplantDao {
 		String query = "select *  "
 				+ "from (select rownum rnum, MYPLANT_ID, USER_NO, MYPLANT_NAME,  "
 				+ "MYPLANT_VARIETY, MYPLANT_IMAGE_URL, MYPLANT_START_DATE, MYPLANT_MEMO, CREATED_DATE "
-				+ "from (select * from my_plant "
+				+ "from (select * from my_plant where USER_NO = ? "
 				+ "order by USER_NO asc, MYPLANT_ID desc)) "
 				+ "where rnum >= ? and rnum <= ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(1, userNo);
+			pstmt.setInt(2, paging.getStartRow());
+			pstmt.setInt(3, paging.getEndRow());
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				Myplant myplant = new Myplant();
 				
-				myplant.setMyplantId(rset.getString("MYPLANT_ID"));
-				myplant.setUserNo(rset.getString("USER_NO"));
 				myplant.setMyplantName(rset.getString("MYPLANT_NAME"));
+				myplant.setMyplantId(rset.getString("MYPLANT_ID"));
 				myplant.setMyplantVariety(rset.getString("MYPLANT_VARIETY"));
 				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
-				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
 				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
+				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
+				myplant.setUserNo(rset.getString("USER_NO"));
+				myplant.setCreatedDate(rset.getDate("CREATED_DATE"));
 
 			    list.add(myplant);
 			}
@@ -224,13 +229,15 @@ public class MyplantDao {
 				myplant = new Myplant();
 				
 				myplant.setMyplantName(rset.getString("MYPLANT_NAME"));
+				myplant.setMyplantId(rset.getString("MYPLANT_ID"));
 				myplant.setMyplantVariety(rset.getString("MYPLANT_VARIETY"));
 				myplant.setMyplantImageURL(rset.getString("MYPLANT_IMAGE_URL"));
 				myplant.setMyplantMemo(rset.getString("MYPLANT_MEMO"));
 				myplant.setMyplantStartDate(rset.getDate("MYPLANT_START_DATE"));
-				
+				myplant.setUserNo(rset.getString("USER_NO"));
+				myplant.setCreatedDate(rset.getDate("CREATED_DATE"));
 			}
-			
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
