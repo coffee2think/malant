@@ -18,17 +18,8 @@
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap ul hr {display: block; height: 1px;border: 0; border-top: 1px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
+#menu_wrap .option{text-align: center;} 
 #menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
 
 </style>
 <meta charset="utf-8">
@@ -55,7 +46,8 @@
 				<hr>
 				<ul id="placesList">
 				<% for(Arboretum a : list){ %>
-					<div style="font-size: 17px;font-weight: bold;"><%= a.getArboretum_name() %></div><br>
+					<div><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>" style="font-size:17px;font-weight:bold;color:#0077FF;">
+														<%= a.getArboretum_name() %></a></div><br>
 					<div style="font-size: 15px"><%= a.getArboretum_address() %></div><br>
 					<% if(a.getArboretum_tel() != null) { %>
 						<div class="content" style="font-size:14px; color:green;"><%= a.getArboretum_tel() %></div>
@@ -88,6 +80,8 @@
 		        center: new kakao.maps.LatLng(<%= list.get(0).getArboretum_latitude() %>, <%= list.get(0).getArboretum_longitude() %>), // 지도의 중심좌표
 		        level: 12 // 지도의 확대 레벨
 	        <% } %>
+	        
+	       
 	    };
 
 	
@@ -139,7 +133,6 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
             $("#hidden-input").val(document.getElementById("keyword").value);
         });
     });
-	
 	
 	</script>
 </body>
