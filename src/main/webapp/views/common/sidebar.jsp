@@ -41,7 +41,7 @@
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
 				로그인 하러 가기
 			</div>
-		<% } else if(isAdmin) { // 관리자인 경우 %>
+		<% } else if(isAdmin != null && isAdmin) { // 관리자인 경우 %>
 			<div class="login-section">
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님
