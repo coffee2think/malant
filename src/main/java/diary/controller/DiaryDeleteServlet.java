@@ -2,6 +2,7 @@ package diary.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import diary.model.service.DiaryService;
+import diary.model.vo.MyDiaryPhotoes;
 
 /**
  * Servlet implementation class DiaryDeleteServlet
@@ -34,20 +36,26 @@ public class DiaryDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 
-		String userNo = request.getParameter("user_no");
-		String diaryId = request.getParameter("diary_id");
+		int diaryId = Integer.parseInt(request.getParameter("diaryId"));
+		String userNo = request.getParameter("userNo");
 
-		// 서비스 메소드로 삭제 실행하고 결과받아서 성공/실패 뷰 내보내기
-		if (new DiaryService().deleteDiary(userNo, diaryId) > 0) {
-			// 받은 결과가 성공 일때 저장 폴더의 파일도 삭제처리
-			String inFileName = request.getParameter("infile");
-			if (inFileName != null) {
-				String savePath = request.getSession().getServletContext()
-						.getRealPath("/resources/diary/diary_upimages");
-				new File(savePath + "\\" + inFileName).delete();
+		DiaryService dservice = new DiaryService();
+		
+		ArrayList<MyDiaryPhotoes> list = dservice.selectDiaryPhotoes(diaryId);
+		if(list.size() > 0) {
+			String savePath = request.getSession().getServletContext()
+					.getRealPath("/resources/diary/diary_upimages");
+			for(MyDiaryPhotoes p : list) {
+				new File(savePath + "\\" + p.getFileName()).delete();
 			}
+		}
+		
+		dservice.deleteDiaryPhotoes(diaryId);
+		int result = dservice.deleteDiary(diaryId); 
+		
+		if (result > 0) {
 
-			response.sendRedirect("/malant/dlist?page=1");
+			response.sendRedirect("/malant/dlist?user_no=" + userNo);
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "일기 삭제 실패");

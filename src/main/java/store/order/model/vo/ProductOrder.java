@@ -19,6 +19,7 @@ public class ProductOrder implements Serializable {
 	private int price;
 	private int deliveryCharge;
 	private int totalPrice;
+	private String email;
 	
 	//상품 필드 추가
 	private String productName;
@@ -46,7 +47,7 @@ public class ProductOrder implements Serializable {
 			String buyerContact, String recipient, String recipientContact, int price, int deliveryCharge,
 			int totalPrice, String productName, String thumbnailImg, String sellerNo, String storeName,
 			String shippingAddressName, String codePostal, String deliveryAddress, String deliveryAddress2,
-			String deliveryNote, String paymentType, String orderProgress, String paymentStatus) {
+			String deliveryNote, String paymentType, String orderProgress, String paymentStatus, String email) {
 		super();
 		this.orderId = orderId;
 		this.productId = productId;
@@ -72,6 +73,7 @@ public class ProductOrder implements Serializable {
 		this.paymentType = paymentType;
 		this.orderProgress = orderProgress;
 		this.paymentStatus = paymentStatus;
+		this.email = email;
 	}
 
 	public String getOrderId() {
@@ -269,6 +271,14 @@ public class ProductOrder implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
@@ -280,7 +290,7 @@ public class ProductOrder implements Serializable {
 				+ ", shippingAddressName=" + shippingAddressName + ", codePostal=" + codePostal + ", deliveryAddress="
 				+ deliveryAddress + ", deliveryAddress2=" + deliveryAddress2 + ", deliveryNote=" + deliveryNote
 				+ ", paymentType=" + paymentType + ", orderProgress=" + orderProgress + ", paymentStatus="
-				+ paymentStatus + "]";
+				+ paymentStatus + ", email=" + email + "]";
 	}
 
 }

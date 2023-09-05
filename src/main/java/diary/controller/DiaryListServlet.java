@@ -2,6 +2,7 @@ package diary.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.Paging;
 import diary.model.service.DiaryService;
 import diary.model.vo.Diary;
+import diary.model.vo.MyDiaryPhotoes;
 
 /**
  * Servlet implementation class DiaryListServlet
@@ -51,23 +53,32 @@ public class DiaryListServlet extends HttpServlet {
 		DiaryService dservice = new DiaryService();
 		
 		//총 페이지 수 계산을 위한 전체 목록 개수 조회
-		int listCount = dservice.getDiaryCount();
+		int listCount = dservice.getDiaryCount(userNo);
 		
 		//뷰 페이지에서 사용할 페이징 관련 값 계산 처리
 		Paging paging = new Paging(listCount, currentPage, limit, "dlist");
 		paging.calculator();
 		
 		//모델 서비스로 해당 페이지에 출력할 게시글만 조회해 옴
-		ArrayList<Diary> list = dservice.selectList(userNo, paging.getStartRow(), paging.getEndRow());	
+		ArrayList<Diary> list = dservice.selectList(userNo, paging);	
 		
+		HashMap<Integer, ArrayList<MyDiaryPhotoes>> photoes = new HashMap<Integer, ArrayList<MyDiaryPhotoes>>();
+		for(Diary d : list) {
+			ArrayList<MyDiaryPhotoes> photoList = dservice.selectDiaryPhotoes(d.getDiaryId());
+			photoes.put(d.getDiaryId(), photoList);
+		}
+	
 		//받은 결과에 따라 성공 또는 실패 페이지 내보내기
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
-			view = request.getRequestDispatcher("view/diary/diary.jsp");
+		if(list.size() >= 0) {
+			view = request.getRequestDispatcher("views/diary/diaryList.jsp");
 			
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
 			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("photoes", photoes);
+			
+			
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			

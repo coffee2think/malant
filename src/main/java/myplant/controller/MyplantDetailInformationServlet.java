@@ -31,27 +31,26 @@ public class MyplantDetailInformationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//게시글 상세보기 처리용 컨트롤러
+
 		request.setCharacterEncoding("utf-8"); 
 		
-		String userNo = request.getParameter("USER_NO");
-		String myplantId = request.getParameter("MYPLANT_ID");
-		
-		//페이징 처리를 위한 페이지 변수
+		String userNo = request.getParameter("userNo");
+		String myplantId = request.getParameter("myplantId");
+
 		int currentPage = 1;
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		//모델 서비스 객체 생성
 		MyplantService mpservice = new MyplantService();
-		
-		//해당 게시글 리턴받음 : select
+
 		Myplant myplant = mpservice.selectMyplantInfo(userNo, myplantId);
+		
+		System.out.println("myinfo : " + myplant);
 		
 		RequestDispatcher view = null;
 		if(myplant != null) {
-			view = request.getRequestDispatcher("views/diary/myplant.jsp");
+			view = request.getRequestDispatcher("views/diary/myplantDetail.jsp");
 			
 			request.setAttribute("myplant",	 myplant);
 			request.setAttribute("currentPage", currentPage);

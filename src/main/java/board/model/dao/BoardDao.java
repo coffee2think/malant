@@ -279,7 +279,7 @@ public class BoardDao {
 
 			while (rset.next()) {
 				Board board = new Board();
-				
+
 				board.setBoardNo(rset.getInt("BOARD_NO"));
 				board.setUserNo(rset.getString("USER_NO"));
 				board.setNickname(rset.getString("NICKNAME"));
@@ -290,7 +290,7 @@ public class BoardDao {
 				board.setBoardPhoto(rset.getString("BOARD_PHOTO"));
 				board.setViewcount(rset.getInt("VIEW_COUNT"));
 				board.setReportedYN(rset.getString("REPORTED_YN"));
-				
+
 				list.add(board);
 			}
 		} catch (Exception e) {
@@ -301,6 +301,137 @@ public class BoardDao {
 		}
 
 		return list;
+	}
+
+	public ArrayList<Board> selectMyList(Connection conn, int startRow, int endRow, String userno) {
+		ArrayList<Board> list = new ArrayList<Board>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String query = "select CM_BOARD.* from CM_BOARD  where user_no = ? " + "order by board_date desc";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userno);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Board board = new Board();
+
+				board.setBoardNo(rset.getInt("BOARD_NO"));
+				board.setUserNo(rset.getString("USER_NO"));
+				board.setNickname(rset.getString("NICKNAME"));
+				board.setBoardTitle(rset.getString("BOARD_TITLE"));
+				board.setBoardContent(rset.getString("BOARD_CONTENT"));
+				board.setBoardLike(rset.getInt("BOARD_LIKE"));
+				board.setBoardDate(rset.getDate("BOARD_DATE"));
+				board.setBoardPhoto(rset.getString("BOARD_PHOTO"));
+				board.setViewcount(rset.getInt("VIEW_COUNT"));
+				board.setReportedYN(rset.getString("REPORTED_YN"));
+
+				list.add(board);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	public int deleteBoard(Connection conn, int boardNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = "delete from cm_board where board_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateOriginBoard(Connection conn, Board board) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = "update cm_board " + "set board_title = ?, " + "    board_content = ?, " + "    board_photo = ?"
+				+ "where board_no = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, board.getBoardTitle());
+			pstmt.setString(2, board.getBoardContent());
+			pstmt.setString(3, board.getBoardPhoto());
+			pstmt.setInt(4, board.getBoardNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateHashtag(Connection conn, Board board) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = "update cm_hashtag " + "set hashtag_content = ? " + "where hashtag_no in ( "
+				+ "    select hashtag_no " + "    from cm_board_hashtag " + "    where board_no = ? " + ")";
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, board.getHashtagContent());
+			pstmt.setInt(2, board.getBoardNo());
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertBoard(Connection conn, Board board) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "insert into cm_board values "
+				+ "((select max(board_no) + 1 from cm_board), ?, ?, ?, ?,default, default,default,  ?, default, default)";
+
+		try {
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, board.getUserNo());
+			pstmt.setString(2, board.getNickname());
+			pstmt.setString(3, board.getBoardTitle());
+			pstmt.setString(4, board.getBoardContent());
+			pstmt.setString(5, "/malant/resources/board/images/" + board.getBoardPhoto());
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }

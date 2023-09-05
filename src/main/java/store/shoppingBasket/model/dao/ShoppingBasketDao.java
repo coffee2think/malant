@@ -60,9 +60,28 @@ public class ShoppingBasketDao {
 		return sblist;
 	}
 
-	public int deleteShoppingBasket(Connection conn, String userNo, String productId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteShoppingBasket(Connection conn, String userNo, String[] productIdArray) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "delete from st_basket where user_no = ? and product_id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			for(int i =0; i<productIdArray.length; i++) {
+			
+			pstmt.setString(1, userid);
+			
+			result = pstmt.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	public int addBasket(Connection conn, String userNo, int productId, int quantity) {
