@@ -45,8 +45,11 @@ public class InsertNoticeServlet extends HttpServlet {
 			request.setAttribute("message", "form의 enctype='multipart/form-data' 속성 누락됨.");
 			view.forward(request, response);
 		}
+		
 		int maxSize = 1024 * 1024 * 10;
+		
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/notice/notice_content_img/");
+		
 		MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 				new DefaultFileRenamePolicy());
 
@@ -75,6 +78,8 @@ public class InsertNoticeServlet extends HttpServlet {
 		
 		int result = new NoticeService().insertNotice(notice);
 	
+		
+		
 		if(result > 0) {
 			response.sendRedirect("/malant/ntitlelist");
 		}else {
