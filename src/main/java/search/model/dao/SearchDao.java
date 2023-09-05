@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Map;
 
 import search.model.vo.Plant;
 
@@ -217,6 +218,188 @@ public class SearchDao {
 			close(pstmt);
 		}
 		
+		return listCount;
+	}
+	
+	public int insertPlant(Connection conn, Plant plant) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into plant values ("
+				+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?"
+				+ ", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?"
+				+ ", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?"
+				+ ", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?"
+				+ ", ?, ?, ?, ?, ?, ?, ?, ?"
+				+ ")";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			int cnt = 1;
+			pstmt.setInt(cnt++, plant.getPlantNo());
+			pstmt.setString(cnt++, plant.getPlantName());
+			pstmt.setString(cnt++, plant.getScientificName());
+			pstmt.setString(cnt++, plant.getEnglishName());
+			pstmt.setString(cnt++, plant.getFamilyName());
+			pstmt.setString(cnt++, plant.getOriginalHabitat());
+			pstmt.setString(cnt++, plant.getPlantImg());
+			pstmt.setString(cnt++, plant.getPlantThumbnail());
+			pstmt.setString(cnt++, plant.getUsecase());
+			pstmt.setInt(cnt++, plant.getGrowthWidth());
+			pstmt.setInt(cnt++, plant.getGrowthHeight());
+			pstmt.setString(cnt++, plant.getLeafShape());
+			pstmt.setString(cnt++, plant.getLeafPattern());
+			pstmt.setString(cnt++, plant.getLeafColor());
+			pstmt.setString(cnt++, plant.getRootShape());
+			pstmt.setString(cnt++, plant.getGrowthForm());
+			pstmt.setString(cnt++, plant.getFlowerColor());
+			pstmt.setString(cnt++, plant.getFruitColor());
+			pstmt.setString(cnt++, plant.getEcology());
+			pstmt.setString(cnt++, plant.getViewType());
+			pstmt.setString(cnt++, plant.getSmell());
+			pstmt.setString(cnt++, plant.getToxicity());
+			pstmt.setString(cnt++, plant.getDifficulty());
+			pstmt.setString(cnt++, plant.getRequiredManagement());
+			pstmt.setString(cnt++, plant.getGrowthRate());
+			pstmt.setString(cnt++, plant.getTemperature());
+			pstmt.setString(cnt++, plant.getWinterTemperature());
+			pstmt.setString(cnt++, plant.getLight());
+			pstmt.setString(cnt++, plant.getHumidity());
+			pstmt.setString(cnt++, plant.getFertilizer());
+			pstmt.setString(cnt++, plant.getSoil());
+			pstmt.setString(cnt++, plant.getWateringSpring());
+			pstmt.setString(cnt++, plant.getWateringSummer());
+			pstmt.setString(cnt++, plant.getWateringAutumn());
+			pstmt.setString(cnt++, plant.getWateringWinter());
+			pstmt.setString(cnt++, plant.getEffectPurification());
+			pstmt.setString(cnt++, plant.getPlacement());
+			pstmt.setString(cnt++, plant.getSeasonBlooming());
+			pstmt.setString(cnt++, plant.getSeasonFruiting());
+			pstmt.setString(cnt++, plant.getSeasonPropagation());
+			pstmt.setString(cnt++, plant.getPropagationMethod());
+			pstmt.setString(cnt++, plant.getManagingDiseasesPests());
+			pstmt.setString(cnt++, plant.getUsefulInfo());
+			pstmt.setString(cnt++, plant.getManagingTips());
+			pstmt.setDate(cnt++, plant.getCreatedDate());
+			pstmt.setDate(cnt++, plant.getUpdateDate());
+			pstmt.setInt(cnt++, plant.getViewCount());
+			pstmt.setString(cnt++, plant.getAdviceInfo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getListCountByFilter(Connection conn, Map<String, String> filters) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// 쿼리 생성
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("select count(*) from plant ");
+		queryBuilder.append("where 1=1 ");
+		
+		int total = 0;
+		for(String key : filters.keySet()) {
+			if(!filters.get(key).equals("all")) {
+				queryBuilder.append("and " + key + " = ? ");
+				total++;
+			}
+		}
+		
+		String query = queryBuilder.toString();
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			int cnt = 1;
+			for(String key : filters.keySet()) {
+				if(!filters.get(key).equals("all")) {
+					pstmt.setString(cnt++, "%" + filters.get(key) + "%");
+				}
+			}
+			
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public int getListCountByFilter(Connection conn, String diffVal, String growVal, String smellVal, String placeVal,
+			String puriVal) {
+		
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select count(*) from plant where 1=1";
+		
+		if(diffVal != null) {
+			query += " and difficulty = ?";
+		}	
+		if(growVal != null) {
+			query += " and growth_rate = ?";
+		}
+		if(smellVal != null) {
+			query += " and smell = ?";
+		}
+		if(placeVal != null) {
+			query += " and placement = ?";
+		}
+		if(puriVal != null) {
+			query += " and effect_purification = ?";
+		}
+		
+		System.out.println("query : " + query);
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			int cnt = 1;
+			if(diffVal != null) {
+				pstmt.setString(cnt++, diffVal);
+			}	
+			if(growVal != null) {
+				pstmt.setString(cnt++, growVal);
+			}
+			if(smellVal != null) {
+				pstmt.setString(cnt++, smellVal);
+			}
+			if(placeVal != null) {
+				pstmt.setString(cnt++, placeVal);
+			}
+			if(puriVal != null) {
+				pstmt.setString(cnt++, "Y");
+			}
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+			
 		return listCount;
 	}
 

@@ -2,6 +2,8 @@ package search.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,22 +36,94 @@ public class SearchPlantServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 식물 검색용 컨트롤러
 		SearchService service = new SearchService();
+		int listCount = 0;
+		ArrayList<Plant> list = new ArrayList<>();
+		
+		// request에서 값 꺼내기
 		request.setCharacterEncoding("UTF-8");
 		String keyword = request.getParameter("keyword");
+		
+		String difficulty = request.getParameter("difficulty");
+		String growthRate = request.getParameter("growth_rate");
+		String smell = request.getParameter("smell");
+		String placement = request.getParameter("placement");
+		String purification = request.getParameter("purification");
+		
+		String diffVal = null;
+		String growVal = null;
+		String smellVal = null;
+		String placeVal = null;
+		String puriVal = null;
+		
+		if(!difficulty.equals("all")) {
+			diffVal = difficulty;
+		}
+		
+		if(!growthRate.equals("all")) {
+			growVal = growthRate;
+		}
+		
+		if(!smell.equals("all")) {
+			smellVal = smell;
+		}
+		
+		if(!placement.equals("all")) {
+			placeVal = placement;
+		}
+		
+		if(!purification.equals("all")) {
+			puriVal = purification;
+		}
+		
+		System.out.println("keyword : " + keyword);
+		System.out.println("difficulty : " + difficulty);
+		System.out.println("growthRate : " + growthRate);
+		System.out.println("smell : " + smell);
+		System.out.println("placement : " + placement);
+		System.out.println("purification : " + purification);
+		
+		
+		
+		Map<String, String> filters = new HashMap<>();
+		filters.put("difficulty", difficulty);
+		filters.put("growthRate", growthRate);
+		filters.put("smell", smell);
+		filters.put("placement", placement);
+		filters.put("purification", purification);
 		
 		// 페이징 처리 준비
 		String page = request.getParameter("page");
 		int currentPage = page != null ? Integer.parseInt(page) : 1;
 		int limit = 8;
-		int listCount  = service.getListCount(keyword);
-		Paging paging = new Paging(listCount, currentPage, limit, "plsearch");
-		paging.calculator();
+		Paging paging = null;
 		
-		// 키워드 검색
-		ArrayList<Plant> list = new SearchService().selectPlantList(keyword, paging.getStartRow(), paging.getEndRow());
-		System.out.println("keyword : " + keyword);
-		System.out.println("startRow : " + paging.getStartRow() + ", endRow : " + paging.getEndRow());
-		System.out.println("list : " + list);
+		// 검색 수행
+		if(keyword.length() > 0) { // 키워드가 있을 경우 키워드 검색
+			listCount  = service.getListCount(keyword);
+			
+			paging = new Paging(listCount, currentPage, limit, "plsearch");
+			paging.calculator();
+			
+			list = service.selectPlantList(keyword, paging.getStartRow(), paging.getEndRow());
+			
+			System.out.println("keyword : " + keyword);
+			System.out.println("list : " + list);
+		} else { // 키워드가 없을 경우 필터 검색
+			listCount  = service.getListCountByFilter(filters);
+//			listCount = service.getListTest(diffVal, growVal, smellVal, placeVal, puriVal);
+			
+			System.out.println("listCount : " + listCount);
+			
+			paging = new Paging(listCount, currentPage, limit, "plsearch");
+			paging.calculator();
+			
+			list = service.selectPlantListByFilter(filters, paging.getStartRow(), paging.getEndRow());
+			System.out.println("filters : ");
+			filters.forEach((key, value) -> {
+	            System.out.println(key + " : " + value);
+	        });
+			System.out.println("list : " + list);
+		}
 		
 		// 결과 전송
 		RequestDispatcher view = null;
