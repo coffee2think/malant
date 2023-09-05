@@ -55,8 +55,9 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님
 				</div>
-        <div>
+        <div style= height:50px; >
           <a href="/malant/sblist?userNo=<%=loginMember.getUserNo()%>">장바구닝닝</a>
+          <a href="/malant/olist?userNo=<%=loginMember.getUserNo()%>">주문리스틍</a>
         </div>
 				<div class="login-section-bottom">
 					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp; 
