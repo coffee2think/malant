@@ -361,6 +361,7 @@ public class SearchDao {
 		
 		String query = queryBuilder.toString();
 		
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 			
