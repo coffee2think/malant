@@ -61,7 +61,7 @@ function load() {
     //console.log(paddingDays);
     
   document.getElementById('monthDisplay').innerText = 
-    `${dt.toLocaleDateString('en-ko', { month: 'long' })} ${year}`;
+    `${dt.toLocaleDateString('en-ko', { month: 'numeric' })} ${year}`;
 		// '' (X), ``(O) 
 		
   calendar.innerHTML = '';

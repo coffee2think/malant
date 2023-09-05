@@ -71,7 +71,7 @@ public class DiaryService {
 		return result;
 	}
 
-	public Diary selectDiary(String diaryId) {
+	public Diary selectDiary(int diaryId) {
 		Connection conn = getConnection();
 		Diary diary = ddao.selectDiary(conn, diaryId);
 		close(conn);

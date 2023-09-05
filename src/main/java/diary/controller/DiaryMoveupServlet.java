@@ -1,6 +1,7 @@
 package diary.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import diary.model.service.DiaryService;
 import diary.model.vo.Diary;
+import diary.model.vo.MyDiaryPhotoes;
 
 /**
  * Servlet implementation class DiaryMoveupServlet
@@ -31,16 +33,20 @@ public class DiaryMoveupServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String diaryId = request.getParameter("diaryNo");
+		int diaryId = Integer.parseInt(request.getParameter("diaryId"));
 		int currentPage = Integer.parseInt(request.getParameter("page"));
 		
-		Diary diary = new DiaryService().selectDiary(diaryId);
+		DiaryService dservice = new DiaryService();
+		Diary diary = dservice.selectDiary(diaryId);
+		ArrayList<MyDiaryPhotoes> list = dservice.selectDiaryPhotoes(diaryId);
+		System.out.println(list.size());
 		
 		RequestDispatcher view = null;
 		if(diary != null) {
-			view = request.getRequestDispatcher("views/board/boardUpdateView.jsp");
-			request.setAttribute("board", diary);
+			view = request.getRequestDispatcher("views/diary/diaryModify.jsp");
+			request.setAttribute("diary", diary);
 			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("list", list);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "일기 수정 페이지로 이동 실패");
