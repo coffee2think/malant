@@ -60,7 +60,6 @@ public class NoticeListTitleServlet extends HttpServlet {
 			view = request.getRequestDispatcher("views/notice/noticeMainList.jsp");
 			request.setAttribute("nlist", nlist);
 			request.setAttribute("currentPage", currentPage);
-			request.setAttribute("limit", limit);
 			request.setAttribute("paging", paging);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
