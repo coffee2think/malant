@@ -12,28 +12,34 @@
 <title>수목원 정보</title>
 <style type="text/css">
 body {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
+	 font-family: Arial, sans-serif;
+	 background-color: #BFBFBF;
+	 margin: 0;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 justify-content: center;
+	 height: 100vh;
 }
 
 .content-all{
-    display: inline-grid;
-    justify-content: start;
+  display: inline-grid;
+  justify-content: start;
+  margin-left: 250px; /* 사이드바 너비만큼 여백 추가 */
+  padding: 20px;
+  box-sizing: border-box; /* 여백을 포함한 전체 너비 설정 */
 }
 
 
 .tree-title {
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: center;
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* 중앙에 배치하기 위해 상대 위치 설정 */
 }
 
 #title-box{
@@ -73,6 +79,36 @@ margin-top: 7px;
 
 .outer-container {
 	display: flex;
+}
+/* 각 섹션의 제목 스타일 */
+.tree-card h2 {
+  font-size: 18px; /* 제목 폰트 크기 조정 */
+  color: #333; /* 제목 글자 색상 설정 */
+  margin-bottom: 10px; /* 아래 여백 추가 */
+  text-transform: uppercase; /* 제목 텍스트 대문자로 변환 */
+  position: relative; /* 제목 내에 도형을 배치하기 위해 상대 위치 설정 */
+}
+
+/* 제목 앞에 도형 추가 */
+.tree-card h2::before {
+  content: "◈"; /* 원하는 도형으로 변경 가능 */
+  display: inline-block;
+  font-size: 20px; /* 도형 크기 설정 */
+  margin-right: 10px; /* 도형과 텍스트 사이 여백 설정 */
+  color: #f6a623; /* 도형 색상 설정 */
+}
+
+/* 각 섹션의 내용 스타일 */
+.tree-card .content {
+  font-size: 16px; /* 내용 폰트 크기 조정 */
+  color: #666; /* 내용 글자 색상 설정 */
+  margin-top: 5px; /* 위 여백 추가 */
+  line-height: 1.5; /* 줄 간격 설정 */
+}
+
+/* 각 섹션의 배경색 변경 */
+.tree-card:nth-child(odd) {
+  background-color: #f9f9f9; /* 홀수 번째 섹션 배경색 설정 */
 }
 </style>
 </head>
@@ -147,10 +183,18 @@ margin-top: 7px;
 				<div class="tree-card">
 					<h2 id="companion">동반 입장</h2>
 					<div class="info-content">
-						<br>반려동물 동반 :
-						<%= arboretum.getWith_pet_yn() %><br>
-						<br>안내견 동반 :
-						<%= arboretum.getWith_guidedog_yn() %>
+						<br>반려동물 동반 : 
+						<% if(arboretum.getWith_pet_yn().equals("Y")) { %>
+							가능<br>
+						<% }else{ %>
+							불가<br>
+						<% } %>
+						<br>안내견 동반 : 
+						<% if(arboretum.getWith_guidedog_yn().equals("Y")) { %>
+							가능<br>
+						<% }else{ %>
+							불가<br>
+						<% } %>
 					</div>
 				</div>
 				<div class="tree-card">
@@ -159,8 +203,7 @@ margin-top: 7px;
 					<% if(arboretum.getEdu_program_yn().equals("Y")) { %>
 						<br>교육프로그램명 :
 						<%= arboretum.getEdu_program_name() %><br>
-						<br>교육프로그램 예약 여/부 :
-						<%= arboretum.getEdu_pro_reservation() %>
+						<br>교육프로그램 예약 여부 : 가능 
 					<% }else{ %>
 						<br>
 						<div align="center">
