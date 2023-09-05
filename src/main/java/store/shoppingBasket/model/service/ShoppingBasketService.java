@@ -7,7 +7,6 @@ import static common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import store.orderList.model.vo.OrderList;
 import store.shoppingBasket.model.dao.ShoppingBasketDao;
 import store.shoppingBasket.model.vo.ShoppingBasket;
 
