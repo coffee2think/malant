@@ -41,12 +41,12 @@ body {
 .productcontainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Adjust as needed */
-  margin: 20px 0; /* Add some margin for spacing */
+  justify-content: space-between; 
+  margin: 20px 0; 
 }
 
 .product-card {
-  width: calc(33.33% - 20px); /* Adjust width and spacing as needed */
+  width: calc(33.33% - 20px); 
   padding: 10px;
   box-sizing: border-box;
   border: 1px solid #ccc;

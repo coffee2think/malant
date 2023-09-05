@@ -19,8 +19,8 @@
 		<%@ include file="../common/storeSidebar.jsp"%>
 		<div class="content">
 		<h1>장바구니 담기 완료</h1>
-		<a href="javascript:history.go(-2);"><button style="width:100px; height:50px;">이전페이지</a>
-		<a href="/malant/sblist?userNo=<%= loginMember.getUserNo() %>"><button style="width:100px; height:50px;">장바구니</button></a>
+		<button style="width:100px; height:50px;" onclick="javascript:history.go(-1);">이전페이지</button>
+		<button style="width:100px; height:50px;" onclick="/malant/sblist?userNo=<%= loginMember.getUserNo() %>">장바구니</button>
 		</div>
 	</div>
 </body>

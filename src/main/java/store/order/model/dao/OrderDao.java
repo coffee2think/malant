@@ -6,11 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.util.Random;
 
 import store.order.model.vo.ProductOrder;
-import store.product.model.vo.ProductDetail;
 
 public class OrderDao {
 
@@ -56,9 +54,47 @@ public class OrderDao {
 		return 0;
 	}
 
-	public ProductOrder addOrderList(Connection conn, ProductOrder productOrder) {
-		// TODO Auto-generated method stub
-		return null;
+	public int addOrderList(Connection conn, ProductOrder productOrder) {
+		
+		String TrackingNo = null;
+		int result = 0;
+		
+		Random random = new Random();
+        long lTrackingNo = Math.abs(random.nextLong() % 10000000000000000L);
+        TrackingNo = String.valueOf(lTrackingNo);
+        
+        System.out.println(TrackingNo);
+        
+        PreparedStatement pstmt = null;
+        
+        
+        String query = "update ST_ORDER "
+        		+ "set PAYMENT_STATUS = ?, TRACKING_NO = ? "
+        		+ "where order_id = ?";
+        
+        try {
+        	pstmt = conn.prepareStatement(query);
+        	
+        	
+        	pstmt.setString(1, productOrder.getPaymentStatus());
+        	pstmt.setString(2, TrackingNo);
+        	pstmt.setString(3, productOrder.getOrderId());
+        	
+        	System.out.println("PaymentStatus "+productOrder.getPaymentStatus());
+        	System.out.println("TrackingNo "+TrackingNo);
+        	System.out.println("getOrderId "+productOrder.getOrderId());
+        	
+        	result = pstmt.executeUpdate();
+        	
+        } catch(Exception e) {
+        	e.printStackTrace();
+        } finally {
+        	close(pstmt);
+        }
+        
+        System.out.println("result : "+ result);
+        
+		return result;
 	}
 
 	public int saveOrderSheet(Connection conn, ProductOrder productOrder, ArrayList<ProductOrder> porder) {
@@ -71,7 +107,7 @@ public class OrderDao {
 		System.out.println("dao 쿼리1 : " + productOrder.toString());
 		System.out.println("dao 쿼리2 : " + porder.toString());
 
-		String query = "insert into ST_ORDER values " + "(?, ?, default, ?, ?, ?, ?, ?, ?, ?, default, ?)";
+		String query = "insert into ST_ORDER values " + "(?, ?, default, ?, ?, ?, ?, ?, ?, ?, default, ?, ?)";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -84,13 +120,13 @@ public class OrderDao {
 			pstmt.setString(6, productOrder.getRecipientContact()); // RECIPIENT_CONTACT
 			pstmt.setString(7, productOrder.getDeliveryAddress()); // DELIVERY_ADDRESS
 			pstmt.setString(8, productOrder.getCodePostal()); // DELIVERY_ZIP_CODE
+			pstmt.setString(11, productOrder.getEmail()); // oreder_emil
+			pstmt.setNull(10, java.sql.Types.VARCHAR); // TRACKING_NO
 
 			if (productOrder.getDeliveryNote() != null)
 				pstmt.setString(9, productOrder.getDeliveryNote()); // DELIVERY_NOTE
 			else
 				pstmt.setNull(9, java.sql.Types.VARCHAR); // DELIVERY_NOTE
-
-			pstmt.setNull(10, java.sql.Types.VARCHAR); // TRACKING_NO
 
 			result = pstmt.executeUpdate();
 
