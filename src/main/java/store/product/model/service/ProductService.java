@@ -48,6 +48,7 @@ public class ProductService {
 	public int addViewCount(int productViewCount) {
 		Connection conn = getConnection();
 		int result = pdao.addViewCount(conn, productViewCount);
+		close(conn);
 		return result;
 	}
 }

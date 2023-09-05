@@ -199,7 +199,7 @@ populateDropdown1();
 				</div>
 			</form>
 			<div class="productcontainer">
-				<%
+				<%if(plistf!=null){
 				for (MainContent p : plistf) {
 				%>
 				<div class="product-card"
@@ -209,8 +209,12 @@ populateDropdown1();
 					<div class="product-price"><%=p.getPrice() + "원"%></div>
 				</div>
 				<%
-				}
+				}}else{
 				%>
+				<div class="no-product">
+				<h1><%= request.getAttribute("message") %></h1>
+				</div>
+				<%} %>
 			</div>
 		</div>
 	</div>

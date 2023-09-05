@@ -53,8 +53,8 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 		<% } else { %>
 			<div class="login-section">
 				<%= loginMember.getNickname() %>님 환영합니다.<br>
-				
-				<a href="/malant/views/member/confirmMemberBeforeInfo.jsp?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp; 
+				<a href="/malant/sblist?userNo=<%=loginMember.getUserNo()%>">장바구닝닝</a>
+				<a href="/malant/views/member/confirmMemberBeforeInfo.jsp?userid=<%= loginMember.getUserId() %>">마이페이지</a>
 				<a href="/malant/logout">로그아웃</a>
 			</div>
 		<% } %>

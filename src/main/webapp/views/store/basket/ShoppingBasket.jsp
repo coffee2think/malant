@@ -24,6 +24,16 @@ session.setAttribute("sblist", sblist);
 	width: 100px;
 	height: 50px;
 }
+
+ #delete-selected-items {
+ 	display: block;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 20px;
+	width: 100px;
+	height: 50px;
+ }
+ 
 </style>
 
 
@@ -50,6 +60,7 @@ session.setAttribute("sblist", sblist);
 					for (ShoppingBasket sb : sblist) {
 					%>
 					<tr>
+						<td><input type="checkbox" name="selectedItems" value="<%=sb.getProductId()%>"></td>
 						<td><img width="100px" height="100px"
 							src="<%=sb.getProductThumnail()%>"></td>
 						<td><%=sb.getProductName()%></td>
@@ -72,8 +83,46 @@ session.setAttribute("sblist", sblist);
 					</tr>
 				</table>
 				<button id="all-buy" onClick="location.href='/malant/views/store/order/orderSheet.jsp'">전체 구매하기</button>
+				<button id="delete-selected-items" onclick="deleteSelectedItems()">선택 삭제</button>
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	$(document).ready(function() {
+	    $("#delete-selected-items").click(function() {
+	        const selectedCheckboxes = $('input[name="selectedItems"]:checked');
+	        const selectedProductIds = [];
+	
+	        selectedCheckboxes.each(function() {
+	            selectedProductIds.push($(this).val());
+	        });
+
+	        if (selectedProductIds.length === 0) {
+	            alert('선택된 항목이 없습니다.');
+	        } else {
+	        	
+	        	const userNo = <%= loginMember.getUserNo() %>;
+	        	
+	            $.ajax({
+	                type: "POST",
+	                url: "/malant/sbdelete",
+	                data: { selectedProductIds: selectedProductIds.join(','), userNo: userNo },
+	                success: function(response) {
+	                    alert('선택한 제품이 삭제되었습니다.');
+	                    location.reload();
+	                },
+	                error: function() {
+	                    alert('삭제 중 오류가 발생했습니다.');
+	                }
+	            });
+	        }
+	    });
+	});
+</script>
+	
+	
+	
+	
 </body>
 </html>

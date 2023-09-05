@@ -37,14 +37,12 @@ if (imageUrls.length() > 0) {
 }%>
 	// 이미지 슬라이더 설정
 						var currentIndex = 0;
-						var images = [
-<%=imageUrls.toString()%>
-	];
+						var images = [ <%=imageUrls.toString()%>];
 						var slider = $(".image-slider img");
 
 						function showImage(index) {
 							slider.hide();
-							slider.eq(index).fadeIn();
+							slider.eq(index).fadeIn(1000);
 						}
 
 						function nextSlide() {
@@ -56,7 +54,7 @@ if (imageUrls.length() > 0) {
 						showImage(currentIndex);
 
 						// 자동 슬라이딩 시작
-						var slideInterval = setInterval(nextSlide, 3000);
+						var slideInterval = setInterval(nextSlide, 5000);
 					});
 </script>
 
