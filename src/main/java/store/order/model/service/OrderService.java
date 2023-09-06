@@ -15,8 +15,6 @@ public class OrderService {
 	
 	private OrderDao odao = new OrderDao();
 	
-	public OrderService() {}
-	
 	public ProductOrder selectProductOrder(String productId, int quantity) {
 		Connection conn = getConnection();
 		ProductOrder list = odao.selectProductOrder(conn, productId, quantity);

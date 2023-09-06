@@ -45,6 +45,7 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 				<li><a>기&nbsp;&nbsp;&nbsp;타</a></li>
 				</div>
 			</ul>
+			<button onclick="window.location.href = '/malant/views/seller/sellerMain.jsp'">판매회원 로그인</button>
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
