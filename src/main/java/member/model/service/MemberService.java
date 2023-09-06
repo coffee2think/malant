@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 
 import member.model.dao.MemberDao;
+import member.model.vo.Admin;
 import member.model.vo.Member;
 import member.model.vo.Seller;
 
@@ -120,6 +121,20 @@ public class MemberService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public Admin selectAdminLogin(String userId, String userPwd) {
+		Connection conn = getConnection();
+		Admin admin = mdao.selectAdminLogin(conn, userId, userPwd);
+		close(conn);
+		return admin;
+	}
+
+	public Seller selectSellerLogin(String userId, String userPwd) {
+		Connection conn = getConnection();
+		Seller seller = mdao.selectSellerLogin(conn, userId, userPwd);
+		close(conn);
+		return seller;
 	}
 
 	

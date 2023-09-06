@@ -37,9 +37,10 @@ public class MainListViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+    	
+    	ArrayList<MainContent> mlist = new MainService().selectBanner();
     	ArrayList<MainContent> plist = new MainService().selectMainProductList();
-        ArrayList<MainContent> mlist = new MainService().selectBanner();
+        
 
         RequestDispatcher view = null;
         if (plist.size() > 0) {
@@ -48,11 +49,11 @@ public class MainListViewServlet extends HttpServlet {
             request.setAttribute("mlist", mlist);
         } else {
             view = request.getRequestDispatcher("views/common/error.jsp");
-//        	view = request.getRequestDispatcher("views/store/storeMain.jsp");
             request.setAttribute("message", "메인 데이터 조회 실패");
-//        	request.setAttribute("plist", plist);
-//            request.setAttribute("mlist", mlist);
+
         }
+        System.out.println(mlist.toString());
+        
         view.forward(request, response);
     }
 

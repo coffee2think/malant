@@ -39,7 +39,7 @@ public class DiaryMoveupServlet extends HttpServlet {
 		DiaryService dservice = new DiaryService();
 		Diary diary = dservice.selectDiary(diaryId);
 		ArrayList<MyDiaryPhotoes> list = dservice.selectDiaryPhotoes(diaryId);
-		System.out.println(list.size());
+		
 		
 		RequestDispatcher view = null;
 		if(diary != null) {

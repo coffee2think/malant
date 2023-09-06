@@ -11,10 +11,7 @@
 <link rel="stylesheet"
 	href="/malant/resources/store/css/selectProduct.css" />
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.1/nouislider.min.js"></script>
+
 <script>
 //1번 옵션
 function populateDropdown1() {

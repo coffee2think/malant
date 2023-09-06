@@ -55,7 +55,7 @@ public class DiaryDeleteServlet extends HttpServlet {
 		
 		if (result > 0) {
 
-			response.sendRedirect("/malant/dlist?user_no=" + userNo);
+			response.sendRedirect("/malant/dlist?action=user_no&keyword=" + userNo + "&page=1");
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "일기 삭제 실패");

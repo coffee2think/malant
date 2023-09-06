@@ -118,8 +118,24 @@
 	margin-bottom: 10px;
 }
 
+.card-image {
+	width: 150px;
+	height: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center; 
+}
+
+.card-title {
+	width: 150px;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .sort-items {
-	width: 300px;
+	width: 200px;
 	border: 1px solid blue;
 	display: flex;
 	align-content: center;
@@ -135,6 +151,11 @@
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
+}
+
+.result-view {
+	display: flex;
+	flex-direction: column;
 }
 </style>
 </head>
@@ -163,15 +184,29 @@
 						</div>
 					<% } %>
 				</div>
-				<div class="result-cards">
-					<% if(list.size() > 0) {
-						for (Plant plant : list) {
-					%>
-						<div class="plant-card" onclick="javascript: location.href='/malant/pldetail?pno='+<%= plant.getPlantNo() %>"><p4><%= plant.getPlantName() %></p4></div><br>
+				
+				<% if(list.size() > 0) { %>
+				<div class="result-view">
+					<div class="result-cards">
+						<% for (Plant plant : list) { %>
+						<div class="plant-card" onclick="javascript: location.href='/malant/pldetail?pno='+<%= plant.getPlantNo() %>">
+							<div class="card-image">
+								<img src=<%= plant.getPlantImg() %> width="140" height="140">
+							</div>
+							<div class="card-title">
+								<center><p4><%= plant.getPlantName() %></p4></center>
+							</div>
+						</div>
 					<%	} // for %>
+					</div>
+					<div class="paging">
 						<%@ include file="../common/pagingView.jsp" %>
-					<% } // else %>
+					</div>
 				</div>
+				<% } else { %>
+					<img src="/malant/resources/common/images/mandragora_character.jpg">
+				<% } %>
+				
 			</div>
 		</div>
 	</div>

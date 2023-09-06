@@ -137,6 +137,7 @@
 					<h1>Malant</h1>
 					<form action="/malant/logincheck" method="post" class="more-padding" autocomplete="off">
 						<input type="hidden" name="preReferer" value="<%= preReferer %>">
+						<input type="hidden" name="loc" value="<%= loc %>">
 						<input type="text" name="userid" placeholder="아이디" required>
 						<input type="password" name="userpwd" placeholder="패스워드" required>
 						<button class="button submit">로그인</button>

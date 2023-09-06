@@ -20,7 +20,6 @@ session.setAttribute("olist", olist);
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 
 <style>
-/* iframe을 절대 위치로 설정하고 위에 띄우기 */
 #popupFrame {
 	position: absolute;
 	top: 30%;
@@ -83,7 +82,7 @@ session.setAttribute("olist", olist);
 				<form action="/malant/Osheet" method="post" id="ordersheet">
 					<label>이 &nbsp; 름 : </label><input type="text" name="buyerName" required><br>
 					<label>연락처 : </label><input type="tel" name="buyerContact" required><br>
-					<label>이메일 : </label><input type="email" name="buyerContact" required><br>
+					<label>이메일 : </label><input type="email" name="email" required><br>
 
 					<h3>배송지 정보</h3>
 					<label>이 &nbsp; 름 : </label> <input type="text" name="recipient" required><br>

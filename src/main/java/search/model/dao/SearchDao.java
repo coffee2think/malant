@@ -288,7 +288,7 @@ public class SearchDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
@@ -308,7 +308,7 @@ public class SearchDao {
 		
 		int total = 0;
 		for(String key : filters.keySet()) {
-			if(!filters.get(key).equals("all")) {
+			if(!"all".equals(filters.get(key))) {
 				queryBuilder.append("and " + key + " = ? ");
 				total++;
 			}
@@ -322,7 +322,7 @@ public class SearchDao {
 			int cnt = 1;
 			for(String key : filters.keySet()) {
 				if(!filters.get(key).equals("all")) {
-					pstmt.setString(cnt++, "%" + filters.get(key) + "%");
+					pstmt.setString(cnt++, filters.get(key));
 				}
 			}
 			
@@ -352,7 +352,7 @@ public class SearchDao {
 		queryBuilder.append("select * ");
 		queryBuilder.append("from (select rownum rnum, plant.* from plant where 1=1 ");
 		for(String key : filters.keySet()) {
-			if(!filters.get(key).equals("all")) {
+			if(!"all".equals(filters.get(key))) {
 				queryBuilder.append("and " + key + " = ? ");
 			}
 		}
@@ -360,6 +360,7 @@ public class SearchDao {
 		queryBuilder.append("where rnum >= ? and rnum <= ?");
 		
 		String query = queryBuilder.toString();
+		System.out.println(query);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -367,7 +368,7 @@ public class SearchDao {
 			int cnt = 1;
 			for(String key : filters.keySet()) {
 				if(!filters.get(key).equals("all")) {
-					pstmt.setString(cnt++, "%" + filters.get(key) + "%");
+					pstmt.setString(cnt++, filters.get(key));
 				}
 			}
 			pstmt.setInt(cnt++, startRow);
@@ -427,6 +428,7 @@ public class SearchDao {
 				plant.setFruitColor(rset.getString("fruit_color"));
 				
 				list.add(plant);
+				System.out.println(plant); // 테스트용 로그
 			}
 			
 		} catch (Exception e) {

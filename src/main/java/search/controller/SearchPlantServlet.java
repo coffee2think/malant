@@ -59,6 +59,14 @@ public class SearchPlantServlet extends HttpServlet {
 		filters.put("placement", placement);
 		filters.put("effect_purification", effectPurification);
 		
+		System.out.println("\n***잘 받아왔는지 체크***");
+		System.out.println("keyword : " + keyword);
+
+		filters.forEach((key, value) -> {
+            System.out.println(key + " : " + value);
+        });
+		
+		
 		// 페이징 처리 준비
 		String page = request.getParameter("page");
 		int currentPage = page != null ? Integer.parseInt(page) : 1;
@@ -83,7 +91,7 @@ public class SearchPlantServlet extends HttpServlet {
 			paging.calculator();
 			
 			list = service.selectPlantListByFilter(filters, paging.getStartRow(), paging.getEndRow());
-			System.out.println("filters : ");
+			System.out.println("\n***filter search***");
 			filters.forEach((key, value) -> {
 	            System.out.println(key + " : " + value);
 	        });
@@ -93,16 +101,15 @@ public class SearchPlantServlet extends HttpServlet {
 		// 결과 전송
 		RequestDispatcher view = null;
 		view = request.getRequestDispatcher("views/search/searchResultView.jsp");
-		request.setAttribute("keyword", keyword);
-		
-		for(String key : filters.keySet()) {
-			request.setAttribute(key, filters.get(key));
-		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);	
 		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("action", "name");
+		request.setAttribute("action", "plsearch"); // 페이징에서 키워드 검색 페이징임을 확인하기 위해 action에 name을 넣음
+		request.setAttribute("keyword", keyword);
+		for(String key : filters.keySet()) {
+			request.setAttribute(key, filters.get(key));
+		}
 		view.forward(request, response);
 	}
 

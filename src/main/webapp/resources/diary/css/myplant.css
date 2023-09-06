@@ -1,8 +1,7 @@
 @charset "UTF-8";
 
 body {
-	background-color: #dfe8e4;
-	font-family: "GmarketSansBold";
+	background-color: white;
 	justify-content: center;
 }
 
@@ -21,28 +20,25 @@ body {
 
 }
 
-.menu {
+.menu1 {
 	float: left;
 	width: 130px;
 	height: 30px;
 	margin-top: 30px;
-	margin-left: 20px;
+	margin-left: 35px;
 	padding-top: 12px;;
 	border-radius: 5px;
-	background-color: #92BEA9;
+	background-color: #f2f2f2;
 	font-size: 12pt;
 	color: #262626;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
+	display: block;
 }
 
-.menu a{
-	text-decoration: none;
-	
-}
 
-.menu:hover {
+.menu1:hover {
 	width: 130px;
 	height: 30px;
 	display: block;
@@ -54,17 +50,69 @@ body {
 	padding-top: 12px;
 }
 
-#contentbody {
-	top: 100px;
+.menu2 {
+	float: left;
+	width: 130px;
+	height: 30px;
+	margin-top: 30px;
+	margin-left: 25px;
+	padding-top: 12px;
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	font-size: 12pt;
+	color: #262626;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+}
+
+
+.menu2:hover {
+	width: 130px;
+	height: 30px;
+	display: block;
+	background: #fcfcfc;
+	color: #262626;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	padding-top: 12px;
+}
+
+.contentbody {
+	top: 80px;
 	left: 20px;
 	width: 1115px;
 	height: 760px;
 	position: absolute;
 	resize: both;
-	border: 1px solid black;
 	float: left;
 }
+ 
+.contentbody .addYourPlant{
+  width: 200px;
+  height: 30px;
+  margin:12px;
+  z-index: 100;
+  background-color: #fcfcfc;
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  text-align:center;
+  border-radius:5px;
+ }
 
+ .pagingview{
+ 	margin-top: 730px;
+	position: absolute;	
+	width: 400px;
+	height: 30px;
+	text-align: center;
+	font-size: 11pt;
+	left: 350px;
+ 	
+ }
 
 .newmplantbox {
 	width: 260px;
@@ -78,13 +126,12 @@ body {
 	
 }
 
-
 .myplantbox {
 	width: 260px;
 	height: 340px;
 	margin-top: 10px;
 	margin-left: 15px;
-	background-color: #fcfcfc;
+	background-color: #f2f2f2;
 	float: left;
 	border-radius: 5px;
 	cursor: pointer;
@@ -101,9 +148,8 @@ body {
 	margin-top: 7px;
 	width: 260px;
 	height: 210px;
-	background-color: #92BEA9;
+	background-color: #f2f2f2;
 	position: absolute;
-	justify-content: center;
 }
 
 .myplantbox .information {
@@ -115,46 +161,44 @@ body {
 
 .myplantDetail {
 	width : 500px;
-	height : 680px;
+	height : 500px;
 	position : absolute;
-	top : 50px;
-	left : 10px;
-	background-color: white;
-	border :  1px solid black;
-	
+	top : 100px;
+	left : 20px;
+	padding: 30px;
+	padding-left: 200px;
+	background-color: #f2f2f2;
+	border-radius: 20px;
 	
 }
- 
- .addYourPlant{
-  width: 200px;
-  height: 30px;
-  margin-bottom: 0;
-  z-index: 100;
-  background-color: #fcfcfc;
-  cursor: pointer;
-  position: absolute;
-  display: block;
- }
- 
-  .addYourFirstPlant{
-  width: 200px;
-  height: 30px;
-  margin-bottom: 0;
-  left: 10px;
-  z-index: 100;
-  background-color: #fcfcfc;
-  cursor: pointer;
-  position: absolute;
-  display: block;
- }
- 
+
+.myplantModify {
+	width : 500px;
+	height : 500px;
+	position : absolute;
+	top : 100px;
+	left : 20px;
+	padding: 30px;
+	padding-left: 200px;
+	background-color: #f2f2f2;
+	border-radius: 20px;
+	
+}
+
+.photo {
+	z-index:5;
+}
+
  .myplantAdd {
     top: -200%;
     left: 50%;
-    opacity: 0;
-	width: 700px;
+	width: 550px;
 	height: 600px;
-	background-color: #92BEA9;
+	padding-top:10px;
+	padding-left:50px;
+	padding-right:50px;
+	background-color: #f2f2f2;
+	border: 5px solid #262626;
 	border-radius: 5px;
 	position: absolute;
 	float: left;
@@ -165,6 +209,25 @@ body {
     			transform 200ms ease-in-out 0mx;
  }
  
+ .myplantAdd .title {
+ 	margin-top:10px;
+ 	font-size:20pt;
+ 	text-align:center;
+ }
+ 
+ .myplantAdd .addinfo {
+ 	width:300px;
+ 	height:400px;
+
+ }
+ 
+ .myplantAdd .button{
+ 	width:300px;
+ 	height:50px;
+ 	top:450px;
+ 	text-align: center;
+ }
+ 
  .myplantAdd.active {
    top: 50%;
    opacity: 1;
@@ -173,11 +236,5 @@ body {
                opacity 200ms ease-in-out 0ms,
                transform 200ms ease-in-out 0ms;
  }
- 
 
- .pagingview{
- 	margin-top: 730px;
-	display: center;
-	position: absolute;
- 	
- }
+

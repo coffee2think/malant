@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8" import="member.model.vo.Member" %>
 <%
 	Member loginMember = (Member) session.getAttribute("loginMember");
+	Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+	if(isAdmin == null) {
+		isAdmin = false;
+	}
 %>
 
 <!DOCTYPE html>
@@ -26,11 +30,21 @@
 				<% if(loginMember == null) { %>
 					href="/malant/views/member/loginPage.jsp"
 				<% } else { %>
-					href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>"
+					href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>"
 				<% } %>>다이어리</a></li>
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
 				<li><a href="/malant/smplist">스토어</a></li>
 				<li><a href="/malant/ntitlelist">공지/이벤트</a></li>
+				
+				<%-- 
+				<% if(isAdmin) { %>
+				<li><a href="/malant/qlist">문의 & 답변</a></li>
+				<li><a href="/malant/breportlist">신고 처리</a></li>
+				<% } else if(loginMember != null) { %>
+				<li><a href="/malant/qinsert">문의하기</a></li>
+				<li><a href="/malant/myqlist?userno=<%= loginMember.getUserNo() %>&action=myqlist">내 문의 목록</a></li>
+				<% } %>
+				--%>
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
@@ -38,7 +52,17 @@
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
 				로그인 하러 가기
 			</div>
-		<% } else { %>
+		<% } else if(isAdmin) { // 관리자인 경우 %>
+			<div class="login-section">
+				<div class="login-section-top">
+					<%= loginMember.getNickname() %>님
+				</div>
+				<div class="login-section-bottom">
+					<a href="/malant/qlist">관리페이지</a> &nbsp;&nbsp; 
+					<a href="/malant/logout?loc=common">로그아웃</a>
+				</div>
+			</div>
+		<% } else { // 회원인 경우 %>
 			<div class="login-section">
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님

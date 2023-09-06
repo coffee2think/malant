@@ -24,7 +24,6 @@
 <link rel="stylesheet" href="/malant/resources/common/css/scrolling.css" />
 <link rel="stylesheet" href="/malant/resources/common/css/font.css" />
 <link rel="stylesheet" href="/malant/resources/diary/css/diary.css"> 
-<!-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"> -->
 
 
 <script type="text/javascript"
@@ -85,45 +84,60 @@ window.onload = function(){
 
 <div id="container">
         <%@include file = "../../views/common/sidebar.jsp" %>
+        
    <div id="main">
 
-      <div class="menu"><a href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</a></div> 
-      <div class="menu"><a href="/malant/views/diary/calendar.jsp">캘린더</a></div> 
-      <div class="menu"><a href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</a></div>   
+        <div class="menu1" onclick="goDiary(); return false;">다이어리</div> 
+        <div class="menu2" onclick="goMyplant(); return false;">반려식물</div>
+		<script type="text/javascript">
+		function goDiary (){
+			location.href = "/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
+		}
+		function goMyplant (){
+			location.href = "/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
+		}
+		</script>
 
-    <div id="contentbody">
-       <header>
-          <div id="newDiaryGo" class="newDiaryGo"> 일기 등록하기</div> 
-       </header>
-      
-   		 <div id="newDiaryBox" class="newDiaryBox" style="padding:10px;background:#92BEA9;">	
+    <div id="contentbody" class="contentbody">
+    
+    <% if (list.size() > 0 ) { %>
+     
+          <div id="newDiaryGo" class="newDiaryGo"> 일기 쓰기</div> 
+        
+   		 <div id="newDiaryBox" class="newDiaryBox" >	
    			 <form action="/malant/dnew" id="newDiaryBoxForm" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="user_no" value="<%= loginMember.getUserNo() %>">
-					<table>
-						<tr>
-							<td><textarea name="diary_content" style="width:300px;height:100px;" placeholder="오늘은 어떤 일이 있었나요?"></textarea><br>
-							<input type="file" name="multifile" id="multifile" multiple><br>
-								<div id="filenameView"></div><br>
-								<div id="photoesView" style="width:500px;height:220px;border:1px solid black;padding:10px;margin:10px;">
-								
-								</div><br>
-								
+   			 	<table>
+   			 	<tr>
+   			 		<td>
+   			 			<div class="title"> 오늘의 일기</div><br>
+						<div class="addContentBox">
+						&nbsp;&nbsp;<textarea name="diary_content" style="width:500px;height:100px;" placeholder="오늘은 어떤 일이 있었나요?"></textarea><br>
+						&nbsp;&nbsp;<input type="file" name="multifile" id="multifile" multiple><br>
+							<div id="filenameView"></div><br>
+							<div id="photoesView" style="width:500px;height:220px;border:1px solid black;padding:10px;margin:10px;background:#616161">
 							
+							</div><br>
+							<div style="text-align:center;">
 								<input type="reset" class="close-btn" value="취소"> &nbsp;
 								<input type="submit" id="save" class="save-close-btn" value="저장">
-							</td>
-						</tr>
+							</div>
+						</div>	
+					</td>
+					</tr>
 					</table>
 				</form>
 			</div> 
-
-	<div class="diaryBox">
- <!--    <table border="1"> -->
-
+		
+			
+	<div class="diaryBody">
+	<table class="diaryListTable">
+	<tr>
+	<td>
      <% for(Diary d : list) {%>
-	   <!--   <tr>
-	     
-	        <td> -->
+     		
+			<div class="diaryBox">
+			
 	        <div class="diaryContent"><%= d.getDiaryContent() %></div><br>
 	        <div class="diaryImg">
 
@@ -138,23 +152,71 @@ window.onload = function(){
 	        	for(MyDiaryPhotoes p : photoList){
 	        	%>
 
-	        <img src="/malant/resources/diary/diary_upimages/<%= p.getFileName() %>" style="clear:both;" width="150" height="150"> &nbsp;
+	        <img src="/malant/resources/diary/diary_upimages/<%= p.getFileName() %>" style="clear:both;border-radius:5px;" width="150" height="150" > &nbsp;
 	        
 	        <%} } }%> 
-	       </div>
+	       </div> 
 	        <br>
-	        <div class="diaryDate"><%= d.getDiaryWritingDate() %></div><br>
+	        <div class="diaryDate" style="font-size:12px;"><%= d.getDiaryWritingDate() %></div><br>
 	        <div>
 	        <input type="submit" value="수정페이지로 이동" onclick="requestMoveUpdate(<%= d.getDiaryId() %>); return false;">
 	        <input type="button" value="삭제" onclick="requestDelete(<%= d.getDiaryId() %>,'<%= d.getUserNo() %>'); return false;">
-	        </div>
-<!-- 	        </td>
-	     </tr> -->
+	        </div> 
+
+       </div> <!-- diaryBox -->
+       <br>
      <% } %>
-<!--     </table> -->
-    
-    </div> <!-- diaryBox -->
-    <script type="text/javascript">
+			<div class="pagingview">
+				<%@ include file="../common/pagingView.jsp" %>
+			</div>
+       </td>
+       </tr>
+       </table>
+       <br>
+       <br>
+       
+	<% }else if(list.size() == 0) { %>
+
+		
+       <div id="newDiaryGo" class="newDiaryGo"> 일기 쓰기</div> 
+      
+        
+        
+   		 <div id="newDiaryBox" class="newDiaryBox" >	
+   			 <form action="/malant/dnew" id="newDiaryBoxForm" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="user_no" value="<%= loginMember.getUserNo() %>">
+   			 	<table>
+   			 	<tr>
+   			 		<td>
+   			 			<div class="title"> 오늘의 일기</div><br>
+						<div class="addContentBox">
+						&nbsp;&nbsp;<textarea name="diary_content" style="width:300px;height:100px;" placeholder="오늘은 어떤 일이 있었나요?"></textarea><br>
+						&nbsp;&nbsp;<input type="file" name="multifile" id="multifile" multiple><br>
+							<div id="filenameView"></div><br>
+							<div id="photoesView" style="width:500px;height:220px;border:1px solid black;padding:10px;margin:10px;background:#616161">
+							
+							</div><br>
+							<div style="text-align:center;">
+								<input type="reset" class="close-btn" value="취소"> &nbsp;
+								<input type="submit" id="save" class="save-close-btn" value="저장">
+							</div>
+						</div>	
+					</td>
+					</tr>
+					</table>
+				</form>
+			</div> 
+		
+ 
+  
+	
+
+ 	 </div><!--diaryBody  -->
+ 	 
+ 	 
+  		 <% } %>  
+  		 
+  	<script type="text/javascript">
     
 	function requestMoveUpdate(diaryId){
 		location.href="/malant/dmoveup?diaryId=" + diaryId + "&page=<%= nowpage %>";
@@ -164,15 +226,6 @@ window.onload = function(){
 	}
 	
 	</script>
-	
-   <div>
-      <%@ include file="../diary/diaryPagingView.jsp" %>
-   
-   
-   
-   </div>
-   
-   
      </div><!-- content body -->
    </div> <!-- main -->
    </div> <!-- container --> 
