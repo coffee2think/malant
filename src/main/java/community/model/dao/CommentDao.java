@@ -18,9 +18,9 @@ public class CommentDao {
 		ResultSet rset = null;
 
 		String query = "select *  "
-				+ "from cm_comment  "
-				+ "where board_no = ? "
-				+ "order by comment_date desc";
+						+ "from cm_comment  "
+						+ "where board_no = ? "
+						+ "order by comment_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(query);

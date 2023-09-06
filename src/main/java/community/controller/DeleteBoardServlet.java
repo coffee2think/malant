@@ -33,8 +33,8 @@ public class DeleteBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("bno"));
-
+		int boardNo = Integer.parseInt(request.getParameter("board"));
+		
 		if (new BoardService().deleteBoard(boardNo) > 0) {
 			String renameFileName = request.getParameter("rfile");
 			if (renameFileName != null) {

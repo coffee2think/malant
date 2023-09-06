@@ -3,10 +3,10 @@
 	import="community.model.vo.Board,java.util.ArrayList,community.model.vo.Comment"%>
 <!DOCTYPE html>
 <%
-	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
-	int nowPage = ((Integer)request.getAttribute("currentPage")).intValue();
+	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("myblist");
+	String userno = (String)request.getAttribute("userno");
 %>
-<!-- 커뮤니티 메인 화면 -->
+<!-- 커뮤니티 내 게시글 목록 -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -25,6 +25,11 @@ div.board-main{
 <script type="text/javascript"
 	src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script>
+function requestDelete(){
+	//게시글(원글, 댓글, 대댓글) 삭제 요청 함수
+	location.href = "/malant/bdelete";
+}
+
 $(function() {
 	
 	likeTop3();
@@ -125,11 +130,9 @@ function viewInput(span){
         </script>
         
         <div class="board-main">
-        <% if(loginMember != null){ %>
-			<div class="board-insert-btn">
-				<button onclick="javasciprt:location.href='/malant/views/board/myBoardInsert.jsp';">글쓰기</button>
-			</div>
-		<% } %>
+        
+			
+	
 		
 		
 		<div id="toplist" class="board">
@@ -198,7 +201,13 @@ function viewInput(span){
 				<img src="/malant/resources/board/images/likebtn.jpg" width="20" height="20"> <%= b.getBoardLike() %>
 				</td>
 			</tr>
-					
+			 	<tr colspan="4">
+			 		&nbsp; <button onclick="javasciprt:location.href='/malant/views/board/myBoardInsert.jsp';">글쓰기</button> &nbsp; 
+				 	&nbsp; <button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
+				 	<button onclick="requestDelete(); return false;">글삭제</button>
+				    
+			
+			 	</tr>
 		</table>
 		<br>
            
@@ -206,5 +215,6 @@ function viewInput(span){
 		
 			   </div>
 		</div>
+	
 </body>
 </html>

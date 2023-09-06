@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import community.model.service.BoardService;
 import community.model.service.CommentService;
 import community.model.vo.Board;
+import community.model.vo.CMBoardPhoto;
 import community.model.vo.Comment;
 
 /**
@@ -42,32 +43,31 @@ public class BoardDetailServlet extends HttpServlet {
 		}
 
 		BoardService bservice = new BoardService();
+		// 원글 조회
 		Board board = bservice.selectBoard(bnum);
-		
-		
+		// 원글의 댓글 조회
 		ArrayList<Comment> clist = new CommentService().selectCommentList(bnum);
-		ArrayList<String> cdate = new ArrayList<String>(clist.size());
+		// 원글의 사진 첨부파일 조회
+		ArrayList<CMBoardPhoto> photoList = bservice.selectBoardPhotoList(bnum);
 		
-		for(int i = 0; i < clist.size(); i++) {
-			String dateStr = clist.get(i).getCommentDate().toString();
-			cdate.add(dateStr);
-		}
+		bservice.addReadCount(bnum);
 		
-	
-
 		RequestDispatcher view = null;
-	
+		
 		if(board != null) {
 			view = request.getRequestDispatcher("views/board/boardDetailList.jsp");
 			request.setAttribute("clist", clist);
 			request.setAttribute("board", board);
-			request.setAttribute("cdate", cdate);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("photoList", photoList);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", bnum + "번 글 상세조회 실패!");
 		}
 		
 		view.forward(request, response);
+		
+		
 	}
 
 	/**
