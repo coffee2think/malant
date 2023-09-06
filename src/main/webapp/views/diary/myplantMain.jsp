@@ -52,20 +52,27 @@ window.onload = function() {
        			 <%@include file = "../../views/common/sidebar.jsp" %>
 			<div id="main">
 	
-		<div class="menu1" onclick="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</div> 
-        <div class="menu2" onclick="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</div>
-
+		<div class="menu1" onclick="goDiary(); return false;">다이어리</div> 
+        <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
+		<script type="text/javascript">
+		function goDiary (){
+			location.href = "/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
+		}
+		function goMyplant (){
+			location.href = "/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
+		}
+		</script>
+	
 	    
 	<div id="contentbody" class="contentbody">   
 	
-
-	
 	<% if (list.size() > 0 ) { %>
-		
+			
 			<div id="addYourPlant" class="addYourPlant"> 반려식물을 등록해주세요!</div> 
-		
-			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
+			
+
 			<div id="myplantAdd" class="myplantAdd"> 
+			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
 			<br>
 					<div class="title">당신의 반려식물을 등록하세요</div>
 					<br>
@@ -79,7 +86,7 @@ window.onload = function() {
 						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;"><br>
 					</div>
 					메모 &nbsp; <input type="text" name="MYPLANT_MEMO"><br>
-					키우기 시작한 날 &nbsp; <input type="date" id="date" name="MYPLANT_START_DATE"><br>
+					키우기 시작한 날 &nbsp; <input type="date" id="theDate" name="MYPLANT_START_DATE"><br>
 					<script type="text/javascript">
 							var date = new Date();
 		
@@ -99,17 +106,17 @@ window.onload = function() {
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
-					
-					</div> <!-- myplantAdd -->
 					</form>
+					</div><!-- myplantAdd -->
+	
 					
 					
 
 	<div id="myplantListbody" class="myplantListbody" style="margin-top:40px;">		
 	<% for (Myplant mp : list) { %>
-		
+		 
 				<div id="myplantbox" class="myplantbox" onclick="moveDetail(<%= mp.getMyplantId() %>); return false;"> 
-						<div class="nickname">애칭 <%= mp.getMyplantName() %></div>
+						<div class="nickname"> <%= mp.getMyplantName() %></div>
 						<div>
 							<% if(mp.getMyplantImageURL() != null) { %>
 								<img class="image" src="/malant/resources/diary/myplant_upimages/<%= mp.getMyplantImageURL() %>">
@@ -136,29 +143,30 @@ window.onload = function() {
 			
 			
 			<div class="pagingview">
-				<%@ include file="../diary/myplantPagingView.jsp" %>
+				<%@ include file="../common/pagingView.jsp" %>
 			</div>
 		</div> <!-- myplantListbody -->
 		
 		
 		<% }else if(list.size() == 0) { %>
+		<div id="addYourPlant" class="addYourPlant"> 반려식물을 등록해주세요!</div> 
 		
-					<div id="addYourPlant" class="addYourPlant"> 반려식물을 등록해주세요!</div> 
-		
-			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
 			<div id="myplantAdd" class="myplantAdd"> 
+			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
+			<br>
 					<div class="title">당신의 반려식물을 등록하세요</div>
+					<br>
 					<div class="addinfo">
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
-					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME"></div>
-					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"></div>
-					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
+					애칭 &nbsp; <input type="text" name="MYPLANT_NAME"><br>
+					품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"><br>
+					사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
 					<div id="reviewbox" style="width:220px;height:220px;border:1px solid black;padding:10px;margin:10px;">
 						<img id="photo" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png"
-						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;">
-					</div></div>
-					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
-					<div>키우기 시작한 날 &nbsp; <input type="date" id="theDate" name="MYPLANT_START_DATE">
+						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;"><br>
+					</div>
+					메모 &nbsp; <input type="text" name="MYPLANT_MEMO"><br>
+					키우기 시작한 날 &nbsp; <input type="date" id="theDate" name="MYPLANT_START_DATE"><br>
 					<script type="text/javascript">
 							var date = new Date();
 		
@@ -173,14 +181,13 @@ window.onload = function() {
 							document.getElementById("theDate").value = today;
 					</script>
 					</div>
-					</div>
+					<br><br>
 					<div class="button">
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
-					
-					</div> <!-- myplantAdd -->
 					</form>
+					</div> <!-- myplantAdd -->
 		<% } %>
 		
 	</div> <!-- content body  -->

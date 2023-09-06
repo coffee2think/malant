@@ -30,8 +30,18 @@
        			 <%@include file = "../../views/common/sidebar.jsp" %>
 			<div id="main">
 	
-		<div class="menu"><a href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</a></div> 
-        <div class="menu"><a href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</a></div>
+		<div class="menu1" onclick="goDiary(); return false;">다이어리</div> 
+        <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
+		<script type="text/javascript">
+		function goDiary (){
+			location.href = "/malant/dlist?user_no=<%= loginMember.getUserNo() %>";
+		}
+		
+		function goMyplant (){
+			location.href = "/malant/mplist?user_no=<%= loginMember.getUserNo() %>";
+		}
+
+		</script>
 
 	    
 	<div id="contentbody">   
@@ -57,7 +67,7 @@
 					<div class="button" >
 						<input type="button" onclick="moveUpdate(); return false;" value="수정">
 						<input type="button" onclick="requestDelete(); return false;" value="삭제">
-						<button onclick="javascript:location.href='/malant/mplist?user_no=<%= loginMember.getUserNo() %>&page=<%= currentPage %>';">목록으로</button>
+						<button onclick="javascript:location.href='/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=<%= currentPage %>';">목록으로</button>
 						<script type="text/javascript">
 						function moveUpdate(){
 							location.href="/malant/mpmovemodify?userNo=<%= loginMember.getUserNo() %>&myplantId=<%= myplant.getMyplantId() %>";

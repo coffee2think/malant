@@ -93,7 +93,7 @@ public class DiaryUpdateServlet extends HttpServlet {
 		// 새로 첨부
 		String[] fileNames = mrequest.getParameterValues("filenames");
 		if(fileNames != null) {
-		System.out.println(fileNames.length);
+		
 		for (String fname : fileNames) {
 			System.out.println(fname);
 			int seqId = dservice.selectPhotoLastSeq() + 1;
@@ -130,7 +130,7 @@ public class DiaryUpdateServlet extends HttpServlet {
 		// 7. 받은 결과로 성공/실패 페이지 내보내기
 		if (result > 0) {
 			// 서블릿에서 서블릿 실행
-			response.sendRedirect("/malant/dlist?user_no=" + diary.getUserNo() + "&page=" + currentPage);
+			response.sendRedirect("/malant/dlist?action=user_no&keyword=" + diary.getUserNo() + "&page=" + currentPage);
 		} else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "일기 수정 실패!");

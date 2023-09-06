@@ -34,6 +34,7 @@ body {
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
+	display: block;
 }
 
 
@@ -54,8 +55,8 @@ body {
 	width: 130px;
 	height: 30px;
 	margin-top: 30px;
-	margin-left: 170px;
-	padding-top: 12px;;
+	margin-left: 25px;
+	padding-top: 12px;
 	border-radius: 5px;
 	background-color: #f2f2f2;
 	font-size: 12pt;
@@ -63,6 +64,7 @@ body {
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
+	display: block;
 }
 
 
@@ -124,7 +126,6 @@ body {
 	
 }
 
-
 .myplantbox {
 	width: 260px;
 	height: 340px;
@@ -147,9 +148,8 @@ body {
 	margin-top: 7px;
 	width: 260px;
 	height: 210px;
-	background-color: #92BEA9;
+	background-color: #f2f2f2;
 	position: absolute;
-	justify-content: center;
 }
 
 .myplantbox .information {
@@ -197,7 +197,8 @@ body {
 	padding-top:10px;
 	padding-left:50px;
 	padding-right:50px;
-	background-color: #92BEA9;
+	background-color: #f2f2f2;
+	border: 5px solid #262626;
 	border-radius: 5px;
 	position: absolute;
 	float: left;
@@ -209,7 +210,7 @@ body {
  }
  
  .myplantAdd .title {
- 	margin-top:5px;
+ 	margin-top:10px;
  	font-size:20pt;
  	text-align:center;
  }
@@ -236,4 +237,4 @@ body {
                transform 200ms ease-in-out 0ms;
  }
 
- 
+
