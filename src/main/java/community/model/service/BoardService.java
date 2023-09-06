@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import common.Paging;
 import community.model.dao.BoardDao;
 import community.model.vo.Board;
+import community.model.vo.CMBoardPhoto;
 import community.model.vo.CMHashtag;
 import community.model.vo.Comment;
 
@@ -97,9 +98,9 @@ public class BoardService {
 		return list;
 	}
 
-	public ArrayList<Board> selectMyList(String userno, int startRow, int endRow) {
+	public ArrayList<Board> selectMyList(String userno) {
 		Connection conn = getConnection();
-		ArrayList<Board> list = bdao.selectMyList(conn, startRow, endRow, userno);
+		ArrayList<Board> list = bdao.selectMyList(conn, userno);
 		close(conn);
 		return list;
 	}
@@ -168,4 +169,23 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
+
+	public ArrayList<CMBoardPhoto> selectBoardPhotoList(int bnum) {
+		Connection conn = getConnection();
+		ArrayList<CMBoardPhoto> list = bdao.selectBoardPhotoList(conn, bnum);
+		close(conn);
+		return list;
+	}
+
+	public int insertBoardPhoto(CMBoardPhoto photo) {
+		Connection conn = getConnection();
+		int result = bdao.insertBoardPhoto(conn, photo);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
 }

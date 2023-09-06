@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import common.Paging;
 import community.model.vo.Board;
+import community.model.vo.CMBoardPhoto;
 import community.model.vo.CMHashtag;
 import community.model.vo.Comment;
 
@@ -65,7 +66,7 @@ public class BoardDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
-		String query = "update cm_board set board_like = board_like + 1 where board_no = ?";
+		String query = "update cm_board set view_count = view_count + 1 where board_no = ?";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, boardNo);
@@ -321,12 +322,12 @@ public class BoardDao {
 		return list;
 	}
 
-	public ArrayList<Board> selectMyList(Connection conn, int startRow, int endRow, String userno) {
+	public ArrayList<Board> selectMyList(Connection conn, String userno) {
 		ArrayList<Board> list = new ArrayList<Board>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select CM_BOARD.* from CM_BOARD  where user_no = ? " + "order by board_date desc";
+		String query = "select CM_BOARD.* from CM_BOARD  where user_no = ? order by board_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -427,7 +428,7 @@ public class BoardDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = "insert into cm_board values "
-				+ "((select max(board_no) + 1 from cm_board), ?, ?, ?, ?,default, default,default,  ?, default, default)";
+				+ "((select max(board_no) + 1 from cm_board), ?, ?, ?, ?, default, default, default,  ?, default)";
 
 		try {
 
@@ -437,7 +438,8 @@ public class BoardDao {
 			pstmt.setString(2, board.getNickname());
 			pstmt.setString(3, board.getBoardTitle());
 			pstmt.setString(4, board.getBoardContent());
-
+			pstmt.setString(5, board.getThumbnail());
+			
 			result = pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -557,6 +559,66 @@ public class BoardDao {
 		}
 
 		return list;
+	}
+
+	public ArrayList<CMBoardPhoto> selectBoardPhotoList(Connection conn, int bnum) {
+		ArrayList<CMBoardPhoto> list = new ArrayList<CMBoardPhoto>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String query = "select * "
+				+ "from cm_board_photo "
+				+ "where BOARD_NO = ? "
+				+ "order by  PHOTO_NO asc";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bnum);
+
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				CMBoardPhoto photo = new CMBoardPhoto();
+
+				photo.setBoardNo(rset.getInt("BOARD_NO"));
+				photo.setPhotoNo(rset.getInt("PHOTO_NO"));
+				photo.setFilename(rset.getString("FILENAME"));
+				
+				list.add(photo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	public int insertBoardPhoto(Connection conn, CMBoardPhoto photo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "insert into cm_board_photo values "
+				+ "((select max(photo_no) + 1 from cm_board_photo), ?, "
+				+ "((select max(board_no) from cm_board))";
+
+		try {
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, photo.getBoardNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }

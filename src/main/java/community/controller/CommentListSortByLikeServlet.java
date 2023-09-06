@@ -44,7 +44,7 @@ public class CommentListSortByLikeServlet extends HttpServlet {
 		BoardService bservice = new BoardService();
 		ArrayList<Comment> clist = new CommentService().selectCommentList(bnum);
 		
-		Board board = bservice.selectBoardByBoardNo(bnum);
+		Board board = bservice.selectBoard(bnum);
 		
 		RequestDispatcher view = null;
 		

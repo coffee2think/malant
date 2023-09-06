@@ -35,10 +35,6 @@ public class MyBoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String userno = request.getParameter("userno");
-		int currentPage = 1;
-		if (request.getParameter("page") != null) {
-			currentPage = Integer.parseInt(request.getParameter("page"));
-		}
 
 		int limit = 10;
 
@@ -46,18 +42,14 @@ public class MyBoardListServlet extends HttpServlet {
 
 		int listCount = bservice.getMyListCount(userno);
 
-		Paging paging = new Paging(listCount, currentPage, limit, "myblist");
-		paging.calculator();
 
-		ArrayList<Board> myblist = bservice.selectMyList(userno, paging.getStartRow(), paging.getEndRow());
+		ArrayList<Board> myblist = bservice.selectMyList(userno);
 
 		RequestDispatcher view = null;
 		if(myblist.size() > 0) {
 			view = request.getRequestDispatcher("views/board/boardMainList.jsp");
 			/* request.setAttribute("userno", userno); */
 
-			request.setAttribute("paging", paging);
-			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("myblist", myblist);
 			request.setAttribute("userno", userno);
 			
