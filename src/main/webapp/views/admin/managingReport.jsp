@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리 페이지</title>
+<title>신고 처리</title>
 </head>
 <body>
-
+	
 </body>
 </html>

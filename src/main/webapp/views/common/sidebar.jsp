@@ -3,6 +3,9 @@
 <%
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+	if(isAdmin == null) {
+		isAdmin = false;
+	}
 %>
 
 <!DOCTYPE html>
@@ -32,8 +35,13 @@
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
 				<li><a href="/malant/smplist">스토어</a></li>
 				<li><a href="/malant/ntitlelist">공지/이벤트</a></li>
+				
+				<% if(isAdmin) { %>
 				<li><a href="/malant/qlist">문의 & 답변</a></li>
 				<li><a href="/malant/breportlist">신고 처리</a></li>
+				<% } else { %>
+				<li><a href="/malant/qinsert">문의하기</a></li>
+				<% } %>
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
@@ -41,7 +49,7 @@
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
 				로그인 하러 가기
 			</div>
-		<% } else if(isAdmin != null && isAdmin) { // 관리자인 경우 %>
+		<% } else if(isAdmin) { // 관리자인 경우 %>
 			<div class="login-section">
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님

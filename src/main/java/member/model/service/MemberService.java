@@ -130,6 +130,13 @@ public class MemberService {
 		return admin;
 	}
 
+	public Seller selectSellerLogin(String userId, String userPwd) {
+		Connection conn = getConnection();
+		Seller seller = mdao.selectSellerLogin(conn, userId, userPwd);
+		close(conn);
+		return seller;
+	}
+
 	
 
 }
