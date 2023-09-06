@@ -49,8 +49,10 @@ public class DiaryDao {
 		ResultSet rset = null;
 
 		String query = "select *  " + "from (select rownum rnum, diary_id, user_no,  "
-				+ "diary_writing_date, diary_content  " + "from (select * from my_diary where user_no = ? "
-				+ "order by diary_writing_date desc)) " + "where rnum >= ? and rnum <= ?";
+				+ "diary_writing_date, diary_content  " 
+				+ "from (select * from my_diary where user_no = ? "
+				+ "order by diary_writing_date desc)) " 
+				+ "where rnum >= ? and rnum <= ?";
 
 		try {
 			pstmt = conn.prepareStatement(query);

@@ -33,34 +33,29 @@ public class MyplantListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+	
 		// myplant list 조회서블릿
-		String userNo = request.getParameter("user_no");
+		String action = request.getParameter("action");
+		String keyword = request.getParameter("keyword");
 
-
-		//출력할 페이지 지정
 		int currentPage = 1;
-		
-		//전송 온 페이지 값이 있다면 추출함
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		//한페이지 당 출력할 목록 개수 지정
-			int limit = 8;
-		
-		//조회용 모델측 서비스 객체 생성
+		//전송온 목록 갯수가 있다면 추출함
+		int limit = 8;
 		MyplantService mpservice = new MyplantService();
-		
-		//총 페이지 수 계산을 위한 전체 목록 개수 조회
-		int listCount = mpservice.getListCount(userNo);
+		int listCount = mpservice.getListCount(keyword);
+
+
 		
 		//뷰 페이지에서 사용할 페이징 관련 값 계산 처리
 		Paging paging = new Paging(listCount, currentPage, limit, "mplist");
 		paging.calculator();
 		
 		//모델 서비스로 해당 페이지에 출력할 게시글만 조회해 옴 
-		ArrayList<Myplant> list = mpservice.selectMyplantList(paging, userNo);
+		ArrayList<Myplant> list = mpservice.selectMyplantList(paging, keyword);
 		
 		//받은 결과에 따라 성공 또는 실패 페이지 내보내기 
 		RequestDispatcher view = null;
@@ -73,7 +68,9 @@ public class MyplantListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
 			request.setAttribute("currentPage", currentPage);
-			request.setAttribute("user_no", userNo);
+			request.setAttribute("user_no", keyword);
+			request.setAttribute("action", action);
+			request.setAttribute("keyword", keyword);
 			
 			
 		}else {

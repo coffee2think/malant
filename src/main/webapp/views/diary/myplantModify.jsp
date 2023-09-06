@@ -48,8 +48,18 @@ window.onload = function() {
 
 			<div id="main">
 	
-		<div class="menu"><a href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</a></div> 
-        <div class="menu"><a href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</a></div>
+		<div class="menu1" onclick="goDiary(); return false;">다이어리</div> 
+        <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
+		<script type="text/javascript">
+		function goDiary (){
+			location.href = "/malant/dlist?user_no=<%= loginMember.getUserNo() %>";
+		}
+		
+		function goMyplant (){
+			location.href = "/malant/mplist?user_no=<%= loginMember.getUserNo() %>";
+		}
+
+		</script>
 
 	    
 	<div id="contentbody">   
@@ -62,22 +72,30 @@ window.onload = function() {
 					<input type="hidden" name="page" value="<%= currentPage %>">
 					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME" value="<%= myplant.getMyplantName() %>"></div>
 					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY" value="<%= myplant.getMyplantVariety() %>"></div>
-					<div>사진 &nbsp; <input type="file" id="MYPLANT_IMAGE_URL" name="MYPLANT_IMAGE_URL">
+					<div>사진 &nbsp; <input type="file" id="MYPLANT_IMAGE_URL" name="MYPLANT_IMAGE_URL" value="/malant/resources/diary/">
 							<div id="previewbox" style="width:280px;height:280px;border:1px slid black;padding:10px;margin:10px;">
+								<%-- <% if(myplant.getMyplantImageURL() != null) {%>
 								<img id="photo" src="/malant/resources/diary/myplant_upimages/<%= myplant.getMyplantImageURL() %>"
 								width="260" height="260" align="center" style="position:relative;left:10px;top:10px;">
+								<% }else { %> --%>
+								<img id="photo" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png"
+								width="260" height="260" align="center" style="position:relative;left:10px;top:10px;">
+								<%-- <% } %> --%>
 							</div>
 							<br>
 					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE" value="<%= myplant.getMyplantStartDate()%>"> </div>
 					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO" value="<%= myplant.getMyplantMemo() %>"></div>
 					<br>
 					<div>
-						<input type="reset" class="close-btn" value="취소">
+						<input type="button" onclick="cancle(); return false;" class="close-btn" value="취소">
 						<input type="button" onclick="requestDelete(); return false;" value="삭제">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
 					
 					<script type="text/javascript">
+					function cancle() {
+						location.href = "/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=<%= currentPage %>";
+					}
 
 					function requestDelete() {
 						location.href = "/malant/mpdelete?userNo=<%= loginMember.getUserNo() %>&myplantId=<%= myplant.getMyplantId() %>&MyplantImageURL=<%= myplant.getMyplantImageURL() %>";
