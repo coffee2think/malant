@@ -82,7 +82,6 @@ public class SearchPlantServlet extends HttpServlet {
 			
 			list = service.selectPlantList(keyword, paging.getStartRow(), paging.getEndRow());
 			
-			request.setAttribute("action", "name"); // 페이징에서 키워드 검색 페이징임을 확인하기 위해 action에 name을 넣음
 			System.out.println("keyword : " + keyword);
 			System.out.println("list : " + list);
 		} else { // 키워드가 없을 경우 필터 검색
@@ -97,23 +96,20 @@ public class SearchPlantServlet extends HttpServlet {
 	            System.out.println(key + " : " + value);
 	        });
 			System.out.println("list : " + list);
-			
-			request.setAttribute("action", "filter"); // 페이징에서 필터 검색 페이징임을 확인하기 위해 action에 filter을 넣음
 		}
 		
 		// 결과 전송
 		RequestDispatcher view = null;
 		view = request.getRequestDispatcher("views/search/searchResultView.jsp");
-		request.setAttribute("keyword", keyword);
-		
-		for(String key : filters.keySet()) {
-			request.setAttribute(key, filters.get(key));
-		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);	
 		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("action", "name");
+		request.setAttribute("action", "plsearch"); // 페이징에서 키워드 검색 페이징임을 확인하기 위해 action에 name을 넣음
+		request.setAttribute("keyword", keyword);
+		for(String key : filters.keySet()) {
+			request.setAttribute(key, filters.get(key));
+		}
 		view.forward(request, response);
 	}
 
