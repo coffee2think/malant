@@ -1,6 +1,7 @@
 package member.model.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Seller implements Serializable {
 
@@ -16,13 +17,13 @@ public class Seller implements Serializable {
 	private String displayedStoreName;
 	private String address;
 	private String approvalYn;
-	private String approvalDate;
-	private String createdDate;
+	private Date approvalDate;
+	private Date createdDate;
 	
 	public Seller() {}
 
 	public Seller(String sellerNo, String businessNo, String sellerId, String sellerPwd, String contact, String email,
-			String storeName, String address, String approvalYn, String createdDate) {
+			String storeName, String address, String approvalYn, Date createdDate) {
 		this.sellerNo = sellerNo;
 		this.businessNo = businessNo;
 		this.sellerId = sellerId;
@@ -36,8 +37,8 @@ public class Seller implements Serializable {
 	}
 
 	public Seller(String sellerNo, String businessNo, String sellerId, String sellerPwd, String contact, String email,
-			String storeName, String displayedStoreName, String address, String approvalYn, String approvalDate,
-			String createdDate) {
+			String storeName, String displayedStoreName, String address, String approvalYn, Date approvalDate,
+			Date createdDate) {
 		this.sellerNo = sellerNo;
 		this.businessNo = businessNo;
 		this.sellerId = sellerId;
@@ -50,101 +51,105 @@ public class Seller implements Serializable {
 		this.approvalYn = approvalYn;
 		this.approvalDate = approvalDate;
 		this.createdDate = createdDate;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public String getSellerNo() {
 		return sellerNo;
 	}
 
-	public void setSellerNo(String sellerNo) {
-		this.sellerNo = sellerNo;
-	}
-
 	public String getBusinessNo() {
 		return businessNo;
-	}
-
-	public void setBusinessNo(String businessNo) {
-		this.businessNo = businessNo;
 	}
 
 	public String getSellerId() {
 		return sellerId;
 	}
 
-	public void setSellerId(String sellerId) {
-		this.sellerId = sellerId;
-	}
-
 	public String getSellerPwd() {
 		return sellerPwd;
-	}
-
-	public void setSellerPwd(String sellerPwd) {
-		this.sellerPwd = sellerPwd;
 	}
 
 	public String getContact() {
 		return contact;
 	}
 
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
 	public String getEmail() {
 		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getStoreName() {
 		return storeName;
 	}
 
-	public void setStoreName(String storeName) {
-		this.storeName = storeName;
-	}
-
 	public String getDisplayedStoreName() {
 		return displayedStoreName;
-	}
-
-	public void setDisplayedStoreName(String displayedStoreName) {
-		this.displayedStoreName = displayedStoreName;
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getApprovalYn() {
 		return approvalYn;
+	}
+
+	public Date getApprovalDate() {
+		return approvalDate;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setSellerNo(String sellerNo) {
+		this.sellerNo = sellerNo;
+	}
+
+	public void setBusinessNo(String businessNo) {
+		this.businessNo = businessNo;
+	}
+
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public void setSellerPwd(String sellerPwd) {
+		this.sellerPwd = sellerPwd;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public void setDisplayedStoreName(String displayedStoreName) {
+		this.displayedStoreName = displayedStoreName;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public void setApprovalYn(String approvalYn) {
 		this.approvalYn = approvalYn;
 	}
 
-	public String getApprovalDate() {
-		return approvalDate;
-	}
-
-	public void setApprovalDate(String approvalDate) {
+	public void setApprovalDate(Date approvalDate) {
 		this.approvalDate = approvalDate;
 	}
 
-	public String getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -155,5 +160,7 @@ public class Seller implements Serializable {
 				+ ", displayedStoreName=" + displayedStoreName + ", address=" + address + ", approvalYn=" + approvalYn
 				+ ", approvalDate=" + approvalDate + ", createdDate=" + createdDate + "]";
 	}
+
+	
 
 }

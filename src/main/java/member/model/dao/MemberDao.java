@@ -411,6 +411,40 @@ public class MemberDao {
 		return admin;
 	}
 
+	public Seller selectSellerLogin(Connection conn, String userId, String userPwd) {
+		Seller seller = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from st_seller "
+				+ "where seller_id = ? and seller_pwd = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				seller = new Seller();
+				
+				seller.setSellerNo(rset.getString("seller_no"));
+				seller.setBusinessNo(rset.getString("business_no"));
+				seller.setSellerId(rset.getString("seller_id"));
+				seller.setSellerPwd(rset.getString("seller_pwd"));
+				seller.setStoreName(rset.getString("store_name"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return seller;
+	}
+
 	
 
 }

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import member.model.service.MemberService;
 import member.model.vo.Admin;
 import member.model.vo.Member;
+import member.model.vo.Seller;
 
 /**
  * Servlet implementation class LoginServlet
@@ -44,6 +45,7 @@ public class LoginServlet extends HttpServlet {
 		
 		Member member = null;
 		Admin admin = null;
+		Seller seller = null;
 		
 		String referer = request.getParameter("preReferer");
 		
@@ -63,6 +65,8 @@ public class LoginServlet extends HttpServlet {
 		// 서비스 메소드로 값 전달 실행하고 결과 받기
 		if("admin".equals(loc)) { // 로그인 페이지에서 로그인을 시도했을 시
 			admin = new MemberService().selectAdminLogin(userId, cryptoUserpwd);
+		} else if ("seller".equals(loc)) {
+			seller = new MemberService().selectSellerLogin(userId, cryptoUserpwd);
 		} else {
 			member = new MemberService().selectLogin(userId, cryptoUserpwd);
 		}
@@ -86,6 +90,23 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(referer);
 			} else {
 				response.sendRedirect("index.jsp");
+			}
+		} else if(seller != null) {
+			member = new Member();
+			
+			member.setUserNo(seller.getSellerNo());
+			member.setUserId(seller.getSellerId());
+			member.setUserPwd(seller.getSellerPwd());
+			member.setNickname(seller.getStoreName());
+			member.setCreatedDate(seller.getCreatedDate());
+			member.setSellerYn("Y");
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginMember", member);
+			if(referer != null && !referer.isEmpty()) {
+				response.sendRedirect(referer);
+			} else {
+				response.sendRedirect("/malant/views/seller/sellerProductList.jsp");
 			}
 		} else if(member != null && member.getWithdrawalYn().equals("Y")) { // 탈퇴한 회원인 경우
 			Date withdrawalDate = new MemberService().selectWithdrawalDate(member.getUserNo());

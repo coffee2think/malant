@@ -9,15 +9,10 @@ public class Inquiry implements Serializable {
 	
 	private int inquiryNo;
 	private String inquirerNo;
-	private String inquirerId;
-	private String inquirerEmail;
 	private Date inquiryDate;
-	private String inquiryType;
 	private String inquiryTitle;
 	private String inquiryContent;
-	private String inquiryPath;
 	private String replierNo;
-	private String replierName;
 	private String replierContent;
 	private String status;
 	private Date completionDate;
@@ -25,34 +20,24 @@ public class Inquiry implements Serializable {
 	public Inquiry() {
 	}
 
-	public Inquiry(int inquiryNo, String inquirerNo, String inquirerId, String inquirerEmail, Date inquiryDate,
-			String inquiryType, String inquiryTitle, String inquiryContent, String inquiryPath, String status) {
+	public Inquiry(int inquiryNo, String inquirerNo, Date inquiryDate, String inquiryTitle, String inquiryContent,
+			String status) {
 		this.inquiryNo = inquiryNo;
 		this.inquirerNo = inquirerNo;
-		this.inquirerId = inquirerId;
-		this.inquirerEmail = inquirerEmail;
 		this.inquiryDate = inquiryDate;
-		this.inquiryType = inquiryType;
 		this.inquiryTitle = inquiryTitle;
 		this.inquiryContent = inquiryContent;
-		this.inquiryPath = inquiryPath;
 		this.status = status;
 	}
 
-	public Inquiry(int inquiryNo, String inquirerNo, String inquirerId, String inquirerEmail, Date inquiryDate,
-			String inquiryType, String inquiryTitle, String inquiryContent, String inquiryPath, String replierNo,
-			String replierName, String replierContent, String status, Date completionDate) {
+	public Inquiry(int inquiryNo, String inquirerNo, Date inquiryDate, String inquiryTitle, String inquiryContent,
+			String replierNo, String replierContent, String status, Date completionDate) {
 		this.inquiryNo = inquiryNo;
 		this.inquirerNo = inquirerNo;
-		this.inquirerId = inquirerId;
-		this.inquirerEmail = inquirerEmail;
 		this.inquiryDate = inquiryDate;
-		this.inquiryType = inquiryType;
 		this.inquiryTitle = inquiryTitle;
 		this.inquiryContent = inquiryContent;
-		this.inquiryPath = inquiryPath;
 		this.replierNo = replierNo;
-		this.replierName = replierName;
 		this.replierContent = replierContent;
 		this.status = status;
 		this.completionDate = completionDate;
@@ -70,20 +55,8 @@ public class Inquiry implements Serializable {
 		return inquirerNo;
 	}
 
-	public String getInquirerId() {
-		return inquirerId;
-	}
-
-	public String getInquirerEmail() {
-		return inquirerEmail;
-	}
-
 	public Date getInquiryDate() {
 		return inquiryDate;
-	}
-
-	public String getInquiryType() {
-		return inquiryType;
 	}
 
 	public String getInquiryTitle() {
@@ -94,16 +67,8 @@ public class Inquiry implements Serializable {
 		return inquiryContent;
 	}
 
-	public String getInquiryPath() {
-		return inquiryPath;
-	}
-
 	public String getReplierNo() {
 		return replierNo;
-	}
-
-	public String getReplierName() {
-		return replierName;
 	}
 
 	public String getReplierContent() {
@@ -126,20 +91,8 @@ public class Inquiry implements Serializable {
 		this.inquirerNo = inquirerNo;
 	}
 
-	public void setInquirerId(String inquirerId) {
-		this.inquirerId = inquirerId;
-	}
-
-	public void setInquirerEmail(String inquirerEmail) {
-		this.inquirerEmail = inquirerEmail;
-	}
-
 	public void setInquiryDate(Date inquiryDate) {
 		this.inquiryDate = inquiryDate;
-	}
-
-	public void setInquiryType(String inquiryType) {
-		this.inquiryType = inquiryType;
 	}
 
 	public void setInquiryTitle(String inquiryTitle) {
@@ -150,16 +103,8 @@ public class Inquiry implements Serializable {
 		this.inquiryContent = inquiryContent;
 	}
 
-	public void setInquiryPath(String inquiryPath) {
-		this.inquiryPath = inquiryPath;
-	}
-
 	public void setReplierNo(String replierNo) {
 		this.replierNo = replierNo;
-	}
-
-	public void setReplierName(String replierName) {
-		this.replierName = replierName;
 	}
 
 	public void setReplierContent(String replierContent) {
@@ -176,11 +121,10 @@ public class Inquiry implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Inquiry [inquiryNo=" + inquiryNo + ", inquirerNo=" + inquirerNo + ", inquirerId=" + inquirerId
-				+ ", inquirerEmail=" + inquirerEmail + ", inquiryDate=" + inquiryDate + ", inquiryType=" + inquiryType
-				+ ", inquiryTitle=" + inquiryTitle + ", inquiryContent=" + inquiryContent + ", inquiryPath="
-				+ inquiryPath + ", replierNo=" + replierNo + ", replierName=" + replierName + ", replierContent="
-				+ replierContent + ", status=" + status + ", completionDate=" + completionDate + "]";
+		return "Inquiry [inquiryNo=" + inquiryNo + ", inquirerNo=" + inquirerNo + ", inquiryDate=" + inquiryDate
+				+ ", inquiryTitle=" + inquiryTitle + ", inquiryContent=" + inquiryContent + ", replierNo=" + replierNo
+				+ ", replierContent=" + replierContent + ", status=" + status + ", completionDate=" + completionDate
+				+ "]";
 	}
-	
+
 }
