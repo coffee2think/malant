@@ -36,12 +36,15 @@
 				<li><a href="/malant/smplist">스토어</a></li>
 				<li><a href="/malant/ntitlelist">공지/이벤트</a></li>
 				
+				<%-- 
 				<% if(isAdmin) { %>
 				<li><a href="/malant/qlist">문의 & 답변</a></li>
 				<li><a href="/malant/breportlist">신고 처리</a></li>
-				<% } else { %>
+				<% } else if(loginMember != null) { %>
 				<li><a href="/malant/qinsert">문의하기</a></li>
+				<li><a href="/malant/myqlist?userno=<%= loginMember.getUserNo() %>&action=myqlist">내 문의 목록</a></li>
 				<% } %>
+				--%>
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
