@@ -30,6 +30,12 @@ Notice notice = (Notice) request.getAttribute("nno");
 .notice-image img {
 	width: 500px; /* 이미지를 100% 너비로 표시하여 부모 요소에 맞게 조절 */
 }
+
+.createbtn {
+	position: fixed;
+	right: 100px;
+	top: 100px;
+}
 </style>
 
 <script>
@@ -78,32 +84,14 @@ function readImage(input) {
 		<div class="container">
 			<%@ include file="../../views/common/sidebar.jsp"%>
 		</div>
+		<% if(isAdmin) { %>
+		<div class="createbtn">
+			<button onclick="javascript:location.href='/malant/views/notice/createNotice.jsp'">글쓰기</button>
+		</div>
+		<% } %>
 		<div class='notice-image'>
 			<div class="notice-item">	
-				<% if (loginMember.getUserId().equals("admin001")) {%>
-					<button id="notice-write" onclick="checkImageSelection();">파일 업로드</button>
-<input type="file" id="input-image" name="input-image" onchange="checkImageSelection(this);">
-<img name="preview-image" id="preview-image" src="/malant/resources/notice/notice_content_img/p.png" style="width: 350px;">
-                   <br>
-					<input type="hidden" name="adminno" readonly><br>
-					 타입 :
-					<input type="radio" name="noticetype" value="BANNER"> BANNER
-					<input type="radio" name="noticetype" value="NOTICE"> NOTICE
-					<input type="radio" name="noticetype" value="EVENT"> EVENT
-					<br><br>
-					제목 : 
-					<input type="text" name="title" readonly><br><br>
-					내용 : 
-					<input type="text" name="content"><br><br>
-					이벤트 시작일 (이벤트 타입만 체크하세요):<br>
-					<input type="date" name="eventstart"><br><br>
-					이벤트 종료일 (이벤트 타입만 체크하세요):<br>
-					<input type="date" name="eventend"><br>
-					
-					<input type="submit" value="쓰기">
-					<br><br><br><br>
-				<% } %>
-			</form>
+			
 			<%
 			for (int i = 0; i < nlist.size(); i++) {
 			%>
@@ -111,7 +99,7 @@ function readImage(input) {
 					<img src="<%=nlist.get(i).getContentImage()%>">
 				</a>
 				<div><%=nlist.get(i).getTitle()%></div>
-				<% if (loginMember.getUserId().equals("admin001")) { %>
+				<% if (isAdmin) { %>
 				  <%--  <button onclick="updateNotice(<%=nlist.get(i).getNoticeNo()%>)">공지사항수정</button>  --%>
 				    <button onclick="deleteNotice(<%=nlist.get(i).getNoticeNo()%>)">공지사항삭제</button>
 				 <% }else{ %>

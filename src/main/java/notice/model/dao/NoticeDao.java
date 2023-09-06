@@ -170,8 +170,7 @@ public class NoticeDao {
 	public int insertNotice(Connection conn, Notice notice) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "insert into notice values "
-				+ "(NOTICE_SEQ.NEXTVAL, ?,?, ?, ?, null, ?, default, default,? ,? , default);";
+		String query = "insert into NOTICE values (NOTICE_SEQ.NEXTVAL, ?, ?, ?, ?, null, ?,  default,  default, ?, ?, default)";
 
 		try {
 
