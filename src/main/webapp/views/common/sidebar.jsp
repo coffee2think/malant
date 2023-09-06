@@ -27,7 +27,7 @@
 				<% if(loginMember == null) { %>
 					href="/malant/views/member/loginPage.jsp"
 				<% } else { %>
-					href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>"
+					href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>"
 				<% } %>>다이어리</a></li>
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
 				<li><a href="/malant/smplist">스토어</a></li>

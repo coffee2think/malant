@@ -38,8 +38,7 @@ window.onload = function() {
 		reader.onload = (e) => {
 			previewImg.setAttribute('src', e.target.result);
 			previewImg.setAttribute('data-file', file.name);
-		};
-		
+		};	
 		reader.readAsDataURL(file);
 	});
 	
@@ -53,33 +52,34 @@ window.onload = function() {
        			 <%@include file = "../../views/common/sidebar.jsp" %>
 			<div id="main">
 	
-		<div class="menu"><a href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</a></div> 
-		<div class="menu"><a href="/malant/views/diary/calendar.jsp">캘린더</a></div> 
-		<div class="menu"><a href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</a></div>	
+		<div class="menu1" onclick="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</div> 
+        <div class="menu2" onclick="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</div>
 
 	    
-	<div id="contentbody">   
+	<div id="contentbody" class="contentbody">   
 	
 
 	
 	<% if (list.size() > 0 ) { %>
 		
-		<div id="addYourPlant" class="addYourPlant" > 반려식물을 등록해주세요!</div> 
+			<div id="addYourPlant" class="addYourPlant"> 반려식물을 등록해주세요!</div> 
 		
 			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
-			<div id="myplantAdd" class="myplantAdd" style="padding:10px;"> 반려식물 등록화면 
-					
-					
+			<div id="myplantAdd" class="myplantAdd"> 
+			<br>
+					<div class="title">당신의 반려식물을 등록하세요</div>
+					<br>
+					<div class="addinfo">
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
-					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME"></div>
-					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"></div>
-					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
+					애칭 &nbsp; <input type="text" name="MYPLANT_NAME"><br>
+					품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"><br>
+					사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
 					<div id="reviewbox" style="width:220px;height:220px;border:1px solid black;padding:10px;margin:10px;">
 						<img id="photo" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png"
-						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;">
-					</div></div>
-					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
-					<div>키우기 시작한 날 &nbsp; <input type="date" id="theDate" name="MYPLANT_START_DATE">
+						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;"><br>
+					</div>
+					메모 &nbsp; <input type="text" name="MYPLANT_MEMO"><br>
+					키우기 시작한 날 &nbsp; <input type="date" id="date" name="MYPLANT_START_DATE"><br>
 					<script type="text/javascript">
 							var date = new Date();
 		
@@ -94,16 +94,18 @@ window.onload = function() {
 							document.getElementById("theDate").value = today;
 					</script>
 					</div>
-
-					<div>
+					<br><br>
+					<div class="button">
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
 					
 					</div> <!-- myplantAdd -->
 					</form>
+					
+					
 
-	<div id="myplantListbody">		
+	<div id="myplantListbody" class="myplantListbody" style="margin-top:40px;">		
 	<% for (Myplant mp : list) { %>
 		
 				<div id="myplantbox" class="myplantbox" onclick="moveDetail(<%= mp.getMyplantId() %>); return false;"> 
@@ -141,17 +143,23 @@ window.onload = function() {
 		
 		<% }else if(list.size() == 0) { %>
 		
-			<div id="addYourPlant" class="addYourPlant"> 반려식물을 등록해주세요! </div>
-						<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
-			<div id="myplantAdd" class="myplantAdd"> 반려식물 등록화면 (팝업)
-					
+					<div id="addYourPlant" class="addYourPlant"> 반려식물을 등록해주세요!</div> 
+		
+			<form action="/malant/mpnew" method="post" enctype="multipart/form-data">
+			<div id="myplantAdd" class="myplantAdd"> 
+					<div class="title">당신의 반려식물을 등록하세요</div>
+					<div class="addinfo">
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
 					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME"></div>
 					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"></div>
-					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL"></div>
+					<div>사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
+					<div id="reviewbox" style="width:220px;height:220px;border:1px solid black;padding:10px;margin:10px;">
+						<img id="photo" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png"
+						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;">
+					</div></div>
 					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO"></div>
 					<div>키우기 시작한 날 &nbsp; <input type="date" id="theDate" name="MYPLANT_START_DATE">
-						<script type="text/javascript">
+					<script type="text/javascript">
 							var date = new Date();
 		
 							var day = date.getDate();
@@ -163,15 +171,14 @@ window.onload = function() {
 		
 							var today = year + "-" + month + "-" + day;       
 							document.getElementById("theDate").value = today;
-						</script>
+					</script>
 					</div>
-
-					<div>
+					</div>
+					<div class="button">
 						<input type="reset" class="close-btn" value="취소">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
-					<div class="backOverlay"></div>
-	
+					
 					</div> <!-- myplantAdd -->
 					</form>
 		<% } %>

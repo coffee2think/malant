@@ -31,32 +31,33 @@
 			<div id="main">
 	
 		<div class="menu"><a href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</a></div> 
-		<div class="menu"><a href="/malant/views/diary/calendar.jsp">캘린더</a></div> 
-		<div class="menu"><a href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</a></div>	
+        <div class="menu"><a href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</a></div>
 
 	    
 	<div id="contentbody">   
 		
-				<div id="myplantDetail" class="myplantDetail"> 디테일화면
+				<div id="myplantDetail" class="myplantDetail">
 
 					<input type="hidden" name="MYPLANT_ID" value="<%= myplant.getMyplantId() %>">
 					<input type="hidden" name="MYPLANT_IMAGE_URL" value="<%= myplant.getMyplantImageURL() %>">
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
+					<div class="nickname">애칭: <%= myplant.getMyplantName() %></div>
 					<div class="ID">ID : <%= myplant.getMyplantId() %></div>
-					<div class="">애칭: <%= myplant.getMyplantName() %></div>
-					<div class="">품종: <%= myplant.getMyplantVariety() %></div>
-					<div class="">사진 
+					<div class="variety">품종: <%= myplant.getMyplantVariety() %></div>
+					<div class="img" style="width:300px;height:300px;"> 
 							<% if(myplant.getMyplantImageURL() != null) { %>
-								<img class="image" src="/malant/resources/diary/myplant_upimages/<%= myplant.getMyplantImageURL() %>">
+								<img class="image" src="/malant/resources/diary/myplant_upimages/<%= myplant.getMyplantImageURL() %>" style="width:300px;height:300px;">
 							<% }else { %>
-							    <img class="image" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png">
+							    <img class="image" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png" style="width:300px;height:300px;">
 							<% } %></div>
+							<br>
 					<div class="">키우기 시작한 날: <%= myplant.getMyplantStartDate() %></div>
 					<div class="">메모: <%= myplant.getMyplantMemo() %></div>
-
-					<div>
+					<br>
+					<div class="button" >
 						<input type="button" onclick="moveUpdate(); return false;" value="수정">
 						<input type="button" onclick="requestDelete(); return false;" value="삭제">
+						<button onclick="javascript:location.href='/malant/mplist?user_no=<%= loginMember.getUserNo() %>&page=<%= currentPage %>';">목록으로</button>
 						<script type="text/javascript">
 						function moveUpdate(){
 							location.href="/malant/mpmovemodify?userNo=<%= loginMember.getUserNo() %>&myplantId=<%= myplant.getMyplantId() %>";

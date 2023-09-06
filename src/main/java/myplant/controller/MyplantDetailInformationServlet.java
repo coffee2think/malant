@@ -46,7 +46,7 @@ public class MyplantDetailInformationServlet extends HttpServlet {
 
 		Myplant myplant = mpservice.selectMyplantInfo(userNo, myplantId);
 		
-		System.out.println("myinfo : " + myplant);
+		
 		
 		RequestDispatcher view = null;
 		if(myplant != null) {
