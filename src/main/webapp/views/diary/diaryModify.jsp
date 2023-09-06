@@ -67,15 +67,8 @@ window.onload = function(){
 		<%@include file="../../views/common/sidebar.jsp"%>
 		<div id="main">
 
-			<div class="menu">
-				<a href="/malant/dlist?user_no=<%=loginMember.getUserNo()%>">다이어리</a>
-			</div>
-			<div class="menu">
-				<a href="/malant/views/diary/calendar.jsp">캘린더</a>
-			</div>
-			<div class="menu">
-				<a href="/malant/mplist?user_no=<%=loginMember.getUserNo()%>">반려식물</a>
-			</div>
+ 		<div class="menu"><a href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</a></div> 
+        <div class="menu"><a href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</a></div>
 
 			<div id="contentbody">
 

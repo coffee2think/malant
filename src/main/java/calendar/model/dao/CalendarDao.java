@@ -51,6 +51,7 @@ public class CalendarDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
+			close(pstmt);
 			
 		}
 		

@@ -244,6 +244,7 @@ public class DiaryDao {
 	public int insertMyDiaryPhoto(Connection conn, int diaryId, String fname) {
 		int result = 0;
 		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		
 		String query1 = "select count(*) from my_diary_photoes";
 		String query2 = "insert into my_diary_photoes  " + "(photo_id, diary_id, file_name)  "
@@ -253,7 +254,7 @@ public class DiaryDao {
 
 		try {
 			pstmt = conn.prepareStatement(query1);
-			ResultSet rset = pstmt.executeQuery();	
+			rset = pstmt.executeQuery();	
 			if(rset.next()) {
 				int count = rset.getInt(1);
 				if(count == 0) {
@@ -271,6 +272,7 @@ public class DiaryDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 
