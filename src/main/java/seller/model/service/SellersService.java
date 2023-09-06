@@ -1,6 +1,7 @@
 package seller.model.service;
 
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -25,8 +26,19 @@ public class SellersService {
 	
 	public ArrayList<ProductDetail> sellerPlist(String sellerno){
 		Connection conn = getConnection();
-		ArrayList<ProductDetail> sellers = sdao.slist(conn, sellerno);
+		ArrayList<ProductDetail> sellers = sdao.sellerPlist(conn, sellerno);
 		close(conn);
 		return sellers;
+	}
+	
+	public int sellerInsertProduct(ProductDetail splinsert, ArrayList<String> options){
+		Connection conn = getConnection();
+		int result = sdao.sellerInsertProduct(conn, splinsert, options);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
 	}
 }
