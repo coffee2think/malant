@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="board.model.vo.Board,java.util.ArrayList, board.model.vo.Comment"%>
+	import="community.model.vo.Board,java.util.ArrayList,community.model.vo.Comment"%>
 <%
 Board board = (Board) request.getAttribute("board");
 ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("clist");

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="board.model.vo.Board, java.util.ArrayList"%>
+	pageEncoding="UTF-8" import="community.model.vo.Board, java.util.ArrayList"%>
 <%
 ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 Board board = (Board) request.getAttribute("bno");

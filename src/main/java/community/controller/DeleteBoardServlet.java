@@ -1,5 +1,6 @@
-package notice.controller;
+package community.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -9,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import notice.model.service.NoticeService;
-import notice.model.vo.Notice;
+import community.model.service.BoardService;
 
 /**
- * Servlet implementation class NoticeListContentServlet
+ * Servlet implementation class DeleteBoardServlet
  */
-@WebServlet("/ncontentlist")
-public class NoticeListContentServlet extends HttpServlet {
+@WebServlet("/bdelete")
+public class DeleteBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Default constructor.
+	 * @see HttpServlet#HttpServlet()
 	 */
-	public NoticeListContentServlet() {
+	public DeleteBoardServlet() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -32,22 +33,18 @@ public class NoticeListContentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int noticeNo = Integer.parseInt(request.getParameter("nno"));
-		NoticeService nservice = new NoticeService();
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
 
-		nservice.addReadCount(noticeNo);
-
-		Notice notice = nservice.selectOne(noticeNo);
-		
-		RequestDispatcher view = null;
-		if (notice != null) {
-			view = request.getRequestDispatcher("views/notice/noticeDetailList.jsp");
-			request.setAttribute("notice", noticeNo);
-			view.forward(request, response);
-		
+		if (new BoardService().deleteBoard(boardNo) > 0) {
+			String renameFileName = request.getParameter("rfile");
+			if (renameFileName != null) {
+				String savePath = request.getSession().getServletContext().getRealPath("resources/board/images");
+				new File(savePath + "\\" + renameFileName).delete();
+			}
+			response.sendRedirect("/malant/myblist?page=1");
 		} else {
-			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", noticeNo + "번 공지글 상세조회 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", boardNo + "번 게시글 삭제 실패!");
 			view.forward(request, response);
 		}
 	}

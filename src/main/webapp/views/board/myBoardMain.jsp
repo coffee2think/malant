@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="board.model.vo.Board, java.util.ArrayList"%>
+<%@ page import="community.model.vo.Board, java.util.ArrayList"%>
 <%
 ArrayList<Board> myblist = (ArrayList<Board>) request.getAttribute("myblist");
-Board board = (Board) request.getAttribute("bno");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -56,7 +56,6 @@ function deleteBoard(boardNo) {
 					제목 : <%=myblist.get(i).getBoardTitle()%><br> 
 					게시글 좋아요 수 : <%=myblist.get(i).getBoardLike()%><br> 
 					게시글 날짜 : <%=myblist.get(i).getBoardDate()%><br>
-
 					<button onclick="updateBoard(<%=myblist.get(i).getBoardNo()%>)">수정</button>
 					<button onclick="deleteBoard(<%=myblist.get(i).getBoardNo()%>)">삭제</button>
 				</div>
@@ -65,9 +64,6 @@ function deleteBoard(boardNo) {
 			<%
 			}
 			%>
-		</div>
-		<div>
-			<%@ include file="../common/pagingView.jsp"%>
 		</div>
 	</div>
 </body>
