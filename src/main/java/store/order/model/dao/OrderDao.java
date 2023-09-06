@@ -94,6 +94,8 @@ public class OrderDao {
 
 		PreparedStatement pstmt = null;
 		
+		String Address = productOrder.getDeliveryAddress() + " " + productOrder.getDeliveryAddress2()+ " " + productOrder.getShippingAddressName();
+		
 		System.out.println("dao 쿼리1 : " + productOrder.toString());
 		System.out.println("dao 쿼리2 : " + porder.toString());
 
@@ -108,7 +110,7 @@ public class OrderDao {
 			pstmt.setString(4, productOrder.getBuyerContact()); // BUYER_CONTACT
 			pstmt.setString(5, productOrder.getRecipient()); // RECIPIENT
 			pstmt.setString(6, productOrder.getRecipientContact()); // RECIPIENT_CONTACT
-			pstmt.setString(7, productOrder.getDeliveryAddress()); // DELIVERY_ADDRESS
+			pstmt.setString(7, Address);
 			pstmt.setString(8, productOrder.getCodePostal()); // DELIVERY_ZIP_CODE
 			pstmt.setString(11, productOrder.getEmail()); // oreder_emil
 			pstmt.setNull(10, java.sql.Types.VARCHAR); // TRACKING_NO
@@ -164,17 +166,28 @@ public class OrderDao {
 	public ArrayList<ProductOrder> selectOrderlist(Connection conn, String userno) {
 		
 		ArrayList<ProductOrder> olist = new ArrayList<ProductOrder>();
+			
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select * from ST_PRODUCT " + "join ST_SELLER using(SELLER_NO) where product_id = ?";
+		String query = "select * "
+				+ "from ST_ORDER "
+				+ "join ST_ORDER_DETAILS using (ORDER_ID) "
+				+ "join ST_product using(PRODUCT_ID) "
+				+ "join member using(USER_NO) "
+				+ "join ST_SELLER using(SELLER_NO) "
+				+ "where order_id in (select order_id from st_order where user_no = ?) "
+				+ "order by order_date desc";
 
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userno);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				ProductOrder po = new ProductOrder();
+
 				
 				po.setOrderId(rset.getString("ORDER_ID"));
                 po.setProductId(rset.getString("PRODUCT_ID"));
@@ -187,20 +200,17 @@ public class OrderDao {
                 po.setRecipientContact(rset.getString("RECIPIENT_CONTACT"));
                 po.setPrice(rset.getInt("PRICE"));
                 po.setDeliveryCharge(rset.getInt("DELIVERY_CHARGE"));
-                po.setTotalPrice(rset.getInt("TOTAL_PRICE"));
                 po.setEmail(rset.getString("ORDER_EMAIL"));
                 po.setOrderState(rset.getString("ORDER_STATE"));
                 po.setProductName(rset.getString("PRODUCT_NAME"));
                 po.setThumbnailImg(rset.getString("PRODUCT_THUMBNAIL_IMG"));
-                po.setSellerNo(rset.getString("SELLER_NO"));
-                po.setStoreName(rset.getString("SELLER_NAME"));
-                po.setShippingAddressName(rset.getString("SHIPPING_ADDRESS_NAME"));
-                po.setCodePostal(rset.getString("CODE_POSTAL"));
+                po.setStoreName(rset.getString("DISPLAYED_STORE_NAME"));
+               
+                po.setCodePostal(rset.getString("DELIVERY_ZIP_CODE"));
                 po.setDeliveryAddress(rset.getString("DELIVERY_ADDRESS"));
-                po.setDeliveryAddress2(rset.getString("DELIVERY_ADDRESS2"));
+                
+               
                 po.setDeliveryNote(rset.getString("DELIVERY_NOTE"));
-                po.setPaymentType(rset.getString("PAYMENT_TYPE"));
-                po.setOrderProgress(rset.getString("ORDER_PROGRESS"));
                 po.setPaymentStatus(rset.getString("PAYMENT_STATUS"));
 				
 				olist.add(po);

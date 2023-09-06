@@ -20,7 +20,6 @@ session.setAttribute("olist", olist);
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 
 <style>
-/* iframe을 절대 위치로 설정하고 위에 띄우기 */
 #popupFrame {
 	position: absolute;
 	top: 30%;
