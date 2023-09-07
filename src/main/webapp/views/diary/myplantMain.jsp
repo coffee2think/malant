@@ -103,7 +103,7 @@ window.onload = function() {
 					</div>
 					<br><br>
 					<div class="button">
-						<input type="reset" class="close-btn" value="취소">
+						<input type="button" class="close-btn" value="닫기">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
 					</form>
@@ -187,7 +187,7 @@ window.onload = function() {
 					</div>
 					<br><br>
 					<div class="button">
-						<input type="reset" class="close-btn" value="취소">
+						<input type="button" class="close-btn" value="닫기">
 						<input type="submit" id="save" class="save-close-btn" value="저장">
 					</div>
 					</form>

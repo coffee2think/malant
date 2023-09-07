@@ -118,7 +118,7 @@ window.onload = function(){
 							<div id="photoesView" style="width:500px;height:220px;border:1px solid black;padding:10px;margin:10px;background:#616161">
 							</div><br>
 							<div style="text-align:center;">
-								<input type="reset" class="close-btn" value="취소"> &nbsp;
+								<input type="button" class="close-btn" value="닫기"> &nbsp;
 								<input type="submit" id="save" class="save-close-btn" value="저장">
 							</div>
 						</div>	
@@ -195,7 +195,7 @@ window.onload = function(){
 							<div id="photoesView" style="width:500px;height:220px;border:1px solid black;padding:10px;margin:10px;background:#616161">
 							</div><br>
 							<div style="text-align:center;">
-								<input type="reset" class="close-btn" value="취소"> &nbsp;
+								<input type="button" class="close-btn" value="닫기"> &nbsp;
 								<input type="submit" id="save" class="save-close-btn" value="저장">
 							</div>
 						</div>	
@@ -220,6 +220,10 @@ window.onload = function(){
 		if(ans) {
 		location.href = "/malant/ddelete?diaryId=" + diaryId + "&userNo=" + userNo; 
 	}	return false;
+	}
+	
+	function goDiary (){
+		location.href = "/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
 	}
 	
 	</script>
