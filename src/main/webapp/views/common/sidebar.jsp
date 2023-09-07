@@ -7,7 +7,6 @@
 		isAdmin = false;
 	}
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +29,7 @@
 				<% if(loginMember == null) { %>
 					href="/malant/views/member/loginPage.jsp"
 				<% } else { %>
-					href="/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1"
+					href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>"
 				<% } %>>다이어리</a></li>
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
 				<li><a href="/malant/smplist">스토어</a></li>
@@ -52,7 +51,7 @@
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
 				로그인 하러 가기
 			</div>
-		<% } else if(isAdmin != null && isAdmin) { // 관리자인 경우 %>
+		<% } else if(isAdmin) { // 관리자인 경우 %>
 			<div class="login-section">
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님
@@ -69,7 +68,6 @@
 				</div>
 				<div class="login-section-bottom">
 					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp; 
-					<a href="/malant/myblist?userno=<%= loginMember.getUserNo() %>">내 게시글 보기</a> &nbsp;&nbsp; 
 					<a href="/malant/logout?loc=common">로그아웃</a>
 				</div>
 			</div>
