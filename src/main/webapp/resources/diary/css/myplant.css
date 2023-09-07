@@ -20,6 +20,12 @@ body {
 
 }
 
+/* .maxwidth {
+	max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+} */
+
 .menu1 {
 	float: left;
 	width: 130px;
