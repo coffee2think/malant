@@ -51,6 +51,7 @@ window.onload = function() {
 			<div id="container">
        			 <%@include file = "../../views/common/sidebar.jsp" %>
 			<div id="main">
+
 	
 		<div class="menu1" onclick="goDiary(); return false;">다이어리</div> 
         <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
@@ -195,6 +196,7 @@ window.onload = function() {
 		<% } %>
 		
 	</div> <!-- content body  -->
+
 	</div> <!-- main -->	
 </div> <!-- container -->
 <script type="text/javascript" src="/malant/resources/diary/js/myplant.js"></script>

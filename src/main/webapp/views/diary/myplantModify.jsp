@@ -48,6 +48,7 @@ window.onload = function() {
 
 			<div id="main">
 	
+	
 		<div class="menu1" onclick="goDiary(); return false;">다이어리</div> 
         <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
 		<script type="text/javascript">
@@ -112,6 +113,7 @@ window.onload = function() {
 
 	
 	</div> <!-- content body  -->
+
 	</div> <!-- main -->	
 </div> <!-- container -->
 
