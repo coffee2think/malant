@@ -49,7 +49,7 @@
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
-				로그인 하러 가기
+				<img src="/malant/resources/common/images/loginButton.png">
 			</div>
 		<% } else if(isAdmin) { // 관리자인 경우 %>
 			<div class="login-section">
@@ -66,10 +66,10 @@
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님
 				</div>
-				<div class="login-section-bottom">
-					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp;
-					<a href="/malant/myblist?userno=<%= loginMember.getUserNo() %>">내 게시글 보기</a> &nbsp;&nbsp;  
-					<a href="/malant/logout?loc=common">로그아웃</a>
+				<div class="login-links">
+					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>" class="my-page-button">마이페이지</a> &nbsp;&nbsp;
+					<a href="/malant/myblist?userno=<%= loginMember.getUserNo() %>" class="my-board-button">내 게시글 보기</a> &nbsp;&nbsp;  
+					<a href="/malant/logout?loc=common" class="logout-button">로그아웃</a>
 				</div>
 			</div>
 		<% } %>
