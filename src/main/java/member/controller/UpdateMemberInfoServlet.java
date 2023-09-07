@@ -81,7 +81,7 @@ public class UpdateMemberInfoServlet extends HttpServlet {
 		// 4. 받은 결과로 내보낼 뷰 선택 처리
 		if(result > 0) {
 			HttpSession session = request.getSession();
-			session.setAttribute("loginMember", member);
+			session.setAttribute("loginMember", updateMember);
 			response.sendRedirect("/malant"); // a 태그처럼 쓰면 됨
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp"); // 값을 담아서 보내야할 때 사용함.
