@@ -20,6 +20,16 @@
 #menu_wrap ul hr {display: block; height: 1px;border: 0; border-top: 1px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;} 
 #menu_wrap .option button {margin-left:5px;}
+.page a:hover{color: #ff6600;}
+#placesList a {
+  font-size:17px;
+  font-weight:bold;
+  color:#0077FF;
+  text-decoration: none;
+}
+#placesList div a:hover{
+  color: blueviolet;
+}
 
 </style>
 <meta charset="utf-8">
@@ -45,16 +55,23 @@
 				</div>
 				<hr>
 				<ul id="placesList">
-				<% for(Arboretum a : list){ %>
-					<div><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>" style="font-size:17px;font-weight:bold;color:#0077FF;">
-														<%= a.getArboretum_name() %></a></div><br>
-					<div style="font-size: 15px"><%= a.getArboretum_address() %></div><br>
-					<% if(a.getArboretum_tel() != null) { %>
-						<div class="content" style="font-size:14px; color:green;"><%= a.getArboretum_tel() %></div>
-					<% }else{ %>
-						등록된 번호가 없습니다.
+				<% if(list.size() != 0) { %>
+					<% for(Arboretum a : list){ %>
+						<div><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>">
+															<%= a.getArboretum_name() %></a></div><br>
+						<div style="font-size: 15px"><%= a.getArboretum_address() %></div><br>
+						<% if(a.getArboretum_tel() != null) { %>
+							<div class="content" style="font-size:14px; color:green;"><%= a.getArboretum_tel() %></div>
+						<% }else{ %>
+							등록된 번호가 없습니다.
+						<% } %>
+						<hr>
 					<% } %>
-					<hr>
+				<% }else { %>
+					<div style="font-size: 15px">
+					<br>&nbsp;&nbsp;
+					검색 결과가 없습니다.
+					</div>
 				<% } %>
 				</ul>
 			</div>
@@ -105,9 +122,9 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
 
 	var infowindow = new kakao.maps.InfoWindow({
 		content : '<div class="info">' + 
-					'<div class="title"><%= a.getArboretum_name() %>&nbsp;&nbsp;&nbsp;&nbsp;</div>' + 
-					'<div class="page" style="text-align:center;"><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>">상세정보</a></div>'
-							+ '</div>',
+					'<div class="title"><%= a.getArboretum_name() %></div>' + 
+					'<div class="page"><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>">상세정보 보기</a></div>'
+			  + '</div>',
 					removable : true,
 					zIndex : 1
 				});

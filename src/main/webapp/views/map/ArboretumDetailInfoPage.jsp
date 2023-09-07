@@ -101,7 +101,13 @@
                <% if(arboretum.getArboretum_homepage() == null) { %>
                  <h4 style="text-align:center;">홈페이지를 개설하지 않았습니다.</h4>
                <% }else{ %>
-                   <h4 style="text-align:center;"><a style="text-align:center;" href="https://<%= arboretum.getArboretum_homepage() %>"><%= arboretum.getArboretum_homepage() %></a></h4>
+               
+                   <% if(arboretum.getArboretum_homepage().contains("http://")) { %>
+                      <h4 style="text-align:center;"><a style="text-align:center;" href="<%= arboretum.getArboretum_homepage() %>"><%= arboretum.getArboretum_homepage() %></a></h4>
+                   <% }else { %>
+                      <h4 style="text-align:center;"><a style="text-align:center;" href="https://<%= arboretum.getArboretum_homepage() %>"><%= arboretum.getArboretum_homepage() %></a></h4>
+                   <% } %>
+                   
                <% } %>
             </td>
             
