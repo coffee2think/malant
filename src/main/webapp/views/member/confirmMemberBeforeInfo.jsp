@@ -20,10 +20,16 @@
 
 .content {
 	width: 500px;
-	height: 600px;
-	border: 1px solid red;
+	height: 300px;
+	/* border: 1px solid red; */
 	margin: auto;
+	border-radius: 10px;
+	background-color: #f2f2f2;
+	padding: 30px;
+	text-align: center;
 }
+
+
 </style>
 </head>
 
@@ -36,13 +42,14 @@
 
 		<!-- 컨텐츠 영역 -->
 		<div class="content">
-			<p1>회원정보 확인</p1><br>
-			<p4><%= loginMember.getNickname() %> 님의 정보를 안전하게 보호하기 위해 비밀번호를
-			다시 한번 확인합니다.</p4>
-			<form action="/malant/loginminfo" method="post">
+		<br><br>
+			<h1>회원정보 확인</h1><br>
+			<h4><%= loginMember.getNickname() %> 님의 정보를 안전하게 보호하기 <br> 위해비밀번호를
+			다시 한번 확인합니다.</h4>
+			<form action="/malant/loginminfo" method="post" >
 				<input type="hidden" id="userid" name="userid" value="<%= userid %>">
 
-				<table>
+				<table style="display: grid;justify-content: center;justify-items: center;">
 					<tr>
 						<th>아이디</th>
 						<td><%= userid %></td>
@@ -53,10 +60,12 @@
 							required></td>
 					</tr>
 				</table>
+				<br>
 				<input type="submit" value="확인"> <input type="button"
 					value="취소" onclick="javascript:history.go(-1)">
 			</form>
 		</div>
+	</div>		
 </body>
 
 </html>

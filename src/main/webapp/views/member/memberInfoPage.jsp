@@ -17,9 +17,11 @@
    	}
 	
 	.content {
-		border: 1px solid red;
+		/* border: 1px solid red; */
+		border-radius: 10px;
+	 	background-color: #f2f2f2;
 		width: 500px;
-		height: 600px;
+		height: 400px;
 		display : flex;
   		align-items : center;
 		justify-content: center;

@@ -59,7 +59,7 @@ public class SearchPlantServlet extends HttpServlet {
 		filters.put("placement", placement);
 		filters.put("effect_purification", effectPurification);
 		
-		System.out.println("\n***잘 받아왔는지 체크***");
+		System.out.println("\n***검색 결과 	잘 받아왔는지 체크***");
 		System.out.println("keyword : " + keyword);
 
 		filters.forEach((key, value) -> {

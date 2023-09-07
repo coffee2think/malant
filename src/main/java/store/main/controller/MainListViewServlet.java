@@ -53,6 +53,7 @@ public class MainListViewServlet extends HttpServlet {
 
         }
         System.out.println(mlist.toString());
+        System.out.println("plist"+plist.toString());
         
         view.forward(request, response);
     }
