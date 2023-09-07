@@ -98,8 +98,13 @@ window.onload = function() {
 					}
 
 					function requestDelete() {
+						var ans = confirm('정말로 삭제 하시겠습니까?');
+						
+						if(ans) {
 						location.href = "/malant/mpdelete?userNo=<%= loginMember.getUserNo() %>&myplantId=<%= myplant.getMyplantId() %>&MyplantImageURL=<%= myplant.getMyplantImageURL() %>";
-					}
+						}
+							return false;
+						}
 					</script>
 					</div>
 					</div> <!-- myplantModify -->

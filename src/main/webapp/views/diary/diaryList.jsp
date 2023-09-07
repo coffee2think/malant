@@ -205,13 +205,8 @@ window.onload = function(){
 				</form>
 			</div> 
 		
- 
-  
-	
-
  	 </div><!--diaryBody  -->
- 	 
- 	 
+ 	 	 
   		 <% } %>  
   		 
   	<script type="text/javascript">
@@ -220,7 +215,11 @@ window.onload = function(){
 		location.href="/malant/dmoveup?diaryId=" + diaryId + "&page=<%= nowpage %>";
 	}
 	function requestDelete(diaryId, userNo) {
+		var ans = confirm('정말로 삭제 하시겠습니까?');
+		
+		if(ans) {
 		location.href = "/malant/ddelete?diaryId=" + diaryId + "&userNo=" + userNo; 
+	}	return false;
 	}
 	
 	</script>
