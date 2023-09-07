@@ -71,13 +71,11 @@ window.onload = function(){
         <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
 		<script type="text/javascript">
 		function goDiary (){
-			location.href = "/malant/dlist?user_no=<%= loginMember.getUserNo() %>";
+			location.href = "/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
 		}
-		
 		function goMyplant (){
-			location.href = "/malant/mplist?user_no=<%= loginMember.getUserNo() %>";
+			location.href = "/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
 		}
-
 		</script>
 
 			<div id="contentbody">
