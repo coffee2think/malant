@@ -47,7 +47,7 @@ public class MyBoardListServlet extends HttpServlet {
 
 		RequestDispatcher view = null;
 		if(myblist.size() > 0) {
-			view = request.getRequestDispatcher("views/board/boardMainList.jsp");
+			view = request.getRequestDispatcher("views/board/myBoardList.jsp");
 			/* request.setAttribute("userno", userno); */
 
 			request.setAttribute("myblist", myblist);

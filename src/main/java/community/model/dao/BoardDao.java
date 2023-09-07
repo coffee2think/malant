@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import common.Paging;
 import community.model.vo.Board;
+import community.model.vo.CMBaordHashtag;
 import community.model.vo.CMBoardPhoto;
 import community.model.vo.CMHashtag;
 import community.model.vo.Comment;
@@ -327,7 +328,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select CM_BOARD.* from CM_BOARD  where user_no = ? order by board_no desc";
+		String query = "select * from CM_BOARD  where user_no = ? order by board_no desc";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -380,28 +381,6 @@ public class BoardDao {
 		return result;
 	}
 
-	public int updateOriginBoard(Connection conn, Board board) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-
-		String query = "update cm_board " + "set board_title = ?, " + "    board_content = ?, " + "    board_photo = ?"
-				+ "where board_no = ?";
-		try {
-			pstmt = conn.prepareStatement(query);
-
-			pstmt.setString(1, board.getBoardTitle());
-			pstmt.setString(2, board.getBoardContent());
-			pstmt.setInt(4, board.getBoardNo());
-
-			result = pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
 
 	public int updateHashtag(Connection conn, Board board) {
 		int result = 0;
@@ -601,14 +580,37 @@ public class BoardDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = "insert into cm_board_photo values "
-				+ "((select max(photo_no) + 1 from cm_board_photo), ?, "
-				+ "((select max(board_no) from cm_board))";
-
+						+ "((select max(photo_no) + 1 from cm_board_photo), ?, ?)";
 		try {
 
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setInt(1, photo.getBoardNo());
+			pstmt.setString(2, photo.getFilename());
+			System.out.println("photo : " + photo.toString());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateThumbnail(Connection conn, String thumbFileName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "update CM_BOARD "
+						+ "set THUMBNAIL = ? "
+						+ "where board_no = (select MAX(board_no) from cm_board)";
+
+		try {
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, thumbFileName);
 
 			result = pstmt.executeUpdate();
 
@@ -619,6 +621,139 @@ public class BoardDao {
 		}
 
 		return result;
+	}
+
+	public int insertBoardHashtag(Connection conn, CMBaordHashtag boardHashtag) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "insert into CM_BOARD_HASHTAG "
+						+ "values (?, ?)";
+
+		try {
+
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setInt(1, boardHashtag.getBoardNo());
+			pstmt.setInt(2, boardHashtag.getHashtagNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertHashtag(Connection conn, String hashtag) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "insert into CM_HASHTAG "
+				+ "values ((select MAX(HASHTAG_NO) + 1 "
+				+ "            from CM_HASHTAG), ?)";
+
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, hashtag);
+	
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);		
+		}
+
+		return result;
+	}
+
+	public int selectRecentBoardNo(Connection conn) {
+		int boardNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select max(board_no) "
+					+ "from CM_BOARD";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				boardNo = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);		
+		}
+
+		return boardNo;
+	}
+
+	public CMHashtag selectHashtag(Connection conn, String hashtagContent) {
+		CMHashtag hashtagOk = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * "
+					+ "from CM_HASHTAG "
+					+ "where hashtag_content = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, hashtagContent);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				hashtagOk.setHashtagNo(rset.getInt("hashtag_no"));
+				hashtagOk.setHashtagContent(rset.getString("hashtag_content"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);		
+		}
+
+		return hashtagOk;
+	}
+
+	public int selectHashtagNo(Connection conn, String hashtagContent) {
+		int hashtagNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select hashtag_no "
+					+ "from CM_HASHTAG "
+					+ "where hashtag_content = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, hashtagContent);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				hashtagNo = rset.getInt("hashtag_no");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);		
+		}
+
+		return hashtagNo;
 	}
 
 }
