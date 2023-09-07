@@ -2,6 +2,7 @@
 pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayList,member.model.vo.Member"%>
 <%
 	ArrayList<MainContent> plistf = (ArrayList<MainContent>) request.getAttribute("plistf");
+	ArrayList<MainContent> plist = (ArrayList<MainContent>) request.getAttribute("plist");
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
 %>
@@ -27,7 +28,7 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 		<section>
 			<ul id="new_categories">
 				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=식물';">
-				<li><a>식&nbsp;&nbsp;&nbsp;물</a></li>
+				<li><a >식&nbsp;&nbsp;&nbsp;물</a></li>
 				</div>
 				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=화분';">
 				<li><a>화&nbsp;&nbsp;&nbsp;분</a></li>
@@ -45,8 +46,8 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 				<li><a>기&nbsp;&nbsp;&nbsp;타</a></li>
 				</div>
 			</ul>
-			<button onclick="window.location.href = '/malant/sellplist?sellerNo=seller001'">판매회원 로그인</button>
-		</section>
+			 <button onclick="avascript:location.href = '/malant/sellplist?sellerNo=<%= plist.get(0).getSellerNo() %>';">판매회원</button>	
+			 	</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=store'">

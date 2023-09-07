@@ -1,9 +1,16 @@
 package store.product.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-public class ProductDetail {
+public class ProductDetail implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4019176613604179521L;
+	
+	
 	private String productId;
 	private String productName;
 	private String sellerName;
