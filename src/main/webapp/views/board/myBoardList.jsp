@@ -3,7 +3,7 @@
 	import="community.model.vo.Board,java.util.ArrayList,community.model.vo.Comment"%>
 <!DOCTYPE html>
 <%
-	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("myblist");
 	String userno = (String)request.getAttribute("userno");
 %>
 <!-- 커뮤니티 내 게시글 목록 -->
@@ -114,31 +114,11 @@ function viewInput(span){
 <%@ include file="../../views/common/sidebar.jsp"%>
  </div>
  <script type="text/javascript">
-        function toggleLike(boardNo) {
-            $.ajax({
-                url: "/malant/bbtn",
-                type: "post",
-                dataType: "text",
-                data: {
-                    'boardNo': boardNo
-                },
-                success: function(data) {
-                    if (data === "liked") {
-                        $("#likeCount_" + boardNo).text(parseInt($("#likeCount_" + boardNo).text()) + 1);
-                        $("#likeBtn_" + boardNo).text("좋아요 취소");
-                    } else {
-                        // 사용자가 좋아요를 취소한 경우
-                        $("#likeCount_" + boardNo).text(parseInt($("#likeCount_" + boardNo).text()) - 1);
-                        $("#likeBtn_" + boardNo).text("좋아요");
-                    }
-                }
-            });
-        }
-        
-        function checkLogin(boardNo){
-        	var member = '<%=loginMember%>';
-        	console.log("member : " + member);
-            if (member == null){
+       
+		var member = '<%= loginMember %>';
+
+        function checkLogin(){
+            if (member == 'null'){
                 if (confirm("로그인 하시겠습니까?")) {
                    location.href = "/malant/login?loc=common";
                 } 
@@ -150,6 +130,11 @@ function viewInput(span){
         </script>
         
         <div class="board-main">
+        
+			
+	
+		
+		
 		<div id="toplist" class="board">
 			<h2>인기 게시글</h2>
 			<table  id="top3" width="700" style="border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2);">
@@ -188,10 +173,9 @@ function viewInput(span){
 		</div>
 		<button onclick="javascript:location.href='/malant/bdlist';">목록</button>
 		<hr>
-		<%=  %>
 		<div id="dlist" class="board"> 
 		<% for(Board b : list){ %>
-		<table onclick="checkLogin('<%= b.getBoardNo() %>');" width="500" border="0" style="display: block; margin:10px; border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
+		<table onclick="javascript:location.href='/malant/bdetail?bno=<%= b.getBoardNo() %>';" width="500" border="0" style="display: block; margin:10px; border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
 			<tr height="30">
 				<td width="40" align="center" style="background: rgba(154, 179, 213, 0.5);"><%= b.getBoardNo() %></td>
 				<td width="130" style="background: rgba(154, 179, 213, 0.3);"><%= b.getNickname() %></td>
@@ -212,9 +196,9 @@ function viewInput(span){
 				</td>
 			</tr>
 			<tr height="30"> 
-				<td colspan="3">조회수 : <%= b.getViewcount() %> &nbsp; &nbsp; &nbsp; &nbsp;	
-				<button class="likeBtn-style" onclick="toggleLike('<%= b.getBoardNo() %>');">좋아요</button>
-    			<span id="likeCount_<%= b.getBoardNo() %>"><%= b.getBoardLike() %></span>
+				<td colspan="3">조회수 : <%= b.getViewcount() %> &nbsp; &nbsp; &nbsp; &nbsp;
+					
+				<img src="/malant/resources/board/images/likebtn.jpg" width="20" height="20"> <%= b.getBoardLike() %>
 				</td>
 			</tr>
 			 	<tr colspan="4">

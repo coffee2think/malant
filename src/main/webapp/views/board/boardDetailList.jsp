@@ -13,6 +13,8 @@
 <head>
 <meta charset="UTF-8">
 <title>first</title>
+<script type="text/javascript"
+	src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <style type="text/css">
 
 div.detailview{
@@ -26,11 +28,6 @@ div.detailview{
 function requestReply(){
 	//댓글달기 요청 함수
 	location.href = "/malant/cminsert?board=<%= board.getBoardNo() %>";
-}
-
-function requestDelete(){
-	//게시글(원글, 댓글, 대댓글) 삭제 요청 함수
-	location.href = "/malant/bdelete?board=<%= board.getBoardNo() %>";
 }
 
 function moveUpdatePage(){
@@ -126,16 +123,47 @@ function moveUpdatePage(){
 			%>
 				<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
 				<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
-			<%      }else{ //로그인했는데 본인 글이 아닐 때 %>
-				
-				<button onclick="requestReply(); return false;">댓글달기</button> &nbsp;
-				
-			<%      }
-			   } %>
+			<% }}%>
 			 <button onclick="javascript:location.href='/malant/bdlist?page=<%= currentPage %>';">목록</button> 
 		</th>		
 	</tr>
 		</table>
+		
+			<div class="comment">
+				<form action="/malant/cminsert">
+					<input type="hidden" name="userno" value="<%=loginMember.getUserNo()%>"> 
+					<input type="hidden" name="bno" value="<%=board.getBoardNo()%>">
+					<input type="hidden" name="profile" value="<%=loginMember.getProfileImg()%>"> 
+					<input type="hidden" name="nickname" value="<%=loginMember.getNickname()%>"> 
+					<input type="text" name="comment" placeholder="댓글을 입력하세요"> 
+					<input type="submit">
+				</form>
+				<div style="overflow-y: scroll; width: 700px; height: 6.25em; border:1px solid rgba(154, 179, 213); background: rgba(154, 179, 213, 0.2); resize: none" class="commentbox" name="commentbox" placeholder="댓글을 입력해주세요" >
+				<% for (int i = 0; i < clist.size(); i++) { %>
+				<%=clist.get(i).getCommentContent()%>
+				<%=clist.get(i).getNickname()%>
+				<% if (loginMember.getUserNo().equals(clist.get(i).getUserNo())) { %>
+				<!-- loginMember 랑 그냥 비교하면 객체와 String 을 비교하는것
+ 					logimMember 의 어떤 값이랑 비교할지 확인했어야 했음!! -->
+				<!-- 수정 -->
+				<form action='/malant/cmupdate'>
+					<input type="hidden" name="cno" value="<%= clist.get(i).getCommentNo() %>">
+					<input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
+					<input type="text" name="content" value="<%= clist.get(i).getCommentContent() %>">
+					<!-- <textarea name="updateComment" placeholder="댓글 수정 내용 입력"></textarea> -->
+					<input type="submit" value="수정">
+				</form>
+				<!-- 삭제 -->
+				<form action='/malant/cmdelete'>
+					<input type="hidden" name="cno" value="<%= clist.get(i).getCommentNo() %>">
+					<input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
+					<input type="submit" value="삭제">
+				</form>
+				<% } %>
+				<br>
+				<hr>
+				<% } %>
+			</div>
 <br>
 
 <hr>

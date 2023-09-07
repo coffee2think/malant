@@ -46,7 +46,7 @@ public class InsertCommentServlet extends HttpServlet {
 		comment.setUserNo(request.getParameter("userno"));
 		comment.setBoardNo(Integer.parseInt(request.getParameter("bno"))); // 데이블명X
 		comment.setCommentContent(request.getParameter("comment"));
-//		comment.setCommentContent(request.getParameter("profile"));
+		comment.setCommentContent(request.getParameter("profile"));
 		comment.setNickname(request.getParameter("nickname"));
 		
 		System.out.println(comment.toString());
