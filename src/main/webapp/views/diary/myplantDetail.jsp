@@ -34,13 +34,11 @@
         <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
 		<script type="text/javascript">
 		function goDiary (){
-			location.href = "/malant/dlist?user_no=<%= loginMember.getUserNo() %>";
+			location.href = "/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
 		}
-		
 		function goMyplant (){
-			location.href = "/malant/mplist?user_no=<%= loginMember.getUserNo() %>";
+			location.href = "/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
 		}
-
 		</script>
 
 	    
@@ -51,18 +49,18 @@
 					<input type="hidden" name="MYPLANT_ID" value="<%= myplant.getMyplantId() %>">
 					<input type="hidden" name="MYPLANT_IMAGE_URL" value="<%= myplant.getMyplantImageURL() %>">
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
-					<div class="nickname">애칭: <%= myplant.getMyplantName() %></div>
+					<div class="nickname" style="font-size:15pt;font-weight:bold;"><%= myplant.getMyplantName() %>의 상세 정보</div><br>
 					<div class="ID">ID : <%= myplant.getMyplantId() %></div>
-					<div class="variety">품종: <%= myplant.getMyplantVariety() %></div>
+					<div class="variety">품종: <% if(myplant.getMyplantVariety() != null) {%><%= myplant.getMyplantVariety() %><% }else { %><%} %></div><br>
 					<div class="img" style="width:300px;height:300px;"> 
 							<% if(myplant.getMyplantImageURL() != null) { %>
 								<img class="image" src="/malant/resources/diary/myplant_upimages/<%= myplant.getMyplantImageURL() %>" style="width:300px;height:300px;">
 							<% }else { %>
 							    <img class="image" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png" style="width:300px;height:300px;">
 							<% } %></div>
-							<br>
+						<br>
 					<div class="">키우기 시작한 날: <%= myplant.getMyplantStartDate() %></div>
-					<div class="">메모: <%= myplant.getMyplantMemo() %></div>
+					<div class="">메모: <% if(myplant.getMyplantMemo() != null) {%><%= myplant.getMyplantMemo() %><% }else { %><%} %></div>
 					<br>
 					<div class="button" >
 						<input type="button" onclick="moveUpdate(); return false;" value="수정">

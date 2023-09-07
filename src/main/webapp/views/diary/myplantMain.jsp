@@ -78,9 +78,9 @@ window.onload = function() {
 					<br>
 					<div class="addinfo">
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
-					애칭 &nbsp; <input type="text" name="MYPLANT_NAME"><br>
-					품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"><br>
-					사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
+					애칭* &nbsp; <input type="text" name="MYPLANT_NAME"><br>
+					품종 &nbsp;&nbsp; <input type="text" name="MYPLANT_VARIETY"><br>
+					사진 &nbsp;&nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
 					<div id="reviewbox" style="width:220px;height:220px;border:1px solid black;padding:10px;margin:10px;">
 						<img id="photo" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png"
 						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;"><br>
@@ -116,7 +116,7 @@ window.onload = function() {
 	<% for (Myplant mp : list) { %>
 		 
 				<div id="myplantbox" class="myplantbox" onclick="moveDetail(<%= mp.getMyplantId() %>); return false;"> 
-						<div class="nickname"> <%= mp.getMyplantName() %></div>
+						<div class="nickname" style="height:20px;font-weight:bold;padding-top:3px;"> <%= mp.getMyplantName() %></div>
 						<div>
 							<% if(mp.getMyplantImageURL() != null) { %>
 								<img class="image" src="/malant/resources/diary/myplant_upimages/<%= mp.getMyplantImageURL() %>">
@@ -126,9 +126,13 @@ window.onload = function() {
 						</div>
 						<div class="information">
 							<div class="ID">ID : <%= mp.getMyplantId() %></div>
-							<div class="variety">품종 : <%= mp.getMyplantVariety() %></div>
+							<div class="variety">품종 : 
+							<% if(mp.getMyplantVariety() != null) {%><%= mp.getMyplantVariety() %><% }else { %><%} %>
+							</div>
 							<div class="">키우기 시작한 날: <%= mp.getMyplantStartDate() %></div>
-							<div class="memo">메모 : <%= mp.getMyplantMemo() %></div>
+							<div class="memo">메모 : 
+							<% if(mp.getMyplantVariety() != null) {%><%= mp.getMyplantMemo() %><% }else { %><%} %>
+							</div>
 						</div>
 					<script type="text/javascript">	
 
@@ -158,9 +162,9 @@ window.onload = function() {
 					<br>
 					<div class="addinfo">
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
-					애칭 &nbsp; <input type="text" name="MYPLANT_NAME"><br>
-					품종 &nbsp; <input type="text" name="MYPLANT_VARIETY"><br>
-					사진 &nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
+					애칭* &nbsp; <input type="text" name="MYPLANT_NAME"><br>
+					품종 &nbsp;&nbsp; <input type="text" name="MYPLANT_VARIETY"><br>
+					사진 &nbsp;&nbsp; <input type="file" name="MYPLANT_IMAGE_URL" id="MYPLANT_IMAGE_URL"><br>
 					<div id="reviewbox" style="width:220px;height:220px;border:1px solid black;padding:10px;margin:10px;">
 						<img id="photo" src="/malant/resources/diary/myplant_upimages/myplant_null_photo.png"
 						width="200" height="200" align="center" style="position:relative;left:10px;top:10px;"><br>

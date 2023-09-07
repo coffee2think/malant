@@ -95,7 +95,7 @@ public class MyplantInsertInformationServlet extends HttpServlet {
 		//받은 결과로 성공/실패 페이지 내보내기
 		if(result > 0) {
 			//서블릿에서 서블릿 실행함
-			response.sendRedirect("/malant/mplist?user_no=" + myplant.getUserNo() + "&page=1");
+			response.sendRedirect("/malant/mplist?action=user_no&keyword=" + myplant.getUserNo() + "&page=1");
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "반려식물 등록 실패");
