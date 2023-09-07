@@ -7,7 +7,6 @@
 		isAdmin = false;
 	}
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +24,7 @@
 		<section>
 			<ul id="new_categories">
 				<li><a href="/malant">식물 검색</a></li>
-				<li><a href="/malant/views/board/boardMainList.jsp">커뮤니티</a></li>
+				<li><a href="/malant/bdlist">커뮤니티</a></li>
 				<li><a 
 				<% if(loginMember == null) { %>
 					href="/malant/views/member/loginPage.jsp"

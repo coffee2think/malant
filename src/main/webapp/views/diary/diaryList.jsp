@@ -113,10 +113,9 @@ window.onload = function(){
    			 			<div class="title"> 오늘의 일기</div><br>
 						<div class="addContentBox">
 						&nbsp;&nbsp;<textarea name="diary_content" style="width:500px;height:100px;" placeholder="오늘은 어떤 일이 있었나요?"></textarea><br>
-						&nbsp;&nbsp;<input type="file" name="multifile" id="multifile" multiple><br>
-							<div id="filenameView"></div><br>
+						&nbsp;&nbsp;<input type="file" name="multifile" id="multifile" multiple>
+						&nbsp;&nbsp;<div id="filenameView"></div><br>
 							<div id="photoesView" style="width:500px;height:220px;border:1px solid black;padding:10px;margin:10px;background:#616161">
-							
 							</div><br>
 							<div style="text-align:center;">
 								<input type="reset" class="close-btn" value="취소"> &nbsp;
@@ -157,7 +156,7 @@ window.onload = function(){
 	        <%} } }%> 
 	       </div> 
 	        <br>
-	        <div class="diaryDate" style="font-size:12px;"><%= d.getDiaryWritingDate() %></div><br>
+	        <div class="diaryDate" style="font-size:15px;"><%= d.getDiaryWritingDate() %></div><br>
 	        <div>
 	        <input type="submit" value="수정페이지로 이동" onclick="requestMoveUpdate(<%= d.getDiaryId() %>); return false;">
 	        <input type="button" value="삭제" onclick="requestDelete(<%= d.getDiaryId() %>,'<%= d.getUserNo() %>'); return false;">
@@ -191,10 +190,9 @@ window.onload = function(){
    			 			<div class="title"> 오늘의 일기</div><br>
 						<div class="addContentBox">
 						&nbsp;&nbsp;<textarea name="diary_content" style="width:300px;height:100px;" placeholder="오늘은 어떤 일이 있었나요?"></textarea><br>
-						&nbsp;&nbsp;<input type="file" name="multifile" id="multifile" multiple><br>
-							<div id="filenameView"></div><br>
+						&nbsp;&nbsp;<input type="file" name="multifile" id="multifile" multiple>
+						&nbsp;&nbsp;<div id="filenameView"></div><br>
 							<div id="photoesView" style="width:500px;height:220px;border:1px solid black;padding:10px;margin:10px;background:#616161">
-							
 							</div><br>
 							<div style="text-align:center;">
 								<input type="reset" class="close-btn" value="취소"> &nbsp;

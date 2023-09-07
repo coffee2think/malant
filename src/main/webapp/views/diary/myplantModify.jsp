@@ -52,13 +52,11 @@ window.onload = function() {
         <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
 		<script type="text/javascript">
 		function goDiary (){
-			location.href = "/malant/dlist?user_no=<%= loginMember.getUserNo() %>";
+			location.href = "/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
 		}
-		
 		function goMyplant (){
-			location.href = "/malant/mplist?user_no=<%= loginMember.getUserNo() %>";
+			location.href = "/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
 		}
-
 		</script>
 
 	    
@@ -69,10 +67,11 @@ window.onload = function() {
 
 					<input type="hidden" name="MYPLANT_ID" value="<%= myplant.getMyplantId() %>">
 					<input type="hidden" name="USER_NO" value="<%= loginMember.getUserNo() %>">
-					<input type="hidden" name="page" value="<%= currentPage %>">
-					<div>애칭 &nbsp; <input type="text" name="MYPLANT_NAME" value="<%= myplant.getMyplantName() %>"></div>
-					<div>품종 &nbsp; <input type="text" name="MYPLANT_VARIETY" value="<%= myplant.getMyplantVariety() %>"></div>
-					<div>사진 &nbsp; <input type="file" id="MYPLANT_IMAGE_URL" name="MYPLANT_IMAGE_URL" value="/malant/resources/diary/">
+					<input type="hidden" name="page" value="<%= currentPage %>"><br>
+					<div>애칭* &nbsp; <input type="text" name="MYPLANT_NAME" value="<%= myplant.getMyplantName() %>"></div>
+					<div>품종 &nbsp;&nbsp; <input type="text" name="MYPLANT_VARIETY" 
+					value="<% if(myplant.getMyplantVariety() != null) {%><%= myplant.getMyplantVariety() %><% }else { %><%} %>"></div>
+					<div>사진 &nbsp;&nbsp; <input type="file" id="MYPLANT_IMAGE_URL" name="MYPLANT_IMAGE_URL" value="/malant/resources/diary/">
 							<div id="previewbox" style="width:280px;height:280px;border:1px slid black;padding:10px;margin:10px;">
 								<%-- <% if(myplant.getMyplantImageURL() != null) {%>
 								<img id="photo" src="/malant/resources/diary/myplant_upimages/<%= myplant.getMyplantImageURL() %>"
@@ -84,7 +83,8 @@ window.onload = function() {
 							</div>
 							<br>
 					<div>키우기 시작한 날 &nbsp; <input type="date" name="MYPLANT_START_DATE" value="<%= myplant.getMyplantStartDate()%>"> </div>
-					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO" value="<%= myplant.getMyplantMemo() %>"></div>
+					<div>메모 &nbsp; <input type="text" name="MYPLANT_MEMO" 
+					value="<% if(myplant.getMyplantMemo() != null) {%><%= myplant.getMyplantMemo() %><% }else { %><%} %>"></div>
 					<br>
 					<div>
 						<input type="button" onclick="cancle(); return false;" class="close-btn" value="취소">
@@ -94,7 +94,7 @@ window.onload = function() {
 					
 					<script type="text/javascript">
 					function cancle() {
-						location.href = "/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=<%= currentPage %>";
+						location.href = "/malant/mpinfo?userNo=<%= loginMember.getUserNo() %>&myplantId=<%= myplant.getMyplantId() %>&page=<%= currentPage %>";
 					}
 
 					function requestDelete() {

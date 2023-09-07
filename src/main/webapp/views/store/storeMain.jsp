@@ -3,7 +3,6 @@
 	import="java.util.*, store.main.model.vo.MainContent"%>
 <%
 ArrayList<MainContent> mlist = (ArrayList<MainContent>) request.getAttribute("mlist");
-ArrayList<MainContent> plist = (ArrayList<MainContent>) request.getAttribute("plist");
 %>
 
 <!DOCTYPE html>
@@ -81,7 +80,7 @@ if (imageUrls.length() > 0) {
 			<hr color="#9CB4D4">
 			<br>
 			<!--  컨텐츠 영역 -->
-			<div class="productcontainer">
+			<div class="product-container">
 				<%
 				for (MainContent p : plist) {
 				%>

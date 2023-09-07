@@ -7,7 +7,7 @@ body {
 
 #container {
 	display: flex;
-	font-family: "GmarketSansBold";
+	font-family: "Nanum Gothic";
 }
 
 #main {
@@ -30,6 +30,7 @@ body {
 	border-radius: 5px;
 	background-color: #f2f2f2;
 	font-size: 12pt;
+	font-weight: bold;
 	color: #262626;
 	text-align: center;
 	text-decoration: none;
@@ -60,6 +61,7 @@ body {
 	border-radius: 5px;
 	background-color: #f2f2f2;
 	font-size: 12pt;
+	font-weight: bold;
 	color: #262626;
 	text-align: center;
 	text-decoration: none;
@@ -102,12 +104,16 @@ body {
   text-align:center;
   border-radius:5px;
  }
+ 
+ .contentbody .newDiaryGo:hover {
+  font-weight:bold;
+ }
 
  .newDiaryBox {
     top: -200%;
     left: 45%;
 	width: 550px;
-	height: 600px;
+	height: 700px;
 	padding-top:10px;
 	padding-left:50px;
 	padding-right:50px;

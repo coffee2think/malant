@@ -54,8 +54,8 @@ function populateDropdown1() {
         options2 = ["난이도", "초보자", "경험자", "전문가"];
         options3 = ["일조량", "직사광선", "간접광선"];
         options4 = ["습도", "습한환경", "보통", "건조한환경"];
-        options5 = ["정화능력", "유", "무"]
-        options6 = ["가습효과", "유", "무"]
+		options5 = [ "정화능력", "정화능력있음", "정화능력없음" ]
+		options6 = [ "가습효과", "가습효과있음", "가습효과없음" ]
         options7 = ["크기", "소형", "중형","대형"]
         options8 = ["용도", "관상용", "식용", "조경용"]
     } else if (selectedOption === "화분") {
@@ -176,7 +176,7 @@ populateDropdown1();
 				<div class="dropdownFilter">
 					<select id="dropdown1" class="dropdown"
 						onchange="populateDropdown1()" name="option1">
-						<option value="전체">전체</option>
+						<option value="옵션미선택">옵션을 선택해 주세요</option>
 						<option value="식물">식물</option>
 						<option value="화분">화분</option>
 						<option value="자갈/모래/흙">자갈/모래/흙</option>
