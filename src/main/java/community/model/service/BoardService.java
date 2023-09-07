@@ -92,9 +92,9 @@ public class BoardService {
 		return listCount;
 	}
 
-	public ArrayList<Board> selectList(int startRow, int endRow) {
+	public ArrayList<Board> selectList() {
 		Connection conn = getConnection();
-		ArrayList<Board> list = bdao.selectList(conn, startRow, endRow);
+		ArrayList<Board> list = bdao.selectList(conn);
 		close(conn);
 		return list;
 	}

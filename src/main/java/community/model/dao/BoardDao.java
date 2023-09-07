@@ -277,23 +277,17 @@ public class BoardDao {
 		return listCount;
 	}
 
-	public ArrayList<Board> selectList(Connection conn, int startRow, int endRow) {
+	public ArrayList<Board> selectList(Connection conn) {
 		ArrayList<Board> list = new ArrayList<Board>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select * "
-					+ "from (select rownum rnum, BOARD_NO, USER_NO, NICKNAME, BOARD_TITLE, BOARD_CONTENT, "
-					+ "                    BOARD_LIKE, BOARD_DATE, VIEW_COUNT, THUMBNAIL, REPORT_COUNT "
-					+ "        from (select * "
-					+ "                 from CM_BOARD "
-					+ "                 order by  BOARD_NO desc)) "
-					+ "where rnum between ? and ?";
+		String query = " select * "
+						+ " from CM_BOARD "
+						+ " order by  BOARD_NO desc";
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
 
 			rset = pstmt.executeQuery();
 

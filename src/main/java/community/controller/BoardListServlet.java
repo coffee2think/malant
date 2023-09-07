@@ -42,32 +42,16 @@ public class BoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int currentPage = 1;
-		if (request.getParameter("page") != null) {
-			currentPage = Integer.parseInt(request.getParameter("page"));
-		}
-
-		int limit = 10;
 
 		BoardService bservice = new BoardService();
 
-		int listCount = bservice.getListCount();
-
-		Paging paging = new Paging(listCount, currentPage, limit, "myblist");
-		paging.calculator();
-
-		ArrayList<Board> list = bservice.selectList(paging.getStartRow(), paging.getEndRow());
+		ArrayList<Board> list = bservice.selectList();
 		
 		RequestDispatcher view = null;
 		if(list.size() > 0) {
 			view = request.getRequestDispatcher("views/board/boardListView.jsp");
-			
-			request.setAttribute("paging", paging);
-			request.setAttribute("currentPage", currentPage);
+				
 			request.setAttribute("list", list);
-
-			
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
