@@ -3,7 +3,10 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 <%
 	ArrayList<MainContent> plistf = (ArrayList<MainContent>) request.getAttribute("plistf");
 	ArrayList<MainContent> plist = (ArrayList<MainContent>) request.getAttribute("plist");
+	
 	Member loginMember = (Member) session.getAttribute("loginMember");
+	String userNo = (loginMember != null) ? loginMember.getUserNo() : null;
+	
 	Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
 %>
 
@@ -38,7 +41,7 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
-				로그인 하러 가기
+				<img src="/malant/resources/common/images/loginButton.png" id = "login-button">
 			</div>
 		<% } else if(isAdmin != null && isAdmin) { // 관리자인 경우 %>
 			<div class="login-section">

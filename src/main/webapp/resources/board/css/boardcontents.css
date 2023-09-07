@@ -1,71 +1,77 @@
 @charset "UTF-8";
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 기본 폰트 설정 */
+body {
+    font-family: Arial, sans-serif;
+}
 
 /* 사이드바 스타일 */
 .sidebar {
-	position: fixed;
-	z-index: 1; /* 레이어 순서 설정 */
+    position: fixed;
+    z-index: 1;
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
 }
 
 /* 메인 컨텐츠 스타일 */
 .main-content {
-	margin-left: 200px; /* 사이드바의 너비만큼 여백 확보 */
-	z-index: 0; /* 레이어 순서 설정 */
+    margin-left: 200px;
+    z-index: 0;
+    padding: 20px;
 }
 
+/* 게시글 목록 스타일 */
 .board-main {
-	display: flex;
-	  flex-direction: column;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .board-like {
-	display: flex;
-	margin-top: 50px;
-	width: 100%;
-	justify-content: center; /* 가운데 정렬 */
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    justify-content: center;
 }
 
 .board-like a {
-	margin-right: 50px; /* 이미지 간격 설정 */
+    margin-right: 20px;
 }
 
+/* 이미지 스타일 */
 .image-style {
-	width: 250px;
-	height: 200px;
+    width: 250px;
+    height: 200px;
 }
 
-.board-main {
-	display: flex;
-}
-
-.board-like {
-	display: flex;
-	margin-top: 50px;
-	width: 100%;
-	justify-content: center;
-	margin-left: 100px;
-}
-
-.board-like a {
-	margin-right: 50px;
-}
-
+/* 제목 스타일 */
 .title-style {
-	border: 1px solid green;
-	width: 50px;
-	height: 50px;
-	float: right;
-	margin-right: 50px;
+    border: 1px solid green;
+    width: 50px;
+    height: 50px;
+    float: right;
+    margin-right: 20px;
 }
 
+/* 좋아요 버튼 스타일 */
 .likeBtn-style {
-	display: inline-block;
-	padding: 5px 10px; /* 작은 버튼의 패딩을 조절 */
-	background-color: red;
-	color: red;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-	width: 30px;
-	height: 30px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 30px;
+    height: 30px;
 }
