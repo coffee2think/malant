@@ -43,6 +43,7 @@
 				<input type="hidden" name="sellerNo" value="<%= product.getSellerNo() %>">
 				<input type="hidden" name="Thumnail" value="<%= product.getThumbnailImg() %>">
 				<input type="hidden" name="productId" value="<%= product.getProductId() %>">
+				<input type="hidden" name="detailimg" value="<%= product.getDetailImage() %>">				
 				<input type="submit" value="삭제">
 				</form>
 				</td>

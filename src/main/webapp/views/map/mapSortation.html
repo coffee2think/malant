@@ -16,8 +16,8 @@
 						
 						mapContainer = document.getElementById(areaId); // 지도를 표시할 div 
 						mapOption = $.extend({
-							center: new kakao.maps.LatLng(37.567509, 126.980663)
-							,level : 15
+							center: new kakao.maps.LatLng(36, 127.3)
+							,level : 13
 						},option);
 
 						map = new kakao.maps.Map(mapContainer, mapOption),
@@ -125,6 +125,6 @@
 		</script>
 </head>
 <body>
-	<div id="map" style="width: 100%; height: 700px;"></div>
+	<div id="map" style="width: 100%; height: 100vh;"></div>
 </body>
 </html>

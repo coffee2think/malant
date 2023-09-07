@@ -16,8 +16,6 @@ li {
 .container {
 	height: 100vh;
 	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
 }
 
 .sidebar {
@@ -115,6 +113,8 @@ ul#new_categories li a {
   display: flex;
   flex-direction: column;
   position: absolute;
+  align-items: center;
+  justify-content: center;
   bottom: 40px; 
   border: 1px solid green;
 }

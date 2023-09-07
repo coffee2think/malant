@@ -27,30 +27,17 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 		</div>
 		<section>
 			<ul id="new_categories">
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=식물';">
-				<li><a >식&nbsp;&nbsp;&nbsp;물</a></li>
-				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=화분';">
-				<li><a>화&nbsp;&nbsp;&nbsp;분</a></li>
-				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=자갈/모래/흙';">
-				<li><a>자갈/모래/흙</a></li>
-				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=영양제/비료';">
-				<li><a>영양제/비료</a></li>
-				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=식물조명';">
-				<li><a>식물조명</a></li>
-				</div>
-				<div class = "menu-button" onclick="javascript:location.href='/malant/plistf?option1=기타';">
-				<li><a>기&nbsp;&nbsp;&nbsp;타</a></li>
-				</div>
+				<li><a href="javascript:location.href='/malant/plistf?option1=식물';">식&nbsp;&nbsp;&nbsp;물</a></li>
+				<li><a href="javascript:location.href='/malant/plistf?option1=화분';">화&nbsp;&nbsp;&nbsp;분</a></li>
+				<li><a href="javascript:location.href='/malant/plistf?option1=자갈/모래/흙';">자갈/모래/흙</a></li>
+				<li><a href="javascript:location.href='/malant/plistf?option1=영양제/비료';">영양제/비료</a></li>
+				<li><a href="javascript:location.href='/malant/plistf?option1=식물조명';">식물조명</a></li>
+				<li><a href="javascript:location.href='/malant/plistf?option1=기타';">기&nbsp;&nbsp;&nbsp;타</a></li>
 			</ul>
-			 <button onclick="avascript:location.href = '/malant/sellplist?sellerNo=<%= plist.get(0).getSellerNo() %>';">판매회원</button>	
 			 	</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
-			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=store'">
+			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
 				로그인 하러 가기
 			</div>
 		<% } else if(isAdmin != null && isAdmin) { // 관리자인 경우 %>
@@ -68,16 +55,20 @@ pageEncoding="UTF-8" import="store.main.model.vo.MainContent, java.util.ArrayLis
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님
 				</div>
-		        <div style="height:50px;">
-		          <a href="/malant/sblist?userNo=<%= loginMember.getUserNo() %>">장바구닝닝</a>
-		          <a href="/malant/olist?userNo=<%= loginMember.getUserNo() %>">주문리스틍</a>
-		        </div>
-				<div class="login-section-bottom">
-					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이 페이지</a> &nbsp;&nbsp; 
-					<a href="/malant/logout?loc=store">로그아웃</a>
-				</div>
-			</div>
-		<% } %>
+				<% if(loginMember.getSellerYn().equals("Y")) {%>
+		     <div class="login-links">
+		     	<a href="javascript:location.href = '/malant/sellplist?sellerNo=<%= plist.get(0).getSellerNo() %>';" class="seller-button">판매관리</a>
+            	<a href="/malant/logout?loc=store" class="logout-button">로그아웃</a>
+            	</div>
+            <% }else{ %>
+            <div class="login-links">
+            	<a href="/malant/sblist?userNo=<%= loginMember.getUserNo() %>" class="cart-button">장바구니</a>
+                <a href="/malant/olist?userNo=<%= loginMember.getUserNo() %>" class="order-button">주문리스트</a>
+                <a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>" class="my-page-button">마이 페이지</a>
+                <a href="/malant/logout?loc=store" class="logout-button">로그아웃</a>
+            </div>
+            <%}} %>
+		</div>
 	</div>
 </body>
 </html>

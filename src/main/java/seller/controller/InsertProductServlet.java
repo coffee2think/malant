@@ -69,7 +69,7 @@ public class InsertProductServlet extends HttpServlet {
         	String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
         	rename += '.' + thumbnail.substring(thumbnail.lastIndexOf(".")+1);
         	
-        	String renameFileName = FileNameChange.change(
+        	String renameFileName = FileNameChange.changeth(
         			thumbnail, savePath, "yyyyMMddHHmmss");
         	
         	
@@ -81,7 +81,7 @@ public class InsertProductServlet extends HttpServlet {
         	String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
         	rename += '.' + detailImage.substring(detailImage.lastIndexOf(".")+1);
         	
-        	String renameFileName = FileNameChange.change(
+        	String renameFileName = FileNameChange.changede(
         			detailImage, savePath, "yyyyMMddHHmmss");
 
         	pdtail.setDetailImage("/malant/resources/store/images/"+"de_"+renameFileName);
