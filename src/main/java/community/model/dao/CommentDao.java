@@ -57,7 +57,7 @@ public class CommentDao {
 		// System.out.println("comment : "+ comment.toString());
 
 		String query = "insert into cm_comment values (?, (select max(comment_no) +1 from cm_comment), "
-				+ " ?, ?, default, ?, default, default)";
+					+ " ?, ?, ?, default)";
 
 		try {
 			pstmt = conn.prepareStatement(query);
