@@ -51,7 +51,7 @@ public class MainDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		
-		String query = "SELECT PRODUCT_ID, PRODUCT_NAME, PRICE, PRODUCT_THUMBNAIL_IMG "
+		String query = "SELECT PRODUCT_ID, PRODUCT_NAME, PRICE, PRODUCT_THUMBNAIL_IMG, SELLER_NO "
 				+ "FROM ST_PRODUCT "
 				+ "WHERE EXPOSURE_YN='Y'";
 		
@@ -66,6 +66,7 @@ public class MainDao {
 				product.setProductName(rset.getString("PRODUCT_NAME"));
 				product.setPrice(rset.getInt("PRICE"));
 				product.setProductThumbnail(rset.getString("PRODUCT_THUMBNAIL_IMG"));
+				product.setSellerNo(rset.getString("SELLER_NO"));
 
 				list.add(product);
 			}

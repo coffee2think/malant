@@ -20,6 +20,7 @@ public class MainContent implements java.io.Serializable {
 	private String productName;
 	private int productId;
 	private String exposureYn;
+	private String sellerNo;
 	
 	
 	public MainContent() {
@@ -28,7 +29,7 @@ public class MainContent implements java.io.Serializable {
 
 
 	public MainContent(String bannerImage, int bannerPrority, String bannerLink, Date bannerStart, Date bannerEnd,
-			int viewcount, String productThumbnail, int price, String productName, int productId, String exposureYn) {
+			int viewcount, String productThumbnail, int price, String productName, int productId, String exposureYn, String sellerNo) {
 		super();
 		this.bannerImage = bannerImage;
 		this.bannerPrority = bannerPrority;
@@ -41,6 +42,7 @@ public class MainContent implements java.io.Serializable {
 		this.productName = productName;
 		this.productId = productId;
 		this.exposureYn = exposureYn;
+		this.sellerNo = sellerNo;
 	}
 
 
@@ -158,13 +160,25 @@ public class MainContent implements java.io.Serializable {
 		return serialVersionUID;
 	}
 
+	
+	
+
+	public String getSellerNo() {
+		return sellerNo;
+	}
+
+
+	public void setSellerNo(String sellerNo) {
+		this.sellerNo = sellerNo;
+	}
+
 
 	@Override
 	public String toString() {
 		return "MainContent [bannerImage=" + bannerImage + ", bannerPrority=" + bannerPrority + ", bannerLink="
 				+ bannerLink + ", bannerStart=" + bannerStart + ", bannerEnd=" + bannerEnd + ", viewcount=" + viewcount
 				+ ", productThumbnail=" + productThumbnail + ", price=" + price + ", productName=" + productName
-				+ ", productId=" + productId + ", exposureYn=" + exposureYn + "]";
+				+ ", productId=" + productId + ", exposureYn=" + exposureYn + "]" + "sellerNo = " + sellerNo;
 	}
 	
 }

@@ -22,6 +22,71 @@
 <html>
 <head>
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
+<link rel="stylesheet" href="/malant/resources/common/css/font.css" />
+<style>
+ body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 검색 영역 스타일 */
+        .search-area {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 검색바 스타일 */
+        .searchbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .searchbox {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .searchbtn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .searchbtn:hover {
+            background-color: #0056b3;
+        }
+
+        /* 필터 스타일 */
+        .filters {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter {
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* 공기정화 체크박스 스타일 */
+        #purification {
+            margin-left: 10px;
+        }
+    </style>
+
+
 <script>
 	function selectElement(selectName, value) {
 		$(".filter[name='" + selectName + "']").each(function() {

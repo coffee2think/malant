@@ -22,6 +22,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="/malant/resources/search/searchMain.css">
+<link rel="stylesheet" href="/malant/resources/common/css/font.css" />
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <script>
 	function selectElement(selectName, value) {
@@ -45,6 +46,7 @@
 	});
 </script>
 </head>
+
 <body>
 	<div class="search-main">
 		<div class="search-area">
@@ -83,7 +85,7 @@
 		<!-- 커뮤니티 인기글 목록 배너 -->
 		<div class="bestboards">
 			<center>
-				<img src="/malant/resources/common/images/mandragora_character.jpg" height="300">
+				<img src="/malant/resources/common/images/mandragora_character.jpg" weidth="150">
 			</center>
 		</div>
 	</div>
