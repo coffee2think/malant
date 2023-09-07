@@ -16,7 +16,7 @@
 }
 
 .content {
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	width: 800px;
 	height: auto;
 	display: flex;
@@ -29,8 +29,8 @@
 
 .simple-wrapper {
 	width: 800px;
-	height: 350px;
-	border: 1px solid green;
+	height: 300px;
+	/* border: 1px solid green; */
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -91,7 +91,7 @@
 .detail-wrapper {
 	width: 800px;
 	/* height: 1200px; */
-	border: 1px solid green;
+	/* border: 1px solid green; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -121,7 +121,7 @@
 
 .tips-and-precautions {
 	width: 750px;
-	height: 300px;
+	height: 200px;
 	border: 1px solid blue;
 	display: flex;
 	flex-direction: column;
@@ -132,7 +132,7 @@
 
 .managing-info {
 	width: 750px;
-	height: 400px;
+	height: 300px;
 	border: 1px solid blue;
 	display: flex;
 	justify-content: center;
@@ -142,7 +142,7 @@
 
 .managing-item {
 	width: 750px;
-	height: 400px;
+	height: 300px;
 	border: 1px solid blue;
 	display: flex;
 	justify-content: flex-start;

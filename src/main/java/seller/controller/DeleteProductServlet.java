@@ -31,31 +31,31 @@ public class DeleteProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hello world");
 		
 		int productId = Integer.parseInt(request.getParameter("pid"));
 		String sellerNo = request.getParameter("sellerNo");
 		String thumnail = request.getParameter("Thumnail");
+		String detailIMG = request.getParameter("detailimg");
+		
 		
 		int result = new SellersService().sellerDeleteProduct(productId);
 		System.out.println(result);
 		RequestDispatcher view = null;
 		if(result > 0) {
 		        File file = new File(thumnail);
+		        File file2 = new File(detailIMG);
+		        String fileName2 = file2.getName();
 		        String fileName = file.getName();
 		         if(fileName != null) {
 		            String savePath = request.getSession().getServletContext()
 		                  .getRealPath("/resources/store/images");
 		            new File(savePath + "\\" + fileName).delete();
-		         }        
-		        
-	        if(fileName != null) {
-	           String savePath = request.getSession().getServletContext()
-	                 .getRealPath("/resources/store/images");
-	           
-	           new File(savePath + "\\" + fileName).delete();
-	        }
-	        
+		            
+		         }if(fileName2 != null) {
+			            String savePath = request.getSession().getServletContext()
+				                  .getRealPath("/resources/store/images");
+				            new File(savePath + "\\" + fileName2).delete();
+				 }
 	        response.sendRedirect("/malant/sellplist?sellerNo="+sellerNo);
 		} else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
