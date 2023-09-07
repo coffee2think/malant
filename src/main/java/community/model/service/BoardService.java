@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import common.Paging;
 import community.model.dao.BoardDao;
 import community.model.vo.Board;
+import community.model.vo.CMBaordHashtag;
 import community.model.vo.CMBoardPhoto;
 import community.model.vo.CMHashtag;
 import community.model.vo.Comment;
@@ -116,17 +117,6 @@ public class BoardService {
 		return result;
 	}
 
-	public int updateOriginBoard(Board board) {
-		Connection conn = getConnection();
-		int result = bdao.updateOriginBoard(conn, board);
-		if (result > 0)
-			commit(conn);
-		else
-			rollback(conn);
-		close(conn);
-		return result;
-	}
-
 	public int updateHashtag(Board board) {
 		Connection conn = getConnection();
 		int result = bdao.updateHashtag(conn, board);
@@ -186,6 +176,60 @@ public class BoardService {
 			rollback(conn);
 		close(conn);
 		return result;
+	}
+
+	public int updateThumbnail(String thumbFileName) {
+		Connection conn = getConnection();
+		int result = bdao.updateThumbnail(conn, thumbFileName);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int insertBoardHashtag(CMBaordHashtag boardHashTag) {
+		Connection conn = getConnection();
+		int result = bdao.insertBoardHashtag(conn, boardHashTag);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int insertHashtag(String hashtag) {
+		Connection conn = getConnection();
+		int result = bdao.insertHashtag(conn, hashtag);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int selectRecentBoardNo() {
+		Connection conn = getConnection();
+		int boardNo = bdao.selectRecentBoardNo(conn);
+		close(conn);
+		return boardNo;
+	}
+
+	public CMHashtag selectHashtag(String hashtagContent) {
+		Connection conn = getConnection();
+		CMHashtag hashtagOk = bdao.selectHashtag(conn, hashtagContent);
+		close(conn);
+		return hashtagOk;
+	}
+
+	public int selectHashtagNo(String hashtagContent) {
+		Connection conn = getConnection();
+		int hashtagNo = bdao.selectHashtagNo(conn, hashtagContent);
+		close(conn);
+		return hashtagNo;
 	}
 
 }
