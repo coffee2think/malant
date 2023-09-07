@@ -2,7 +2,12 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, search.model.vo.Plant, common.Paging" %>
 <%
 	String keywd = (String) request.getAttribute("keyword");
-	
+	/* String difficulty = (String) request.getAttribute("difficulty");
+	String growthRate = (String) request.getAttribute("growth_rate");
+	String smell = (String) request.getAttribute("smell");
+	String placement = (String) request.getAttribute("placement");
+	String effectPurification = (String) request.getAttribute("effect_purification"); */
+
 	ArrayList<Plant> list = (ArrayList<Plant>) request.getAttribute("list");
 	int nowPage = ((Integer) request.getAttribute("currentPage")).intValue();
 	
@@ -99,9 +104,11 @@ body {
 }
 
 .result-guide {
+    width: 800px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: auto;
 }
 
 .result-message {
@@ -129,11 +136,13 @@ body {
 
 /* 결과 카드 스타일 */
 .result-cards {
+    width: 800px;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: 20px;
+    margin: auto;
 }
 
 .plant-card {
@@ -177,7 +186,7 @@ body {
 			<div class="results">
 				<div class="result-guide">
 					<% if(list.size() == 0) { %>
-						<h4><%= keywd %> 에 대한 검색 결과가 존재하지 않습니다.</h4>
+						<h4>검색 결과가 존재하지 않습니다.</h4>
 					<% } else { %>
 						<div class="result-message">
 							<h4>'<%= keywd %>' 에 대한 검색 결과입니다.(<%= listCount %> 건)</h4>
@@ -185,10 +194,12 @@ body {
 <!-- 						<div class="sort-items">
 							관련도순 어떻게 검색해올지 고민
 							<div class="sort-item"><a href="#">관련도순</a></div>
-							
+							 -->
+							<!-- 
 							<div class="sort-item" id="sort-name"><a href="#">이름순</a></div>
 							<div class="sort-item" id="sort-viewcount"><a href="#">인기순</a></div>
-						</div> -->
+							 -->
+						</div>
 					<% } %>
 				</div>
 				
@@ -209,11 +220,12 @@ body {
 					<div class="paging">
 						<%@ include file="../common/pagingView.jsp" %>
 					</div>
-				</div>
 				<% } else { %>
-					<img src="/malant/resources/common/images/mandragora_character.jpg">
+					<div class="result-cards">
+						<img src="/malant/resources/common/images/mandragora_character.jpg">
+					</div>
 				<% } %>
-				
+				</div>
 			</div>
 		</div>
 	</div>
