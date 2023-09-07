@@ -22,14 +22,16 @@ body {
 
 /* 컨텐츠 영역 스타일 */
 .content{
+	min-width: 800px;
 	padding-left: 20px;
 	padding-top: 20px;
+	margin: 0 auto;
 	flex-grow: 1;
 	max-width: calc(100% - 300px);
 	margin-left: 250px;
     flex: 2; 
     background-color: #fff;
-/*     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     border-radius: 5px;
     }
 
@@ -92,6 +94,8 @@ body {
 /* 검색 결과 스타일 */
 .results {
     margin-top: 20px;
+    max-width: 800px;
+    margin:0 auto;
 }
 
 .result-guide {
@@ -178,13 +182,13 @@ body {
 						<div class="result-message">
 							<h4>'<%= keywd %>' 에 대한 검색 결과입니다.(<%= listCount %> 건)</h4>
 						</div>
-						<div class="sort-items">
-							<!-- 관련도순 어떻게 검색해올지 고민
+<!-- 						<div class="sort-items">
+							관련도순 어떻게 검색해올지 고민
 							<div class="sort-item"><a href="#">관련도순</a></div>
-							 -->
+							
 							<div class="sort-item" id="sort-name"><a href="#">이름순</a></div>
 							<div class="sort-item" id="sort-viewcount"><a href="#">인기순</a></div>
-						</div>
+						</div> -->
 					<% } %>
 				</div>
 				

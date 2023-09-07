@@ -9,147 +9,105 @@
 <meta charset="UTF-8">
 <title><%= plant.getPlantName ()%> 상세정보</title>
 <style>
-.container {
-	height: 100vh;
-	display: flex;
-	flex-wrap: wrap;
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center; 
 }
 
 .content {
-	/* border: 1px solid red; */
-	width: 800px;
-	height: auto;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	margin: auto;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 5px;
+    text-align: left; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+
 .simple-wrapper {
-	width: 800px;
-	height: 300px;
-	/* border: 1px solid green; */
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .simple-info {
-	width: 500px;
-	height: 300px;
-	border: 1px solid blue;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-}
-
-.plant-photo {
-	width: 250px;
-	height: 300px;
-	border: 1px solid blue;
-	display: flex;
-	justify-content: center;
-	align-content: center;
-	flex-wrap: wrap;
+    width: 65%;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 .simple-item-wrapper {
-	width: 480px;
-	height: 100px;
-	border: 1px solid orange;
-	margin: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+    margin-bottom: 10px;
 }
 
-.main-feature-wrapper {
-	width: 480px;
-	height: 220px;
-	border: 1px solid orange;
-	margin: 10px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+
+.plant-photo {
+    width: 50%;
+    text-align: center;
 }
 
-.name-title {
-	width: 380px;
-	height: 30px;
-	border: 1px solid orange;
+.plant-photo img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 5px;
 }
 
-.name-content {
-	width: 380px;
-	height: 50px;
-	border: 1px solid orange;
+
+.main-feature-table {
+    width: 100%;
+    border-collapse: collapse; 
 }
 
-.detail-wrapper {
-	width: 800px;
-	/* height: 1200px; */
-	/* border: 1px solid green; */
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-	flex-wrap: wrap;
+.main-feature-table th,
+.main-feature-table td {
+    padding: 8px;
+    text-align: left;
 }
 
-.detail-title {
-	width: 750px;
-	height: 50px;
-	border: 1px solid blue;
-	display: flex;
-	justify-content: flex-start;
-	align-content: center;
-	flex-wrap: wrap;
-}
-
-.detail-feature {
-	width: 750px;
-	height: 400px;
-	border: 1px solid blue;
-	display: flex;
-	justify-content: flex-start;
-	align-content: center;
-	flex-wrap: wrap;
-}
 
 .tips-and-precautions {
-	width: 750px;
-	height: 200px;
-	border: 1px solid blue;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-	flex-wrap: wrap;
+    margin-top: 20px;
 }
 
+.tips-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.tips {
+    line-height: 1.6;
+}
+
+
 .managing-info {
-	width: 750px;
-	height: 300px;
-	border: 1px solid blue;
-	display: flex;
-	justify-content: center;
-	align-content: center;
-	flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .managing-item {
-	width: 750px;
-	height: 300px;
-	border: 1px solid blue;
-	display: flex;
-	justify-content: flex-start;
-	align-content: center;
-	flex-wrap: wrap;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.managing-item th {
+    text-align: left;
+    font-weight: bold;
+}
+
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 </style>
+
 </head>
 <body>
 	<div class="container">
