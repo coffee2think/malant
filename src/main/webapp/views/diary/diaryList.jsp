@@ -166,7 +166,7 @@ window.onload = function(){
        <br>
      <% } %>
 			<div class="pagingview">
-				<%@ include file="../common/pagingView.jsp" %>
+				<%@ include file="../diary/pagingView.jsp" %>
 			</div>
        </td>
        </tr>
