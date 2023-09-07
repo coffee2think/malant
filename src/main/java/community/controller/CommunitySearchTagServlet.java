@@ -19,13 +19,13 @@ import community.model.vo.Board;
  * Servlet implementation class BoardSearchTagServlet
  */
 @WebServlet("/searchtag")
-public class BoardSearchTagServlet extends HttpServlet {
+public class CommunitySearchTagServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardSearchTagServlet() {
+    public CommunitySearchTagServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

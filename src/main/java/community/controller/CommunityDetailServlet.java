@@ -20,13 +20,13 @@ import community.model.vo.Comment;
  * Servlet implementation class BoardListDetailServlet
  */
 @WebServlet("/bdetail")
-public class BoardDetailServlet extends HttpServlet {
+public class CommunityDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailServlet() {
+    public CommunityDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

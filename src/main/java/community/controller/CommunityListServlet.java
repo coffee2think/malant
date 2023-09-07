@@ -28,13 +28,13 @@ import member.model.vo.Member;
  * Servlet implementation class BoardListSortByDateServlet
  */
 @WebServlet("/bdlist")
-public class BoardListServlet extends HttpServlet {
+public class CommunityListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public BoardListServlet() {
+    public CommunityListServlet() {
         // TODO Auto-generated constructor stub
     }
 
@@ -55,7 +55,7 @@ public class BoardListServlet extends HttpServlet {
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message",  "커뮤나타 게시글 목록 조회 실패!");
+			request.setAttribute("message",  "커뮤니티 게시글 목록 조회 실패!");
 			view.forward(request, response);
 			
 		}

@@ -23,13 +23,13 @@ import member.model.vo.Member;
  * Servlet implementation class BoardTop3LikeServlet
  */
 @WebServlet("/btoplike")
-public class BoardTop3LikeServlet extends HttpServlet {
+public class CommunityTop3LikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BoardTop3LikeServlet() {
+	public CommunityTop3LikeServlet() {
 		super();
 	}
 

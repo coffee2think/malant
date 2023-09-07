@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
-	int nowPage = ((Integer)request.getAttribute("currentPage")).intValue();
 %>
 <!-- 커뮤니티 메인 화면 -->
 <html>
@@ -67,7 +66,7 @@ function likeTop3(){
 	                }else{
 	                    	values += "<img src='/malant/resources/board/images/" + json.blist[i].bthum + "' width='20' hegiht='20'>"
 	                } 
-	          
+
 	                values += "</td><td><a onclick='checkLogin(" + json.blist[i].bno + ");'>" + decodeURIComponent(json.blist[i].btitle) + "</a></td><td align='center'>" 
 		                    + decodeURIComponent(json.blist[i].bnick) + "</td><td align='center'>" 
 		                    + json.blist[i].blike + "</td><td align='center'>"
@@ -105,16 +104,18 @@ function viewInput(span){
 </head>
 <body>
 		
-<div class="container">
+<div class="container" style="display:contents;">
 <%@ include file="../../views/common/sidebar.jsp"%>
  </div>
  <script type="text/javascript">
        
-		var member = '<%= loginMember %>';
+		
 
-        function checkLogin(){
+        function checkLogin(boardNo){
+        	var member = '<%= loginMember %>';
+        	console.log("Member : " + member)
             if (member == 'null'){
-                if (confirm("로그인 하시겠습니까?")) {
+                if (confirm("로그인후 이용 가능한 서비스 입니다.")) {
                    location.href = "/malant/login?loc=common";
                 } 
             } else {
@@ -172,7 +173,8 @@ function viewInput(span){
 		<hr>
 		<div id="dlist" class="board"> 
 		<% for(Board b : list){ %>
-		<table onclick="javascript:location.href='/malant/bdetail?bno=<%= b.getBoardNo() %>';" width="500" border="0" style="display: block; margin:10px; border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
+		<table onclick="checkLogin(<%= b.getBoardNo() %>);" width="500" border="0" style="display: block; margin:10px; 
+		border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
 			<tr height="30">
 				<td width="40" align="center" style="background: rgba(154, 179, 213, 0.5);"><%= b.getBoardNo() %></td>
 				<td width="130" style="background: rgba(154, 179, 213, 0.3);"><%= b.getNickname() %></td>
@@ -189,12 +191,10 @@ function viewInput(span){
 			<tr>
 				<td colspan="3"><%= b.getBoardTitle() %><br>
 				<p><%= b.getBoardContent().substring(0) %></p>
-				<!-- 서브스트링 값 변경-->
 				</td>
 			</tr>
 			<tr height="30"> 
-				<td colspan="3">조회수 : <%= b.getViewcount() %> &nbsp; &nbsp; &nbsp; &nbsp;
-					
+				<td colspan="3">조회수 : <%= b.getViewcount() %> &nbsp; &nbsp; &nbsp; &nbsp;	
 				<img src="/malant/resources/board/images/likebtn.jpg" width="20" height="20"> <%= b.getBoardLike() %>
 				</td>
 			</tr>
@@ -205,6 +205,6 @@ function viewInput(span){
 		<% } %>
 		
 			   </div>
-		</div>
+	</div>
 </body>
 </html>

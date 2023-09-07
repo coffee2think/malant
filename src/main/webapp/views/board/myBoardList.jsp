@@ -110,7 +110,7 @@ function viewInput(span){
 </head>
 <body>
 		
-<div class="container">
+<div class="container" style="display:contents;">
 <%@ include file="../../views/common/sidebar.jsp"%>
  </div>
  <script type="text/javascript">
