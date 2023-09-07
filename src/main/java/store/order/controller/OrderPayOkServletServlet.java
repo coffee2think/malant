@@ -20,6 +20,7 @@ import org.json.simple.parser.JSONParser;
 
 import store.order.model.service.OrderService;
 import store.order.model.vo.ProductOrder;
+import store.shoppingBasket.model.service.ShoppingBasketService;
 
 /**
  * Servlet implementation class OrderPayOkServletServlet
@@ -46,6 +47,7 @@ public class OrderPayOkServletServlet extends HttpServlet {
     	ProductOrder po = (ProductOrder)session.getAttribute("porder");;
     	
     	int result = 0;
+    	int deleteResult = 0;
 		RequestDispatcher view = null;
 		
 		JSONParser parser = new JSONParser();
@@ -123,8 +125,9 @@ public class OrderPayOkServletServlet extends HttpServlet {
 				System.out.println("po "+ po);
 				
 				result = new OrderService().addOrderList(po);
-				
-				
+				String[] ProductId = new String[1];
+				ProductId[0] = String.valueOf(po.getProductId());
+				deleteResult = new ShoppingBasketService().deleteShoppingBasket(po.getUserNo(), ProductId);
 				
 			    } catch (Exception e) {
 			        e.printStackTrace();

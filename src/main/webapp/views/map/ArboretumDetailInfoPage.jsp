@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="map.model.vo.Arboretum"%>
+   pageEncoding="UTF-8" import="map.model.vo.Arboretum"%>
 <% 
-	Arboretum arboretum = (Arboretum)request.getAttribute("arboretum"); 
+   Arboretum arboretum = (Arboretum)request.getAttribute("arboretum"); 
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,210 +11,178 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>수목원 정보</title>
 <style type="text/css">
-body {
-	 font-family: Arial, sans-serif;
-	 background-color: #BFBFBF;
-	 margin: 0;
-	 display: flex;
-	 flex-direction: column;
-	 align-items: center;
-	 justify-content: center;
-	 height: 100vh;
-}
 
-.content-all{
-  display: inline-grid;
-  justify-content: start;
-  margin-left: 250px; /* 사이드바 너비만큼 여백 추가 */
-  padding: 20px;
-  box-sizing: border-box; /* 여백을 포함한 전체 너비 설정 */
-}
+  .outer-container {
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    margin-left: 200px; /* 왼쪽 여백 설정 */
+    padding: 20px; /* 컨텐츠 내부 여백 설정 */
+    min-height: 100vh;
+    
+  }
+  .table-container {
+     margin: 0 auto; /* 가로 가운데 정렬 */
+     max-width: 800px; /* 테이블의 최대 너비 설정 */
+     padding: 20px; /* 컨텐츠 내부 여백 설정 */
+     align-self: center;
+  }
+  
+  .content {
+    margin-left: 20px; /* 왼쪽 여백 설정 */
+    padding: 20px; /* 컨텐츠 내부 여백 설정 */
+  }
 
+  table {
+  	 
+  }
+  
+  table td {
+   
+   	padding:10px;
+    width: 400px;
+    border-radius : 10px;
+    border : 1px solid  rgba(154, 179, 213, 0.4);
+    background: rgba(154, 179, 213, 0.1);
+    vertical-align: top;
 
-.tree-title {
-  padding: 10px;
-  box-sizing: border-box;
-  text-align: center;
-  margin: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative; /* 중앙에 배치하기 위해 상대 위치 설정 */
-}
-
-#title-box{
-    width: 250px;
-    height: 50px;
-    background-color: #f5f5f5;
-    margin-top: 7px;
-    border: 1px solid #ccc;
-}
-
-#title{
-margin-top: 7px;
-}
-
-.info-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-
-.tree-card {
-	width: calc(50% - 20px);
-	max-width: 400px; /* 최대 너비 설정 */
-	padding: 10px;
-	border: 1px solid #ccc;
-	background-color: #f5f5f5;
-	box-sizing: border-box;
-	text-align: center;
-	margin: 10px;
-}
-
-.info-content {
-	margin-top: 5px;
-	text-align: left;
-	max-width: 100%; /* 내용의 최대 너비 설정 */
-}
-
-.outer-container {
-	display: flex;
-}
-/* 각 섹션의 제목 스타일 */
-.tree-card h2 {
-  font-size: 18px; /* 제목 폰트 크기 조정 */
-  color: #333; /* 제목 글자 색상 설정 */
-  margin-bottom: 10px; /* 아래 여백 추가 */
-  text-transform: uppercase; /* 제목 텍스트 대문자로 변환 */
-  position: relative; /* 제목 내에 도형을 배치하기 위해 상대 위치 설정 */
-}
-
-/* 제목 앞에 도형 추가 */
-.tree-card h2::before {
-  content: "◈"; /* 원하는 도형으로 변경 가능 */
-  display: inline-block;
-  font-size: 20px; /* 도형 크기 설정 */
-  margin-right: 10px; /* 도형과 텍스트 사이 여백 설정 */
-  color: #f6a623; /* 도형 색상 설정 */
-}
-
-/* 각 섹션의 내용 스타일 */
-.tree-card .content {
-  font-size: 16px; /* 내용 폰트 크기 조정 */
-  color: #666; /* 내용 글자 색상 설정 */
-  margin-top: 5px; /* 위 여백 추가 */
-  line-height: 1.5; /* 줄 간격 설정 */
-}
-
-/* 각 섹션의 배경색 변경 */
-.tree-card:nth-child(odd) {
-  background-color: #f9f9f9; /* 홀수 번째 섹션 배경색 설정 */
-}
+  }
+  
+   table td.title-td {
+	 background: rgba(154, 179, 213, 0.2);
+	 border: none;
+	 vertical-align: inherit;
+	 padding: 15px; /* 내부 여백을 추가하여 눈에 띄게 만듭니다. */
+  	 font-weight: bold; /* 글꼴 굵기 설정 */
+	
+   }
+  
+  table td h2 {
+     text-align:center;
+     top: 0px;
+     background:rgba(154, 179, 213, 0.3);
+     border-radius : 10px;
+  }
+  
+  table td h1 {
+     text-align:center;
+     
+  }
 </style>
 </head>
 
 <body>
-	<div class="outer-container">
-		<div style="position:absolute;top:0;left:0;"><%@ include file="../common/sidebar.jsp"%></div>
-		<hr>
-		<div class="content-all">
-			<div class="tree-title">
-				<div id=title-box>
-					<h2 id="title"><%= arboretum.getArboretum_name() %></h2>
-				</div>
-			</div>
-			<div class="info-container">
-				<div class="tree-card">
-					<h2 id="address">주소</h2>
-					<br>
-					<div class="content"><%= arboretum.getArboretum_address() %></div>
-				</div>
-				<div class="tree-card">
-					<h2 id="website">홈페이지</h2>
-					<div class="content">
-						<br>
-						<% if(arboretum.getArboretum_homepage() == null) { %>
-							홈페이지 개설안함
-						<% }else{ %>
-							<a href="https://<%= arboretum.getArboretum_homepage() %>"><%= arboretum.getArboretum_homepage() %></a>
-						<% } %>
-					</div>
-				</div>
-				<div class="tree-card">
-					<h2 id="openClose">Open/Close</h2>
-					<div class="info-content">
-						<br>개관 :
-						<%= arboretum.getOpen_days() %><br>
-						<br>휴관 :
-						<%= arboretum.getClosed_days() %>
-					</div>
-				</div>
-				<div class="tree-card">
-					<h2 id="entranceFee">입장료</h2>
-					<div class="info-content">
-						<% if(arboretum.getEntrance_fee_yn().equals("Y")) { %>
-							<br>성인 :
-							<%= arboretum.getFee_adult() %>
-							<br>청소년 :
-							<%= arboretum.getFee_teenage() %>
-							<br>어린이입장료 :
-							<%= arboretum.getFee_child() %>
-							<br>장애인 :
-							<%= arboretum.getFee_disabled() %>
-							<br>기타 :
-							<%= arboretum.getFee_etc() %>
-						<% }else{ %>
-							<br><br>
-							<div align="center">
-								무료
-							</div>
-						<% } %>
-					</div>
-				</div>
-				<div class="tree-card">
-					<h2 id="phone">전화번호</h2>
-					<br>
-					<% if(arboretum.getArboretum_tel() != null) { %>
-						<div class="content"><%= arboretum.getArboretum_tel() %></div>
-					<% }else{ %>
-						등록된 번호가 없습니다.
-					<% } %>
-				</div>
-				<div class="tree-card">
-					<h2 id="companion">동반 입장</h2>
-					<div class="info-content">
-						<br>반려동물 동반 : 
-						<% if(arboretum.getWith_pet_yn().equals("Y")) { %>
-							가능<br>
-						<% }else{ %>
-							불가<br>
-						<% } %>
-						<br>안내견 동반 : 
-						<% if(arboretum.getWith_guidedog_yn().equals("Y")) { %>
-							가능<br>
-						<% }else{ %>
-							불가<br>
-						<% } %>
-					</div>
-				</div>
-				<div class="tree-card">
-					<h2 id="education">교육프로그램</h2>
-					<div class="info-content">
-					<% if(arboretum.getEdu_program_yn().equals("Y")) { %>
-						<br>교육프로그램명 :
-						<%= arboretum.getEdu_program_name() %><br>
-						<br>교육프로그램 예약 여부 : 가능 
-					<% }else{ %>
-						<br>
-						<div align="center">
-							교육프로그램을 운영하지 않습니다.
-						</div>
-						
-					<% } %>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<script type="text/javascript" src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+	var text = "<%= arboretum.getFee_etc() %>";
+	var words = text.split(",");
+	
+	var	result = words.join("<br>");
+</script>
+<div class="outer-container">
+   <div style="position:absolute;top:0;left:0;"><%@ include file="../common/sidebar.jsp"%></div>
+   
+   <div class="table-container">
+      <table>
+         <tr>
+            <td class="title-td" style="background: rgba(154, 179, 213, 0.2);">
+               <h1><%= arboretum.getArboretum_name() %></h1>
+            </td>
+            
+            <td>
+               <h2 id="address">주소</h2>
+               <br>
+               <h4 style="text-align:center;"><%= arboretum.getArboretum_address() %></h4>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <h2 id="website">홈페이지</h2>
+               <br>
+               <% if(arboretum.getArboretum_homepage() == null) { %>
+                 <h4 style="text-align:center;">홈페이지를 개설하지 않았습니다.</h4>
+               <% }else{ %>
+               
+                   <% if(arboretum.getArboretum_homepage().contains("http://")) { %>
+                      <h4 style="text-align:center;"><a style="text-align:center;" href="<%= arboretum.getArboretum_homepage() %>"><%= arboretum.getArboretum_homepage() %></a></h4>
+                   <% }else { %>
+                      <h4 style="text-align:center;"><a style="text-align:center;" href="https://<%= arboretum.getArboretum_homepage() %>"><%= arboretum.getArboretum_homepage() %></a></h4>
+                   <% } %>
+                   
+               <% } %>
+            </td>
+            
+            <td>
+               <h2 id="openClose">Open/Close</h2>
+               <br>개관 :
+               <%= arboretum.getOpen_days() %><br>
+               <br>휴관 :
+               <%= arboretum.getClosed_days() %>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <h2 id="entranceFee">입장료</h2>
+               <% if(arboretum.getEntrance_fee_yn().equals("Y")) { %>
+                  <br>성인 :
+                  <%= arboretum.getFee_adult() %>원
+                  <br>청소년 :
+                  <%= arboretum.getFee_teenage() %>원
+                  <br>어린이입장료 :
+                  <%= arboretum.getFee_child() %>원
+                  <br>장애인 :
+                  <%= arboretum.getFee_disabled() %>원
+                  <br>기타 : <br>
+					<script type="text/javascript">
+					    document.write(result);
+					</script>
+               <% }else{ %>
+                  <br>
+                     <h4 style="text-align:center;">무료</h4>
+               <% } %>
+            </td>
+               
+            <td>
+               <h2 id="phone" style="top:0px;">전화번호</h2>
+               <br>
+               <h4 style="text-align:center;">
+               <% if(arboretum.getArboretum_tel() != null) { %>
+                  <%= arboretum.getArboretum_tel() %>
+               <% }else{ %>
+                  등록된 번호가 없습니다.
+               <% } %></h4>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <h2 id="companion">동반 입장</h2>
+               <br>반려동물 동반 : 
+               <% if(arboretum.getWith_pet_yn().equals("Y")) { %>
+                  가능<br>
+               <% }else{ %>
+                  불가<br>
+               <% } %>
+               <br>안내견 동반 : 
+               <% if(arboretum.getWith_guidedog_yn().equals("Y")) { %>
+                  가능<br>
+               <% }else{ %>
+                  불가<br>
+               <% } %>
+            </td>
+               
+            <td>
+               <h2 id="education">교육프로그램</h2>
+               <% if(arboretum.getEdu_program_yn().equals("Y")) { %>
+                  <br>교육프로그램명 :
+                  <%= arboretum.getEdu_program_name() %><br>
+                  <br>교육프로그램 예약 여부 : 가능 
+               <% }else{ %>
+                  <br><h4 style="text-align:center;">교육프로그램을 운영하지 않습니다.</h3>
+               <% } %>
+            </td>
+         </tr>
+      </table>
+   </div>
+</div>
+
 </body>
 </html>

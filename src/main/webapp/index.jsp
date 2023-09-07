@@ -11,12 +11,9 @@
     <link rel="stylesheet" href="/malant/resources/common/css/scrolling.css" />
     <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
     <script src="/malant/resources/common/js/scroll_behavior.js"></script>
-    <style type="text/css">
+    <style>
     	.container {
-    		height: 100vh;
-    		display: flex;
-    		flex-wrap: wrap;
-    		align-content: center;
+    		align-items: center;
     	}
     </style>
   </head>

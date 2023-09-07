@@ -41,4 +41,27 @@ public class SellersService {
 		close(conn);
 		return result;
 	}
+	
+	public int sellerInsertProduct2(ProductDetail splinsert, ArrayList<String> options){
+		Connection conn = getConnection();
+		int result = sdao.sellerInsertProduct2(conn, splinsert, options);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+
+	public int sellerDeleteProduct(int productId) {
+		Connection conn = getConnection();
+		int result = sdao.sellerDeleteProduct(conn, productId);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
 }

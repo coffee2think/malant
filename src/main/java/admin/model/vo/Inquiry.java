@@ -13,7 +13,7 @@ public class Inquiry implements Serializable {
 	private String inquiryTitle;
 	private String inquiryContent;
 	private String replierNo;
-	private String replierContent;
+	private String replyContent;
 	private String status;
 	private Date completionDate;
 	
@@ -31,14 +31,14 @@ public class Inquiry implements Serializable {
 	}
 
 	public Inquiry(int inquiryNo, String inquirerNo, Date inquiryDate, String inquiryTitle, String inquiryContent,
-			String replierNo, String replierContent, String status, Date completionDate) {
+			String replierNo, String replyContent, String status, Date completionDate) {
 		this.inquiryNo = inquiryNo;
 		this.inquirerNo = inquirerNo;
 		this.inquiryDate = inquiryDate;
 		this.inquiryTitle = inquiryTitle;
 		this.inquiryContent = inquiryContent;
 		this.replierNo = replierNo;
-		this.replierContent = replierContent;
+		this.replyContent = replyContent;
 		this.status = status;
 		this.completionDate = completionDate;
 	}
@@ -71,8 +71,8 @@ public class Inquiry implements Serializable {
 		return replierNo;
 	}
 
-	public String getReplierContent() {
-		return replierContent;
+	public String getReplyContent() {
+		return replyContent;
 	}
 
 	public String getStatus() {
@@ -107,8 +107,8 @@ public class Inquiry implements Serializable {
 		this.replierNo = replierNo;
 	}
 
-	public void setReplierContent(String replierContent) {
-		this.replierContent = replierContent;
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
 	}
 
 	public void setStatus(String status) {
@@ -123,7 +123,7 @@ public class Inquiry implements Serializable {
 	public String toString() {
 		return "Inquiry [inquiryNo=" + inquiryNo + ", inquirerNo=" + inquirerNo + ", inquiryDate=" + inquiryDate
 				+ ", inquiryTitle=" + inquiryTitle + ", inquiryContent=" + inquiryContent + ", replierNo=" + replierNo
-				+ ", replierContent=" + replierContent + ", status=" + status + ", completionDate=" + completionDate
+				+ ", replyContent=" + replyContent + ", status=" + status + ", completionDate=" + completionDate
 				+ "]";
 	}
 

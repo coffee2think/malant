@@ -37,52 +37,18 @@ public class SellerProductListServlet extends HttpServlet {
 		
 		String sellerNo = request.getParameter("sellerNo");
 		System.out.println("sellerNo " + sellerNo);
-		
-		// 페이지 번호 파라미터를 가져옴 (기본값은 1)
-		int page = 1;
-        String pageParam = request.getParameter("page");
-        if (pageParam != null && !pageParam.isEmpty()) {
-            try {
-                page = Integer.parseInt(pageParam);
-            } catch (NumberFormatException e) {
-                // 페이지 번호 파라미터가 잘못된 경우 예외 처리
-                e.printStackTrace();
-            }
-        }
-
-        int itemsPerPage = 99; // 한 페이지당 아이템 수
-        int startIdx = (page - 1) * itemsPerPage;
-        int endIdx = startIdx + itemsPerPage;
 
         ArrayList<ProductDetail> sellplist = new SellersService().sellerPlist(sellerNo);
         
         System.out.println(sellplist.toString()); //확인코드
 
         if (sellplist != null) {
-
-            int totalCount = sellplist.size();
-            int pageCount = (int) Math.ceil((double) totalCount / itemsPerPage);
-
-            
-            request.setAttribute("currentPage", page);
-            request.setAttribute("pageCount", pageCount);
-
-           
-            if (startIdx < totalCount) {
-                if (endIdx > totalCount) {
-                    endIdx = totalCount;
-                }
-                ArrayList<ProductDetail> pageItems = new ArrayList<>(sellplist.subList(startIdx, endIdx));
-                request.setAttribute("sellplist", pageItems);
-            }
-
             view = request.getRequestDispatcher("views/seller/sellerProductList.jsp");
+            request.setAttribute("sellplist", sellplist);
         } else {
-           
             view = request.getRequestDispatcher("views/common/error.jsp");
             request.setAttribute("message", "조회된 상품이 없습니다.");
         }
-
         view.forward(request, response);
     }
 

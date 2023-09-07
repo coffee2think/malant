@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import board.model.vo.Board;
 import store.shoppingBasket.model.vo.ShoppingBasket;
 
 public class ShoppingBasketDao {

@@ -34,7 +34,7 @@ ArrayList<ShoppingBasket> olist = (ArrayList<ShoppingBasket>) session.getAttribu
 					<hr border=100vh>
 					<img src="<%=porder.getThumbnailImg()%>" height=250px>
 					<h2><%=porder.getProductName()%></h2>
-					<h1><%=porder.getTotalPrice()%>원 주세요
+					<h1><%=porder.getTotalPrice()%>원
 					</h1>
 					<hr border=100vh>
 				</div>

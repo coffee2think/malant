@@ -7,7 +7,6 @@
 		isAdmin = false;
 	}
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,23 +24,26 @@
 		<section>
 			<ul id="new_categories">
 				<li><a href="/malant">식물 검색</a></li>
-				<li><a href="/malant/views/board/boardMainList.jsp">커뮤니티</a></li>
+				<li><a href="/malant/bdlist">커뮤니티</a></li>
 				<li><a 
 				<% if(loginMember == null) { %>
 					href="/malant/views/member/loginPage.jsp"
 				<% } else { %>
-					href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>"
+					href="/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1"
 				<% } %>>다이어리</a></li>
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
 				<li><a href="/malant/smplist">스토어</a></li>
 				<li><a href="/malant/ntitlelist">공지/이벤트</a></li>
 				
+				<%-- 
 				<% if(isAdmin) { %>
 				<li><a href="/malant/qlist">문의 & 답변</a></li>
 				<li><a href="/malant/breportlist">신고 처리</a></li>
-				<% } else { %>
+				<% } else if(loginMember != null) { %>
 				<li><a href="/malant/qinsert">문의하기</a></li>
+				<li><a href="/malant/myqlist?userno=<%= loginMember.getUserNo() %>&action=myqlist">내 문의 목록</a></li>
 				<% } %>
+				--%>
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
@@ -65,7 +67,8 @@
 					<%= loginMember.getNickname() %>님
 				</div>
 				<div class="login-section-bottom">
-					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp; 
+					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp;
+					<a href="/malant/myblist?userno=<%= loginMember.getUserNo() %>">내 게시글 보기</a> &nbsp;&nbsp;  
 					<a href="/malant/logout?loc=common">로그아웃</a>
 				</div>
 			</div>

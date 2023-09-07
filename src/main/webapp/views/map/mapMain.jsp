@@ -10,18 +10,28 @@
 <style type="text/css">
 
 .container {
-	display: flex;
+	display:flex;
 }
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:85%;height:500px;}
+
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:13px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{text-decoration: none;}
+.map_wrap {position:relative;width:83%;height:500px;}
 #menu_wrap {position:absolute;top:0;right:0;bottom:0;width:250px;margin:60px 20px -300px 0;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap ul hr {display: block; height: 1px;border: 0; border-top: 1px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;} 
+#menu_wrap .option{text-align: center;}
 #menu_wrap .option button {margin-left:5px;}
-
+.page a:hover{color: #ff6600;}
+#placesList a {
+  font-size:17px;
+  font-weight:bold;
+  color:#0077FF;
+  text-decoration: none;
+}
+#placesList div a:hover{
+  color: blueviolet;
+}
 </style>
 <meta charset="utf-8">
 <title>수목원 맵</title>
@@ -38,8 +48,8 @@
 				<div class="option">
 					<div>
 						<form action="/malant/arsearch" method="get">
-							지역 or 이름 검색 : <input type="text" value="" id="keyword" size="15">
-							<button id="set-value-button" type="submit">검색하기</button>
+							<input style="width:189px;" type="text" value="" id="keyword" placeholder="지역 or 이름을 입력하세요.">
+							<button id="set-value-button" type="submit">검색</button>
 							<input type="hidden" id="hidden-input" name="search">
 						</form>
 					</div>
@@ -47,7 +57,8 @@
 				<hr>
 				<ul id="placesList">
 					<% for(Arboretum a : list){ %>
-						<div><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>" style="font-size:17px;font-weight:bold;color:#0077FF;">
+						<div>
+						<a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>">
 														<%= a.getArboretum_name() %></a></div><br>
 						<div style="font-size: 15px"><%= a.getArboretum_address() %></div><br>
 						<% if(a.getArboretum_tel() != null) { %>
@@ -70,7 +81,7 @@
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(36.2683, 128.3), // 지도의 중심좌표
-        level: 12 // 지도의 확대 레벨
+        level: 13 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -92,10 +103,10 @@ imageOption = {offset: new kakao.maps.Point(27, 40)}; // 마커이미지의 옵�
 	
 
 	var infowindow = new kakao.maps.InfoWindow({
-		content : '<div class="info">' + 
-					'<div class="title"><%= a.getArboretum_name() %>&nbsp;&nbsp;&nbsp;&nbsp;</div>' + 
-					'<div class="page" style="text-align:center;"><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>">상세정보</a></div>'
-							+ '</div>',
+		content : '<div class="infowindo">' + 
+					'<div class="title"><%= a.getArboretum_name() %></div>' + 
+					'<div class="page"><a href="/malant/ardetailinfo?arid=<%= a.getArboretum_id() %>">상세정보 보기</a></div>'
+			  + '</div>',
 					removable : true,
 					zIndex : 1
 				});

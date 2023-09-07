@@ -1,158 +1,148 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page
-	import="board.model.vo.Board,java.util.ArrayList, board.model.vo.Comment"%>
+    pageEncoding="UTF-8" %>
+<%@ page import="community.model.vo.Board, community.model.vo.CMBoardPhoto, java.util.ArrayList, community.model.vo.Comment"%>
 <%
-Board board = (Board) request.getAttribute("board");
-ArrayList<Comment> clist = (ArrayList<Comment>) request.getAttribute("clist");
-ArrayList<String> cdate = (ArrayList<String>) request.getAttribute("cdate");
-%>
+	Board board = (Board)request.getAttribute("board");
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
+	ArrayList<CMBoardPhoto> photoList = (ArrayList<CMBoardPhoto>)request.getAttribute("photoList");
+	ArrayList<Comment> clist = (ArrayList<Comment>)request.getAttribute("clist");
+%>  
 <!DOCTYPE html>
+<!-- 커뮤니티 디테일 화면 -->
 <html>
 <head>
 <meta charset="UTF-8">
-<title>malantBoardDetail</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script type="text/javascript">
-	function loginOk() {
-		if (confirm("로그인 하시겠습니까?")) {
-			window.location.href = "/malant/views/board/boardDetailList.jsp";
-		} else {
-			window.location.href = "/malant/views/index.jsp";
-		}
-	}
-	function goComment (){
-		$.ajax({
-			url : "/malant/cminsert",
-			type:"post",
-			data: {}
-		});
-	}
-	function likeCount(boardNo) {
-		$.ajax({
-			url : "/malant/bbtn",
-			type : "get",
-			dataType : "text",
-			data : {
-				'boardNo' : boardNo
-			},
-			success : function(data) {
-				$("#blike-" + boardNo).text(
-						parseInt($("#blike-" + boardNo).text()) + 1);
-			}
-		});
-	}
-	
-	function likeCountDetail(boardNo) {
-		$.ajax({
-			url : "/malant/bbtn",
-			type : "get",
-			dataType : "text",
-			data : {
-				
-				'boardNo' : boardNo
-			},
-			success : function(data) {
-				console.log("값이 들어왔다" + data);
-				$("#blike-" + boardNo).text(
-						parseInt($("#blike-" + boardNo).text()) + 1);
-			}
-		});
-	}
-	
-
-</script>
-
-
+<title>first</title>
+<script type="text/javascript"
+	src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 <style type="text/css">
-.board-detail {
+
+div.detailview{
 	display: flex;
-	margin-top: 100px;
+	align-items: center;
+	flex-direction: column;
 }
 
-.board-photo {
-	margin-left: 400px;
-	width: 500px;
-	height: 500px;
-}
-
-.board-title {
-	margin-left: 100px;
-}
-
-.like-button {
-	background-color: #3498db; /* 버튼 배경색 */
-	color: #fff; /* 버튼 텍스트 색상 */
-	border: none; /* 테두리 없음 */
-	padding: 10px 20px; /* 내부 여백 설정 */
-	cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능한 상태 표시 */
-	border-radius: 5px; /* 둥근 모서리 설정 */
-	font-size: 16px; /* 텍스트 크기 */
-	transition: background-color 0.3s; /* 배경색 변경에 트랜지션 효과 추가 */
-}
-
-/* 좋아요 버튼 호버 상태의 스타일 (마우스를 버튼 위로 올릴 때) */
-.like-button:hover {
-	background-color: #2980b9; /* 호버 상태의 배경색 변경 */
-}
 </style>
+<script type="text/javascript">
+function requestReply(){
+	//댓글달기 요청 함수
+	location.href = "/malant/cminsert?board=<%= board.getBoardNo() %>";
+}
+
+function moveUpdatePage(){
+	//게시글 (원글, 댓글, 대댓글) 수정 페이지로 이동 처리 함수
+	location.href = "/malant/bupview?board=<%= board.getBoardNo() %>&page=<%= currentPage %>";
+}
+</script>
 </head>
 <body>
+<%@ include file="../../views/common/sidebar.jsp"%>
+<hr>
 
-	<div class='board-detail'>
-		<div class="container">
-			<%@ include file="../../views/common/sidebar.jsp"%>
+
+<br>
+<div class="detailview">
+		<div id="toplist" class="board">
+			<h2>인기 게시글</h2>
+			<table  id="top3" width="700" style="border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2);">
+				<tr style="background: rgba(164, 194, 109, 0.5);">
+					<th>번호</th>
+					<th>&nbsp;</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>좋아요</th>
+					<th>조회수</th>
+					<th>등록날짜</th>
+				</tr>
+			</table>
+			
 		</div>
-
-		<div>
-
-			<img class='board-photo' src="<%=board.getBoardPhoto()%>">
+		<hr>
+		<div id="hashlist" class="board">
+		<%-- 제목 검색 폼 --%>
+		<table  width="700" style="border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2);">
+			<form id="titleform" class="sform" action="/malant/searchtag" method="post">
+				<input type="hidden" name="action" value="searchtag">	
+				<fieldset style="background: rgba(154, 179, 213, 0.3);">
+				<legend>검색할 해시태그를 입력하세요.</legend>
+				<input type="search" name="keyword" size="50" id="keyword"> &nbsp;
+				<input type="submit" value="검색">
+				<br>
+				<b><span style="font-size:8pt;">가장 많이 사용된 해시태그</span></b> &nbsp; &nbsp; 
+				<b><span onclick="viewInput(this);" id="hash1" style="font-size:8pt; color:blue;">#</span></b> &nbsp;
+				<b><span onclick="viewInput(this);" id="hash2" style="font-size:8pt; color:magenta;">#</span></b> &nbsp;
+				<b><span onclick="viewInput(this);" id="hash3" style="font-size:8pt; color:olive;">#</span></b> &nbsp;
+				<b><span onclick="viewInput(this);" id="hash4" style="font-size:8pt; color:orange;">#</span></b> &nbsp;
+				<b><span onclick="viewInput(this);" id="hash5" style="font-size:8pt; color:cyan;">#</span></b> &nbsp;
+				</fieldset>
+			</form>
+		</table>
 		</div>
-		<div class='board-title'>
-			<h1>
-				제목 :
-				<%=board.getBoardTitle()%>
-			</h1>
-			<h3>
-				닉네임 :
-				<%=board.getNickname()%>
-			</h3>
-			<h3>
-				좋아요 수 :
-				<%=board.getBoardLike()%>
-			</h3>
-			<button class="like-button"
-				onclick='likeCountDetail(<%=board.getBoardNo()%>);'></button>
-			<h3>
-				게시글 날짜 :
-				<%=board.getBoardDate()%>
-			</h3>
-			<br>
-			<div>
+		<button onclick="javascript:location.href='/malant/bdlist';">목록</button>
+		<hr>
+	<table  width="700" border="0" style="display: block; margin:10px; border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
+			<tr height="30">
+				<th align="center" width="100" align="center" style="background: rgba(154, 179, 213, 0.5);">
+					<%= board.getBoardNo() %></th>
+				<td width="400">
+					<%= board.getBoardTitle() %></td>
+				<td width="100" align="center" style="background: rgba(154, 179, 213, 0.5 b);"> 
+					<img src="/malant/resources/board/images/likebtn.jpg" width="20" height="20"> &nbsp;
+					<%= board.getBoardLike() %></td>
+				<td  width="100" align="center" >
+					조회수 : <%=board.getViewcount() %></td>
+			</tr>
+			<tr>
+				<th align="center"  style="background: rgba(154, 179, 213, 0.5);">작성자</th>
+				<td><%= board.getNickname() %></td>
+				<td colspan="2" align="right"><%= board.getBoardDate() %></td>
+			</tr>
+			<tr height="30"> 
+				<th align="center"  style="background: rgba(154, 179, 213, 0.5);">내용</th>
+				<td colspan="3"><%= board.getBoardContent() %></td>
+			</tr>		
+			<tr height="30"> 
+				<th align="center"  style="background: rgba(154, 179, 213, 0.5);">첨부사진</th>
+				<td colspan="3">
+					<%if(photoList.size() > 0){ 
+						for(CMBoardPhoto p : photoList){
+					%>
+						<img style="margin-top:5px; margin-right: 5px;" src="/malant/resources/board/images/<%= p.getFilename() %>" width="400" height="300">
+					<% }}else{ %>
+						&nbsp;
+					<% } %>
+				</td>
+			</tr>
+			<tr>
+		<th colspan="4">
+			<%-- 댓글달기 버튼은 로그인한 경우에만 보이게 함 --%>
+			<% if(loginMember != null){ //로그인한 상태이면
+					if(loginMember.getUserNo().equals(board.getUserNo())){
+						//로그인한 회원 아이디와 글작성자가 같다면 (본인이 올린 글이면)
+			%>
+				<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
+				<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
+			<% }}%>
+			 <button onclick="javascript:location.href='/malant/bdlist?page=<%= currentPage %>';">목록</button> 
+		</th>		
+	</tr>
+		</table>
+		
+			<div class="comment">
 				<form action="/malant/cminsert">
-					<input type="hidden" name="userno"
-						value="<%=loginMember.getUserNo()%>"> <input
-						type="hidden" name="bno" value="<%=board.getBoardNo()%>">
-					<input type="hidden" name="profile"
-						value="<%=loginMember.getProfileImg()%>"> <input
-						type="hidden" name="nickname"
-						value="<%=loginMember.getNickname()%>"> <input
-						type="text" name="comment" placeholder="댓글을 입력하세요"> <input
-						type="submit">
+					<input type="hidden" name="userno" value="<%=loginMember.getUserNo()%>"> 
+					<input type="hidden" name="bno" value="<%=board.getBoardNo()%>">
+					<input type="hidden" name="profile" value="<%=loginMember.getProfileImg()%>"> 
+					<input type="hidden" name="nickname" value="<%=loginMember.getNickname()%>"> 
+					<input type="text" name="comment" placeholder="댓글을 입력하세요"> 
+					<input type="submit">
 				</form>
-			</div>
-
-			<div
-				style="border: 1px solid green; width: 1000px; height: 400px; overflow-y: scroll">
-				<%
-				for (int i = 0; i < clist.size(); i++) {
-				%>
+				<div style="overflow-y: scroll; width: 700px; height: 6.25em; border:1px solid rgba(154, 179, 213); background: rgba(154, 179, 213, 0.2); resize: none" class="commentbox" name="commentbox" placeholder="댓글을 입력해주세요" >
+				<% for (int i = 0; i < clist.size(); i++) { %>
 				<%=clist.get(i).getCommentContent()%>
 				<%=clist.get(i).getNickname()%>
-				<%=cdate.get(i)%>
-				<%
-				if (loginMember.getUserNo().equals(clist.get(i).getUserNo())) {
-				%>
+				<% if (loginMember.getUserNo().equals(clist.get(i).getUserNo())) { %>
 				<!-- loginMember 랑 그냥 비교하면 객체와 String 을 비교하는것
  					logimMember 의 어떤 값이랑 비교할지 확인했어야 했음!! -->
 				<!-- 수정 -->
@@ -169,18 +159,14 @@ ArrayList<String> cdate = (ArrayList<String>) request.getAttribute("cdate");
 					<input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
 					<input type="submit" value="삭제">
 				</form>
-				<%
-				}
-				%>
+				<% } %>
 				<br>
 				<hr>
-				<%
-				}
-				%>
-
+				<% } %>
 			</div>
+<br>
 
-		</div>
-	</div>
+<hr>
+</div>
 </body>
 </html>

@@ -14,149 +14,152 @@
 <meta charset="UTF-8">
 <title><%= keywd %> 검색 결과</title>
 <style>
-.container {
-	height: 100vh;
-	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
+/* 전체 페이지 스타일 */
+body {
+    margin: 0;
+    padding: 0;
 }
 
-.content {
-	border: 1px solid red;
-	width: 800px;
-	height: auto;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	align-items : center;
-	justify-content: center;
-	margin: auto;
-}
+/* 컨텐츠 영역 스타일 */
+.content{
+	padding-left: 20px;
+	padding-top: 20px;
+	flex-grow: 1;
+	max-width: calc(100% - 300px);
+	margin-left: 250px;
+    flex: 2; 
+    background-color: #fff;
+/*     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    border-radius: 5px;
+    }
 
+/* 검색 영역 스타일 */
 .search-area {
-	width: 800px;
-	height: 130px;
-	border: 1px solid green;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	display: flex;
-	flex-direction: column;
-	align-content: center;
-	justify-content: center;
+	margin
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
+/* 검색바 스타일 */
 .searchbar {
-	width: 800px;
-	height: 50px;
-	border: 1px solid blue;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	display: flex;
-	align-content: center;
-	justify-content: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .searchbox {
-	width: 700px;
-	height: 50px;
-	text-align: center;
+	max-width: 100%;
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 15px;
 }
 
 .searchbtn {
-	width: 50px;
-	height: 50px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
 }
 
+.searchbtn:hover {
+    background-color: #0056b3;
+}
+
+/* 필터 스타일 */
 .filters {
-	width: 800px;
-	height: 50px;
-	border: 1px solid blue;
-	display: flex;
-	justify-content: center;
-	align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .filter {
-	width: 100px;
-	height: 40px;
-	position: relative;
-	margin: 5px;
-	text-align: center; 
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
 }
 
-.plant-card {
-	width: 150px;
-	height: 200px;
-	border: 1px solid red;
-	margin: 20px;
-}
-
+/* 검색 결과 스타일 */
 .results {
-	width: 800px;
-	border: 1px solid green;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	align-content: center;
-	justify-content: center;
+    margin-top: 20px;
 }
 
 .result-guide {
-	display: flex;
-	justify-content: space-between;
-	 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.result-cards {
-	width: 800px;
-	border: 1px solid blue;
-	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
-	justify-content: center;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.card-image {
-	width: 150px;
-	height: 150px;
-	display: flex;
-	justify-content: center;
-	align-items: center; 
-}
-
-.card-title {
-	width: 150px;
-	height: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.result-message {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .sort-items {
-	width: 200px;
-	border: 1px solid blue;
-	display: flex;
-	align-content: center;
-	justify-content: center;
-	flex-wrap: wrap;
+    display: flex;
+    align-items: center;
 }
 
 .sort-item {
-	width: 70px;
-	height: 40px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.result-view {
-	display: flex;
-	flex-direction: column;
+.sort-item:hover {
+    background-color: #f4f4f4;
 }
+
+/* 결과 카드 스타일 */
+.result-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.plant-card {
+    width: 140px;
+    height: 180px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+    padding:10px
+}
+
+.plant-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.card-title {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
 </style>
 </head>
 <body>

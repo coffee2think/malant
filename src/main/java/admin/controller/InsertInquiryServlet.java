@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import admin.model.service.AdminService;
 import admin.model.vo.Inquiry;
-import board.model.service.BoardService;
-import board.model.vo.Board;
 
 /**
  * Servlet implementation class InsertInquiryServlet
@@ -46,7 +44,7 @@ public class InsertInquiryServlet extends HttpServlet {
 		int result = new AdminService().insertInquiry(inquiry);
 		
 		if(result > 0) {
-			response.sendRedirect("/malant/myqlist?userno=" + userNo); // 내 문의글 페이지로 이동
+			response.sendRedirect("/malant/myqlist?userno=" + userNo + "&action=myqlist"); // 내 문의글 페이지로 이동
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "문의 등록 실패");

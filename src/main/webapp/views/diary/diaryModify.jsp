@@ -67,45 +67,65 @@ window.onload = function(){
 		<%@include file="../../views/common/sidebar.jsp"%>
 		<div id="main">
 
- 		<div class="menu"><a href="/malant/dlist?user_no=<%= loginMember.getUserNo() %>">다이어리</a></div> 
-        <div class="menu"><a href="/malant/mplist?user_no=<%= loginMember.getUserNo() %>">반려식물</a></div>
+ 		<div class="menu1" onclick="goDiary(); return false;">다이어리</div> 
+        <div class="menu2" onclick="goMyplant(); false;">반려식물</div>
+		<script type="text/javascript">
+		function goDiary (){
+			location.href = "/malant/dlist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
+		}
+		function goMyplant (){
+			location.href = "/malant/mplist?action=user_no&keyword=<%= loginMember.getUserNo() %>&page=1";
+		}
+		</script>
 
 			<div id="contentbody">
-
-				<form id="diaryUpdate" action="/malant/dupdate" method="post" enctype="multipart/form-data">
+			
+		<form id="diaryUpdate" action="/malant/dupdate" method="post" enctype="multipart/form-data">
+			<div class="diaryModifyBody">
 					<input type="hidden" name="diaryId"value="<%= diary.getDiaryId()%>"> 
 					<input type="hidden" name="userNo" value="<%= diary.getUserNo()%>">
 					<input type="hidden" neme="page" value="<%= currentPage %>">
-					<table>
-						<tr>
-							<td><textarea name="diary_content"
-									style="width: 300px; height: 100px;"
+						<div>
+							&nbsp;&nbsp;<textarea name="diary_content" style="width: 510px; height: 100px;"
 									><%= diary.getDiaryContent()%></textarea><br>
-									<% if(list.size() == 0) {%>
-									<input type="file" name="multifile" id="multifile" multiple><br>
+						</div>
+						<div>			
+							<% if(list.size() == 0) {%>
+								&nbsp;&nbsp;<input type="file" name="multifile" id="multifile" multiple><br>
 								<div id="filenameView"></div>
 								<br>
 								<div id="photoesView"
-									style="width: 500px; height: 220px; border: 1px solid black; padding: 10px; margin: 10px;">
+									style="width:500px;height:400px;border:1px solid black;padding:10px;margin:10px;background:#616161;">
 								</div>
-								<% } %>
-								<% if(list.size() > 0) {%>
+							<% } %>
+							
+							<% if(list.size() > 0) {%>
 								<div id="photoesView"
-									style="width: 500px; height: 220px; border: 1px solid black; padding: 10px; margin: 10px;">
-									<% for (MyDiaryPhotoes p : list) { %>
-									<img
-										src="/malant/resources/diary/diary_upimages/<%=p.getFileName()%>"
-										style="width: 150px; height: 150px;"> &nbsp;
-									<% } %>
-									<input type="checkbox" name="deleteFlag" value="yes"> 파일 모두 삭제
-									<% } %>
-									
+									style="width:500px;height:400px;border:1px solid black;padding:10px;margin:10px;background:#616161;">
+								<% for (MyDiaryPhotoes p : list) { %>
+								<img
+									src="/malant/resources/diary/diary_upimages/<%=p.getFileName()%>"
+									style="width: 150px; height: 150px;"> &nbsp;
+								<% } %>
+								<br>
+								<input type="checkbox" name="deleteFlag" value="yes"> 파일 모두 삭제
 								</div>
-								<br> <input type="reset" class="close-btn" value="취소">
-								&nbsp; <input type="submit" id="save" class="save-close-btn" value="수정"></td>
-						</tr>
-					</table>	
-			</div>
+							<% } %>
+							</div><br> 
+							<div style="text-align:center">
+								<input type="reset" onclick="cancle()" value="취소">
+								&nbsp; <input type="submit" id="save" value="수정">
+							</div>
+						</div>
+				<!-- diaryModifyBody -->
+				</form>
+		
+			<script type="text/javascript">
+			function cancle() {
+				location.href = "/malant/dlist?action=user_no&keyword=<%= diary.getUserNo() %>&page=<%= currentPage %>";
+			}
+
+			</script>
 			<!-- content body -->
 		</div>
 		<!-- main -->

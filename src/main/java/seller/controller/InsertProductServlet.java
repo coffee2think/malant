@@ -1,9 +1,8 @@
 package seller.controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,13 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
-import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import common.FileNameChange;
 import seller.model.service.SellersService;
 import store.product.model.vo.ProductDetail;
 
@@ -27,7 +26,7 @@ import store.product.model.vo.ProductDetail;
 @WebServlet("/sellpinsert")
 public class InsertProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final String UPLOAD_DIRECTORY = "/malant/resources/store/images";
+
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,44 +37,55 @@ public class InsertProductServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 파일 업로드 설정
-        int maxSize = 1024 * 1024 * 10; // 최대 10MB
-        String encoding = "UTF-8";
-        String uploadPath = getServletContext().getRealPath(UPLOAD_DIRECTORY);
-
-        MultipartRequest mrequest = new MultipartRequest(
-                request,
-                uploadPath,
-                maxSize,
-                encoding,
-                new DefaultFileRenamePolicy()
-        );
-
+    		RequestDispatcher view = null;
+    		
+		if (!ServletFileUpload.isMultipartContent(request)) {
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", "form의 enctype='multipart/form-data' 속성 누락됨.");
+			view.forward(request, response);
+		}
+		
+        int maxSize = 2056 * 1080 * 10;
+        
+        String savePath = request.getSession().getServletContext().getRealPath("/resources/store/images");
+        
+        MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+				new DefaultFileRenamePolicy());
+        
         ProductDetail pdtail = new ProductDetail();
 
+        pdtail.setSellerNo(mrequest.getParameter("sellerNo"));
         pdtail.setProductName(mrequest.getParameter("product_name"));
         pdtail.setSellerName(mrequest.getParameter("store_name"));
         pdtail.setPrice(Integer.parseInt(mrequest.getParameter("price")));
         pdtail.setDeliveryCharge(Integer.parseInt(mrequest.getParameter("shipping_cost")));
         pdtail.setProductDescription(mrequest.getParameter("detail_description"));
+        
+        String thumbnail = mrequest.getFilesystemName("thumbnail_image");
+        String detailImage = mrequest.getFilesystemName("detail_images");
+        
+        if (thumbnail != null) {
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        	String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+        	rename += '.' + thumbnail.substring(thumbnail.lastIndexOf(".")+1);
+        	
+        	String renameFileName = FileNameChange.changeth(
+        			thumbnail, savePath, "yyyyMMddHHmmss");
+        	
+        	
+        	pdtail.setThumbnailImg("/malant/resources/store/images/"+"th_"+renameFileName);
+        }
+        
+        if (detailImage != null) {
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        	String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+        	rename += '.' + detailImage.substring(detailImage.lastIndexOf(".")+1);
+        	
+        	String renameFileName = FileNameChange.changede(
+        			detailImage, savePath, "yyyyMMddHHmmss");
 
-//        FileItem thumbnailFileItem = mrequest.getFileItem("thumbnail_image");
-//        if (thumbnailFileItem != null && !thumbnailFileItem.getName().isEmpty()) {
-//            String thumbnailFileName = getUniqueFileName(thumbnailFileItem.getName());
-//            String thumbnailFilePath = UPLOAD_DIRECTORY + File.separator + thumbnailFileName;
-//            File thumbnailFile = new File(thumbnailFilePath);
-//            thumbnailFileItem.write(thumbnailFile);
-//            pdtail.setThumbnailImg(thumbnailFilePath);
-//        }
-//
-//        FileItem detailImageFileItem = mrequest.getFileItem("detail_image");
-//        if (detailImageFileItem != null && !detailImageFileItem.getName().isEmpty()) {
-//            String detailImageFileName = getUniqueFileName(detailImageFileItem.getName());
-//            String detailImageFilePath = UPLOAD_DIRECTORY + File.separator + detailImageFileName;
-//            File detailImageFile = new File(detailImageFilePath);
-//            detailImageFileItem.write(detailImageFile);
-//            pdtail.setDetailImage(detailImageFilePath);
-//        }
+        	pdtail.setDetailImage("/malant/resources/store/images/"+"de_"+renameFileName);
+        }
 
         ArrayList<String> options = new ArrayList<String>();
 
@@ -106,37 +116,19 @@ public class InsertProductServlet extends HttpServlet {
             }
         }
 
-        RequestDispatcher view = null;
-
         int result = new SellersService().sellerInsertProduct(pdtail, options);
-        if (result > 0) {
+        
+        int result2 = new SellersService().sellerInsertProduct2(pdtail, options);
+  
+        
+        if (result > 0 && result2 >0) {
             System.out.println("성공");
-            view = request.getRequestDispatcher("malant/sellplist?sellerNo=seller001");
+            response.sendRedirect("/malant/sellplist?sellerNo="+pdtail.getSellerNo());
         } else {
             System.out.println("실패");
         }
     }
 
-    private String getUniqueFileName(Part part) {
-        String submittedFileName = getSubmittedFileName(part);
-        String fileExtension = submittedFileName.substring(submittedFileName.lastIndexOf('.'));
-        String uniqueFileName = System.currentTimeMillis() + "_" + UUID.randomUUID().toString() + fileExtension;
-        return uniqueFileName;
-    }
-
-    private String getSubmittedFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
-        String[] tokens = contentDisp.split(";");
-        for (String token : tokens) {
-            if (token.trim().startsWith("filename")) {
-                return token.substring(token.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return "";
-    }
-
-
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

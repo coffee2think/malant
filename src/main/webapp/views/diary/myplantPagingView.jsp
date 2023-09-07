@@ -15,7 +15,7 @@
 	String action = (String)request.getAttribute("action");
 	String keyword = null, begin = null, end = null;
  
-	if(action != null){
+ 	if(action != null){
 		if(action.equals("date")) {
 			begin = (String)request.getAttribute("begin");
 			end = (String)request.getAttribute("end");
@@ -40,15 +40,15 @@ a{
 <% if(action == null){ %>
 <div style="text-align:center;">
 	<% if(currentPage <= 1){ %>
-		[FIRST] &nbsp;
-	<% }else{ %>
-		<a href="/malant/<%= urlMapping %>?page=1">[FIRST]</a> &nbsp;
+		[맨처음] &nbsp;
+	<% }else{ //currentPage > 1 %>
+		<a href="/malant/<%= urlMapping %>?page=1">[맨처음]</a> &nbsp;
 	<% } %>
 	<%-- 이전 페이지 그룹으로 이동 --%>
-	<% if((currentPage - 8) < startPage && (currentPage - 8) > 1){ %>
-		<a href="/malant/<%= urlMapping %>?page=<%= startPage - 8 %>">[PRE]</a> &nbsp;
-	<% }else{ %>
-		[PRE] &nbsp;
+	<% if((currentPage - 8) < startPage && (currentPage - 8) > 1){  //이전그룹이 있다면 %>
+		<a href="/malant/<%= urlMapping %>?page=<%= startPage - 8 %>">[이전그룹]</a> &nbsp;
+	<% }else{ //이전그룹이 없다면 %>
+		[이전그룹] &nbsp;
 	<% } %>
 	
 	<%-- 현재 페이지가 속한 페이지그룹 숫자 출력 --%>
@@ -61,19 +61,20 @@ a{
 	<% }} %>
 	
 	<%-- 다음 페이지 그룹으로 이동 --%>
-	<% if((currentPage + 8) > endPage && (currentPage + 8) < maxPage){ %>
-		<a href="/malant/<%= urlMapping %>?page=<%= startPage + 8 %>">[NEXT]</a> &nbsp;
-	<% }else{ %>
-		[NEXT] &nbsp;
+	<% if((currentPage + 8) > endPage && (currentPage + 8) < maxPage){  //다음그룹이 있다면 %>
+		<a href="/malant/<%= urlMapping %>?page=<%= startPage + 8 %>">[다음그룹]</a> &nbsp;
+	<% }else{ //다음그룹이 없다면 %>
+		[다음그룹] &nbsp;
 	<% } %>
 	
 	<% if(currentPage >= maxPage){ %>
-		[LAST] &nbsp;
-	<% }else{ %>
-		<a href="/malant/<%= urlMapping %>?page=<%= maxPage %>">[LAST]</a> &nbsp;
+		[맨끝] &nbsp;
+	<% }else{ //currentPage < maxPage  %>
+		<a href="/malant/<%= urlMapping %>?page=<%= maxPage %>">[맨끝]</a> &nbsp;
 	<% } %>
 </div>
 <% } %>
+
 
 </body>
 </html>

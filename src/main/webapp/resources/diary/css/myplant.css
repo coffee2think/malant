@@ -7,7 +7,7 @@ body {
 
 #container {
 	display: flex;
-	font-family: "GmarketSansBold";
+	font-family: "Nanum Gothic";
 }
 
 #main {
@@ -30,10 +30,12 @@ body {
 	border-radius: 5px;
 	background-color: #f2f2f2;
 	font-size: 12pt;
+	font-weight: bold;
 	color: #262626;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
+	display: block;
 }
 
 
@@ -54,15 +56,17 @@ body {
 	width: 130px;
 	height: 30px;
 	margin-top: 30px;
-	margin-left: 170px;
-	padding-top: 12px;;
+	margin-left: 25px;
+	padding-top: 12px;
 	border-radius: 5px;
 	background-color: #f2f2f2;
 	font-size: 12pt;
+	font-weight: bold;
 	color: #262626;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
+	display: block;
 }
 
 
@@ -100,6 +104,11 @@ body {
   text-align:center;
   border-radius:5px;
  }
+ 
+ .contentbody .addYourPlant:hover{
+ 	font-weight:bold;
+ }
+ 
 
  .pagingview{
  	margin-top: 730px;
@@ -124,7 +133,6 @@ body {
 	
 }
 
-
 .myplantbox {
 	width: 260px;
 	height: 340px;
@@ -147,9 +155,8 @@ body {
 	margin-top: 7px;
 	width: 260px;
 	height: 210px;
-	background-color: #92BEA9;
+	background-color: #f2f2f2;
 	position: absolute;
-	justify-content: center;
 }
 
 .myplantbox .information {
@@ -161,7 +168,7 @@ body {
 
 .myplantDetail {
 	width : 500px;
-	height : 500px;
+	height : 540px;
 	position : absolute;
 	top : 100px;
 	left : 20px;
@@ -174,7 +181,7 @@ body {
 
 .myplantModify {
 	width : 500px;
-	height : 500px;
+	height : 540px;
 	position : absolute;
 	top : 100px;
 	left : 20px;
@@ -197,7 +204,8 @@ body {
 	padding-top:10px;
 	padding-left:50px;
 	padding-right:50px;
-	background-color: #92BEA9;
+	background-color: #f2f2f2;
+	border: 5px solid #262626;
 	border-radius: 5px;
 	position: absolute;
 	float: left;
@@ -209,23 +217,27 @@ body {
  }
  
  .myplantAdd .title {
- 	margin-top:5px;
+ 	margin-top:10px;
  	font-size:20pt;
  	text-align:center;
  }
  
  .myplantAdd .addinfo {
+ 	position: absolute;
  	width:300px;
  	height:400px;
+ 	padding-left: 140px;
 
  }
  
  .myplantAdd .button{
- 	width:300px;
+ 	width:550px;
  	height:50px;
- 	top:450px;
+ 	top:530px;
+
  	text-align: center;
- }
+ 	position: absolute;
+}
  
  .myplantAdd.active {
    top: 50%;
@@ -236,4 +248,4 @@ body {
                transform 200ms ease-in-out 0ms;
  }
 
- 
+
