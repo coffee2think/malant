@@ -39,7 +39,7 @@
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
-				<img src="/malant/resources/common/images/loginButton.png">
+				<img src="/malant/resources/common/images/loginButton.png" id = "login-button">
 			</div>
 		<% } else if(isAdmin) { // 관리자인 경우 %>
 			<div class="login-section">

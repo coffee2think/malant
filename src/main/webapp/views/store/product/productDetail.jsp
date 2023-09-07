@@ -20,6 +20,7 @@
 		<%@ include file="../common/storeSidebar.jsp"%>
 
 		<div class="content">
+			<class="product-info">
 			<div id="pdetail-name"><%=pdetail.get(0).getProductName()%></div>
 			<table id="pdetail-seller-price" cellspacing="5" cellpadding="0"
 				border="1px">
@@ -36,13 +37,17 @@
 					<td><%=pdetail.get(0).getDeliveryCharge()%></td>
 				</tr>
 			</table>
-
+			
+			<%if(userNo != null) {%>
 			<form class="oinputform" action="/malant/sbadd" method="post" id="goorder">
 				<input type="hidden" name="productid"
 					value="<%=pdetail.get(0).getProductId()%>">
-				<input type="hidden" name="userno" value="<%=loginMember.getUserNo()%>">
-				
-					<label for="quantity">수량 선택</label>
+				<input type="hidden" name="userno" value="<%=userNo%>">
+				<%}else{ %>
+			<form class="login-request" action="/malant/login" method="post" id="goorder">
+				<%} %>
+				<div id="options">
+					<label for="quantity" style=" font-size: 20px; margin-right: 15px;">수량 선택</label>
 					<select id="quantity" name="quantity">
 					<%
         				for (int i = 1; i <= 99; i++) {
@@ -52,18 +57,18 @@
        				 }
         			%>
 				</select>
-			</form>
-
-			<div class="buttons">
 				<button class="orderButton" type="submit" form="goorder">구매하기</button>
-			</div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="product-images">
 			<div id="pdetail-thumnail">
-				<img src="<%=pdetail.get(0).getThumbnailImg()%>" width="400px"
-					align="right">
-			</div>
-			<div class="pdetail-detailimg">
-				<img src="<%=pdetail.get(0).getProductDetailImg()%>" width="100%"
-					align="right">
+				<div id="thumbnail">
+				<img src="<%=pdetail.get(0).getThumbnailImg()%>">
+				</div>
+				<div class="pdetail-detailimg">
+				<img src="<%=pdetail.get(0).getProductDetailImg()%>" width="100%" align="right">
 				<%
 				if (pdetail.get(0).getProductDescription() != null) {
 				%>
@@ -74,5 +79,6 @@
 			</div>
 		</div>
 	</div>
+</div>
 </body>
 </html>

@@ -24,6 +24,7 @@ div.board-main{
 </style>
 <script type="text/javascript"
 	src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/malant/resources/board/css/boardcontents.css">
 <script>
 function requestDelete(){
 	//게시글(원글, 댓글, 대댓글) 삭제 요청 함수
@@ -111,8 +112,9 @@ function viewInput(span){
 <body>
 		
 <div class="container">
+
 <%@ include file="../../views/common/sidebar.jsp"%>
- </div>
+
  <script type="text/javascript">
         function toggleLike(boardNo) {
             $.ajax({
@@ -234,6 +236,7 @@ function viewInput(span){
 		
 			   </div>
 		</div>
-	
+	</div>
+
 </body>
 </html>

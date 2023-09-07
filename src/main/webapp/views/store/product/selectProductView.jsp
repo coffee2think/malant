@@ -172,7 +172,7 @@ populateDropdown1();
 		<%@ include file="../common/storeSidebar.jsp"%>
 
 		<div class="content">
-			<form action="/malant/plistf" method="post">
+			<form action="/malant/plistf" method="post" style="text-align-last: center; background-color: lightgray; padding: 10px; border-radius: 10px;">
 				<div class="dropdownFilter">
 					<select id="dropdown1" class="dropdown"
 						onchange="populateDropdown1()" name="option1">
@@ -195,7 +195,7 @@ populateDropdown1();
 					<input type="submit" value="검색">
 				</div>
 			</form>
-			<div class="productcontainer">
+			<div class="productcontainer" style= "display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px;">
 				<%if(plistf!=null){
 				for (MainContent p : plistf) {
 				%>
