@@ -227,7 +227,8 @@ window.onload = function(){
 	}
 	
 	</script>
-     </div><!-- content body -->
+	</div> <!-- content body -->
+
    </div> <!-- main -->
    </div> <!-- container --> 
    
