@@ -64,53 +64,7 @@ public class InsertBoardServlet extends HttpServlet {
 
 		String[] hashtags = mrequest.getParameterValues("hashtag");
 
-//		String originalFileName = mrequest.getFilesystemName("multifile");
-//		System.out.println(originalFileName);
 
-//
-//		CMBoardPhoto photo = null;
-//		if (originalFileName != null) {
-//			// 업로드된 파일이 있을 때만 파일명 바꾸기 실행함
-//			photo = new CMBoardPhoto();
-//			renameFileName = FileNameChange.change(originalFileName, savePath, "yyyyMMddHHmmss");
-//
-//			photo.setFilename(renameFileName);
-//		} // 업로드된 파일이 있다면...
-		// board.getThumbnail(renameFileName);
-
-		// request.getSession().getServletContext() => "/first" + 뒤에 하위 폴더 경로 추가함
-
-		// 4. request 를 MultipartRequest 로 변환해야 함
-		// MultipartRequest 클래스는 외부 라이브러리를 사용해야 함 : cos.jar 사용한 경우
-		// MultipartRequest 객체가 생성되면, 자동으로 지정 폴더에 업로드된 파일이 저장됨
-
-		// 5. 데이터베이스 board 테이블에 기록할 값 추출
-		// mrequest 사용해야 함 (request 사용 못 함)//
-		/*
-		 * System.out.println(mrequest.getParameter("title"));
-		 * System.out.println(mrequest.getParameter("writer"));
-		 * System.out.println(mrequest.getParameter("content"));
-		 * System.out.println(mrequest.getParameter("hashtag"));
-		 * 
-		 */
-
-		// 6. 업로드된 원본 파일이름 추출
-//		for (String fname : fileNames) {
-//			System.out.println(fname);
-//		}
-
-		// 6. 업로드된 원본 파일이름 추출 : 마지막 파일명만 출력됨
-//				Enumeration fileList = mrequest.getFileNames();
-//				Iterator fileIter = fileList.asIterator();
-//				while (fileIter.hasNext()) {
-//					String paramName = (String) fileIter.next();
-//					System.out.println("폴더에 저장된 파일명 : " + mrequest.getFilesystemName(paramName));
-//					System.out.println("전송온 원래 파일명 : " + mrequest.getOriginalFileName(paramName));
-//				}
-
-		// *******************************************************
-		// 업로드된 이미지 파일 중 첫번째 이미지를 썸네일 이미지로 만들기
-		// Thumbnailator 라이브러리를 사용한 경우
 		String[] fileNames = mrequest.getParameterValues("filenames");
 		File[] imageFiles = new File[fileNames.length];
 		for(int i = 0; i < imageFiles.length; i++) {
@@ -128,15 +82,10 @@ public class InsertBoardServlet extends HttpServlet {
 		for(int i = 0; i < renameFileNames.length; i++) {
 			imageFiles[i] = new File(savePath + "\\" + renameFileNames[i]);
 		}
-//		firstImageFile = new File(savePath + "\\" + renameFileName);
 
 		Thumbnails.of(imageFiles[0]).size(50, 50).toFile(thumbFile);
 
-		System.out.println(imageFiles[0].getName() + " : " + thumbFile);
-
 		board.setThumbnail(thumbFileName);
-		System.out.println("thumbFileName : " + thumbFileName);
-		
 		
 		int result = new BoardService().insertBoard(board);
 		
@@ -189,9 +138,7 @@ public class InsertBoardServlet extends HttpServlet {
 					view.forward(request, response);
 				}
 			}
-			
-//			view = request.getRequestDispatcher("bdlist");
-//			view.forward(request, response);
+
 			response.sendRedirect("bdlist");
 
 		} else {

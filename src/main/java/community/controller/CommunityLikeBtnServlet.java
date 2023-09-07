@@ -16,13 +16,13 @@ import community.model.vo.Board;
  * Servlet implementation class BoardLikeBtnServlet
  */
 @WebServlet("/bbtn")
-public class BoardLikeBtnServlet extends HttpServlet {
+public class CommunityLikeBtnServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BoardLikeBtnServlet() {
+	public CommunityLikeBtnServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

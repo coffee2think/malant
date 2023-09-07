@@ -191,16 +191,19 @@ function viewInput(span){
 		<%=  %>
 		<div id="dlist" class="board"> 
 		<% for(Board b : list){ %>
-		<table onclick="checkLogin('<%= b.getBoardNo() %>');" width="500" border="0" style="display: block; margin:10px; border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
+		<table onclick="checkLogin('<%= b.getBoardNo() %>');" width="500" border="0" style="display: block; margin:10px;
+		 border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
 			<tr height="30">
 				<td width="40" align="center" style="background: rgba(154, 179, 213, 0.5);"><%= b.getBoardNo() %></td>
 				<td width="130" style="background: rgba(154, 179, 213, 0.3);"><%= b.getNickname() %></td>
 				<td width="130" align="center" style="background: rgba(154, 179, 213, 0.5 b);"><%= b.getBoardDate() %></td>
 				<td rowspan="3" width="200" align="right" >
 					<% if(b.getThumbnail() != null){ %>
-					<img style="margin-top:5px; margin-right: 5px;" class="title-style" src="/malant/resources/board/images/<%= b.getThumbnail()  %>" width="150" height="150">
+					<img style="margin-top:5px; margin-right: 5px;" class="title-style" src="/malant/resources/board/images/<%= b.getThumbnail()  %>" 
+					width="150" height="150">
 					<% }else{ %>
-					<img style="margin-top:5px; margin-right: 5px;" class="title-style" src="/malant/resources/board/images/baseSample.jpeg" width="150" height="150">
+					<img style="margin-top:5px; margin-right: 5px;" class="title-style" src="/malant/resources/board/images/baseSample.jpeg"
+					 width="150" height="150">
 					<% } %>
 				</td>
 			</tr>

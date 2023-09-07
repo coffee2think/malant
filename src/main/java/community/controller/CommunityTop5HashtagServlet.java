@@ -21,13 +21,13 @@ import community.model.vo.CMHashtag;
  * Servlet implementation class BoardTop3HashtagServlet
  */
 @WebServlet("/btophash")
-public class BoardTop3HashtagServlet extends HttpServlet {
+public class CommunityTop5HashtagServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BoardTop3HashtagServlet() {
+	public CommunityTop5HashtagServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -52,7 +52,7 @@ public class BoardTop3HashtagServlet extends HttpServlet {
 		}
 		
 		JSONObject sendJson = new JSONObject();
-		sendJson.put("hlist", jarr); // 이름만 지정한거다
+		sendJson.put("hlist", jarr);
 		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();

@@ -29,8 +29,7 @@ function readImage(input) {
 
  function checkImageSelection(inputElement) {
      var previewImage = document.getElementById("preview-image");
-     
-     // 파일이 선택되었는지 확인
+
      if (inputElement.files.length === 0) {
          alert("파일을 선택하세요."); 
          previewImage.src = "/malant/resources/board/images/8.png"; 
@@ -62,13 +61,13 @@ function readImage(input) {
 					<input type="radio" name="noticetype" value="NOTICE"> NOTICE
 					<input type="radio" name="noticetype" value="EVENT"> EVENT
 					<br><br>
-					제목 : 
-					<input type="text" name="title" readonly><br><br>
-					내용 : 
-					<input type="text" name="content"><br><br>
-					이벤트 시작일 (이벤트 타입만 체크하세요):<br>
+					제목 :  <input type="text" name="title" readonly><br><br>
+					내용 :  <input type="text" name="content"><br><br>
+					
+					이벤트 시작일 :<br>
 					<input type="date" name="eventstart"><br><br>
-					이벤트 종료일 (이벤트 타입만 체크하세요):<br>
+					
+					이벤트 종료일 :<br>
 					<input type="date" name="eventend"><br>
 					<input type="file" name="multifile" id="multifile" multiple>
 					<div id="filenameView"></div>
