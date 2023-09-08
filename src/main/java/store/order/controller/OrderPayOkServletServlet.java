@@ -110,13 +110,6 @@ public class OrderPayOkServletServlet extends HttpServlet {
 				String requestedAt = (String) jsonObject.get("requestedAt");
 				String currency = (String) jsonObject.get("currency");
 				String status = (String) jsonObject.get("status");
-				System.out.println("country " + country);
-				System.out.println("JorderId " + JorderId);
-				System.out.println("lastTransactionKey " + lastTransactionKey);
-				System.out.println("secret " + secret);
-				System.out.println("requestedAt " + requestedAt);
-				System.out.println("currency " + currency);
-				System.out.println("status " + status);
 				
 				
 				if(status.equals("DONE")) {	po.setPaymentStatus("Y");}
