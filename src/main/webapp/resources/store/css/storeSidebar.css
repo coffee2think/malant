@@ -129,7 +129,6 @@ ul#new_categories li a {
 /* 로그인 영역 스타일 */
 .login-section {
     background-color: #F5F5F5;
-    border: 1px solid #DDD;
     border-radius: 5px;
     padding: 10px;
     margin-top: 20px;
@@ -137,6 +136,13 @@ ul#new_categories li a {
     position: absolute;
     bottom: 10px;
 }
+
+#login-button{
+	position: relative;
+    bottom: 15px;
+    left: 37px;
+}
+
 
 .login-section-top {
     font-weight: bold;

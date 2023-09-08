@@ -34,22 +34,12 @@
 				<li><a href="/malant/arbriefinfo">전국 식물원</a></li>
 				<li><a href="/malant/smplist">스토어</a></li>
 				<li><a href="/malant/ntitlelist">공지/이벤트</a></li>
-				
-				<%-- 
-				<% if(isAdmin) { %>
-				<li><a href="/malant/qlist">문의 & 답변</a></li>
-				<li><a href="/malant/breportlist">신고 처리</a></li>
-				<% } else if(loginMember != null) { %>
-				<li><a href="/malant/qinsert">문의하기</a></li>
-				<li><a href="/malant/myqlist?userno=<%= loginMember.getUserNo() %>&action=myqlist">내 문의 목록</a></li>
-				<% } %>
-				--%>
 			</ul>
 		</section>
 		<!-- 로그인 영역 -->
 		<% if (loginMember == null) { // 로그인하지 않았을 때 %>
 			<div class="login-section" onclick="javascript: location.href='/malant/login?loc=common'">
-				로그인 하러 가기
+				<img src="/malant/resources/common/images/loginButton.png" id = "login-button">
 			</div>
 		<% } else if(isAdmin) { // 관리자인 경우 %>
 			<div class="login-section">
@@ -66,10 +56,10 @@
 				<div class="login-section-top">
 					<%= loginMember.getNickname() %>님
 				</div>
-				<div class="login-section-bottom">
-					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>">마이페이지</a> &nbsp;&nbsp;
-					<a href="/malant/myblist?userno=<%= loginMember.getUserNo() %>">내 게시글 보기</a> &nbsp;&nbsp;  
-					<a href="/malant/logout?loc=common">로그아웃</a>
+				<div class="login-links">
+					<a href="/malant/moveminfo?userid=<%= loginMember.getUserId() %>" class="my-page-button">마이페이지</a> &nbsp;&nbsp;
+					<a href="/malant/myblist?userno=<%= loginMember.getUserNo() %>" class="my-board-button">내 게시글 보기</a> &nbsp;&nbsp;  
+					<a href="/malant/logout?loc=common" class="logout-button">로그아웃</a>
 				</div>
 			</div>
 		<% } %>

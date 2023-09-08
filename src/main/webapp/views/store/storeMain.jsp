@@ -25,20 +25,15 @@ ArrayList<MainContent> mlist = (ArrayList<MainContent>) request.getAttribute("ml
 	$(document)
 			.ready(
 					function() {
-<%-- 이미지 URL을 문자열로 구성 --%>
-	
-<%StringBuilder imageUrls = new StringBuilder();
-for (MainContent m : mlist) {
-	imageUrls.append("\"").append(m.getBannerImage()).append("\",");
-}
-if (imageUrls.length() > 0) {
-	imageUrls.deleteCharAt(imageUrls.length() - 1); // 마지막 쉼표 제거
-}%>
-	// 이미지 슬라이더 설정
+						<%StringBuilder imageUrls = new StringBuilder();
+						for (MainContent m : mlist) {imageUrls.append("\"").append(m.getBannerImage()).append("\",");}
+						if (imageUrls.length() > 0) {
+							imageUrls.deleteCharAt(imageUrls.length() - 1);}%>
+							
 						var currentIndex = 0;
 						var images = [ <%=imageUrls.toString()%>];
 						var slider = $(".image-slider img");
-
+						
 						function showImage(index) {
 							slider.hide();
 							slider.eq(index).fadeIn(1000);
@@ -49,10 +44,8 @@ if (imageUrls.length() > 0) {
 							showImage(currentIndex);
 						}
 
-						// 슬라이더 초기화
 						showImage(currentIndex);
 
-						// 자동 슬라이딩 시작
 						var slideInterval = setInterval(nextSlide, 5000);
 					});
 </script>

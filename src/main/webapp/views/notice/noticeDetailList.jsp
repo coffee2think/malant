@@ -37,27 +37,20 @@ Notice notice = (Notice) request.getAttribute("notice");
 			<div class="notice-detail-container">
 				<img class="notice-image" src="<%=notice.getContentImage()%>">
 				
-				제목 :
-				<%=notice.getTitle()%>
-				<br> 내용 :
-				<%=notice.getContent()%>
-				<br>
-				<%
-				if (notice.getNoticeType().equals("NOTICE")) {
-				%>
+				제목 : <%=notice.getTitle()%> <br> 
+				내용 : <%=notice.getContent()%> <br>
+			<% if (notice.getNoticeType().equals("NOTICE")) { %>
 
 				등록일:
-				<%=notice.getPostDate()%></div>
-			<%
-			} else if (notice.getNoticeType().equals("EVENT")) {
-			%>
-			이벤트 기간 :
-			<%=notice.getEventStart()%>
-			~
-			<%=notice.getEventEnd()%>
-			<%
-			}
-			%>
+				<%=notice.getPostDate()%>
+			</div>
+				
+			<% } else if (notice.getNoticeType().equals("EVENT")) { %>
+				
+				이벤트 기간 :
+				<%=notice.getEventStart()%> ~ <%=notice.getEventEnd()%>
+			
+			<% } %>
 
 		</div>
 	</div>

@@ -8,7 +8,6 @@ body, h1, h2, h3, p, ul, li {
 
 /* 전체 스타일 */
 body {
-	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
 }
@@ -25,15 +24,22 @@ body {
 	max-width: calc(100% - 260px);
 }
 
+.product-info {
+    padding: 20px;
+}
+
 #pdetail-name {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 35px;
+    color: #333;
+    max-width: 500px;
 }
 
 #pdetail-seller-price {
   margin-top: 10px;
-  width: 100%;
+  width: 40%;
   border-collapse: collapse;
 }
 
@@ -41,31 +47,35 @@ body {
 #pdetail-seller-price td {
   padding: 8px;
   text-align: left;
+  border: 1px solid #ddd;
 }
 
 #quantity {
-  margin-top: 10px;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+    margin-top: 25px;
+    padding: 5px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 120px;
 }
+
+.order-form {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
 
 .buttons {
   margin-top: 10px;
 }
 
-.cartButton,
 .orderButton {
-  padding: 10px 20px;
-  margin-right: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cartButton {
-  background-color: #3498db;
-  color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #e74c3c;
+    color: white;
 }
 
 .orderButton {
@@ -73,17 +83,35 @@ body {
   color: white;
 }
 
-#pdetail-thumnail img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  float: right;
+#thumbnail {
+    position: relative;
+    left: 400px;
+    top: -247px;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+#thumbnail img {
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
 }
 
 .pdetail-detailimg {
-  margin-top: 20px;
+  margin-top: 150px;
+  max-width: calc(100% - 260px);
+  
 }
 
 .pdetail-detailimg img {
-  width: 100%;
+    max-width: 100%;
+    position: relative;
+    left: 109px;
+    bottom: 343px;
+}
+
+.product-images{
+	text-align: -webkit-center;
 }

@@ -36,25 +36,6 @@ public class DeleteNoticeServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		int noticeNo = Integer.parseInt(request.getParameter("nno"));
-//        
-//    	int result = new NoticeService().deleteNotice(noticeno);
-//    	
-//    	if(result > 0) {
-//    		String renameFileName = request.getParameter("rfile");
-//    		if(renameFileName != null) {
-//    			String savePath = request.getSession().getServletContext().getRealPath("/resources/notice/notice_content_img");
-//    			new File(savePath + "\\" + renameFileName).delete();
-//    		}
-//    		
-//    		response.sendRedirect("/malant/ntitlelist");
-//    	}else {
-//			RequestDispatcher view = 
-//					request.getRequestDispatcher(
-//							"views/common/error.jsp");
-//			request.setAttribute("message", 
-//					noticeno + "번 공지글 삭제 실패!");
-//			view.forward(request, response);
-//		};
 
 		if (new NoticeService().deleteNotice(noticeNo) > 0) {
 			String renameFileName = request.getParameter("rfile");
@@ -71,8 +52,7 @@ public class DeleteNoticeServlet extends HttpServlet {
 			        }
 			    }
 			}
-			
-			// 공지사항 목록을 다시 가져와서 "nlist" 속성으로 설정
+
 			Notice nservice = new NoticeService().selectOne(noticeNo);
 			request.setAttribute("nno", noticeNo);
 

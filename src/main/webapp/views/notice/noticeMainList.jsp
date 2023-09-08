@@ -81,7 +81,7 @@ function readImage(input) {
 </head>
 <body>
 	<div class="notice-main">
-		<div class="container">
+		<div class="container" style="display:contents;">
 			<%@ include file="../../views/common/sidebar.jsp"%>
 		</div>
 		<% if(isAdmin) { %>
@@ -92,36 +92,29 @@ function readImage(input) {
 		<div class='notice-image'>
 			<div class="notice-item">	
 			
-			<%
-			for (int i = 0; i < nlist.size(); i++) {
-			%>
+			<% for (int i = 0; i < nlist.size(); i++) { %>
 				<a href="/malant/ncontentlist?notice=<%=nlist.get(i).getNoticeNo()%>">
 					<img src="<%=nlist.get(i).getContentImage()%>">
 				</a>
 				<div><%=nlist.get(i).getTitle()%></div>
 				<% if (isAdmin) { %>
-				  <%--  <button onclick="updateNotice(<%=nlist.get(i).getNoticeNo()%>)">공지사항수정</button>  --%>
 				    <button onclick="deleteNotice(<%=nlist.get(i).getNoticeNo()%>)">공지사항삭제</button>
 				 <% }else{ %>
 				
-				<%
-				if (nlist.get(i).getNoticeType().equals("NOTICE")) {
-				%>
+					<% if (nlist.get(i).getNoticeType().equals("NOTICE")) { %>
 				<div>
-					등록일:
-					<%=nlist.get(i).getPostDate()%></div>
-				<%
-				} else if (nlist.get(i).getNoticeType().equals("EVENT")) {
-				%>
-				이벤트 기간 :
-				<%=nlist.get(i).getEventStart()%>
-				~
-				<%=nlist.get(i).getEventEnd()%>
-				<% } %>
+						등록일:
+						<%=nlist.get(i).getPostDate()%>
+				</div>
+					<% } else if (nlist.get(i).getNoticeType().equals("EVENT")) { %>
+					
+						이벤트 기간 : <%=nlist.get(i).getEventStart()%> ~ <%=nlist.get(i).getEventEnd()%>
+					<% } %>
 				
 			</div>
 			
-			<% }}  %>
+				<% }
+			}  %>
 	
 		</div>
 	

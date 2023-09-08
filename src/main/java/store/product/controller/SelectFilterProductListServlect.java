@@ -80,7 +80,6 @@ public class SelectFilterProductListServlect extends HttpServlet {
 		ArrayList<MainContent> plistf = new ProductService().selectFilterList(options);
 
 		RequestDispatcher view = null;
-		System.out.println("서블릿 마지막 : "+plistf.toString());
 
 		if (plistf.size() > 0) {
 			view = request.getRequestDispatcher("views/store/product/selectProductView.jsp");

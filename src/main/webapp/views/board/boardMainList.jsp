@@ -24,6 +24,7 @@ div.board-main{
 </style>
 <script type="text/javascript"
 	src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/malant/resources/board/css/boardcontents.css">
 <script>
 function requestDelete(){
 	//게시글(원글, 댓글, 대댓글) 삭제 요청 함수
@@ -111,8 +112,9 @@ function viewInput(span){
 <body>
 		
 <div class="container">
+
 <%@ include file="../../views/common/sidebar.jsp"%>
- </div>
+
  <script type="text/javascript">
         function toggleLike(boardNo) {
             $.ajax({
@@ -191,16 +193,19 @@ function viewInput(span){
 		<%=  %>
 		<div id="dlist" class="board"> 
 		<% for(Board b : list){ %>
-		<table onclick="checkLogin('<%= b.getBoardNo() %>');" width="500" border="0" style="display: block; margin:10px; border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
+		<table onclick="checkLogin('<%= b.getBoardNo() %>');" width="500" border="0" style="display: block; margin:10px;
+		 border-radius : 10px; border : 1px solid  rgba(154, 179, 213, 0.2); background: rgba(154, 179, 213, 0.1);">
 			<tr height="30">
 				<td width="40" align="center" style="background: rgba(154, 179, 213, 0.5);"><%= b.getBoardNo() %></td>
 				<td width="130" style="background: rgba(154, 179, 213, 0.3);"><%= b.getNickname() %></td>
 				<td width="130" align="center" style="background: rgba(154, 179, 213, 0.5 b);"><%= b.getBoardDate() %></td>
 				<td rowspan="3" width="200" align="right" >
 					<% if(b.getThumbnail() != null){ %>
-					<img style="margin-top:5px; margin-right: 5px;" class="title-style" src="/malant/resources/board/images/<%= b.getThumbnail()  %>" width="150" height="150">
+					<img style="margin-top:5px; margin-right: 5px;" class="title-style" src="/malant/resources/board/images/<%= b.getThumbnail()  %>" 
+					width="150" height="150">
 					<% }else{ %>
-					<img style="margin-top:5px; margin-right: 5px;" class="title-style" src="/malant/resources/board/images/baseSample.jpeg" width="150" height="150">
+					<img style="margin-top:5px; margin-right: 5px;" class="title-style" src="/malant/resources/board/images/baseSample.jpeg"
+					 width="150" height="150">
 					<% } %>
 				</td>
 			</tr>
@@ -231,6 +236,7 @@ function viewInput(span){
 		
 			   </div>
 		</div>
-	
+	</div>
+
 </body>
 </html>

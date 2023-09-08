@@ -62,8 +62,8 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		// 서비스 메소드로 값 전달 실행하고 결과 받기
-		if("admin".equals(loc)) { // 로그인 페이지에서 로그인을 시도했을 시
+		// 로그인 경로 확인
+		if("admin".equals(loc)) { // 
 			admin = new MemberService().selectAdminLogin(userId, cryptoUserpwd);
 		} else if ("seller".equals(loc)) {
 			seller = new MemberService().selectSellerLogin(userId, cryptoUserpwd);
@@ -119,7 +119,10 @@ public class LoginServlet extends HttpServlet {
 		} else if(member != null && member.getBlockedYn().equals("N")) { // 로그인 성공
 			// 마지막 접속일 업데이트
 			member.setLastLoginDate(new Date(System.currentTimeMillis()));
-			new MemberService().updateMember(member);
+			int result = new MemberService().updateMember(member);
+			if(result > 0) {
+				System.out.println(member.getUserNo() + "멤버 정보 업데이트 성공");
+			}
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", member);
