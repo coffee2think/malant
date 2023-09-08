@@ -13,13 +13,12 @@
 <script src="/malant/resources/common/js/jquery-3.7.0.min.js"></script>
 
 <script>
-//1번 옵션
+
 function populateDropdown1() {
     console.log("Dropdown 1이 변경되었습니다.")
     var dropdown1 = document.getElementById("dropdown1");
     var selectedOption = dropdown1.options[dropdown1.selectedIndex].value;
 
-    // 드롭다운 메뉴 초기화
     var dropdown2 = document.getElementById("dropdown2");
     dropdown2.innerHTML = "";
     
@@ -41,8 +40,7 @@ function populateDropdown1() {
     var dropdown8 = document.getElementById("dropdown8");
     dropdown8.innerHTML = "";
 
-    
-    // 2~8번 드롭다운 메뉴의 옵션을 설정
+
     var options2 = [];
     var options3 = [];
     var options4 = [];
@@ -65,7 +63,7 @@ function populateDropdown1() {
         options2 = ["종류", "자연토양", "인공토양"];
     }
 
-    // 옵션에 추가
+
     for (var i = 0; i < options2.length; i++) {
         var option = document.createElement("option");
         option.value = options2[i];
@@ -109,8 +107,8 @@ function populateDropdown1() {
         dropdown8.appendChild(option);
     }
 
-    // 첫 번째 옵션이 선택되었을 때만 옵션들 표시
-    if (selectedOption !== "전체") {
+
+    if (selectedOption !== "옵션미선택") {
         dropdown2.style.display = "inline";
         dropdown3.style.display = "inline";
         dropdown4.style.display = "inline";
@@ -134,7 +132,6 @@ document.getElementById("dropdown1").addEventListener("change", function () {
 });
 
 
-// 초기화
 populateDropdown1();
 
 </script>

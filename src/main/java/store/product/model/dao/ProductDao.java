@@ -49,7 +49,6 @@ public class ProductDao {
 			for (int i = 1; i <= options.size(); i++) {
 				pstmt.setString(i, options.get(i - 1).trim());
 
-				System.out.println("들어가는 옵션 : " + options.get(i - 1));
 			}
 
 			rset = pstmt.executeQuery();
@@ -100,7 +99,7 @@ public class ProductDao {
 
 				while (rsetT.next()) {
 					MainContent pdetail = new MainContent();
-
+					
 					pdetail.setProductId(rsetT.getInt("PRODUCT_ID"));
 					pdetail.setProductName(rsetT.getString("PRODUCT_NAME"));
 					pdetail.setPrice(rsetT.getInt("PRICE"));

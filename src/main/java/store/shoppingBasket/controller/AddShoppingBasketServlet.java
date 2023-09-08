@@ -45,7 +45,6 @@ public class AddShoppingBasketServlet extends HttpServlet {
 		String quantitystr = request.getParameter("quantity");
 		int quantity = Integer.valueOf(quantitystr);
 		int productid = Integer.valueOf(productidstr);
-		System.out.println(quantity+" , "+productid+" , "+userno);
 		
 		
 		int result = new ShoppingBasketService().addBasket(userno, productid, quantity);
