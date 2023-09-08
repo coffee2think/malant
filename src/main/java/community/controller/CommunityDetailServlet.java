@@ -43,11 +43,8 @@ public class CommunityDetailServlet extends HttpServlet {
 		}
 
 		BoardService bservice = new BoardService();
-		// 원글 조회
 		Board board = bservice.selectBoard(bnum);
-		// 원글의 댓글 조회
 		ArrayList<Comment> clist = new CommentService().selectCommentList(bnum);
-		// 원글의 사진 첨부파일 조회
 		ArrayList<CMBoardPhoto> photoList = bservice.selectBoardPhotoList(bnum);
 		
 		bservice.addReadCount(bnum);

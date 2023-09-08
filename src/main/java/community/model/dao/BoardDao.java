@@ -750,4 +750,146 @@ public class BoardDao {
 		return hashtagNo;
 	}
 
+	public ArrayList<Comment> selectCommentList(Connection conn, int boardNo) {
+		ArrayList<Comment> clist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from cm_comment where board_no = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Comment comment = new Comment();
+				
+				comment.setBoardNo(rset.getInt("BOARD_NO"));
+				comment.setCommentNo(rset.getInt("COMMENT_NO"));
+				comment.setUserNo(rset.getString("USER_NO"));
+				comment.setNickname(rset.getString("NICKNAME"));
+				comment.setCommentContent(rset.getString("COMMENT_CONTENT"));
+				comment.setCommentDate(rset.getDate("COMMENT_DATE"));
+				
+				clist.add(comment);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);		
+		}
+		
+		return clist;
+	}
+
+	public int deleteComment(Connection conn, Comment comment) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "delete from cm_comment where board_no = ? and comment_no = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, comment.getBoardNo());
+			pstmt.setInt(2, comment.getCommentNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);		
+		}
+		
+		return result;
+	}
+
+	public ArrayList<CMBaordHashtag> selectBoardHashtagList(Connection conn, int boardNo) {
+		ArrayList<CMBaordHashtag> bhlist = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from cm_board_hashtag where board_no = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				CMBaordHashtag boardHashtag = new CMBaordHashtag();
+				
+				boardHashtag.setBoardNo(rset.getInt("board_no"));
+				boardHashtag.setHashtagNo(rset.getInt("hashtag_no"));
+				
+				bhlist.add(boardHashtag);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);		
+		}
+		
+		return bhlist;
+	}
+
+	public int deleteHashtag(Connection conn, int hashtagNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "delete from cm_hashtag where hashtag_no = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, hashtagNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);		
+		}
+		
+		return result;
+	}
+
+	public int deleteBoardHashtag(Connection conn, CMBaordHashtag boardHashtag) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "delete from cm_board_hashtag where board_no = ? and hashtag_no = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardHashtag.getBoardNo());
+			pstmt.setInt(2, boardHashtag.getHashtagNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);		
+		}
+		
+		return result;
+	}
+
+	public int deleteBoardPhoto(Connection conn, CMBoardPhoto photo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "delete from cm_board_photo where photo_no = ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, photo.getPhotoNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);		
+		}
+		
+		return result;
+	}
+
 }

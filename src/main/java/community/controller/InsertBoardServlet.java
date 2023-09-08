@@ -64,7 +64,6 @@ public class InsertBoardServlet extends HttpServlet {
 
 		String[] hashtags = mrequest.getParameterValues("hashtag");
 
-
 		String[] fileNames = mrequest.getParameterValues("filenames");
 		File[] imageFiles = new File[fileNames.length];
 		for(int i = 0; i < imageFiles.length; i++) {
@@ -88,8 +87,7 @@ public class InsertBoardServlet extends HttpServlet {
 		board.setThumbnail(thumbFileName);
 		
 		int result = new BoardService().insertBoard(board);
-		
-
+	
 		if (result > 0) {
 			int boardNo = new BoardService().selectRecentBoardNo();
 			
