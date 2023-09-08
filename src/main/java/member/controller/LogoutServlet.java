@@ -40,6 +40,8 @@ public class LogoutServlet extends HttpServlet {
 			Member loginMember = (Member)session.getAttribute("loginMember");
 			String loc = request.getParameter("loc");
 			loginMember.setLastLoginDate(new Date(System.currentTimeMillis()));
+			session.invalidate();
+			
 			int result = new MemberService().updateMember(loginMember);
 			
 			if(result > 0) {
@@ -49,7 +51,7 @@ public class LogoutServlet extends HttpServlet {
 				System.out.println(loginMember.getUserNo() + "의 last login date 업데이트 실패");
 			}
 			
-			session.invalidate();
+			
 			System.out.println("LogoutServlet loc : " + loc);
 			if(loc.equals("common")) {
 				response.sendRedirect("index.jsp");

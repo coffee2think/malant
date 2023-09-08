@@ -105,7 +105,7 @@ public class SearchPlantServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);	
 		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("action", "plsearch"); // 페이징에서 키워드 검색 페이징임을 확인하기 위해 action에 name을 넣음
+		request.setAttribute("action", "plsearch");
 		request.setAttribute("keyword", keyword);
 		for(String key : filters.keySet()) {
 			request.setAttribute(key, filters.get(key));

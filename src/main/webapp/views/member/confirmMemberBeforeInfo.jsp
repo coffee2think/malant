@@ -44,8 +44,7 @@
 		<div class="content">
 		<br><br>
 			<h1>회원정보 확인</h1><br>
-			<h4><%= loginMember.getNickname() %> 님의 정보를 안전하게 보호하기 <br> 위해비밀번호를
-			다시 한번 확인합니다.</h4>
+			<h4><%= loginMember.getNickname() %> 님의 정보를 안전하게 보호하기 <br> 위해 비밀번호를 다시 한번 확인합니다.</h4>
 			<form action="/malant/loginminfo" method="post" >
 				<input type="hidden" id="userid" name="userid" value="<%= userid %>">
 
