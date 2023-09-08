@@ -51,22 +51,13 @@ public class UpdateMemberInfoServlet extends HttpServlet {
 		
 		if(newPwd != null) {
 			String cryptoUserpwd = null;
-			
 			member.setPwdUpdateDate(new Date(System.currentTimeMillis()));
 			
 			try {
 				MessageDigest md = MessageDigest.getInstance("SHA-512");
-				
-				//패스워드 문자열을 암호문으로 바꾸려면, byte[] 로 변환해야 함
 				byte[] pwdValues = newPwd.getBytes(Charset.forName("UTF-8"));
-				//암호문으로 바꾸기
 				md.update(pwdValues);
-				//암호화된 byte[] 을 String 으로 바꿈 : 암호문 상태임
 				cryptoUserpwd = Base64.getEncoder().encodeToString(pwdValues);
-				
-				//확인
-				//System.out.println("암호화된 패스워드 : " + cryptoUserpwd);
-				//System.out.println("글자길이 : " + cryptoUserpwd.length());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -74,12 +65,11 @@ public class UpdateMemberInfoServlet extends HttpServlet {
 			member.setUserPwd(cryptoUserpwd);
 		}
 		
-		// 3. 모델 서비스 메소드로 값 또는 객체 전달 실행하고 결과받기
+		// 회원 정보 업데이트
 		int result = new MemberService().updateMember(member);
 		Member updateMember = new MemberService().selectMember(member.getUserId());
 		
-		// 4. 받은 결과로 내보낼 뷰 선택 처리
-		if(result > 0) {
+		if(result > 0) { // 업데이트 성공시 세션에 회원 정보 업데이트
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", updateMember);
 			response.sendRedirect("/malant"); // a 태그처럼 쓰면 됨
