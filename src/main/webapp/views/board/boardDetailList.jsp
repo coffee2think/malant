@@ -30,6 +30,10 @@ function moveUpdatePage(){
 	location.href = "/malant/bupview?board=<%= board.getBoardNo() %>&page=<%= currentPage %>";
 }
 
+function requestDelete(boardNo) {
+	location.href = "/malant/bdelete?boardNo=" + boardNo;
+}
+
 </script>
 </head>
 <body>
@@ -79,7 +83,7 @@ function moveUpdatePage(){
 						//로그인한 회원 아이디와 글작성자가 같다면 (본인이 올린 글이면)
 			%>
 				<button onclick="moveUpdatePage(); return false;">수정페이지로 이동</button> &nbsp;
-				<button onclick="requestDelete(); return false;">글삭제</button> &nbsp;
+				<button onclick="requestDelete(<%= board.getBoardNo() %>); return false;">글삭제</button> &nbsp;
 			<% }}%>
 			 <button onclick="javascript:location.href='/malant/bdlist?page=<%= currentPage %>';">목록</button> 
 		</th>		
