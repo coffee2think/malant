@@ -39,16 +39,13 @@ public class CommunityTop3LikeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ajax 요청으로 조회수 많은 인기 게시글 3개 조회 요청 처리용 컨트롤러
 
 		ArrayList<Board> list = new BoardService().selectTop3Like();
-		//System.out.println(list.toString());
 		JSONArray jarr = new JSONArray();
 		
 		for (Board board : list) {
 			JSONObject job = new JSONObject();
-		
-			// 한글이 있는 값 인코딩 처리
+
 			job.put("bno", board.getBoardNo());
 			job.put("bnick", URLEncoder.encode(board.getNickname(), "utf-8"));
 			job.put("btitle", URLEncoder.encode(board.getBoardTitle(), "utf-8"));
@@ -60,7 +57,6 @@ public class CommunityTop3LikeServlet extends HttpServlet {
 			jarr.add(job);
 		}
 
-		//System.out.println("안찍힘");
 		
 		JSONObject sendJson = new JSONObject();
 		sendJson.put("blist", jarr);

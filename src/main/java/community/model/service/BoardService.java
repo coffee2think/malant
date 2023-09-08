@@ -232,4 +232,62 @@ public class BoardService {
 		return hashtagNo;
 	}
 
+	public ArrayList<Comment> selectCommentList(int boardNo) {
+		Connection conn = getConnection();
+		ArrayList<Comment> clist = bdao.selectCommentList(conn, boardNo);
+		close(conn);
+		return clist;
+	}
+
+	public int deleteComment(Comment comment) {
+		Connection conn = getConnection();
+		int result = bdao.deleteComment(conn, comment);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<CMBaordHashtag> selectBoardHashtagList(int boardNo) {
+		Connection conn = getConnection();
+		ArrayList<CMBaordHashtag> bhlist = bdao.selectBoardHashtagList(conn, boardNo);
+		close(conn);
+		return bhlist;
+	}
+
+	public int deleteHashtag(int hashtagNo) {
+		Connection conn = getConnection();
+		int result = bdao.deleteHashtag(conn, hashtagNo);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int deleteBoardHashtag(CMBaordHashtag boardHashtag) {
+		Connection conn = getConnection();
+		int result = bdao.deleteBoardHashtag(conn, boardHashtag);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int deleteBoardPhoto(CMBoardPhoto photo) {
+		Connection conn = getConnection();
+		int result = bdao.deleteBoardPhoto(conn, photo);
+		if (result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
 }

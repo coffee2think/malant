@@ -46,7 +46,6 @@ public class CommunityTop5HashtagServlet extends HttpServlet {
 			
 			job.put("hashno", hash.getHashtagNo());
 			job.put("hashContent", URLEncoder.encode(hash.getHashtagContent(),"utf-8"));
-//			System.out.println(board.toString());
 			jarr.add(job);
 			
 		}
